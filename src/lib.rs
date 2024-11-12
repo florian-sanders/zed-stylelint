@@ -24,7 +24,7 @@ impl StylelintExtension {
             &zed::LanguageServerInstallationStatus::CheckingForUpdate,
         );
         let release = zed::latest_github_release(
-            "florian-sanders/vscode-stylelint",
+            "florian-sanders/vscode-stylelint-prebuilt",
             zed::GithubReleaseOptions {
                 require_assets: false,
                 pre_release: false,
@@ -33,7 +33,7 @@ impl StylelintExtension {
 
         let asset_name = format!("{}.zip", release.version);
 
-        let version_dir = format!("vscode-stylelint-{}", release.version);
+        let version_dir = format!("vscode-stylelint-prebuilt-{}", release.version);
 
         if !server_exists
             || zed::npm_package_installed_version("vscode-stylelint")?.as_ref()
@@ -45,7 +45,7 @@ impl StylelintExtension {
             );
 
             let download_url = format!(
-                "https://github.com/florian-sanders/vscode-stylelint/archive/refs/tags/{}",
+                "https://github.com/florian-sanders/vscode-stylelint-prebuilt/archive/refs/tags/{}",
                 asset_name
             );
 
