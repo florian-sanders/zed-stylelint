@@ -10,4 +10,3 @@ repository = "https://github.com/florian-sanders/zed-stylelint"
 name = "Stylelint Language Server"
 language = "CSS"
 languages = ["CSS", "JavaScript"]
-# code_action_kinds = ["stylelint.applyAutoFixes"]

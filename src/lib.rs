@@ -2,7 +2,9 @@ use std::{env, fs};
 use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
-const SERVER_PATH: &str = "dist/start-server.js";
+const SERVER_PATH: &str =
+    "node_modules/@florian-sanders/vscode-stylelint-prebuilt/dist/start-server.js";
+const PACKAGE_NAME: &str = "@florian-sanders/vscode-stylelint-prebuilt";
 
 struct StylelintExtension {
     did_find_server: bool,
@@ -23,38 +25,35 @@ impl StylelintExtension {
             language_server_id,
             &zed::LanguageServerInstallationStatus::CheckingForUpdate,
         );
-        let release = zed::latest_github_release(
-            "florian-sanders/vscode-stylelint-prebuilt",
-            zed::GithubReleaseOptions {
-                require_assets: false,
-                pre_release: false,
-            },
-        )?;
-
-        let asset_name = format!("{}.zip", release.version);
-
-        let version_dir = format!("vscode-stylelint-prebuilt-{}", release.version);
+        let version = zed::npm_package_latest_version(PACKAGE_NAME)?;
 
         if !server_exists
-            || zed::npm_package_installed_version("vscode-stylelint")?.as_ref()
-                != Some(&release.version)
+            || zed::npm_package_installed_version(PACKAGE_NAME)?.as_ref() != Some(&version)
         {
             zed::set_language_server_installation_status(
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
 
-            let download_url = format!(
-                "https://github.com/florian-sanders/vscode-stylelint-prebuilt/archive/refs/tags/{}",
-                asset_name
-            );
-
-            zed::download_file(&download_url, ".", zed::DownloadedFileType::Zip)
-                .map_err(|e| format!("failed to download file: {e}"))?;
+            let result = zed::npm_install_package(PACKAGE_NAME, &version);
+            match result {
+                Ok(()) => {
+                    if !self.server_exists() {
+                        Err(format!(
+                            "installed package '{PACKAGE_NAME}' did not contain expected path '{SERVER_PATH}'",
+                        ))?;
+                    }
+                }
+                Err(error) => {
+                    if !self.server_exists() {
+                        Err(error)?;
+                    }
+                }
+            }
         }
 
         self.did_find_server = true;
-        Ok(format!("{version_dir}/{SERVER_PATH}"))
+        Ok(SERVER_PATH.to_string())
     }
 }
 
