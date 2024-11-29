@@ -1,6 +1,6 @@
 [package]
 name = "zed-stylelint"
-version = "0.1.0"
+version = "0.0.1"
 edition = "2021"
 
 [lib]
@@ -8,4 +8,4 @@ crate-type = ["cdylib"]
 path = "src/lib.rs"
 
 [dependencies]
-zed_extension_api = "0.1.0"
+zed_extension_api = "0.2.0"
