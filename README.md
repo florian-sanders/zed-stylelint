@@ -2,8 +2,6 @@
 
 ## Disclaimer
 
-This project is Work In Progress and still requires some testing before being submitted to extensions officially.
-
 This extension relies on [a fork of the stylelint/vscode-stylelint extension](https://github.com/florian-sanders/vscode-stylelint-prebuilt).
 
 The VSCode extension has been forked because:
@@ -82,9 +80,9 @@ To fix all Stylelint issues on save, enable the related code action from your gl
 }
 ```
 
-## Issues
+## Limitations
 
-- Currently it seems the `disableRules` actions are not exposed
+- Code actions to disable rules (inline / entire file) do not work (see [#1](https://github.com/florian-sanders/zed-stylelint/issues/1#issuecomment-2508215176) for more info)
 
 ## Acknowledgment
 
