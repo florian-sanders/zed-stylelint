@@ -3,7 +3,7 @@ name = "Stylelint"
 version = "0.0.1"
 schema_version = 1
 authors = ["Florian Florian <florian-sanders@clever-cloud.com>"]
-description = "My cool Stylelint extension"
+description = "Language server extension providing diagnostics and auto-fix for Stylelint"
 repository = "https://github.com/florian-sanders/zed-stylelint"
 
 [language_servers.stylelint-lsp]
