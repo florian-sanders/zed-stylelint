@@ -67,16 +67,19 @@ For instance:
 
 ### Fix on save
 
-To fix all Stylelint issues on save, enable the related code action from your global or local Zed settings as follows:
+To fix all Stylelint issues on format, enable the related code action from your global or local Zed settings as follows:
 
 ```JSON
 // settings.json
 {
-  // language identifier for these settings, see https://zed.dev/docs/configuring-languages#language-specific-settings for more info
-  "JavaScript": {
-    "code_actions_on_format": {
-      "source.fixAll.stylelint": true
+  "languages": {
+    // language identifier for these settings, see https://zed.dev/docs/configuring-languages#language-specific-settings for more info
+    "CSS": {
+      "code_actions_on_format": {
+        "source.fixAll.stylelint": true
+      }
     }
+  }
 }
 ```
 
