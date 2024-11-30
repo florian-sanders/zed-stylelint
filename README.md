@@ -2,7 +2,7 @@
 
 ## Disclaimer
 
-This extension relies on [a fork of the stylelint/vscode-stylelint extension](https://github.com/florian-sanders/vscode-stylelint-prebuilt).
+This extension relies on [a fork of the stylelint/vscode-stylelint extension](https://github.com/florian-sanders/vscode-stylelint-prebundled).
 
 The VSCode extension has been forked because:
 

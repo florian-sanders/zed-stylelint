@@ -3,8 +3,8 @@ use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
 const SERVER_PATH: &str =
-    "node_modules/@florian-sanders/vscode-stylelint-prebuilt/dist/start-server.js";
-const PACKAGE_NAME: &str = "@florian-sanders/vscode-stylelint-prebuilt";
+    "node_modules/@florian-sanders/vscode-stylelint-prebundled/dist/start-server.js";
+const PACKAGE_NAME: &str = "@florian-sanders/vscode-stylelint-prebundled";
 
 struct StylelintExtension {
     did_find_server: bool,
