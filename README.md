@@ -11,20 +11,6 @@ The VSCode extension has been forked because:
 - The Language Server is not published as a standalone project,
 - The [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) is not published on `npm`.
 
-## How to install?
-
-Since this extensions is not official, do as follows:
-
-1. Make sure `rust` is installed on your machine,
-2. Clone this repo,
-3. In `zed`:
-   1. Go to the `extensions` tab
-   2. Click on `Install Dev Extension`
-   3. Search for the extension repo that you have just cloned
-   4. Select it
-
-source: [developing an extension locally - zed.dev](https://zed.dev/docs/extensions/developing-extensions#developing-an-extension-locally)
-
 ## How to configure?
 
 ### General LSP settings
