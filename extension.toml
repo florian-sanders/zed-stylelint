@@ -1,8 +1,8 @@
 id = "stylelint"
 name = "Stylelint"
-version = "0.0.1"
+version = "0.0.2"
 schema_version = 1
-authors = ["Florian Florian <florian-sanders@clever-cloud.com>"]
+authors = ["Florian Sanders <sanders.florian+zed@gmail.com>"]
 description = "Language server extension providing diagnostics and auto-fix for Stylelint"
 repository = "https://github.com/florian-sanders/zed-stylelint"
 
