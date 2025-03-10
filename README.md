@@ -28,23 +28,25 @@ For instance:
   "lsp": {
     "stylelint-lsp": {
       "settings": {
-        // these are the default settings, you shouldn't need to set most of them, only add them as needed
-        "config": null,
-        "configFile": "",
-        "configBasedir": "",
-        "customSyntax": "",
-        "ignoreDisables": false,
-        "packageManager": "npm",
-        "reportDescriptionlessDisables": false,
-        "reportInvalidScopeDisables": false,
-        "reportNeedlessDisables": false,
-        "snippet": ["css", "postcss"],
-        "stylelintPath": "",
-        // if you are using a plugin to process other syntaxes (for instance scss, or css-in-js)
-        // you also need to set the syntax in your stylelint config or in the `customSyntax` setting above
-        // then specify the language identifier related to your custom syntax (for instance `javascript` for `css-in-js`)
-        // for more info refer to: https://github.com/stylelint/vscode-stylelint?tab=readme-ov-file#%EF%B8%8F-only-css-and-postcss-are-validated-by-default
-        "validate": ["css", "postcss"]
+        "stylelint": {
+          // these are the default settings, you shouldn't need to set most of them, only add them as needed
+          "config": null,
+          "configFile": "",
+          "configBasedir": "",
+          "customSyntax": "",
+          "ignoreDisables": false,
+          "packageManager": "npm",
+          "reportDescriptionlessDisables": false,
+          "reportInvalidScopeDisables": false,
+          "reportNeedlessDisables": false,
+          "snippet": ["css", "postcss"],
+          "stylelintPath": "",
+          // if you are using a plugin to process other syntaxes (for instance scss, or css-in-js)
+          // you also need to set the syntax in your stylelint config or in the `customSyntax` setting above
+          // then specify the language identifier related to your custom syntax (for instance `javascript` for `css-in-js`)
+          // for more info refer to: https://github.com/stylelint/vscode-stylelint?tab=readme-ov-file#%EF%B8%8F-only-css-and-postcss-are-validated-by-default
+          "validate": ["css", "postcss"]
+        }
       }
     }
   }
