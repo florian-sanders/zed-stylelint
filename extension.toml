@@ -9,4 +9,4 @@ repository = "https://github.com/florian-sanders/zed-stylelint"
 [language_servers.stylelint-lsp]
 name = "Stylelint Language Server"
 language = "CSS"
-languages = ["CSS", "SCSS", "LESS", "JavaScript"]
+languages = ["CSS", "SCSS", "LESS", "JavaScript", "Vue.js"]
