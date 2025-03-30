@@ -71,6 +71,36 @@ To fix all Stylelint issues on format, enable the related code action from your 
 }
 ```
 
+### Vue.js compatibility
+
+To use this extension with Vue.js files in Zed:
+
+1. Install the [Vue.js extension for Zed](https://github.com/zed-extensions/vue) which is required for Vue file support.
+
+2. Configure the Stylelint LSP settings to validate Vue files by adding `"vue.js"` to the validate array (note the `.js` suffix - this is the language identifier used by the Vue extension):
+
+```json
+"lsp": {
+  "stylelint-lsp": {
+    "settings": {
+      "stylelint": {
+        ...
+        "validate": ["css", "postcss", "vue.js"]
+        ...
+      }
+    }
+  }
+}
+```
+
+3. Set up (postcss-html)[https://github.com/ota-meshi/postcss-html] custom syntax for Vue files in your project. You can do this in one of two ways:
+  - Add the `customSyntax` setting in your project's Stylelint config file,
+  - Configure it in your Zed settings via the LSP settings (`lsp.stylelint-lsp.settings.stylelint.customSyntax`).
+
+If you're using [stylelint-config-recommended-vue](https://github.com/ota-meshi/stylelint-config-recommended-vue), the custom syntax is already bundled and configured for you.
+
+Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed, but the dependency requirements are the same for both editors.
+
 ## Limitations
 
 - Code actions to disable rules (inline / entire file) do not work (see [#1](https://github.com/florian-sanders/zed-stylelint/issues/1#issuecomment-2508215176) for more info)
