@@ -101,10 +101,6 @@ If you're using [stylelint-config-recommended-vue](https://github.com/ota-meshi/
 
 Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed, but the dependency requirements are the same for both editors.
 
-## Limitations
-
-- Code actions to disable rules (inline / entire file) do not work (see [#1](https://github.com/florian-sanders/zed-stylelint/issues/1#issuecomment-2508215176) for more info)
-
 ## Acknowledgment
 
 This extension code is heavily inspired by the [`html` extension in zed](https://github.com/zed-industries/zed/tree/main/extensions/html).
