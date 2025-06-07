@@ -1,5 +1,5 @@
 
-## [unreleased]
+## [0.0.5](https://github.com/florian-sanders/zed-stylelint/compare/0.0.4..0.0.5) - 2025-06-07
 
 ### 📚 Documentation
 
