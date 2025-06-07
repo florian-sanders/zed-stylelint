@@ -21,7 +21,7 @@ filter_commits = true
 [git]
 conventional_commits = true
 filter_unconventional = true
-tag_pattern = "v[0-9]*"
+tag_pattern = "[0-9]*"
 
 [commit_types]
 feat = { group = "Features", description = "A new feature" }
