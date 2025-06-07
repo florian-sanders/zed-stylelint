@@ -1,6 +1,3 @@
-# git-cliff ~ configuration file
-# https://git-cliff.org/docs/configuration
-
 [remote.github]
 owner = "florian-sanders"
 repo = "zed-stylelint"
