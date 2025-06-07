@@ -1,0 +1,41 @@
+[changelog]
+header = """
+# Changelog
+
+All notable changes to this project will be documented in this file.
+"""
+body = """
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group | upper_first }}
+
+{% for commit in commits %}
+- {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}]({{ commit.link }}))
+{% endfor %}
+{% endfor %}
+"""
+footer = ""
+trim = true
+sort_commits = true
+filter_commits = true
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+tag_pattern = "v[0-9]*"
+
+[commit_types]
+feat = { group = "Features", description = "A new feature" }
+fix = { group = "Bug Fixes", description = "A bug fix" }
+perf = { group = "Performance Improvements", description = "A code change that improves performance" }
+refactor = { group = "Refactoring", description = "A code change that neither fixes a bug nor adds a feature" }
+docs = { group = "Documentation", description = "Documentation only changes" }
+style = { group = "Styling", description = "Changes that do not affect the meaning of the code" }
+test = { group = "Tests", description = "Adding missing tests or correcting existing tests" }
+build = { group = "Build System", description = "Changes that affect the build system or external dependencies" }
+ci = { group = "Continuous Integration", description = "Changes to CI configuration files and scripts" }
+chore = { group = "Miscellaneous Chores", description = "Other changes that don't modify src or test files" }
+revert = { group = "Reverts", description = "Reverts a previous commit" }
+breaking = { group = "Breaking Changes", description = "Breaking changes" }
+
+[remote]
+url = "https://github.com/florian-sanders/zed-stylelint"
