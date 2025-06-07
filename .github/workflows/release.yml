@@ -2,8 +2,8 @@ name: Update Changelog
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 
 jobs:
   check_changes:
@@ -54,8 +54,18 @@ jobs:
       - name: Install git-cliff
         run: cargo install git-cliff
 
+      - name: Checkout next release branch
+        run: |
+          git checkout prepare-next-release || git checkout -b prepare-next-release
+          git-cliff --unreleased -o
+          git add CHANGELOG.md
+          git commit -m "chore(CHANGELOG): update [skip ci]" || echo "No changes to commit"
+          git push --set-upstream origin prepare-next-release
+
       - name: Check if release PR exists
         id: pr_check
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if gh pr list --state open --search "chore: release" --json title | grep -q '"title":'; then
             echo "pr_exists=true" >> $GITHUB_OUTPUT
@@ -63,11 +73,10 @@ jobs:
             echo "pr_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Checkout next release branch
-        run: git checkout prepare-next-release || git checkout -b prepare-next-release
-
       - name: Create release PR if not exists
         if: steps.pr_check.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr create \
             --title "chore: release ${{ needs.check_changes.outputs.version }}" \
