@@ -1,0 +1,130 @@
+name: Prepare release
+
+on:
+  push:
+    # branches:
+    #   - main
+
+jobs:
+  check_for_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.get-has-changes.outputs.has_changes }}
+      version: ${{ steps.get-version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get version
+        id: get-version
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --verbose --bumped-version 2>stderr.txt
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Get "has_changes"
+        id: get-has-changes
+        run: |
+          if grep -q "There is nothing to bump" stderr.txt; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+  create-or-update-release-pr:
+    needs: check_for_changes
+    if: needs.check_for_changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Debug needs output
+        run: echo "Version is ${{ needs.check_for_changes.outputs.version }}"
+
+      - name: Set up git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Checkout next release branch
+        run: |
+          git checkout prepare-next-release || git checkout -b prepare-next-release
+          git reset --hard origin/main
+
+      - name: Sync with remote prepare-next-release
+        run: |
+          git fetch origin prepare-next-release
+          git reset --hard origin/prepare-next-release
+
+      - name: Bump and generate CHANGELOG
+        id: bump-changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --bump
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Commit and push CHANGELOG
+        run: |
+          git add CHANGELOG.md
+          git commit -m "chore(CHANGELOG): update [skip ci]" || echo "No changes to commit"
+          git push --set-upstream origin prepare-next-release --force
+          git tag ${{ steps.bump-changelog.outputs.version }}
+
+      - name: Check if release PR exists
+        id: check_if_pr_exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh pr list --state open --head prepare-next-release --json number | grep -q '"number":'; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release PR if not exists
+        if: steps.check_if_pr_exists.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --title "chore: release ${{ steps.bump-changelog.outputs.version }}" \
+            --body "" \
+            --base main \
+            --head prepare-next-release
+
+      - name: Get CHANGELOG content
+        id: get-latest-content
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --latest
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Update PR body with changelog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=$(gh pr list --state open --head prepare-next-release --json number -q '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            gh pr edit "$PR_NUMBER" --body "${{ steps.get-latest-content.outputs.content }}"
+          fi
+
+# TODO
+#
+# workflow release
+#   on merge prepare-next-release
+#      gh release
+#      bump cargo.toml & extension.toml
