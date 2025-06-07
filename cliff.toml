@@ -1,15 +1,15 @@
 [changelog]
-header = """
-# Changelog
-
-All notable changes to this project will be documented in this file.
-"""
+header = "# Changelog\n\n"
 body = """
-{% for group, commits in commits | group_by(attribute="group") %}
+{% for release in releases %}
+## {{ release.version }} - {{ release.date | date(format="%Y-%m-%d") }}
+
+{% for group, commits in release.commits | group_by(attribute="group") %}
 ### {{ group | upper_first }}
 
 {% for commit in commits %}
 - {{ commit.message | upper_first }} ([{{ commit.id | truncate(length=7, end="") }}]({{ commit.link }}))
+{% endfor %}
 {% endfor %}
 {% endfor %}
 """
