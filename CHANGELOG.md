@@ -1,5 +1,5 @@
 
-## [unreleased]
+## [0.0.5](https://github.com/florian-sanders/zed-stylelint/compare/0.0.4..0.0.5) - 2025-06-08
 
 ### 📚 Documentation
 
@@ -12,9 +12,6 @@
 - *(dependencies/zed_extension_api)* Bump to `0.3.0` - ([d188389](https://github.com/florian-sanders/zed-stylelint/commit/d188389ba252e1448e8fede3d9d47bfd23791566))
 - Bump package version to `0.0.4` - ([5d4a991](https://github.com/florian-sanders/zed-stylelint/commit/5d4a9914c3a200af25a7b205c63584f07af5ed14))
 
-## New Contributors ❤️
-
-* @github-actions[bot] made their first contribution
 
 ## [0.0.4](https://github.com/florian-sanders/zed-stylelint/compare/0.0.3..0.0.4) - 2025-03-30
 
@@ -73,8 +70,5 @@
 - *(README)* Update for release - ([b285281](https://github.com/florian-sanders/zed-stylelint/commit/b285281df9dbce1163b06099eb592319d13005dc))
 - *(description)* Add proper description - ([a4790f7](https://github.com/florian-sanders/zed-stylelint/commit/a4790f7e5d4cdbfb121d99caf2d797a51efc6655))
 
-## New Contributors ❤️
-
-* @florian-sanders made their first contribution
 
 
