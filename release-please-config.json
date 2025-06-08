@@ -4,6 +4,9 @@
     ".": {}
   },
   "release-type": "rust",
+  "always-update": true,
+  "include-component-in-tag": false,
+  "include-v-in-tag": false,
   "extra-files": [
     {
       "type": "toml",
