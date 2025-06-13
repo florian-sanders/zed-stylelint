@@ -2,14 +2,7 @@
 
 ## Disclaimer
 
-This extension relies on [a fork of the stylelint/vscode-stylelint extension](https://github.com/florian-sanders/vscode-stylelint-prebundled).
-
-The VSCode extension has been forked because:
-
-- The [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) is a TypeScript project that needs to be built (transpiled to JavaScript), and bundled. At the moment, there is nothing exposed by [zed_extension_api](https://docs.rs/zed_extension_api/latest/zed_extension_api/index.html) to do these steps easily.
-  - This is why the fork is actually just the same code as the original repo but with the addition of the bundled code (in the `dist` directory).
-- The Language Server is not published as a standalone project,
-- The [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) is not published on `npm`.
+This extension relies on [the official VSCode Stylelint extension](https://github.com/stylelint/vscode-stylelint) from [Open VSX](https://open-vsx.org/extension/stylelint/vscode-stylelint).
 
 ## How to configure?
 
@@ -105,4 +98,4 @@ Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed,
 
 This extension code is heavily inspired by the [`html` extension in zed](https://github.com/zed-industries/zed/tree/main/extensions/html).
 
-As said above, the whole language server code comes from [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) so all the credits go to them really!
+As said above, the whole language server code comes from [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) so credit goes to them really!
