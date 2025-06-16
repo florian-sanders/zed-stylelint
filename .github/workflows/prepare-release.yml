@@ -1,0 +1,203 @@
+name: Prepare release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+
+concurrency:
+  group: prepare-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  only_run_if_no_release:
+    runs-on: ubuntu-latest
+    outputs:
+      should_continue: ${{ steps.get-should-continue.outputs.should_continue }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Skip if commit is from prepare-next-release or contains [skip changelog]
+        id: get-should-continue
+        run: |
+          SHOULD_CONTINUE=true
+          MESSAGE=$(git log -1 --pretty=%B $GITHUB_SHA)
+          if echo "$MESSAGE" | grep -q "prepare-next-release"; then
+            echo "Automated release commit detected. Skipping workflow."
+            SHOULD_CONTINUE=false
+          fi
+          if echo "$MESSAGE" | grep -iq "\[skip changelog\]"; then
+            echo "[skip changelog] detected in commit message. Skipping workflow."
+            SHOULD_CONTINUE=false
+          fi
+          echo "should_continue=$SHOULD_CONTINUE" >> $GITHUB_OUTPUT
+
+  check_for_changes:
+    runs-on: ubuntu-latest
+    needs: only_run_if_no_release
+    if: needs.only_run_if_no_release.outputs.should_continue == 'true'
+    outputs:
+      has_changes: ${{ steps.get-has-changes.outputs.has_changes }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get version
+        id: get-version
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --bumped-version 2>stderr.txt
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Get "has_changes"
+        id: get-has-changes
+        run: |
+          if grep -q "There is nothing to bump" stderr.txt; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+  create-or-update-release-pr:
+    needs: check_for_changes
+    if: needs.check_for_changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Set up git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Checkout next release branch
+        run: |
+          git checkout prepare-next-release || git checkout -b prepare-next-release
+          git reset --hard origin/main
+
+      - name: Get PR labels
+        id: get_pr_labels
+        env:
+          GH_TOKEN: ${{ secrets.ZED_STYLELINT_RELEASE_WORKFLOW_SECRET }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "PR_NUMBER: $PR_NUMBER"
+          PR_STATE=$(gh pr view "$PR_NUMBER" --json state -q '.state')
+          echo "PR_STATE: $PR_STATE"
+          if [ "$PR_STATE" == "OPEN" ]; then
+            LABELS=$(gh pr view "$PR_NUMBER" --json labels -q '.labels.[].name')
+            echo "LABELS=$LABELS" >> $GITHUB_OUTPUT
+            echo "Labels: $LABELS"
+          else
+            echo "PR is not open, skipping label retrieval."
+            echo "LABELS=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract version
+        id: extract
+        run: |
+          VERSION=""
+          for label in ${{ steps.get_pr_labels.outputs.LABELS }}; do
+            if [[ "$label" =~ ^version:([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+              VERSION="${BASH_REMATCH[1]}"
+              break
+            fi
+          done
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+          echo "version_from_label=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Bump and generate CHANGELOG Auto
+        id: bump-changelog-auto
+        if: steps.extract.outputs.version_from_label == ''
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --bump
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Bump and generate CHANGELOG to label version
+        id: bump-changelog-label
+        if: steps.extract.outputs.version_from_label != ''
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --bump -t ${{ steps.extract.outputs.version_from_label }}
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Bump cargo & extension version
+        run: |
+          sed -i 's/^version = "[0-9]\+\.[0-9]\+\.[0-9]\+"/version = "${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}"/' Cargo.toml
+          sed -i 's/^version = "[0-9]\+\.[0-9]\+\.[0-9]\+"/version = "${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}"/' extension.toml
+
+      - name: Commit and push CHANGELOG
+        run: |
+          git add CHANGELOG.md Cargo.toml extension.toml
+          git commit -m "chore(CHANGELOG): update [skip changelog]" || echo "No changes to commit"
+          git push --set-upstream origin prepare-next-release --force
+          git tag ${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}
+
+      - name: Check if release PR exists
+        id: check_if_pr_exists
+        env:
+          GH_TOKEN: ${{ secrets.ZED_STYLELINT_RELEASE_WORKFLOW_SECRET }}
+        run: |
+          if gh pr list --state open --head prepare-next-release --json number | grep -q '"number":'; then
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create release PR if not exists
+        if: steps.check_if_pr_exists.outputs.pr_exists == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.ZED_STYLELINT_RELEASE_WORKFLOW_SECRET }}
+        run: |
+          gh pr create \
+            --title "chore: release ${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}" \
+            --body "" \
+            --base main \
+            --head prepare-next-release
+
+      - name: Get CHANGELOG content
+        id: get-latest-content
+        uses: orhun/git-cliff-action@v4
+        with:
+          args: --latest
+        env:
+          OUTPUT: tmp-changelog.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Update PR title and body with changelog
+        env:
+          GH_TOKEN: ${{ secrets.ZED_STYLELINT_RELEASE_WORKFLOW_SECRET }}
+        run: |
+          echo ${{ steps.escape-backticks.outputs.escaped_content }}
+          PR_NUMBER=$(gh pr list --state open --head prepare-next-release --json number -q '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+          gh pr edit "$PR_NUMBER" \
+            --title "chore: release ${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}" \
+            --body-file "tmp-changelog.md"
+          fi

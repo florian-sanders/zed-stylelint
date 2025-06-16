@@ -1,0 +1,51 @@
+# git-cliff ~ configuration file
+# https://git-cliff.org/docs/configuration
+
+[changelog]
+header = "# Changelog"
+body = """
+{% if version %}
+## [{{ version | trim_start_matches(pat="v") }}](https://github.com/{{ github }}/compare/{{ previous.version | default(value="" ) }}...{{ version }}) ({{ timestamp | date(format="%Y-%m-%d") }})
+{% else %}
+## [unreleased]
+{% endif %}
+{% for group, commits in commits | group_by(attribute="group") %}
+### {{ group }}
+
+{% for commit in commits %}
+* {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | trim }}{% if commit.link %} ([{{ commit.id | truncate(length=7, end="") }}]({{ commit.link }})){% else %} ({{ commit.id | truncate(length=7, end="") }}){% endif %}
+{% endfor %}
+{% endfor %}
+"""
+footer = ""
+trim = true
+render_always = true
+postprocessors = []
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+commit_preprocessors = []
+protect_breaking_commits = false
+commit_parsers = [
+  { message = '\[skip changelog\]', skip = true },
+  { message = "^feat", group = "✨ Features" },
+  { message = "^fix", group = "🐛 Bug Fixes" },
+  { message = "^chore", group = "🔧 Chores", skip = true },
+  { message = "^docs?", group = "📚 Documentation" },
+  { message = "^refactor", group = "♻️ Refactoring", skip = true },
+  { message = "^perf", group = "⚡️ Performance" },
+  { message = "^test", group = "✅ Tests" },
+  { message = "^ci", group = "🤖 CI" },
+  { message = "^build", group = "🛠 Build System" },
+  { message = ".*", group = "Other" },
+]
+filter_commits = false
+link_parsers = [
+  { pattern = "(?P<id>[a-f0-9]{7,40})", href = "https://github.com/florian-sanders/zed-stylelint/commit/{{id}}" },
+]
+use_branch_tags = false
+topo_order = false
+topo_order_commits = true
+sort_commits = "oldest"
+recurse_submodules = false
