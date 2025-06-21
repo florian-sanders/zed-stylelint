@@ -1,0 +1,28 @@
+name: Test git cliff
+
+on:
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+
+jobs:
+  only_run_if_no_release:
+    runs-on: ubuntu-latest
+    outputs:
+      should_continue: ${{ steps.get-should-continue.outputs.should_continue }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: get-version
+        uses: orhun/git-cliff-action@v4
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: echo
+        run: echo ${{ steps.get-version.outputs.content }}
