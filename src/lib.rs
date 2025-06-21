@@ -1,67 +1,56 @@
-use std::{env, fs};
+use std::{env, fs, fs::File, io::BufReader};
 use zed::settings::LspSettings;
-use zed_extension_api::{self as zed, LanguageServerId, Result};
+use zed_extension_api::{self as zed, LanguageServerId, Result, serde_json};
 
-const SERVER_PATH: &str =
-    "node_modules/@florian-sanders/vscode-stylelint-prebundled/dist/start-server.js";
-const PACKAGE_NAME: &str = "@florian-sanders/vscode-stylelint-prebundled";
+mod open_vsx;
+use open_vsx::STYLELINT_OPEN_VSX_URL;
 
-struct StylelintExtension {
-    did_find_server: bool,
-}
+const SERVER_PATH: &str = "stylelint-vsix/extension/dist/start-server.js";
+const VERSION_PATH: &str = "stylelint-vsix/extension/package.json";
+
+struct StylelintExtension;
 
 impl StylelintExtension {
-    fn server_exists(&self) -> bool {
-        fs::metadata(SERVER_PATH).map_or(false, |stat| stat.is_file())
+    fn read_current_version(&self) -> Option<String> {
+        let file = File::open(VERSION_PATH).ok()?;
+        let reader = BufReader::new(file);
+        let package_json: serde_json::Value = serde_json::from_reader(reader).ok()?;
+        package_json["version"].as_str().map(|s| s.to_string())
     }
 
-    fn server_script_path(&mut self, language_server_id: &LanguageServerId) -> Result<String> {
-        let server_exists = self.server_exists();
-        if self.did_find_server && server_exists {
-            return Ok(SERVER_PATH.to_string());
-        }
+    fn server_script_path(&self, language_server_id: &LanguageServerId) -> Result<String> {
+        let current_version = self.read_current_version();
+        let latest_version = open_vsx::fetch_latest_version()?;
 
-        zed::set_language_server_installation_status(
-            language_server_id,
-            &zed::LanguageServerInstallationStatus::CheckingForUpdate,
-        );
-        let version = zed::npm_package_latest_version(PACKAGE_NAME)?;
+        let server_exists = fs::metadata(SERVER_PATH).map_or(false, |stat| stat.is_file());
 
-        if !server_exists
-            || zed::npm_package_installed_version(PACKAGE_NAME)?.as_ref() != Some(&version)
-        {
+        if current_version.as_deref() != Some(&latest_version) || !server_exists {
             zed::set_language_server_installation_status(
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
 
-            let result = zed::npm_install_package(PACKAGE_NAME, &version);
-            match result {
-                Ok(()) => {
-                    if !self.server_exists() {
-                        Err(format!(
-                            "installed package '{PACKAGE_NAME}' did not contain expected path '{SERVER_PATH}'",
-                        ))?;
-                    }
-                }
-                Err(error) => {
-                    if !self.server_exists() {
-                        Err(error)?;
-                    }
-                }
-            }
+            let download_url = format!(
+                "{baseUrl}/{version}/file/stylelint.vscode-stylelint-{version}.vsix",
+                baseUrl = STYLELINT_OPEN_VSX_URL,
+                version = latest_version
+            );
+
+            zed::download_file(
+                &download_url,
+                "stylelint-vsix",
+                zed::DownloadedFileType::Zip,
+            )
+            .map_err(|e| format!("failed to download file: {e}"))?;
         }
 
-        self.did_find_server = true;
         Ok(SERVER_PATH.to_string())
     }
 }
 
 impl zed::Extension for StylelintExtension {
     fn new() -> Self {
-        Self {
-            did_find_server: false,
-        }
+        Self
     }
 
     fn language_server_command(
