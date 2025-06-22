@@ -1,31 +1,59 @@
 # git-cliff ~ configuration file
 # https://git-cliff.org/docs/configuration
+#
+[remote.github]
+owner = "florian-sanders"
+repo = "zed-stylelint"
 
 [changelog]
 header = "# Changelog"
 body = """
-{% if version %}
-## [{{ version | trim_start_matches(pat="v") }}](https://github.com/{{ github }}/compare/{{ previous.version | default(value="" ) }}...{{ version }}) ({{ timestamp | date(format="%Y-%m-%d") }})
-{% else %}
-## [unreleased]
-{% endif %}
-{% for group, commits in commits | group_by(attribute="group") %}
-### {{ group }}
+{%- macro remote_url() -%}
+  https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+{%- endmacro -%}
 
-{% for commit in commits %}
-* {% if commit.scope %}**{{ commit.scope }}:** {% endif %}{{ commit.message | trim }}{% if commit.link %} ([{{ commit.id | truncate(length=7, end="") }}]({{ commit.link }})){% else %} ({{ commit.id | truncate(length=7, end="") }}){% endif %}
-{% endfor %}
-{% endfor %}
+{% macro print_commit(commit) -%}
+{%- set keywords = ["fixes", "fix", "closes", "close", "resolves", "resolve"] -%}
+    - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
+        {% if commit.breaking %}[**breaking**] {% endif %}\
+        {{ commit.message | upper_first }} \
+        ([{{ commit.id | truncate(length=7, end="") }}]({{ self::remote_url() }}/commit/{{ commit.id }})) \
+        {% for footer in commit.footers -%}
+          {% if footer.token | lower in keywords -%}
+            (Fixes [#{{ footer.value }}]({{ self::remote_url() }}/issues/{{ footer.value }}))
+          {% endif -%}
+        {% endfor -%}
+{% endmacro -%}
+
+{% if version %}\
+    {% if previous.version %}\
+        ## [{{ version | trim_start_matches(pat="v") }}]\
+          ({{ self::remote_url() }}/compare/{{ previous.version }}..{{ version }}) - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% else %}\
+        ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
+    {% endif %}\
+{% else %}\
+    ## [unreleased]
+{% endif %}\
+
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | striptags | trim | upper_first }}
+    {% for commit in commits
+    | filter(attribute="scope")
+    | sort(attribute="scope") %}
+        {{ self::print_commit(commit=commit) }}
+
+    {%- endfor %}
+{% endfor -%}
 """
 footer = ""
 trim = true
 render_always = true
-postprocessors = []
 
 [git]
 conventional_commits = true
 filter_unconventional = true
-commit_preprocessors = []
+split_commits = false
 protect_breaking_commits = false
 commit_parsers = [
   { message = '\[skip changelog\]', skip = true },
@@ -41,9 +69,6 @@ commit_parsers = [
   { message = ".*", group = "Other" },
 ]
 filter_commits = false
-link_parsers = [
-  { pattern = "(?P<id>[a-f0-9]{7,40})", href = "https://github.com/florian-sanders/zed-stylelint/commit/{{id}}" },
-]
 use_branch_tags = false
 topo_order = false
 topo_order_commits = true
