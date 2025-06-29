@@ -151,10 +151,11 @@ jobs:
         run: |
           sed -i 's/^version = "[0-9]\+\.[0-9]\+\.[0-9]\+"/version = "${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}"/' Cargo.toml
           sed -i 's/^version = "[0-9]\+\.[0-9]\+\.[0-9]\+"/version = "${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}"/' extension.toml
+          cargo build
 
       - name: Commit and push CHANGELOG
         run: |
-          git add CHANGELOG.md Cargo.toml extension.toml
+          git add CHANGELOG.md Cargo.toml Cargo.lock extension.toml
           git commit -m "chore(CHANGELOG): update [skip changelog]" || echo "No changes to commit"
           git push --set-upstream origin prepare-next-release --force
           git tag ${{ steps.bump-changelog-label.outputs.version || steps.bump-changelog-auto.outputs.version }}
