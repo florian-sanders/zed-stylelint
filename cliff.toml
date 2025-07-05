@@ -21,7 +21,7 @@ body = """
   {%- if commit.breaking -%}
   [**breaking**]
   {%- endif -%}
-  {{- commit.message | trim -}} {{- " " -}}
+  {{- commit.message | capitalize | trim -}} {{- " " -}}
   ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/{{ commit.id }}))
   {%- if commit.links -%}
     {{- " - " -}}
@@ -29,12 +29,15 @@ body = """
       {{- link.text | capitalize -}}({{- link.href -}})
     {%- endfor -%}
     {{- " " -}}
-  {%- endif %}
+  {%- endif -%}
+  {%- if commit.body %}
+  * {{ commit.body | capitalize | trim }}
+  {%- endif -%}
 {% endfor %}
 {% endfor %}
 """
 footer = ""
-trim = true
+trim = false
 render_always = true
 postprocessors = [
 ]
