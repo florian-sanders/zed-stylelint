@@ -22,7 +22,7 @@ body = """
   [**breaking**]
   {%- endif -%}
   {{- commit.message | capitalize | trim -}} {{- " " -}}
-  ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/{{ commit.id }}))
+  ([{{ commit.id | truncate(length=7, end="") }}](https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}/commit/{{ commit.id }}))
   {%- if commit.links -%}
     {{- " - " -}}
     {%- for link in commit.links -%}
