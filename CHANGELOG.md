@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/florian-sanders/zed-stylelint/compare/1.0.0...1.0.1) (2025-07-14)
+
+
+### 🐛 Bug Fixes
+
+* **extension.toml:** Add `typescript` to supported languages ([76b0c74](https://github.com/florian-sanders/zed-stylelint/commit/76b0c74827a24691c976724c2e124e14e1304d57))
+
+
 ## [1.0.0](https://github.com/florian-sanders/zed-stylelint/compare/0.0.4...1.0.0) (2025-07-05)
 
 
