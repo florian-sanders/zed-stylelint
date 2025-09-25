@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.2](https://github.com/florian-sanders/zed-stylelint/compare/1.0.1...1.0.2) (2025-09-25)
+
+
+### 🐛 Bug Fixes
+
+* **zed_extension_api:** Bump for enhanced windows support ([199d67f](https://github.com/florian-sanders/zed-stylelint/commit/199d67f18a4c5cd895f24fff8a8ed250f4050a9b)) - Fixes [#11](https://github.com/florian-sanders/zed-stylelint/issues/11) 
+  * - the language server path on windows should be properly set from now
+  on.
+
+
 ## [1.0.1](https://github.com/florian-sanders/zed-stylelint/compare/1.0.0...1.0.1) (2025-07-14)
 
 
