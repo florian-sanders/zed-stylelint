@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.1.0](https://github.com/florian-sanders/zed-stylelint/compare/1.0.2...1.1.0) (2025-10-28)
+
+
+### ✨ Features
+
+* **languages:** Support astro and other languages ([ae51415](https://github.com/florian-sanders/zed-stylelint/commit/ae51415f9f3dd38bc024fa83d3914fc231793ebb)) - Fixes [#48](https://github.com/florian-sanders/zed-stylelint/issues/48) 
+  * Add support for sass, postcss, jsx, tsx, svelte, astro, html,
+and markdown in the stylelint-lsp language server configuration.
+also add comments to categorize language groups.
+
+
 ## [1.0.2](https://github.com/florian-sanders/zed-stylelint/compare/1.0.1...1.0.2) (2025-09-25)
 
 
