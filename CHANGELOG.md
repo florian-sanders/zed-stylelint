@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.1](https://github.com/florian-sanders/zed-stylelint/compare/1.1.0...1.1.1) (2025-12-06)
+
+
+### 🐛 Bug Fixes
+
+* **windows:** Server was failing to start ([1e7526c](https://github.com/florian-sanders/zed-stylelint/commit/1e7526cb3a978ff06558bfe01dfe3d3583120b66))
+  * This fixes the following error when the server tries to start:
+"the parameter is incorrect. (os error 87)"
+
+
 ## [1.1.0](https://github.com/florian-sanders/zed-stylelint/compare/1.0.2...1.1.0) (2025-10-28)
 
 
