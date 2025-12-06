@@ -69,7 +69,7 @@ impl zed::Extension for StylelintExtension {
                     .to_string(),
                 "--stdio".to_string(),
             ],
-            env: vec![Default::default()],
+            env: Default::default(),
         })
     }
 
