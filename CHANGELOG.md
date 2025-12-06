@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/florian-sanders/zed-stylelint/compare/1.1.0...1.1.1) (2025-12-06)
+
+
+### Other
+
+* The parameter is incorrect. (os error 87) ([04685d1](https://github.com/florian-sanders/zed-stylelint/commit/04685d1eac2a0faff01a18942054b7c2e8df9f42))
+
+
 ## [1.1.0](https://github.com/florian-sanders/zed-stylelint/compare/1.0.2...1.1.0) (2025-10-28)
 
 
