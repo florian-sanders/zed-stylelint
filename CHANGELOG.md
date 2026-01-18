@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0](https://github.com/florian-sanders/zed-stylelint/compare/1.1.1...2.0.0) (2026-01-18)
+
+
+### ✨ Features
+
+* [**breaking**]Pin language server version to v1.6.0 ([7df0c2f](https://github.com/florian-sanders/zed-stylelint/commit/7df0c2fd23f321fcdab778c65a54dabedcf8ba3d))
+  * Instead of fetching the latest version from open vsx api at runtime,
+the extension now uses a pinned language server version. this removes
+the network dependency during startup and provides more predictable
+behavior.
+
+
 ## [1.1.1](https://github.com/florian-sanders/zed-stylelint/compare/1.1.0...1.1.1) (2025-12-06)
 
 
