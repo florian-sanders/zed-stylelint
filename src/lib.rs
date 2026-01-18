@@ -2,11 +2,10 @@ use std::{env, fs, fs::File, io::BufReader};
 use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result, serde_json};
 
-mod open_vsx;
-use open_vsx::STYLELINT_OPEN_VSX_URL;
-
+const REQUIRED_VERSION: &str = "1.6.0";
 const SERVER_PATH: &str = "stylelint-vsix/extension/dist/start-server.js";
 const VERSION_PATH: &str = "stylelint-vsix/extension/package.json";
+const STYLELINT_OPEN_VSX_URL: &str = "https://open-vsx.org/api/stylelint/vscode-stylelint";
 
 struct StylelintExtension;
 
@@ -20,20 +19,19 @@ impl StylelintExtension {
 
     fn server_script_path(&self, language_server_id: &LanguageServerId) -> Result<String> {
         let current_version = self.read_current_version();
-        let latest_version = open_vsx::fetch_latest_version()?;
 
         let server_exists = fs::metadata(SERVER_PATH).map_or(false, |stat| stat.is_file());
 
-        if current_version.as_deref() != Some(&latest_version) || !server_exists {
+        if current_version.as_deref() != Some(REQUIRED_VERSION) || !server_exists {
             zed::set_language_server_installation_status(
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
 
             let download_url = format!(
-                "{baseUrl}/{version}/file/stylelint.vscode-stylelint-{version}.vsix",
+                "{baseUrl}/{REQUIRED_VERSION}/file/stylelint.vscode-stylelint-{version}.vsix",
                 baseUrl = STYLELINT_OPEN_VSX_URL,
-                version = latest_version
+                version = REQUIRED_VERSION
             );
 
             zed::download_file(
