@@ -4,7 +4,7 @@ use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
 const LSP_VERSION: &str = "2.0.2";
-const SERVER_PATH: &str = "stylelint-lsp/start-server.js";
+const SERVER_PATH: &str = "stylelint-lsp/lsp/start-server.js";
 const VERSION_PATH: &str = "stylelint-lsp/.lsp-version";
 const BASE_REPO_URL: &str = "https://github.com/florian-sanders/zed-stylelint/releases/download/";
 
