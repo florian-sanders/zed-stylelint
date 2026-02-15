@@ -6,6 +6,11 @@ authors = ["Florian Sanders <sanders.florian+zed@gmail.com>"]
 description = "Stylelint support via the official vscode-stylelint language server (v1.6.0)"
 repository = "https://github.com/florian-sanders/zed-stylelint"
 
+[[capabilities]]
+kind = "process:exec"
+command = "*"
+args = ["**"]
+
 [language_servers.stylelint-lsp]
 name = "Stylelint Language Server"
 language = "CSS"
