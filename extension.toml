@@ -1,9 +1,9 @@
 id = "stylelint"
 name = "Stylelint"
-version = "2.0.0"
+version = "1.6.0"
 schema_version = 1
 authors = ["Florian Sanders <sanders.florian+zed@gmail.com>"]
-description = "Stylelint support via the official vscode-stylelint language server (v1.6.0)"
+description = "Stylelint support via the official vscode-stylelint language server"
 repository = "https://github.com/florian-sanders/zed-stylelint"
 
 [language_servers.stylelint-lsp]
@@ -19,3 +19,4 @@ languages = [
   # Markup
   "HTML", "Markdown"
 ]
+lsp_required_version = "1.6.0"

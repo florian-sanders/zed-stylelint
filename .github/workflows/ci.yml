@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+          components: rustfmt, clippy
+
+      - name: Cache Cargo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Check Formatting
+        run: cargo fmt -- --check
+
+      - name: Run Clippy
+        run: cargo clippy --target wasm32-wasip1 -- -D warnings
+
+      - name: Build Extension
+        run: cargo build --release --target wasm32-wasip1
+
+      - name: Verify WASM Output
+        run: |
+          if [ ! -f "target/wasm32-wasip1/release/zed_stylelint.wasm" ]; then
+            echo "Error: WASM file not found after build"
+            exit 1
+          fi
+          
+          SIZE=$(stat -c%s "target/wasm32-wasip1/release/zed_stylelint.wasm")
+          echo "WASM file size: $SIZE bytes"
+          
+          if [ $SIZE -lt 1000 ]; then
+            echo "Error: WASM file suspiciously small"
+            exit 1
+          fi
