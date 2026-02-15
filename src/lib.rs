@@ -1,45 +1,43 @@
-use std::{env, fs, fs::File, io::BufReader};
-use zed::settings::LspSettings;
-use zed_extension_api::{self as zed, LanguageServerId, Result, serde_json};
+use std::{env, fs};
 
-const REQUIRED_VERSION: &str = "1.6.0";
-const SERVER_PATH: &str = "stylelint-vsix/extension/dist/start-server.js";
-const VERSION_PATH: &str = "stylelint-vsix/extension/package.json";
-const STYLELINT_OPEN_VSX_URL: &str = "https://open-vsx.org/api/stylelint/vscode-stylelint";
+use zed::settings::LspSettings;
+use zed_extension_api::{self as zed, LanguageServerId, Result};
+
+const LSP_VERSION: &str = "2.0.2";
+const SERVER_PATH: &str = "stylelint-lsp/start-server.js";
+const VERSION_PATH: &str = "stylelint-lsp/.lsp-version";
+const BASE_REPO_URL: &str = "https://github.com/florian-sanders/zed-stylelint/releases/download/";
 
 struct StylelintExtension;
 
 impl StylelintExtension {
-    fn read_current_version(&self) -> Option<String> {
-        let file = File::open(VERSION_PATH).ok()?;
-        let reader = BufReader::new(file);
-        let package_json: serde_json::Value = serde_json::from_reader(reader).ok()?;
-        package_json["version"].as_str().map(|s| s.to_string())
+    fn current_version(&self) -> Option<String> {
+        fs::read_to_string(VERSION_PATH).ok()
     }
 
     fn server_script_path(&self, language_server_id: &LanguageServerId) -> Result<String> {
-        let current_version = self.read_current_version();
+        let current_version = self.current_version();
+        let server_exists = fs::metadata(SERVER_PATH).is_ok_and(|stat| stat.is_file());
 
-        let server_exists = fs::metadata(SERVER_PATH).map_or(false, |stat| stat.is_file());
-
-        if current_version.as_deref() != Some(REQUIRED_VERSION) || !server_exists {
+        if current_version.as_deref() != Some(LSP_VERSION) || !server_exists {
             zed::set_language_server_installation_status(
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
 
             let download_url = format!(
-                "{baseUrl}/{REQUIRED_VERSION}/file/stylelint.vscode-stylelint-{version}.vsix",
-                baseUrl = STYLELINT_OPEN_VSX_URL,
-                version = REQUIRED_VERSION
+                "{BASE_REPO_URL}/{LSP_VERSION}/stylelint-language-server-v{LSP_VERSION}.tar.gz",
             );
 
             zed::download_file(
                 &download_url,
-                "stylelint-vsix",
-                zed::DownloadedFileType::Zip,
+                "stylelint-lsp",
+                zed::DownloadedFileType::GzipTar,
             )
             .map_err(|e| format!("failed to download file: {e}"))?;
+
+            fs::write(VERSION_PATH, LSP_VERSION)
+                .map_err(|e| format!("failed to write version file: {e}"))?;
         }
 
         Ok(SERVER_PATH.to_string())
@@ -80,8 +78,9 @@ impl zed::Extension for StylelintExtension {
             .ok()
             .and_then(|lsp_settings| lsp_settings.settings.clone())
             .unwrap_or_default();
+
         Ok(Some(settings))
     }
 }
 
-zed::register_extension!(StylelintExtension);
+zed_extension_api::register_extension!(StylelintExtension);
