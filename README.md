@@ -1,14 +1,16 @@
-# Zed Stylelint Language Server Extension
+# Zed Stylelint Extension
 
-## Disclaimer
+This extension provides Stylelint support for Zed by wrapping the official [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) language server. **We do not own the language server source code** - this is a Zed wrapper that automatically synchronizes with official vscode-stylelint releases.
 
-This extension relies on [the official VSCode Stylelint extension](https://github.com/stylelint/vscode-stylelint) from [Open VSX](https://open-vsx.org/extension/stylelint/vscode-stylelint).
+## Installation
+
+Install from Zed's extension marketplace. The extension automatically downloads and updates the prebuilt language server from GitHub releases.
 
 ## How to configure?
 
 ### General LSP settings
 
-Settings and configuration tweaks are explained in details in the [stylelint/vscode-styelint README](https://github.com/stylelint/vscode-stylelint/blob/main/README.md).
+Settings and configuration tweaks are explained in details in the [stylelint/vscode-stylelint README](https://github.com/stylelint/vscode-stylelint/blob/main/README.md).
 
 In your global or local settings, enable the language server by adding a `stylelint-lsp` section in `lsp` section.
 
@@ -94,8 +96,22 @@ If you're using [stylelint-config-recommended-vue](https://github.com/ota-meshi/
 
 Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed, but the dependency requirements are the same for both editors.
 
+## What This Extension Does
+
+This extension acts as a bridge between Zed and the official vscode-stylelint language server. It:
+
+- Automatically downloads the prebuilt language server from GitHub releases
+- Keeps the language server synchronized with official vscode-stylelint releases
+- Provides Zed-specific integration and configuration
+
 ## Acknowledgment
 
 This extension code is heavily inspired by the [`html` extension in zed](https://github.com/zed-industries/zed/tree/main/extensions/html).
 
 As said above, the whole language server code comes from [stylelint/vscode-stylelint](https://github.com/stylelint/vscode-stylelint) so credit goes to them really!
+
+## Version Information
+
+The extension version is synchronized with the vscode-stylelint language server version. The prebuilt language server is available as assets attached to each release of this extension.
+
+Check the [Releases page](https://github.com/florian-sanders/zed-stylelint/releases) for the latest version and download links.
