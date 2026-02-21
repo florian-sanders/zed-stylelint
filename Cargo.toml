@@ -1,6 +1,6 @@
 [package]
 name = "zed-stylelint"
-version = "1.6.0"
+version = "2.0.2"
 edition = "2024"
 license = "MIT"
 
