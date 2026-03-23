@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var __esm = (fn, res) => function __init() {
@@ -22,6 +24,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // node_modules/vscode-languageserver/lib/common/utils/is.js
@@ -129,31 +139,31 @@ var require_messages = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.Message = exports2.NotificationType9 = exports2.NotificationType8 = exports2.NotificationType7 = exports2.NotificationType6 = exports2.NotificationType5 = exports2.NotificationType4 = exports2.NotificationType3 = exports2.NotificationType2 = exports2.NotificationType1 = exports2.NotificationType0 = exports2.NotificationType = exports2.RequestType9 = exports2.RequestType8 = exports2.RequestType7 = exports2.RequestType6 = exports2.RequestType5 = exports2.RequestType4 = exports2.RequestType3 = exports2.RequestType2 = exports2.RequestType1 = exports2.RequestType = exports2.RequestType0 = exports2.AbstractMessageSignature = exports2.ParameterStructures = exports2.ResponseError = exports2.ErrorCodes = void 0;
     var is = require_is2();
-    var ErrorCodes;
-    (function(ErrorCodes2) {
-      ErrorCodes2.ParseError = -32700;
-      ErrorCodes2.InvalidRequest = -32600;
-      ErrorCodes2.MethodNotFound = -32601;
-      ErrorCodes2.InvalidParams = -32602;
-      ErrorCodes2.InternalError = -32603;
-      ErrorCodes2.jsonrpcReservedErrorRangeStart = -32099;
-      ErrorCodes2.serverErrorStart = -32099;
-      ErrorCodes2.MessageWriteError = -32099;
-      ErrorCodes2.MessageReadError = -32098;
-      ErrorCodes2.PendingResponseRejected = -32097;
-      ErrorCodes2.ConnectionInactive = -32096;
-      ErrorCodes2.ServerNotInitialized = -32002;
-      ErrorCodes2.UnknownErrorCode = -32001;
-      ErrorCodes2.jsonrpcReservedErrorRangeEnd = -32e3;
-      ErrorCodes2.serverErrorEnd = -32e3;
-    })(ErrorCodes || (exports2.ErrorCodes = ErrorCodes = {}));
-    var ResponseError = class _ResponseError extends Error {
+    var ErrorCodes3;
+    (function(ErrorCodes4) {
+      ErrorCodes4.ParseError = -32700;
+      ErrorCodes4.InvalidRequest = -32600;
+      ErrorCodes4.MethodNotFound = -32601;
+      ErrorCodes4.InvalidParams = -32602;
+      ErrorCodes4.InternalError = -32603;
+      ErrorCodes4.jsonrpcReservedErrorRangeStart = -32099;
+      ErrorCodes4.serverErrorStart = -32099;
+      ErrorCodes4.MessageWriteError = -32099;
+      ErrorCodes4.MessageReadError = -32098;
+      ErrorCodes4.PendingResponseRejected = -32097;
+      ErrorCodes4.ConnectionInactive = -32096;
+      ErrorCodes4.ServerNotInitialized = -32002;
+      ErrorCodes4.UnknownErrorCode = -32001;
+      ErrorCodes4.jsonrpcReservedErrorRangeEnd = -32e3;
+      ErrorCodes4.serverErrorEnd = -32e3;
+    })(ErrorCodes3 || (exports2.ErrorCodes = ErrorCodes3 = {}));
+    var ResponseError3 = class _ResponseError extends Error {
       static {
         __name(this, "ResponseError");
       }
       constructor(code, message, data) {
         super(message);
-        this.code = is.number(code) ? code : ErrorCodes.UnknownErrorCode;
+        this.code = is.number(code) ? code : ErrorCodes3.UnknownErrorCode;
         this.data = data;
         Object.setPrototypeOf(this, _ResponseError.prototype);
       }
@@ -168,7 +178,7 @@ var require_messages = __commonJS({
         return result;
       }
     };
-    exports2.ResponseError = ResponseError;
+    exports2.ResponseError = ResponseError3;
     var ParameterStructures = class _ParameterStructures {
       static {
         __name(this, "ParameterStructures");
@@ -307,7 +317,7 @@ var require_messages = __commonJS({
       }
     };
     exports2.RequestType9 = RequestType9;
-    var NotificationType = class extends AbstractMessageSignature {
+    var NotificationType2 = class extends AbstractMessageSignature {
       static {
         __name(this, "NotificationType");
       }
@@ -319,7 +329,7 @@ var require_messages = __commonJS({
         return this._parameterStructures;
       }
     };
-    exports2.NotificationType = NotificationType;
+    exports2.NotificationType = NotificationType2;
     var NotificationType0 = class extends AbstractMessageSignature {
       static {
         __name(this, "NotificationType0");
@@ -342,7 +352,7 @@ var require_messages = __commonJS({
       }
     };
     exports2.NotificationType1 = NotificationType1;
-    var NotificationType2 = class extends AbstractMessageSignature {
+    var NotificationType22 = class extends AbstractMessageSignature {
       static {
         __name(this, "NotificationType2");
       }
@@ -350,7 +360,7 @@ var require_messages = __commonJS({
         super(method, 2);
       }
     };
-    exports2.NotificationType2 = NotificationType2;
+    exports2.NotificationType2 = NotificationType22;
     var NotificationType3 = class extends AbstractMessageSignature {
       static {
         __name(this, "NotificationType3");
@@ -1002,7 +1012,7 @@ var require_cancellation = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.CancellationTokenSource = exports2.CancellationToken = void 0;
     var ral_1 = require_ral();
-    var Is = require_is2();
+    var Is2 = require_is2();
     var events_1 = require_events();
     var CancellationToken;
     (function(CancellationToken2) {
@@ -1016,7 +1026,7 @@ var require_cancellation = __commonJS({
       });
       function is(value) {
         const candidate = value;
-        return candidate && (candidate === CancellationToken2.None || candidate === CancellationToken2.Cancelled || Is.boolean(candidate.isCancellationRequested) && !!candidate.onCancellationRequested);
+        return candidate && (candidate === CancellationToken2.None || candidate === CancellationToken2.Cancelled || Is2.boolean(candidate.isCancellationRequested) && !!candidate.onCancellationRequested);
       }
       __name(is, "is");
       CancellationToken2.is = is;
@@ -1259,14 +1269,14 @@ var require_messageReader = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.ReadableStreamMessageReader = exports2.AbstractMessageReader = exports2.MessageReader = void 0;
     var ral_1 = require_ral();
-    var Is = require_is2();
+    var Is2 = require_is2();
     var events_1 = require_events();
     var semaphore_1 = require_semaphore();
     var MessageReader;
     (function(MessageReader2) {
       function is(value) {
         let candidate = value;
-        return candidate && Is.func(candidate.listen) && Is.func(candidate.dispose) && Is.func(candidate.onError) && Is.func(candidate.onClose) && Is.func(candidate.onPartialMessage);
+        return candidate && Is2.func(candidate.listen) && Is2.func(candidate.dispose) && Is2.func(candidate.onError) && Is2.func(candidate.onClose) && Is2.func(candidate.onPartialMessage);
       }
       __name(is, "is");
       MessageReader2.is = is;
@@ -1306,7 +1316,7 @@ var require_messageReader = __commonJS({
         if (error instanceof Error) {
           return error;
         } else {
-          return new Error(`Reader received error. Reason: ${Is.string(error.message) ? error.message : "unknown"}`);
+          return new Error(`Reader received error. Reason: ${Is2.string(error.message) ? error.message : "unknown"}`);
         }
       }
     };
@@ -1456,7 +1466,7 @@ var require_messageWriter = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.WriteableStreamMessageWriter = exports2.AbstractMessageWriter = exports2.MessageWriter = void 0;
     var ral_1 = require_ral();
-    var Is = require_is2();
+    var Is2 = require_is2();
     var semaphore_1 = require_semaphore();
     var events_1 = require_events();
     var ContentLength = "Content-Length: ";
@@ -1465,7 +1475,7 @@ var require_messageWriter = __commonJS({
     (function(MessageWriter2) {
       function is(value) {
         let candidate = value;
-        return candidate && Is.func(candidate.dispose) && Is.func(candidate.onClose) && Is.func(candidate.onError) && Is.func(candidate.write);
+        return candidate && Is2.func(candidate.dispose) && Is2.func(candidate.onClose) && Is2.func(candidate.onError) && Is2.func(candidate.write);
       }
       __name(is, "is");
       MessageWriter2.is = is;
@@ -1498,7 +1508,7 @@ var require_messageWriter = __commonJS({
         if (error instanceof Error) {
           return error;
         } else {
-          return new Error(`Writer received error. Reason: ${Is.string(error.message) ? error.message : "unknown"}`);
+          return new Error(`Writer received error. Reason: ${Is2.string(error.message) ? error.message : "unknown"}`);
         }
       }
     };
@@ -1727,7 +1737,7 @@ var require_connection = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createMessageConnection = exports2.ConnectionOptions = exports2.MessageStrategy = exports2.CancellationStrategy = exports2.CancellationSenderStrategy = exports2.CancellationReceiverStrategy = exports2.RequestCancellationReceiverStrategy = exports2.IdCancellationReceiverStrategy = exports2.ConnectionStrategy = exports2.ConnectionError = exports2.ConnectionErrors = exports2.LogTraceNotification = exports2.SetTraceNotification = exports2.TraceFormat = exports2.TraceValues = exports2.Trace = exports2.NullLogger = exports2.ProgressType = exports2.ProgressToken = void 0;
     var ral_1 = require_ral();
-    var Is = require_is2();
+    var Is2 = require_is2();
     var messages_1 = require_messages();
     var linkedMap_1 = require_linkedMap();
     var events_1 = require_events();
@@ -1759,7 +1769,7 @@ var require_connection = __commonJS({
     var StarRequestHandler;
     (function(StarRequestHandler2) {
       function is(value) {
-        return Is.func(value);
+        return Is2.func(value);
       }
       __name(is, "is");
       StarRequestHandler2.is = is;
@@ -1790,7 +1800,7 @@ var require_connection = __commonJS({
     })(TraceValues || (exports2.TraceValues = TraceValues = {}));
     (function(Trace2) {
       function fromString(value) {
-        if (!Is.string(value)) {
+        if (!Is2.string(value)) {
           return Trace2.Off;
         }
         value = value.toLowerCase();
@@ -1833,7 +1843,7 @@ var require_connection = __commonJS({
     })(TraceFormat || (exports2.TraceFormat = TraceFormat = {}));
     (function(TraceFormat2) {
       function fromString(value) {
-        if (!Is.string(value)) {
+        if (!Is2.string(value)) {
           return TraceFormat2.Text;
         }
         value = value.toLowerCase();
@@ -1875,7 +1885,7 @@ var require_connection = __commonJS({
     (function(ConnectionStrategy2) {
       function is(value) {
         const candidate = value;
-        return candidate && Is.func(candidate.cancelUndispatched);
+        return candidate && Is2.func(candidate.cancelUndispatched);
       }
       __name(is, "is");
       ConnectionStrategy2.is = is;
@@ -1884,7 +1894,7 @@ var require_connection = __commonJS({
     (function(IdCancellationReceiverStrategy2) {
       function is(value) {
         const candidate = value;
-        return candidate && (candidate.kind === void 0 || candidate.kind === "id") && Is.func(candidate.createCancellationTokenSource) && (candidate.dispose === void 0 || Is.func(candidate.dispose));
+        return candidate && (candidate.kind === void 0 || candidate.kind === "id") && Is2.func(candidate.createCancellationTokenSource) && (candidate.dispose === void 0 || Is2.func(candidate.dispose));
       }
       __name(is, "is");
       IdCancellationReceiverStrategy2.is = is;
@@ -1893,7 +1903,7 @@ var require_connection = __commonJS({
     (function(RequestCancellationReceiverStrategy2) {
       function is(value) {
         const candidate = value;
-        return candidate && candidate.kind === "request" && Is.func(candidate.createCancellationTokenSource) && (candidate.dispose === void 0 || Is.func(candidate.dispose));
+        return candidate && candidate.kind === "request" && Is2.func(candidate.createCancellationTokenSource) && (candidate.dispose === void 0 || Is2.func(candidate.dispose));
       }
       __name(is, "is");
       RequestCancellationReceiverStrategy2.is = is;
@@ -1922,7 +1932,7 @@ var require_connection = __commonJS({
       });
       function is(value) {
         const candidate = value;
-        return candidate && Is.func(candidate.sendCancellation) && Is.func(candidate.cleanup);
+        return candidate && Is2.func(candidate.sendCancellation) && Is2.func(candidate.cleanup);
       }
       __name(is, "is");
       CancellationSenderStrategy2.is = is;
@@ -1944,7 +1954,7 @@ var require_connection = __commonJS({
     (function(MessageStrategy2) {
       function is(value) {
         const candidate = value;
-        return candidate && Is.func(candidate.handleMessage);
+        return candidate && Is2.func(candidate.handleMessage);
       }
       __name(is, "is");
       MessageStrategy2.is = is;
@@ -2222,7 +2232,7 @@ var require_connection = __commonJS({
                 requestTokens.delete(tokenKey);
                 if (error instanceof messages_1.ResponseError) {
                   replyError(error, requestMessage.method, startTime);
-                } else if (error && Is.string(error.message)) {
+                } else if (error && Is2.string(error.message)) {
                   replyError(new messages_1.ResponseError(messages_1.ErrorCodes.InternalError, `Request ${requestMessage.method} failed with message: ${error.message}`), requestMessage.method, startTime);
                 } else {
                   replyError(new messages_1.ResponseError(messages_1.ErrorCodes.InternalError, `Request ${requestMessage.method} failed unexpectedly without providing any details.`), requestMessage.method, startTime);
@@ -2236,7 +2246,7 @@ var require_connection = __commonJS({
             requestTokens.delete(tokenKey);
             if (error instanceof messages_1.ResponseError) {
               reply(error, requestMessage.method, startTime);
-            } else if (error && Is.string(error.message)) {
+            } else if (error && Is2.string(error.message)) {
               replyError(new messages_1.ResponseError(messages_1.ErrorCodes.InternalError, `Request ${requestMessage.method} failed with message: ${error.message}`), requestMessage.method, startTime);
             } else {
               replyError(new messages_1.ResponseError(messages_1.ErrorCodes.InternalError, `Request ${requestMessage.method} failed unexpectedly without providing any details.`), requestMessage.method, startTime);
@@ -2357,7 +2367,7 @@ ${JSON.stringify(responseMessage.error, void 0, 4)}`);
         logger.error(`Received message which is neither a response nor a notification message:
 ${JSON.stringify(message, null, 4)}`);
         const responseMessage = message;
-        if (Is.string(responseMessage.id) || Is.number(responseMessage.id)) {
+        if (Is2.string(responseMessage.id) || Is2.number(responseMessage.id)) {
           const key = responseMessage.id;
           const responseHandler = responsePromises.get(key);
           if (responseHandler) {
@@ -2619,7 +2629,7 @@ ${JSON.stringify(message, null, 4)}`);
           throwIfClosedOrDisposed();
           let method;
           let messageParams;
-          if (Is.string(type)) {
+          if (Is2.string(type)) {
             method = type;
             const first = args[0];
             let paramStart = 0;
@@ -2663,10 +2673,10 @@ ${JSON.stringify(message, null, 4)}`);
         onNotification: /* @__PURE__ */ __name((type, handler) => {
           throwIfClosedOrDisposed();
           let method;
-          if (Is.func(type)) {
+          if (Is2.func(type)) {
             starNotificationHandler = type;
           } else if (handler) {
-            if (Is.string(type)) {
+            if (Is2.string(type)) {
               method = type;
               notificationHandlers.set(type, { type: void 0, handler });
             } else {
@@ -2705,7 +2715,7 @@ ${JSON.stringify(message, null, 4)}`);
           let method;
           let messageParams;
           let token = void 0;
-          if (Is.string(type)) {
+          if (Is2.string(type)) {
             method = type;
             const first = args[0];
             const last = args[args.length - 1];
@@ -2795,7 +2805,7 @@ ${JSON.stringify(message, null, 4)}`);
           if (StarRequestHandler.is(type)) {
             method = void 0;
             starRequestHandler = type;
-          } else if (Is.string(type)) {
+          } else if (Is2.string(type)) {
             method = null;
             if (handler !== void 0) {
               method = type;
@@ -2827,7 +2837,7 @@ ${JSON.stringify(message, null, 4)}`);
           let _sendNotification = false;
           let _traceFormat = TraceFormat.Text;
           if (sendNotificationOrTraceOptions !== void 0) {
-            if (Is.boolean(sendNotificationOrTraceOptions)) {
+            if (Is2.boolean(sendNotificationOrTraceOptions)) {
               _sendNotification = sendNotificationOrTraceOptions;
             } else {
               _sendNotification = sendNotificationOrTraceOptions.sendNotification || false;
@@ -2866,10 +2876,10 @@ ${JSON.stringify(message, null, 4)}`);
           requestTokens = /* @__PURE__ */ new Map();
           knownCanceledRequests = /* @__PURE__ */ new Set();
           messageQueue = new linkedMap_1.LinkedMap();
-          if (Is.func(messageWriter.dispose)) {
+          if (Is2.func(messageWriter.dispose)) {
             messageWriter.dispose();
           }
-          if (Is.func(messageReader.dispose)) {
+          if (Is2.func(messageReader.dispose)) {
             messageReader.dispose();
           }
         }, "dispose"),
@@ -3298,8 +3308,8 @@ var require_main = __commonJS({
     exports2.createMessageConnection = exports2.createServerSocketTransport = exports2.createClientSocketTransport = exports2.createServerPipeTransport = exports2.createClientPipeTransport = exports2.generateRandomPipeName = exports2.StreamMessageWriter = exports2.StreamMessageReader = exports2.SocketMessageWriter = exports2.SocketMessageReader = exports2.PortMessageWriter = exports2.PortMessageReader = exports2.IPCMessageWriter = exports2.IPCMessageReader = void 0;
     var ril_1 = require_ril();
     ril_1.default.install();
-    var path = require("path");
-    var os = require("os");
+    var path6 = require("path");
+    var os4 = require("os");
     var crypto_1 = require("crypto");
     var net_1 = require("net");
     var api_1 = require_api();
@@ -3308,9 +3318,9 @@ var require_main = __commonJS({
       static {
         __name(this, "IPCMessageReader");
       }
-      constructor(process2) {
+      constructor(process7) {
         super();
-        this.process = process2;
+        this.process = process7;
         let eventEmitter = this.process;
         eventEmitter.on("error", (error) => this.fireError(error));
         eventEmitter.on("close", () => this.fireClose());
@@ -3325,9 +3335,9 @@ var require_main = __commonJS({
       static {
         __name(this, "IPCMessageWriter");
       }
-      constructor(process2) {
+      constructor(process7) {
         super();
-        this.process = process2;
+        this.process = process7;
         this.errorCount = 0;
         const eventEmitter = this.process;
         eventEmitter.on("error", (error) => this.fireError(error));
@@ -3458,9 +3468,9 @@ var require_main = __commonJS({
       }
       let result;
       if (XDG_RUNTIME_DIR) {
-        result = path.join(XDG_RUNTIME_DIR, `vscode-ipc-${randomSuffix}.sock`);
+        result = path6.join(XDG_RUNTIME_DIR, `vscode-ipc-${randomSuffix}.sock`);
       } else {
-        result = path.join(os.tmpdir(), `vscode-${randomSuffix}.sock`);
+        result = path6.join(os4.tmpdir(), `vscode-${randomSuffix}.sock`);
       }
       const limit = safeIpcPathLengths.get(process.platform);
       if (limit !== void 0 && result.length > limit) {
@@ -3568,19 +3578,19 @@ var require_main = __commonJS({
 
 // node_modules/vscode-languageserver-protocol/node_modules/vscode-jsonrpc/node.js
 var require_node = __commonJS({
-  "node_modules/vscode-languageserver-protocol/node_modules/vscode-jsonrpc/node.js"(exports2, module2) {
+  "node_modules/vscode-languageserver-protocol/node_modules/vscode-jsonrpc/node.js"(exports2, module3) {
     "use strict";
-    module2.exports = require_main();
+    module3.exports = require_main();
   }
 });
 
 // node_modules/vscode-languageserver-types/lib/umd/main.js
 var require_main2 = __commonJS({
-  "node_modules/vscode-languageserver-types/lib/umd/main.js"(exports2, module2) {
+  "node_modules/vscode-languageserver-types/lib/umd/main.js"(exports2, module3) {
     (function(factory) {
-      if (typeof module2 === "object" && typeof module2.exports === "object") {
+      if (typeof module3 === "object" && typeof module3.exports === "object") {
         var v = factory(require, exports2);
-        if (v !== void 0) module2.exports = v;
+        if (v !== void 0) module3.exports = v;
       } else if (typeof define === "function" && define.amd) {
         define(["require", "exports"], factory);
       }
@@ -3588,112 +3598,112 @@ var require_main2 = __commonJS({
       "use strict";
       Object.defineProperty(exports3, "__esModule", { value: true });
       exports3.TextDocument = exports3.EOL = exports3.WorkspaceFolder = exports3.InlineCompletionContext = exports3.SelectedCompletionInfo = exports3.InlineCompletionTriggerKind = exports3.InlineCompletionList = exports3.InlineCompletionItem = exports3.StringValue = exports3.InlayHint = exports3.InlayHintLabelPart = exports3.InlayHintKind = exports3.InlineValueContext = exports3.InlineValueEvaluatableExpression = exports3.InlineValueVariableLookup = exports3.InlineValueText = exports3.SemanticTokens = exports3.SemanticTokenModifiers = exports3.SemanticTokenTypes = exports3.SelectionRange = exports3.DocumentLink = exports3.FormattingOptions = exports3.CodeLens = exports3.CodeAction = exports3.CodeActionContext = exports3.CodeActionTriggerKind = exports3.CodeActionKind = exports3.DocumentSymbol = exports3.WorkspaceSymbol = exports3.SymbolInformation = exports3.SymbolTag = exports3.SymbolKind = exports3.DocumentHighlight = exports3.DocumentHighlightKind = exports3.SignatureInformation = exports3.ParameterInformation = exports3.Hover = exports3.MarkedString = exports3.CompletionList = exports3.CompletionItem = exports3.CompletionItemLabelDetails = exports3.InsertTextMode = exports3.InsertReplaceEdit = exports3.CompletionItemTag = exports3.InsertTextFormat = exports3.CompletionItemKind = exports3.MarkupContent = exports3.MarkupKind = exports3.TextDocumentItem = exports3.OptionalVersionedTextDocumentIdentifier = exports3.VersionedTextDocumentIdentifier = exports3.TextDocumentIdentifier = exports3.WorkspaceChange = exports3.WorkspaceEdit = exports3.DeleteFile = exports3.RenameFile = exports3.CreateFile = exports3.TextDocumentEdit = exports3.AnnotatedTextEdit = exports3.ChangeAnnotationIdentifier = exports3.ChangeAnnotation = exports3.TextEdit = exports3.Command = exports3.Diagnostic = exports3.CodeDescription = exports3.DiagnosticTag = exports3.DiagnosticSeverity = exports3.DiagnosticRelatedInformation = exports3.FoldingRange = exports3.FoldingRangeKind = exports3.ColorPresentation = exports3.ColorInformation = exports3.Color = exports3.LocationLink = exports3.Location = exports3.Range = exports3.Position = exports3.uinteger = exports3.integer = exports3.URI = exports3.DocumentUri = void 0;
-      var DocumentUri;
-      (function(DocumentUri2) {
+      var DocumentUri2;
+      (function(DocumentUri3) {
         function is(value) {
           return typeof value === "string";
         }
         __name(is, "is");
-        DocumentUri2.is = is;
-      })(DocumentUri || (exports3.DocumentUri = DocumentUri = {}));
-      var URI;
-      (function(URI2) {
+        DocumentUri3.is = is;
+      })(DocumentUri2 || (exports3.DocumentUri = DocumentUri2 = {}));
+      var URI3;
+      (function(URI4) {
         function is(value) {
           return typeof value === "string";
         }
         __name(is, "is");
-        URI2.is = is;
-      })(URI || (exports3.URI = URI = {}));
-      var integer;
-      (function(integer2) {
-        integer2.MIN_VALUE = -2147483648;
-        integer2.MAX_VALUE = 2147483647;
+        URI4.is = is;
+      })(URI3 || (exports3.URI = URI3 = {}));
+      var integer2;
+      (function(integer3) {
+        integer3.MIN_VALUE = -2147483648;
+        integer3.MAX_VALUE = 2147483647;
         function is(value) {
-          return typeof value === "number" && integer2.MIN_VALUE <= value && value <= integer2.MAX_VALUE;
+          return typeof value === "number" && integer3.MIN_VALUE <= value && value <= integer3.MAX_VALUE;
         }
         __name(is, "is");
-        integer2.is = is;
-      })(integer || (exports3.integer = integer = {}));
-      var uinteger;
-      (function(uinteger2) {
-        uinteger2.MIN_VALUE = 0;
-        uinteger2.MAX_VALUE = 2147483647;
+        integer3.is = is;
+      })(integer2 || (exports3.integer = integer2 = {}));
+      var uinteger3;
+      (function(uinteger4) {
+        uinteger4.MIN_VALUE = 0;
+        uinteger4.MAX_VALUE = 2147483647;
         function is(value) {
-          return typeof value === "number" && uinteger2.MIN_VALUE <= value && value <= uinteger2.MAX_VALUE;
+          return typeof value === "number" && uinteger4.MIN_VALUE <= value && value <= uinteger4.MAX_VALUE;
         }
         __name(is, "is");
-        uinteger2.is = is;
-      })(uinteger || (exports3.uinteger = uinteger = {}));
-      var Position;
-      (function(Position2) {
+        uinteger4.is = is;
+      })(uinteger3 || (exports3.uinteger = uinteger3 = {}));
+      var Position4;
+      (function(Position5) {
         function create(line, character) {
           if (line === Number.MAX_VALUE) {
-            line = uinteger.MAX_VALUE;
+            line = uinteger3.MAX_VALUE;
           }
           if (character === Number.MAX_VALUE) {
-            character = uinteger.MAX_VALUE;
+            character = uinteger3.MAX_VALUE;
           }
           return { line, character };
         }
         __name(create, "create");
-        Position2.create = create;
+        Position5.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
+          return Is2.objectLiteral(candidate) && Is2.uinteger(candidate.line) && Is2.uinteger(candidate.character);
         }
         __name(is, "is");
-        Position2.is = is;
-      })(Position || (exports3.Position = Position = {}));
-      var Range;
-      (function(Range2) {
+        Position5.is = is;
+      })(Position4 || (exports3.Position = Position4 = {}));
+      var Range4;
+      (function(Range5) {
         function create(one, two, three, four) {
-          if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
-            return { start: Position.create(one, two), end: Position.create(three, four) };
-          } else if (Position.is(one) && Position.is(two)) {
+          if (Is2.uinteger(one) && Is2.uinteger(two) && Is2.uinteger(three) && Is2.uinteger(four)) {
+            return { start: Position4.create(one, two), end: Position4.create(three, four) };
+          } else if (Position4.is(one) && Position4.is(two)) {
             return { start: one, end: two };
           } else {
             throw new Error("Range#create called with invalid arguments[".concat(one, ", ").concat(two, ", ").concat(three, ", ").concat(four, "]"));
           }
         }
         __name(create, "create");
-        Range2.create = create;
+        Range5.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
+          return Is2.objectLiteral(candidate) && Position4.is(candidate.start) && Position4.is(candidate.end);
         }
         __name(is, "is");
-        Range2.is = is;
-      })(Range || (exports3.Range = Range = {}));
-      var Location;
-      (function(Location2) {
+        Range5.is = is;
+      })(Range4 || (exports3.Range = Range4 = {}));
+      var Location2;
+      (function(Location3) {
         function create(uri, range) {
           return { uri, range };
         }
         __name(create, "create");
-        Location2.create = create;
+        Location3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
+          return Is2.objectLiteral(candidate) && Range4.is(candidate.range) && (Is2.string(candidate.uri) || Is2.undefined(candidate.uri));
         }
         __name(is, "is");
-        Location2.is = is;
-      })(Location || (exports3.Location = Location = {}));
-      var LocationLink;
-      (function(LocationLink2) {
+        Location3.is = is;
+      })(Location2 || (exports3.Location = Location2 = {}));
+      var LocationLink2;
+      (function(LocationLink3) {
         function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
           return { targetUri, targetRange, targetSelectionRange, originSelectionRange };
         }
         __name(create, "create");
-        LocationLink2.create = create;
+        LocationLink3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri) && Range.is(candidate.targetSelectionRange) && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
+          return Is2.objectLiteral(candidate) && Range4.is(candidate.targetRange) && Is2.string(candidate.targetUri) && Range4.is(candidate.targetSelectionRange) && (Range4.is(candidate.originSelectionRange) || Is2.undefined(candidate.originSelectionRange));
         }
         __name(is, "is");
-        LocationLink2.is = is;
-      })(LocationLink || (exports3.LocationLink = LocationLink = {}));
-      var Color;
-      (function(Color2) {
+        LocationLink3.is = is;
+      })(LocationLink2 || (exports3.LocationLink = LocationLink2 = {}));
+      var Color2;
+      (function(Color3) {
         function create(red, green, blue, alpha) {
           return {
             red,
@@ -3703,16 +3713,16 @@ var require_main2 = __commonJS({
           };
         }
         __name(create, "create");
-        Color2.create = create;
+        Color3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1) && Is.numberRange(candidate.green, 0, 1) && Is.numberRange(candidate.blue, 0, 1) && Is.numberRange(candidate.alpha, 0, 1);
+          return Is2.objectLiteral(candidate) && Is2.numberRange(candidate.red, 0, 1) && Is2.numberRange(candidate.green, 0, 1) && Is2.numberRange(candidate.blue, 0, 1) && Is2.numberRange(candidate.alpha, 0, 1);
         }
         __name(is, "is");
-        Color2.is = is;
-      })(Color || (exports3.Color = Color = {}));
-      var ColorInformation;
-      (function(ColorInformation2) {
+        Color3.is = is;
+      })(Color2 || (exports3.Color = Color2 = {}));
+      var ColorInformation2;
+      (function(ColorInformation3) {
         function create(range, color) {
           return {
             range,
@@ -3720,16 +3730,16 @@ var require_main2 = __commonJS({
           };
         }
         __name(create, "create");
-        ColorInformation2.create = create;
+        ColorInformation3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
+          return Is2.objectLiteral(candidate) && Range4.is(candidate.range) && Color2.is(candidate.color);
         }
         __name(is, "is");
-        ColorInformation2.is = is;
-      })(ColorInformation || (exports3.ColorInformation = ColorInformation = {}));
-      var ColorPresentation;
-      (function(ColorPresentation2) {
+        ColorInformation3.is = is;
+      })(ColorInformation2 || (exports3.ColorInformation = ColorInformation2 = {}));
+      var ColorPresentation2;
+      (function(ColorPresentation3) {
         function create(label, textEdit, additionalTextEdits) {
           return {
             label,
@@ -3738,52 +3748,52 @@ var require_main2 = __commonJS({
           };
         }
         __name(create, "create");
-        ColorPresentation2.create = create;
+        ColorPresentation3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate)) && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
+          return Is2.objectLiteral(candidate) && Is2.string(candidate.label) && (Is2.undefined(candidate.textEdit) || TextEdit4.is(candidate)) && (Is2.undefined(candidate.additionalTextEdits) || Is2.typedArray(candidate.additionalTextEdits, TextEdit4.is));
         }
         __name(is, "is");
-        ColorPresentation2.is = is;
-      })(ColorPresentation || (exports3.ColorPresentation = ColorPresentation = {}));
-      var FoldingRangeKind;
-      (function(FoldingRangeKind2) {
-        FoldingRangeKind2.Comment = "comment";
-        FoldingRangeKind2.Imports = "imports";
-        FoldingRangeKind2.Region = "region";
-      })(FoldingRangeKind || (exports3.FoldingRangeKind = FoldingRangeKind = {}));
-      var FoldingRange;
-      (function(FoldingRange2) {
+        ColorPresentation3.is = is;
+      })(ColorPresentation2 || (exports3.ColorPresentation = ColorPresentation2 = {}));
+      var FoldingRangeKind2;
+      (function(FoldingRangeKind3) {
+        FoldingRangeKind3.Comment = "comment";
+        FoldingRangeKind3.Imports = "imports";
+        FoldingRangeKind3.Region = "region";
+      })(FoldingRangeKind2 || (exports3.FoldingRangeKind = FoldingRangeKind2 = {}));
+      var FoldingRange2;
+      (function(FoldingRange3) {
         function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
           var result = {
             startLine,
             endLine
           };
-          if (Is.defined(startCharacter)) {
+          if (Is2.defined(startCharacter)) {
             result.startCharacter = startCharacter;
           }
-          if (Is.defined(endCharacter)) {
+          if (Is2.defined(endCharacter)) {
             result.endCharacter = endCharacter;
           }
-          if (Is.defined(kind)) {
+          if (Is2.defined(kind)) {
             result.kind = kind;
           }
-          if (Is.defined(collapsedText)) {
+          if (Is2.defined(collapsedText)) {
             result.collapsedText = collapsedText;
           }
           return result;
         }
         __name(create, "create");
-        FoldingRange2.create = create;
+        FoldingRange3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine) && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter)) && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter)) && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
+          return Is2.objectLiteral(candidate) && Is2.uinteger(candidate.startLine) && Is2.uinteger(candidate.startLine) && (Is2.undefined(candidate.startCharacter) || Is2.uinteger(candidate.startCharacter)) && (Is2.undefined(candidate.endCharacter) || Is2.uinteger(candidate.endCharacter)) && (Is2.undefined(candidate.kind) || Is2.string(candidate.kind));
         }
         __name(is, "is");
-        FoldingRange2.is = is;
-      })(FoldingRange || (exports3.FoldingRange = FoldingRange = {}));
-      var DiagnosticRelatedInformation;
-      (function(DiagnosticRelatedInformation2) {
+        FoldingRange3.is = is;
+      })(FoldingRange2 || (exports3.FoldingRange = FoldingRange2 = {}));
+      var DiagnosticRelatedInformation2;
+      (function(DiagnosticRelatedInformation3) {
         function create(location, message) {
           return {
             location,
@@ -3791,111 +3801,111 @@ var require_main2 = __commonJS({
           };
         }
         __name(create, "create");
-        DiagnosticRelatedInformation2.create = create;
+        DiagnosticRelatedInformation3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
+          return Is2.defined(candidate) && Location2.is(candidate.location) && Is2.string(candidate.message);
         }
         __name(is, "is");
-        DiagnosticRelatedInformation2.is = is;
-      })(DiagnosticRelatedInformation || (exports3.DiagnosticRelatedInformation = DiagnosticRelatedInformation = {}));
-      var DiagnosticSeverity;
-      (function(DiagnosticSeverity2) {
-        DiagnosticSeverity2.Error = 1;
-        DiagnosticSeverity2.Warning = 2;
-        DiagnosticSeverity2.Information = 3;
-        DiagnosticSeverity2.Hint = 4;
-      })(DiagnosticSeverity || (exports3.DiagnosticSeverity = DiagnosticSeverity = {}));
-      var DiagnosticTag;
-      (function(DiagnosticTag2) {
-        DiagnosticTag2.Unnecessary = 1;
-        DiagnosticTag2.Deprecated = 2;
-      })(DiagnosticTag || (exports3.DiagnosticTag = DiagnosticTag = {}));
-      var CodeDescription;
-      (function(CodeDescription2) {
+        DiagnosticRelatedInformation3.is = is;
+      })(DiagnosticRelatedInformation2 || (exports3.DiagnosticRelatedInformation = DiagnosticRelatedInformation2 = {}));
+      var DiagnosticSeverity2;
+      (function(DiagnosticSeverity3) {
+        DiagnosticSeverity3.Error = 1;
+        DiagnosticSeverity3.Warning = 2;
+        DiagnosticSeverity3.Information = 3;
+        DiagnosticSeverity3.Hint = 4;
+      })(DiagnosticSeverity2 || (exports3.DiagnosticSeverity = DiagnosticSeverity2 = {}));
+      var DiagnosticTag2;
+      (function(DiagnosticTag3) {
+        DiagnosticTag3.Unnecessary = 1;
+        DiagnosticTag3.Deprecated = 2;
+      })(DiagnosticTag2 || (exports3.DiagnosticTag = DiagnosticTag2 = {}));
+      var CodeDescription2;
+      (function(CodeDescription3) {
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.href);
+          return Is2.objectLiteral(candidate) && Is2.string(candidate.href);
         }
         __name(is, "is");
-        CodeDescription2.is = is;
-      })(CodeDescription || (exports3.CodeDescription = CodeDescription = {}));
-      var Diagnostic;
-      (function(Diagnostic2) {
+        CodeDescription3.is = is;
+      })(CodeDescription2 || (exports3.CodeDescription = CodeDescription2 = {}));
+      var Diagnostic2;
+      (function(Diagnostic3) {
         function create(range, message, severity, code, source, relatedInformation) {
           var result = { range, message };
-          if (Is.defined(severity)) {
+          if (Is2.defined(severity)) {
             result.severity = severity;
           }
-          if (Is.defined(code)) {
+          if (Is2.defined(code)) {
             result.code = code;
           }
-          if (Is.defined(source)) {
+          if (Is2.defined(source)) {
             result.source = source;
           }
-          if (Is.defined(relatedInformation)) {
+          if (Is2.defined(relatedInformation)) {
             result.relatedInformation = relatedInformation;
           }
           return result;
         }
         __name(create, "create");
-        Diagnostic2.create = create;
+        Diagnostic3.create = create;
         function is(value) {
           var _a;
           var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && Is.string(candidate.message) && (Is.number(candidate.severity) || Is.undefined(candidate.severity)) && (Is.integer(candidate.code) || Is.string(candidate.code) || Is.undefined(candidate.code)) && (Is.undefined(candidate.codeDescription) || Is.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)) && (Is.string(candidate.source) || Is.undefined(candidate.source)) && (Is.undefined(candidate.relatedInformation) || Is.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation.is));
+          return Is2.defined(candidate) && Range4.is(candidate.range) && Is2.string(candidate.message) && (Is2.number(candidate.severity) || Is2.undefined(candidate.severity)) && (Is2.integer(candidate.code) || Is2.string(candidate.code) || Is2.undefined(candidate.code)) && (Is2.undefined(candidate.codeDescription) || Is2.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)) && (Is2.string(candidate.source) || Is2.undefined(candidate.source)) && (Is2.undefined(candidate.relatedInformation) || Is2.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation2.is));
         }
         __name(is, "is");
-        Diagnostic2.is = is;
-      })(Diagnostic || (exports3.Diagnostic = Diagnostic = {}));
-      var Command;
-      (function(Command2) {
-        function create(title, command) {
+        Diagnostic3.is = is;
+      })(Diagnostic2 || (exports3.Diagnostic = Diagnostic2 = {}));
+      var Command3;
+      (function(Command4) {
+        function create(title, command2) {
           var args = [];
           for (var _i = 2; _i < arguments.length; _i++) {
             args[_i - 2] = arguments[_i];
           }
-          var result = { title, command };
-          if (Is.defined(args) && args.length > 0) {
+          var result = { title, command: command2 };
+          if (Is2.defined(args) && args.length > 0) {
             result.arguments = args;
           }
           return result;
         }
         __name(create, "create");
-        Command2.create = create;
+        Command4.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
+          return Is2.defined(candidate) && Is2.string(candidate.title) && Is2.string(candidate.command);
         }
         __name(is, "is");
-        Command2.is = is;
-      })(Command || (exports3.Command = Command = {}));
-      var TextEdit;
-      (function(TextEdit2) {
+        Command4.is = is;
+      })(Command3 || (exports3.Command = Command3 = {}));
+      var TextEdit4;
+      (function(TextEdit5) {
         function replace(range, newText) {
           return { range, newText };
         }
         __name(replace, "replace");
-        TextEdit2.replace = replace;
+        TextEdit5.replace = replace;
         function insert(position, newText) {
           return { range: { start: position, end: position }, newText };
         }
         __name(insert, "insert");
-        TextEdit2.insert = insert;
+        TextEdit5.insert = insert;
         function del(range) {
           return { range, newText: "" };
         }
         __name(del, "del");
-        TextEdit2.del = del;
+        TextEdit5.del = del;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.newText) && Range.is(candidate.range);
+          return Is2.objectLiteral(candidate) && Is2.string(candidate.newText) && Range4.is(candidate.range);
         }
         __name(is, "is");
-        TextEdit2.is = is;
-      })(TextEdit || (exports3.TextEdit = TextEdit = {}));
-      var ChangeAnnotation;
-      (function(ChangeAnnotation2) {
+        TextEdit5.is = is;
+      })(TextEdit4 || (exports3.TextEdit = TextEdit4 = {}));
+      var ChangeAnnotation2;
+      (function(ChangeAnnotation3) {
         function create(label, needsConfirmation, description) {
           var result = { label };
           if (needsConfirmation !== void 0) {
@@ -3907,63 +3917,63 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        ChangeAnnotation2.create = create;
+        ChangeAnnotation3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+          return Is2.objectLiteral(candidate) && Is2.string(candidate.label) && (Is2.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is2.string(candidate.description) || candidate.description === void 0);
         }
         __name(is, "is");
-        ChangeAnnotation2.is = is;
-      })(ChangeAnnotation || (exports3.ChangeAnnotation = ChangeAnnotation = {}));
-      var ChangeAnnotationIdentifier;
-      (function(ChangeAnnotationIdentifier2) {
+        ChangeAnnotation3.is = is;
+      })(ChangeAnnotation2 || (exports3.ChangeAnnotation = ChangeAnnotation2 = {}));
+      var ChangeAnnotationIdentifier2;
+      (function(ChangeAnnotationIdentifier3) {
         function is(value) {
           var candidate = value;
-          return Is.string(candidate);
+          return Is2.string(candidate);
         }
         __name(is, "is");
-        ChangeAnnotationIdentifier2.is = is;
-      })(ChangeAnnotationIdentifier || (exports3.ChangeAnnotationIdentifier = ChangeAnnotationIdentifier = {}));
-      var AnnotatedTextEdit;
-      (function(AnnotatedTextEdit2) {
+        ChangeAnnotationIdentifier3.is = is;
+      })(ChangeAnnotationIdentifier2 || (exports3.ChangeAnnotationIdentifier = ChangeAnnotationIdentifier2 = {}));
+      var AnnotatedTextEdit2;
+      (function(AnnotatedTextEdit3) {
         function replace(range, newText, annotation) {
           return { range, newText, annotationId: annotation };
         }
         __name(replace, "replace");
-        AnnotatedTextEdit2.replace = replace;
+        AnnotatedTextEdit3.replace = replace;
         function insert(position, newText, annotation) {
           return { range: { start: position, end: position }, newText, annotationId: annotation };
         }
         __name(insert, "insert");
-        AnnotatedTextEdit2.insert = insert;
+        AnnotatedTextEdit3.insert = insert;
         function del(range, annotation) {
           return { range, newText: "", annotationId: annotation };
         }
         __name(del, "del");
-        AnnotatedTextEdit2.del = del;
+        AnnotatedTextEdit3.del = del;
         function is(value) {
           var candidate = value;
-          return TextEdit.is(candidate) && (ChangeAnnotation.is(candidate.annotationId) || ChangeAnnotationIdentifier.is(candidate.annotationId));
+          return TextEdit4.is(candidate) && (ChangeAnnotation2.is(candidate.annotationId) || ChangeAnnotationIdentifier2.is(candidate.annotationId));
         }
         __name(is, "is");
-        AnnotatedTextEdit2.is = is;
-      })(AnnotatedTextEdit || (exports3.AnnotatedTextEdit = AnnotatedTextEdit = {}));
-      var TextDocumentEdit;
-      (function(TextDocumentEdit2) {
+        AnnotatedTextEdit3.is = is;
+      })(AnnotatedTextEdit2 || (exports3.AnnotatedTextEdit = AnnotatedTextEdit2 = {}));
+      var TextDocumentEdit3;
+      (function(TextDocumentEdit4) {
         function create(textDocument, edits) {
           return { textDocument, edits };
         }
         __name(create, "create");
-        TextDocumentEdit2.create = create;
+        TextDocumentEdit4.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument) && Array.isArray(candidate.edits);
+          return Is2.defined(candidate) && OptionalVersionedTextDocumentIdentifier2.is(candidate.textDocument) && Array.isArray(candidate.edits);
         }
         __name(is, "is");
-        TextDocumentEdit2.is = is;
-      })(TextDocumentEdit || (exports3.TextDocumentEdit = TextDocumentEdit = {}));
-      var CreateFile;
-      (function(CreateFile2) {
+        TextDocumentEdit4.is = is;
+      })(TextDocumentEdit3 || (exports3.TextDocumentEdit = TextDocumentEdit3 = {}));
+      var CreateFile2;
+      (function(CreateFile3) {
         function create(uri, options, annotation) {
           var result = {
             kind: "create",
@@ -3978,16 +3988,16 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        CreateFile2.create = create;
+        CreateFile3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && candidate.kind === "create" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+          return candidate && candidate.kind === "create" && Is2.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is2.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is2.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier2.is(candidate.annotationId));
         }
         __name(is, "is");
-        CreateFile2.is = is;
-      })(CreateFile || (exports3.CreateFile = CreateFile = {}));
-      var RenameFile;
-      (function(RenameFile2) {
+        CreateFile3.is = is;
+      })(CreateFile2 || (exports3.CreateFile = CreateFile2 = {}));
+      var RenameFile2;
+      (function(RenameFile3) {
         function create(oldUri, newUri, options, annotation) {
           var result = {
             kind: "rename",
@@ -4003,16 +4013,16 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        RenameFile2.create = create;
+        RenameFile3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && candidate.kind === "rename" && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+          return candidate && candidate.kind === "rename" && Is2.string(candidate.oldUri) && Is2.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is2.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is2.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier2.is(candidate.annotationId));
         }
         __name(is, "is");
-        RenameFile2.is = is;
-      })(RenameFile || (exports3.RenameFile = RenameFile = {}));
-      var DeleteFile;
-      (function(DeleteFile2) {
+        RenameFile3.is = is;
+      })(RenameFile2 || (exports3.RenameFile = RenameFile2 = {}));
+      var DeleteFile2;
+      (function(DeleteFile3) {
         function create(uri, options, annotation) {
           var result = {
             kind: "delete",
@@ -4027,29 +4037,29 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        DeleteFile2.create = create;
+        DeleteFile3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && candidate.kind === "delete" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+          return candidate && candidate.kind === "delete" && Is2.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is2.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is2.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier2.is(candidate.annotationId));
         }
         __name(is, "is");
-        DeleteFile2.is = is;
-      })(DeleteFile || (exports3.DeleteFile = DeleteFile = {}));
-      var WorkspaceEdit;
-      (function(WorkspaceEdit2) {
+        DeleteFile3.is = is;
+      })(DeleteFile2 || (exports3.DeleteFile = DeleteFile2 = {}));
+      var WorkspaceEdit2;
+      (function(WorkspaceEdit3) {
         function is(value) {
           var candidate = value;
           return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every(function(change) {
-            if (Is.string(change.kind)) {
-              return CreateFile.is(change) || RenameFile.is(change) || DeleteFile.is(change);
+            if (Is2.string(change.kind)) {
+              return CreateFile2.is(change) || RenameFile2.is(change) || DeleteFile2.is(change);
             } else {
-              return TextDocumentEdit.is(change);
+              return TextDocumentEdit3.is(change);
             }
           }));
         }
         __name(is, "is");
-        WorkspaceEdit2.is = is;
-      })(WorkspaceEdit || (exports3.WorkspaceEdit = WorkspaceEdit = {}));
+        WorkspaceEdit3.is = is;
+      })(WorkspaceEdit2 || (exports3.WorkspaceEdit = WorkspaceEdit2 = {}));
       var TextEditChangeImpl = (
         /** @class */
         (function() {
@@ -4062,14 +4072,14 @@ var require_main2 = __commonJS({
             var edit;
             var id;
             if (annotation === void 0) {
-              edit = TextEdit.insert(position, newText);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
+              edit = TextEdit4.insert(position, newText);
+            } else if (ChangeAnnotationIdentifier2.is(annotation)) {
               id = annotation;
-              edit = AnnotatedTextEdit.insert(position, newText, annotation);
+              edit = AnnotatedTextEdit2.insert(position, newText, annotation);
             } else {
               this.assertChangeAnnotations(this.changeAnnotations);
               id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.insert(position, newText, id);
+              edit = AnnotatedTextEdit2.insert(position, newText, id);
             }
             this.edits.push(edit);
             if (id !== void 0) {
@@ -4080,14 +4090,14 @@ var require_main2 = __commonJS({
             var edit;
             var id;
             if (annotation === void 0) {
-              edit = TextEdit.replace(range, newText);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
+              edit = TextEdit4.replace(range, newText);
+            } else if (ChangeAnnotationIdentifier2.is(annotation)) {
               id = annotation;
-              edit = AnnotatedTextEdit.replace(range, newText, annotation);
+              edit = AnnotatedTextEdit2.replace(range, newText, annotation);
             } else {
               this.assertChangeAnnotations(this.changeAnnotations);
               id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.replace(range, newText, id);
+              edit = AnnotatedTextEdit2.replace(range, newText, id);
             }
             this.edits.push(edit);
             if (id !== void 0) {
@@ -4098,14 +4108,14 @@ var require_main2 = __commonJS({
             var edit;
             var id;
             if (annotation === void 0) {
-              edit = TextEdit.del(range);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
+              edit = TextEdit4.del(range);
+            } else if (ChangeAnnotationIdentifier2.is(annotation)) {
               id = annotation;
-              edit = AnnotatedTextEdit.del(range, annotation);
+              edit = AnnotatedTextEdit2.del(range, annotation);
             } else {
               this.assertChangeAnnotations(this.changeAnnotations);
               id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.del(range, id);
+              edit = AnnotatedTextEdit2.del(range, id);
             }
             this.edits.push(edit);
             if (id !== void 0) {
@@ -4150,7 +4160,7 @@ var require_main2 = __commonJS({
           });
           ChangeAnnotations2.prototype.manage = function(idOrAnnotation, annotation) {
             var id;
-            if (ChangeAnnotationIdentifier.is(idOrAnnotation)) {
+            if (ChangeAnnotationIdentifier2.is(idOrAnnotation)) {
               id = idOrAnnotation;
             } else {
               id = this.nextId();
@@ -4173,10 +4183,10 @@ var require_main2 = __commonJS({
           return ChangeAnnotations2;
         })()
       );
-      var WorkspaceChange = (
+      var WorkspaceChange4 = (
         /** @class */
         (function() {
-          function WorkspaceChange2(workspaceEdit) {
+          function WorkspaceChange5(workspaceEdit) {
             var _this = this;
             this._textEditChanges = /* @__PURE__ */ Object.create(null);
             if (workspaceEdit !== void 0) {
@@ -4185,7 +4195,7 @@ var require_main2 = __commonJS({
                 this._changeAnnotations = new ChangeAnnotations(workspaceEdit.changeAnnotations);
                 workspaceEdit.changeAnnotations = this._changeAnnotations.all();
                 workspaceEdit.documentChanges.forEach(function(change) {
-                  if (TextDocumentEdit.is(change)) {
+                  if (TextDocumentEdit3.is(change)) {
                     var textEditChange = new TextEditChangeImpl(change.edits, _this._changeAnnotations);
                     _this._textEditChanges[change.textDocument.uri] = textEditChange;
                   }
@@ -4200,8 +4210,8 @@ var require_main2 = __commonJS({
               this._workspaceEdit = {};
             }
           }
-          __name(WorkspaceChange2, "WorkspaceChange");
-          Object.defineProperty(WorkspaceChange2.prototype, "edit", {
+          __name(WorkspaceChange5, "WorkspaceChange");
+          Object.defineProperty(WorkspaceChange5.prototype, "edit", {
             /**
              * Returns the underlying {@link WorkspaceEdit} literal
              * use to be returned from a workspace edit operation like rename.
@@ -4220,8 +4230,8 @@ var require_main2 = __commonJS({
             enumerable: false,
             configurable: true
           });
-          WorkspaceChange2.prototype.getTextEditChange = function(key) {
-            if (OptionalVersionedTextDocumentIdentifier.is(key)) {
+          WorkspaceChange5.prototype.getTextEditChange = function(key) {
+            if (OptionalVersionedTextDocumentIdentifier2.is(key)) {
               this.initDocumentChanges();
               if (this._workspaceEdit.documentChanges === void 0) {
                 throw new Error("Workspace edit is not configured for document changes.");
@@ -4254,25 +4264,25 @@ var require_main2 = __commonJS({
               return result;
             }
           };
-          WorkspaceChange2.prototype.initDocumentChanges = function() {
+          WorkspaceChange5.prototype.initDocumentChanges = function() {
             if (this._workspaceEdit.documentChanges === void 0 && this._workspaceEdit.changes === void 0) {
               this._changeAnnotations = new ChangeAnnotations();
               this._workspaceEdit.documentChanges = [];
               this._workspaceEdit.changeAnnotations = this._changeAnnotations.all();
             }
           };
-          WorkspaceChange2.prototype.initChanges = function() {
+          WorkspaceChange5.prototype.initChanges = function() {
             if (this._workspaceEdit.documentChanges === void 0 && this._workspaceEdit.changes === void 0) {
               this._workspaceEdit.changes = /* @__PURE__ */ Object.create(null);
             }
           };
-          WorkspaceChange2.prototype.createFile = function(uri, optionsOrAnnotation, options) {
+          WorkspaceChange5.prototype.createFile = function(uri, optionsOrAnnotation, options) {
             this.initDocumentChanges();
             if (this._workspaceEdit.documentChanges === void 0) {
               throw new Error("Workspace edit is not configured for document changes.");
             }
             var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+            if (ChangeAnnotation2.is(optionsOrAnnotation) || ChangeAnnotationIdentifier2.is(optionsOrAnnotation)) {
               annotation = optionsOrAnnotation;
             } else {
               options = optionsOrAnnotation;
@@ -4280,23 +4290,23 @@ var require_main2 = __commonJS({
             var operation;
             var id;
             if (annotation === void 0) {
-              operation = CreateFile.create(uri, options);
+              operation = CreateFile2.create(uri, options);
             } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = CreateFile.create(uri, options, id);
+              id = ChangeAnnotationIdentifier2.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+              operation = CreateFile2.create(uri, options, id);
             }
             this._workspaceEdit.documentChanges.push(operation);
             if (id !== void 0) {
               return id;
             }
           };
-          WorkspaceChange2.prototype.renameFile = function(oldUri, newUri, optionsOrAnnotation, options) {
+          WorkspaceChange5.prototype.renameFile = function(oldUri, newUri, optionsOrAnnotation, options) {
             this.initDocumentChanges();
             if (this._workspaceEdit.documentChanges === void 0) {
               throw new Error("Workspace edit is not configured for document changes.");
             }
             var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+            if (ChangeAnnotation2.is(optionsOrAnnotation) || ChangeAnnotationIdentifier2.is(optionsOrAnnotation)) {
               annotation = optionsOrAnnotation;
             } else {
               options = optionsOrAnnotation;
@@ -4304,23 +4314,23 @@ var require_main2 = __commonJS({
             var operation;
             var id;
             if (annotation === void 0) {
-              operation = RenameFile.create(oldUri, newUri, options);
+              operation = RenameFile2.create(oldUri, newUri, options);
             } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = RenameFile.create(oldUri, newUri, options, id);
+              id = ChangeAnnotationIdentifier2.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+              operation = RenameFile2.create(oldUri, newUri, options, id);
             }
             this._workspaceEdit.documentChanges.push(operation);
             if (id !== void 0) {
               return id;
             }
           };
-          WorkspaceChange2.prototype.deleteFile = function(uri, optionsOrAnnotation, options) {
+          WorkspaceChange5.prototype.deleteFile = function(uri, optionsOrAnnotation, options) {
             this.initDocumentChanges();
             if (this._workspaceEdit.documentChanges === void 0) {
               throw new Error("Workspace edit is not configured for document changes.");
             }
             var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
+            if (ChangeAnnotation2.is(optionsOrAnnotation) || ChangeAnnotationIdentifier2.is(optionsOrAnnotation)) {
               annotation = optionsOrAnnotation;
             } else {
               options = optionsOrAnnotation;
@@ -4328,220 +4338,220 @@ var require_main2 = __commonJS({
             var operation;
             var id;
             if (annotation === void 0) {
-              operation = DeleteFile.create(uri, options);
+              operation = DeleteFile2.create(uri, options);
             } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = DeleteFile.create(uri, options, id);
+              id = ChangeAnnotationIdentifier2.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
+              operation = DeleteFile2.create(uri, options, id);
             }
             this._workspaceEdit.documentChanges.push(operation);
             if (id !== void 0) {
               return id;
             }
           };
-          return WorkspaceChange2;
+          return WorkspaceChange5;
         })()
       );
-      exports3.WorkspaceChange = WorkspaceChange;
-      var TextDocumentIdentifier;
-      (function(TextDocumentIdentifier2) {
+      exports3.WorkspaceChange = WorkspaceChange4;
+      var TextDocumentIdentifier2;
+      (function(TextDocumentIdentifier3) {
         function create(uri) {
           return { uri };
         }
         __name(create, "create");
-        TextDocumentIdentifier2.create = create;
+        TextDocumentIdentifier3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri);
+          return Is2.defined(candidate) && Is2.string(candidate.uri);
         }
         __name(is, "is");
-        TextDocumentIdentifier2.is = is;
-      })(TextDocumentIdentifier || (exports3.TextDocumentIdentifier = TextDocumentIdentifier = {}));
-      var VersionedTextDocumentIdentifier;
-      (function(VersionedTextDocumentIdentifier2) {
+        TextDocumentIdentifier3.is = is;
+      })(TextDocumentIdentifier2 || (exports3.TextDocumentIdentifier = TextDocumentIdentifier2 = {}));
+      var VersionedTextDocumentIdentifier2;
+      (function(VersionedTextDocumentIdentifier3) {
         function create(uri, version) {
           return { uri, version };
         }
         __name(create, "create");
-        VersionedTextDocumentIdentifier2.create = create;
+        VersionedTextDocumentIdentifier3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
+          return Is2.defined(candidate) && Is2.string(candidate.uri) && Is2.integer(candidate.version);
         }
         __name(is, "is");
-        VersionedTextDocumentIdentifier2.is = is;
-      })(VersionedTextDocumentIdentifier || (exports3.VersionedTextDocumentIdentifier = VersionedTextDocumentIdentifier = {}));
-      var OptionalVersionedTextDocumentIdentifier;
-      (function(OptionalVersionedTextDocumentIdentifier2) {
+        VersionedTextDocumentIdentifier3.is = is;
+      })(VersionedTextDocumentIdentifier2 || (exports3.VersionedTextDocumentIdentifier = VersionedTextDocumentIdentifier2 = {}));
+      var OptionalVersionedTextDocumentIdentifier2;
+      (function(OptionalVersionedTextDocumentIdentifier3) {
         function create(uri, version) {
           return { uri, version };
         }
         __name(create, "create");
-        OptionalVersionedTextDocumentIdentifier2.create = create;
+        OptionalVersionedTextDocumentIdentifier3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
+          return Is2.defined(candidate) && Is2.string(candidate.uri) && (candidate.version === null || Is2.integer(candidate.version));
         }
         __name(is, "is");
-        OptionalVersionedTextDocumentIdentifier2.is = is;
-      })(OptionalVersionedTextDocumentIdentifier || (exports3.OptionalVersionedTextDocumentIdentifier = OptionalVersionedTextDocumentIdentifier = {}));
-      var TextDocumentItem;
-      (function(TextDocumentItem2) {
+        OptionalVersionedTextDocumentIdentifier3.is = is;
+      })(OptionalVersionedTextDocumentIdentifier2 || (exports3.OptionalVersionedTextDocumentIdentifier = OptionalVersionedTextDocumentIdentifier2 = {}));
+      var TextDocumentItem2;
+      (function(TextDocumentItem3) {
         function create(uri, languageId, version, text) {
           return { uri, languageId, version, text };
         }
         __name(create, "create");
-        TextDocumentItem2.create = create;
+        TextDocumentItem3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
+          return Is2.defined(candidate) && Is2.string(candidate.uri) && Is2.string(candidate.languageId) && Is2.integer(candidate.version) && Is2.string(candidate.text);
         }
         __name(is, "is");
-        TextDocumentItem2.is = is;
-      })(TextDocumentItem || (exports3.TextDocumentItem = TextDocumentItem = {}));
-      var MarkupKind;
-      (function(MarkupKind2) {
-        MarkupKind2.PlainText = "plaintext";
-        MarkupKind2.Markdown = "markdown";
+        TextDocumentItem3.is = is;
+      })(TextDocumentItem2 || (exports3.TextDocumentItem = TextDocumentItem2 = {}));
+      var MarkupKind2;
+      (function(MarkupKind3) {
+        MarkupKind3.PlainText = "plaintext";
+        MarkupKind3.Markdown = "markdown";
         function is(value) {
           var candidate = value;
-          return candidate === MarkupKind2.PlainText || candidate === MarkupKind2.Markdown;
+          return candidate === MarkupKind3.PlainText || candidate === MarkupKind3.Markdown;
         }
         __name(is, "is");
-        MarkupKind2.is = is;
-      })(MarkupKind || (exports3.MarkupKind = MarkupKind = {}));
-      var MarkupContent;
-      (function(MarkupContent2) {
+        MarkupKind3.is = is;
+      })(MarkupKind2 || (exports3.MarkupKind = MarkupKind2 = {}));
+      var MarkupContent2;
+      (function(MarkupContent3) {
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(value) && MarkupKind.is(candidate.kind) && Is.string(candidate.value);
+          return Is2.objectLiteral(value) && MarkupKind2.is(candidate.kind) && Is2.string(candidate.value);
         }
         __name(is, "is");
-        MarkupContent2.is = is;
-      })(MarkupContent || (exports3.MarkupContent = MarkupContent = {}));
-      var CompletionItemKind;
-      (function(CompletionItemKind2) {
-        CompletionItemKind2.Text = 1;
-        CompletionItemKind2.Method = 2;
-        CompletionItemKind2.Function = 3;
-        CompletionItemKind2.Constructor = 4;
-        CompletionItemKind2.Field = 5;
-        CompletionItemKind2.Variable = 6;
-        CompletionItemKind2.Class = 7;
-        CompletionItemKind2.Interface = 8;
-        CompletionItemKind2.Module = 9;
-        CompletionItemKind2.Property = 10;
-        CompletionItemKind2.Unit = 11;
-        CompletionItemKind2.Value = 12;
-        CompletionItemKind2.Enum = 13;
-        CompletionItemKind2.Keyword = 14;
-        CompletionItemKind2.Snippet = 15;
-        CompletionItemKind2.Color = 16;
-        CompletionItemKind2.File = 17;
-        CompletionItemKind2.Reference = 18;
-        CompletionItemKind2.Folder = 19;
-        CompletionItemKind2.EnumMember = 20;
-        CompletionItemKind2.Constant = 21;
-        CompletionItemKind2.Struct = 22;
-        CompletionItemKind2.Event = 23;
-        CompletionItemKind2.Operator = 24;
-        CompletionItemKind2.TypeParameter = 25;
-      })(CompletionItemKind || (exports3.CompletionItemKind = CompletionItemKind = {}));
-      var InsertTextFormat;
-      (function(InsertTextFormat2) {
-        InsertTextFormat2.PlainText = 1;
-        InsertTextFormat2.Snippet = 2;
-      })(InsertTextFormat || (exports3.InsertTextFormat = InsertTextFormat = {}));
-      var CompletionItemTag;
-      (function(CompletionItemTag2) {
-        CompletionItemTag2.Deprecated = 1;
-      })(CompletionItemTag || (exports3.CompletionItemTag = CompletionItemTag = {}));
-      var InsertReplaceEdit;
-      (function(InsertReplaceEdit2) {
+        MarkupContent3.is = is;
+      })(MarkupContent2 || (exports3.MarkupContent = MarkupContent2 = {}));
+      var CompletionItemKind3;
+      (function(CompletionItemKind4) {
+        CompletionItemKind4.Text = 1;
+        CompletionItemKind4.Method = 2;
+        CompletionItemKind4.Function = 3;
+        CompletionItemKind4.Constructor = 4;
+        CompletionItemKind4.Field = 5;
+        CompletionItemKind4.Variable = 6;
+        CompletionItemKind4.Class = 7;
+        CompletionItemKind4.Interface = 8;
+        CompletionItemKind4.Module = 9;
+        CompletionItemKind4.Property = 10;
+        CompletionItemKind4.Unit = 11;
+        CompletionItemKind4.Value = 12;
+        CompletionItemKind4.Enum = 13;
+        CompletionItemKind4.Keyword = 14;
+        CompletionItemKind4.Snippet = 15;
+        CompletionItemKind4.Color = 16;
+        CompletionItemKind4.File = 17;
+        CompletionItemKind4.Reference = 18;
+        CompletionItemKind4.Folder = 19;
+        CompletionItemKind4.EnumMember = 20;
+        CompletionItemKind4.Constant = 21;
+        CompletionItemKind4.Struct = 22;
+        CompletionItemKind4.Event = 23;
+        CompletionItemKind4.Operator = 24;
+        CompletionItemKind4.TypeParameter = 25;
+      })(CompletionItemKind3 || (exports3.CompletionItemKind = CompletionItemKind3 = {}));
+      var InsertTextFormat2;
+      (function(InsertTextFormat3) {
+        InsertTextFormat3.PlainText = 1;
+        InsertTextFormat3.Snippet = 2;
+      })(InsertTextFormat2 || (exports3.InsertTextFormat = InsertTextFormat2 = {}));
+      var CompletionItemTag2;
+      (function(CompletionItemTag3) {
+        CompletionItemTag3.Deprecated = 1;
+      })(CompletionItemTag2 || (exports3.CompletionItemTag = CompletionItemTag2 = {}));
+      var InsertReplaceEdit2;
+      (function(InsertReplaceEdit3) {
         function create(newText, insert, replace) {
           return { newText, insert, replace };
         }
         __name(create, "create");
-        InsertReplaceEdit2.create = create;
+        InsertReplaceEdit3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
+          return candidate && Is2.string(candidate.newText) && Range4.is(candidate.insert) && Range4.is(candidate.replace);
         }
         __name(is, "is");
-        InsertReplaceEdit2.is = is;
-      })(InsertReplaceEdit || (exports3.InsertReplaceEdit = InsertReplaceEdit = {}));
-      var InsertTextMode;
-      (function(InsertTextMode2) {
-        InsertTextMode2.asIs = 1;
-        InsertTextMode2.adjustIndentation = 2;
-      })(InsertTextMode || (exports3.InsertTextMode = InsertTextMode = {}));
-      var CompletionItemLabelDetails;
-      (function(CompletionItemLabelDetails2) {
+        InsertReplaceEdit3.is = is;
+      })(InsertReplaceEdit2 || (exports3.InsertReplaceEdit = InsertReplaceEdit2 = {}));
+      var InsertTextMode2;
+      (function(InsertTextMode3) {
+        InsertTextMode3.asIs = 1;
+        InsertTextMode3.adjustIndentation = 2;
+      })(InsertTextMode2 || (exports3.InsertTextMode = InsertTextMode2 = {}));
+      var CompletionItemLabelDetails2;
+      (function(CompletionItemLabelDetails3) {
         function is(value) {
           var candidate = value;
-          return candidate && (Is.string(candidate.detail) || candidate.detail === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+          return candidate && (Is2.string(candidate.detail) || candidate.detail === void 0) && (Is2.string(candidate.description) || candidate.description === void 0);
         }
         __name(is, "is");
-        CompletionItemLabelDetails2.is = is;
-      })(CompletionItemLabelDetails || (exports3.CompletionItemLabelDetails = CompletionItemLabelDetails = {}));
-      var CompletionItem;
-      (function(CompletionItem2) {
+        CompletionItemLabelDetails3.is = is;
+      })(CompletionItemLabelDetails2 || (exports3.CompletionItemLabelDetails = CompletionItemLabelDetails2 = {}));
+      var CompletionItem2;
+      (function(CompletionItem3) {
         function create(label) {
           return { label };
         }
         __name(create, "create");
-        CompletionItem2.create = create;
-      })(CompletionItem || (exports3.CompletionItem = CompletionItem = {}));
-      var CompletionList;
-      (function(CompletionList2) {
+        CompletionItem3.create = create;
+      })(CompletionItem2 || (exports3.CompletionItem = CompletionItem2 = {}));
+      var CompletionList2;
+      (function(CompletionList3) {
         function create(items, isIncomplete) {
           return { items: items ? items : [], isIncomplete: !!isIncomplete };
         }
         __name(create, "create");
-        CompletionList2.create = create;
-      })(CompletionList || (exports3.CompletionList = CompletionList = {}));
-      var MarkedString;
-      (function(MarkedString2) {
+        CompletionList3.create = create;
+      })(CompletionList2 || (exports3.CompletionList = CompletionList2 = {}));
+      var MarkedString2;
+      (function(MarkedString3) {
         function fromPlainText(plainText) {
           return plainText.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
         }
         __name(fromPlainText, "fromPlainText");
-        MarkedString2.fromPlainText = fromPlainText;
+        MarkedString3.fromPlainText = fromPlainText;
         function is(value) {
           var candidate = value;
-          return Is.string(candidate) || Is.objectLiteral(candidate) && Is.string(candidate.language) && Is.string(candidate.value);
+          return Is2.string(candidate) || Is2.objectLiteral(candidate) && Is2.string(candidate.language) && Is2.string(candidate.value);
         }
         __name(is, "is");
-        MarkedString2.is = is;
-      })(MarkedString || (exports3.MarkedString = MarkedString = {}));
-      var Hover;
-      (function(Hover2) {
+        MarkedString3.is = is;
+      })(MarkedString2 || (exports3.MarkedString = MarkedString2 = {}));
+      var Hover2;
+      (function(Hover3) {
         function is(value) {
           var candidate = value;
-          return !!candidate && Is.objectLiteral(candidate) && (MarkupContent.is(candidate.contents) || MarkedString.is(candidate.contents) || Is.typedArray(candidate.contents, MarkedString.is)) && (value.range === void 0 || Range.is(value.range));
+          return !!candidate && Is2.objectLiteral(candidate) && (MarkupContent2.is(candidate.contents) || MarkedString2.is(candidate.contents) || Is2.typedArray(candidate.contents, MarkedString2.is)) && (value.range === void 0 || Range4.is(value.range));
         }
         __name(is, "is");
-        Hover2.is = is;
-      })(Hover || (exports3.Hover = Hover = {}));
-      var ParameterInformation;
-      (function(ParameterInformation2) {
+        Hover3.is = is;
+      })(Hover2 || (exports3.Hover = Hover2 = {}));
+      var ParameterInformation2;
+      (function(ParameterInformation3) {
         function create(label, documentation) {
           return documentation ? { label, documentation } : { label };
         }
         __name(create, "create");
-        ParameterInformation2.create = create;
-      })(ParameterInformation || (exports3.ParameterInformation = ParameterInformation = {}));
-      var SignatureInformation;
-      (function(SignatureInformation2) {
+        ParameterInformation3.create = create;
+      })(ParameterInformation2 || (exports3.ParameterInformation = ParameterInformation2 = {}));
+      var SignatureInformation2;
+      (function(SignatureInformation3) {
         function create(label, documentation) {
           var parameters = [];
           for (var _i = 2; _i < arguments.length; _i++) {
             parameters[_i - 2] = arguments[_i];
           }
           var result = { label };
-          if (Is.defined(documentation)) {
+          if (Is2.defined(documentation)) {
             result.documentation = documentation;
           }
-          if (Is.defined(parameters)) {
+          if (Is2.defined(parameters)) {
             result.parameters = parameters;
           } else {
             result.parameters = [];
@@ -4549,61 +4559,61 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        SignatureInformation2.create = create;
-      })(SignatureInformation || (exports3.SignatureInformation = SignatureInformation = {}));
-      var DocumentHighlightKind;
-      (function(DocumentHighlightKind2) {
-        DocumentHighlightKind2.Text = 1;
-        DocumentHighlightKind2.Read = 2;
-        DocumentHighlightKind2.Write = 3;
-      })(DocumentHighlightKind || (exports3.DocumentHighlightKind = DocumentHighlightKind = {}));
-      var DocumentHighlight;
-      (function(DocumentHighlight2) {
+        SignatureInformation3.create = create;
+      })(SignatureInformation2 || (exports3.SignatureInformation = SignatureInformation2 = {}));
+      var DocumentHighlightKind2;
+      (function(DocumentHighlightKind3) {
+        DocumentHighlightKind3.Text = 1;
+        DocumentHighlightKind3.Read = 2;
+        DocumentHighlightKind3.Write = 3;
+      })(DocumentHighlightKind2 || (exports3.DocumentHighlightKind = DocumentHighlightKind2 = {}));
+      var DocumentHighlight2;
+      (function(DocumentHighlight3) {
         function create(range, kind) {
           var result = { range };
-          if (Is.number(kind)) {
+          if (Is2.number(kind)) {
             result.kind = kind;
           }
           return result;
         }
         __name(create, "create");
-        DocumentHighlight2.create = create;
-      })(DocumentHighlight || (exports3.DocumentHighlight = DocumentHighlight = {}));
-      var SymbolKind;
-      (function(SymbolKind2) {
-        SymbolKind2.File = 1;
-        SymbolKind2.Module = 2;
-        SymbolKind2.Namespace = 3;
-        SymbolKind2.Package = 4;
-        SymbolKind2.Class = 5;
-        SymbolKind2.Method = 6;
-        SymbolKind2.Property = 7;
-        SymbolKind2.Field = 8;
-        SymbolKind2.Constructor = 9;
-        SymbolKind2.Enum = 10;
-        SymbolKind2.Interface = 11;
-        SymbolKind2.Function = 12;
-        SymbolKind2.Variable = 13;
-        SymbolKind2.Constant = 14;
-        SymbolKind2.String = 15;
-        SymbolKind2.Number = 16;
-        SymbolKind2.Boolean = 17;
-        SymbolKind2.Array = 18;
-        SymbolKind2.Object = 19;
-        SymbolKind2.Key = 20;
-        SymbolKind2.Null = 21;
-        SymbolKind2.EnumMember = 22;
-        SymbolKind2.Struct = 23;
-        SymbolKind2.Event = 24;
-        SymbolKind2.Operator = 25;
-        SymbolKind2.TypeParameter = 26;
-      })(SymbolKind || (exports3.SymbolKind = SymbolKind = {}));
-      var SymbolTag;
-      (function(SymbolTag2) {
-        SymbolTag2.Deprecated = 1;
-      })(SymbolTag || (exports3.SymbolTag = SymbolTag = {}));
-      var SymbolInformation;
-      (function(SymbolInformation2) {
+        DocumentHighlight3.create = create;
+      })(DocumentHighlight2 || (exports3.DocumentHighlight = DocumentHighlight2 = {}));
+      var SymbolKind2;
+      (function(SymbolKind3) {
+        SymbolKind3.File = 1;
+        SymbolKind3.Module = 2;
+        SymbolKind3.Namespace = 3;
+        SymbolKind3.Package = 4;
+        SymbolKind3.Class = 5;
+        SymbolKind3.Method = 6;
+        SymbolKind3.Property = 7;
+        SymbolKind3.Field = 8;
+        SymbolKind3.Constructor = 9;
+        SymbolKind3.Enum = 10;
+        SymbolKind3.Interface = 11;
+        SymbolKind3.Function = 12;
+        SymbolKind3.Variable = 13;
+        SymbolKind3.Constant = 14;
+        SymbolKind3.String = 15;
+        SymbolKind3.Number = 16;
+        SymbolKind3.Boolean = 17;
+        SymbolKind3.Array = 18;
+        SymbolKind3.Object = 19;
+        SymbolKind3.Key = 20;
+        SymbolKind3.Null = 21;
+        SymbolKind3.EnumMember = 22;
+        SymbolKind3.Struct = 23;
+        SymbolKind3.Event = 24;
+        SymbolKind3.Operator = 25;
+        SymbolKind3.TypeParameter = 26;
+      })(SymbolKind2 || (exports3.SymbolKind = SymbolKind2 = {}));
+      var SymbolTag2;
+      (function(SymbolTag3) {
+        SymbolTag3.Deprecated = 1;
+      })(SymbolTag2 || (exports3.SymbolTag = SymbolTag2 = {}));
+      var SymbolInformation2;
+      (function(SymbolInformation3) {
         function create(name, kind, range, uri, containerName) {
           var result = {
             name,
@@ -4616,18 +4626,18 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        SymbolInformation2.create = create;
-      })(SymbolInformation || (exports3.SymbolInformation = SymbolInformation = {}));
-      var WorkspaceSymbol;
-      (function(WorkspaceSymbol2) {
+        SymbolInformation3.create = create;
+      })(SymbolInformation2 || (exports3.SymbolInformation = SymbolInformation2 = {}));
+      var WorkspaceSymbol2;
+      (function(WorkspaceSymbol3) {
         function create(name, kind, uri, range) {
           return range !== void 0 ? { name, kind, location: { uri, range } } : { name, kind, location: { uri } };
         }
         __name(create, "create");
-        WorkspaceSymbol2.create = create;
-      })(WorkspaceSymbol || (exports3.WorkspaceSymbol = WorkspaceSymbol = {}));
-      var DocumentSymbol;
-      (function(DocumentSymbol2) {
+        WorkspaceSymbol3.create = create;
+      })(WorkspaceSymbol2 || (exports3.WorkspaceSymbol = WorkspaceSymbol2 = {}));
+      var DocumentSymbol2;
+      (function(DocumentSymbol3) {
         function create(name, detail, kind, range, selectionRange, children) {
           var result = {
             name,
@@ -4642,33 +4652,33 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        DocumentSymbol2.create = create;
+        DocumentSymbol3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && Is.string(candidate.name) && Is.number(candidate.kind) && Range.is(candidate.range) && Range.is(candidate.selectionRange) && (candidate.detail === void 0 || Is.string(candidate.detail)) && (candidate.deprecated === void 0 || Is.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
+          return candidate && Is2.string(candidate.name) && Is2.number(candidate.kind) && Range4.is(candidate.range) && Range4.is(candidate.selectionRange) && (candidate.detail === void 0 || Is2.string(candidate.detail)) && (candidate.deprecated === void 0 || Is2.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
         }
         __name(is, "is");
-        DocumentSymbol2.is = is;
-      })(DocumentSymbol || (exports3.DocumentSymbol = DocumentSymbol = {}));
-      var CodeActionKind;
-      (function(CodeActionKind2) {
-        CodeActionKind2.Empty = "";
-        CodeActionKind2.QuickFix = "quickfix";
-        CodeActionKind2.Refactor = "refactor";
-        CodeActionKind2.RefactorExtract = "refactor.extract";
-        CodeActionKind2.RefactorInline = "refactor.inline";
-        CodeActionKind2.RefactorRewrite = "refactor.rewrite";
-        CodeActionKind2.Source = "source";
-        CodeActionKind2.SourceOrganizeImports = "source.organizeImports";
-        CodeActionKind2.SourceFixAll = "source.fixAll";
-      })(CodeActionKind || (exports3.CodeActionKind = CodeActionKind = {}));
-      var CodeActionTriggerKind;
-      (function(CodeActionTriggerKind2) {
-        CodeActionTriggerKind2.Invoked = 1;
-        CodeActionTriggerKind2.Automatic = 2;
-      })(CodeActionTriggerKind || (exports3.CodeActionTriggerKind = CodeActionTriggerKind = {}));
-      var CodeActionContext;
-      (function(CodeActionContext2) {
+        DocumentSymbol3.is = is;
+      })(DocumentSymbol2 || (exports3.DocumentSymbol = DocumentSymbol2 = {}));
+      var CodeActionKind6;
+      (function(CodeActionKind7) {
+        CodeActionKind7.Empty = "";
+        CodeActionKind7.QuickFix = "quickfix";
+        CodeActionKind7.Refactor = "refactor";
+        CodeActionKind7.RefactorExtract = "refactor.extract";
+        CodeActionKind7.RefactorInline = "refactor.inline";
+        CodeActionKind7.RefactorRewrite = "refactor.rewrite";
+        CodeActionKind7.Source = "source";
+        CodeActionKind7.SourceOrganizeImports = "source.organizeImports";
+        CodeActionKind7.SourceFixAll = "source.fixAll";
+      })(CodeActionKind6 || (exports3.CodeActionKind = CodeActionKind6 = {}));
+      var CodeActionTriggerKind2;
+      (function(CodeActionTriggerKind3) {
+        CodeActionTriggerKind3.Invoked = 1;
+        CodeActionTriggerKind3.Automatic = 2;
+      })(CodeActionTriggerKind2 || (exports3.CodeActionTriggerKind = CodeActionTriggerKind2 = {}));
+      var CodeActionContext2;
+      (function(CodeActionContext3) {
         function create(diagnostics, only, triggerKind) {
           var result = { diagnostics };
           if (only !== void 0 && only !== null) {
@@ -4680,23 +4690,23 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        CodeActionContext2.create = create;
+        CodeActionContext3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is) && (candidate.only === void 0 || Is.typedArray(candidate.only, Is.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
+          return Is2.defined(candidate) && Is2.typedArray(candidate.diagnostics, Diagnostic2.is) && (candidate.only === void 0 || Is2.typedArray(candidate.only, Is2.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind2.Invoked || candidate.triggerKind === CodeActionTriggerKind2.Automatic);
         }
         __name(is, "is");
-        CodeActionContext2.is = is;
-      })(CodeActionContext || (exports3.CodeActionContext = CodeActionContext = {}));
-      var CodeAction;
-      (function(CodeAction2) {
+        CodeActionContext3.is = is;
+      })(CodeActionContext2 || (exports3.CodeActionContext = CodeActionContext2 = {}));
+      var CodeAction5;
+      (function(CodeAction6) {
         function create(title, kindOrCommandOrEdit, kind) {
           var result = { title };
           var checkKind = true;
           if (typeof kindOrCommandOrEdit === "string") {
             checkKind = false;
             result.kind = kindOrCommandOrEdit;
-          } else if (Command.is(kindOrCommandOrEdit)) {
+          } else if (Command3.is(kindOrCommandOrEdit)) {
             result.command = kindOrCommandOrEdit;
           } else {
             result.edit = kindOrCommandOrEdit;
@@ -4707,204 +4717,204 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        CodeAction2.create = create;
+        CodeAction6.create = create;
         function is(value) {
           var candidate = value;
-          return candidate && Is.string(candidate.title) && (candidate.diagnostics === void 0 || Is.typedArray(candidate.diagnostics, Diagnostic.is)) && (candidate.kind === void 0 || Is.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command.is(candidate.command)) && (candidate.isPreferred === void 0 || Is.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit.is(candidate.edit));
+          return candidate && Is2.string(candidate.title) && (candidate.diagnostics === void 0 || Is2.typedArray(candidate.diagnostics, Diagnostic2.is)) && (candidate.kind === void 0 || Is2.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command3.is(candidate.command)) && (candidate.isPreferred === void 0 || Is2.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit2.is(candidate.edit));
         }
         __name(is, "is");
-        CodeAction2.is = is;
-      })(CodeAction || (exports3.CodeAction = CodeAction = {}));
-      var CodeLens;
-      (function(CodeLens2) {
+        CodeAction6.is = is;
+      })(CodeAction5 || (exports3.CodeAction = CodeAction5 = {}));
+      var CodeLens2;
+      (function(CodeLens3) {
         function create(range, data) {
           var result = { range };
-          if (Is.defined(data)) {
+          if (Is2.defined(data)) {
             result.data = data;
           }
           return result;
         }
         __name(create, "create");
-        CodeLens2.create = create;
+        CodeLens3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
+          return Is2.defined(candidate) && Range4.is(candidate.range) && (Is2.undefined(candidate.command) || Command3.is(candidate.command));
         }
         __name(is, "is");
-        CodeLens2.is = is;
-      })(CodeLens || (exports3.CodeLens = CodeLens = {}));
-      var FormattingOptions;
-      (function(FormattingOptions2) {
+        CodeLens3.is = is;
+      })(CodeLens2 || (exports3.CodeLens = CodeLens2 = {}));
+      var FormattingOptions2;
+      (function(FormattingOptions3) {
         function create(tabSize, insertSpaces) {
           return { tabSize, insertSpaces };
         }
         __name(create, "create");
-        FormattingOptions2.create = create;
+        FormattingOptions3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
+          return Is2.defined(candidate) && Is2.uinteger(candidate.tabSize) && Is2.boolean(candidate.insertSpaces);
         }
         __name(is, "is");
-        FormattingOptions2.is = is;
-      })(FormattingOptions || (exports3.FormattingOptions = FormattingOptions = {}));
-      var DocumentLink;
-      (function(DocumentLink2) {
+        FormattingOptions3.is = is;
+      })(FormattingOptions2 || (exports3.FormattingOptions = FormattingOptions2 = {}));
+      var DocumentLink2;
+      (function(DocumentLink3) {
         function create(range, target, data) {
           return { range, target, data };
         }
         __name(create, "create");
-        DocumentLink2.create = create;
+        DocumentLink3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
+          return Is2.defined(candidate) && Range4.is(candidate.range) && (Is2.undefined(candidate.target) || Is2.string(candidate.target));
         }
         __name(is, "is");
-        DocumentLink2.is = is;
-      })(DocumentLink || (exports3.DocumentLink = DocumentLink = {}));
-      var SelectionRange;
-      (function(SelectionRange2) {
+        DocumentLink3.is = is;
+      })(DocumentLink2 || (exports3.DocumentLink = DocumentLink2 = {}));
+      var SelectionRange2;
+      (function(SelectionRange3) {
         function create(range, parent) {
           return { range, parent };
         }
         __name(create, "create");
-        SelectionRange2.create = create;
+        SelectionRange3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === void 0 || SelectionRange2.is(candidate.parent));
+          return Is2.objectLiteral(candidate) && Range4.is(candidate.range) && (candidate.parent === void 0 || SelectionRange3.is(candidate.parent));
         }
         __name(is, "is");
-        SelectionRange2.is = is;
-      })(SelectionRange || (exports3.SelectionRange = SelectionRange = {}));
-      var SemanticTokenTypes;
-      (function(SemanticTokenTypes2) {
-        SemanticTokenTypes2["namespace"] = "namespace";
-        SemanticTokenTypes2["type"] = "type";
-        SemanticTokenTypes2["class"] = "class";
-        SemanticTokenTypes2["enum"] = "enum";
-        SemanticTokenTypes2["interface"] = "interface";
-        SemanticTokenTypes2["struct"] = "struct";
-        SemanticTokenTypes2["typeParameter"] = "typeParameter";
-        SemanticTokenTypes2["parameter"] = "parameter";
-        SemanticTokenTypes2["variable"] = "variable";
-        SemanticTokenTypes2["property"] = "property";
-        SemanticTokenTypes2["enumMember"] = "enumMember";
-        SemanticTokenTypes2["event"] = "event";
-        SemanticTokenTypes2["function"] = "function";
-        SemanticTokenTypes2["method"] = "method";
-        SemanticTokenTypes2["macro"] = "macro";
-        SemanticTokenTypes2["keyword"] = "keyword";
-        SemanticTokenTypes2["modifier"] = "modifier";
-        SemanticTokenTypes2["comment"] = "comment";
-        SemanticTokenTypes2["string"] = "string";
-        SemanticTokenTypes2["number"] = "number";
-        SemanticTokenTypes2["regexp"] = "regexp";
-        SemanticTokenTypes2["operator"] = "operator";
-        SemanticTokenTypes2["decorator"] = "decorator";
-      })(SemanticTokenTypes || (exports3.SemanticTokenTypes = SemanticTokenTypes = {}));
-      var SemanticTokenModifiers;
-      (function(SemanticTokenModifiers2) {
-        SemanticTokenModifiers2["declaration"] = "declaration";
-        SemanticTokenModifiers2["definition"] = "definition";
-        SemanticTokenModifiers2["readonly"] = "readonly";
-        SemanticTokenModifiers2["static"] = "static";
-        SemanticTokenModifiers2["deprecated"] = "deprecated";
-        SemanticTokenModifiers2["abstract"] = "abstract";
-        SemanticTokenModifiers2["async"] = "async";
-        SemanticTokenModifiers2["modification"] = "modification";
-        SemanticTokenModifiers2["documentation"] = "documentation";
-        SemanticTokenModifiers2["defaultLibrary"] = "defaultLibrary";
-      })(SemanticTokenModifiers || (exports3.SemanticTokenModifiers = SemanticTokenModifiers = {}));
-      var SemanticTokens;
-      (function(SemanticTokens2) {
+        SelectionRange3.is = is;
+      })(SelectionRange2 || (exports3.SelectionRange = SelectionRange2 = {}));
+      var SemanticTokenTypes2;
+      (function(SemanticTokenTypes3) {
+        SemanticTokenTypes3["namespace"] = "namespace";
+        SemanticTokenTypes3["type"] = "type";
+        SemanticTokenTypes3["class"] = "class";
+        SemanticTokenTypes3["enum"] = "enum";
+        SemanticTokenTypes3["interface"] = "interface";
+        SemanticTokenTypes3["struct"] = "struct";
+        SemanticTokenTypes3["typeParameter"] = "typeParameter";
+        SemanticTokenTypes3["parameter"] = "parameter";
+        SemanticTokenTypes3["variable"] = "variable";
+        SemanticTokenTypes3["property"] = "property";
+        SemanticTokenTypes3["enumMember"] = "enumMember";
+        SemanticTokenTypes3["event"] = "event";
+        SemanticTokenTypes3["function"] = "function";
+        SemanticTokenTypes3["method"] = "method";
+        SemanticTokenTypes3["macro"] = "macro";
+        SemanticTokenTypes3["keyword"] = "keyword";
+        SemanticTokenTypes3["modifier"] = "modifier";
+        SemanticTokenTypes3["comment"] = "comment";
+        SemanticTokenTypes3["string"] = "string";
+        SemanticTokenTypes3["number"] = "number";
+        SemanticTokenTypes3["regexp"] = "regexp";
+        SemanticTokenTypes3["operator"] = "operator";
+        SemanticTokenTypes3["decorator"] = "decorator";
+      })(SemanticTokenTypes2 || (exports3.SemanticTokenTypes = SemanticTokenTypes2 = {}));
+      var SemanticTokenModifiers2;
+      (function(SemanticTokenModifiers3) {
+        SemanticTokenModifiers3["declaration"] = "declaration";
+        SemanticTokenModifiers3["definition"] = "definition";
+        SemanticTokenModifiers3["readonly"] = "readonly";
+        SemanticTokenModifiers3["static"] = "static";
+        SemanticTokenModifiers3["deprecated"] = "deprecated";
+        SemanticTokenModifiers3["abstract"] = "abstract";
+        SemanticTokenModifiers3["async"] = "async";
+        SemanticTokenModifiers3["modification"] = "modification";
+        SemanticTokenModifiers3["documentation"] = "documentation";
+        SemanticTokenModifiers3["defaultLibrary"] = "defaultLibrary";
+      })(SemanticTokenModifiers2 || (exports3.SemanticTokenModifiers = SemanticTokenModifiers2 = {}));
+      var SemanticTokens2;
+      (function(SemanticTokens3) {
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && (candidate.resultId === void 0 || typeof candidate.resultId === "string") && Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === "number");
+          return Is2.objectLiteral(candidate) && (candidate.resultId === void 0 || typeof candidate.resultId === "string") && Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === "number");
         }
         __name(is, "is");
-        SemanticTokens2.is = is;
-      })(SemanticTokens || (exports3.SemanticTokens = SemanticTokens = {}));
-      var InlineValueText;
-      (function(InlineValueText2) {
+        SemanticTokens3.is = is;
+      })(SemanticTokens2 || (exports3.SemanticTokens = SemanticTokens2 = {}));
+      var InlineValueText2;
+      (function(InlineValueText3) {
         function create(range, text) {
           return { range, text };
         }
         __name(create, "create");
-        InlineValueText2.create = create;
+        InlineValueText3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
+          return candidate !== void 0 && candidate !== null && Range4.is(candidate.range) && Is2.string(candidate.text);
         }
         __name(is, "is");
-        InlineValueText2.is = is;
-      })(InlineValueText || (exports3.InlineValueText = InlineValueText = {}));
-      var InlineValueVariableLookup;
-      (function(InlineValueVariableLookup2) {
+        InlineValueText3.is = is;
+      })(InlineValueText2 || (exports3.InlineValueText = InlineValueText2 = {}));
+      var InlineValueVariableLookup2;
+      (function(InlineValueVariableLookup3) {
         function create(range, variableName, caseSensitiveLookup) {
           return { range, variableName, caseSensitiveLookup };
         }
         __name(create, "create");
-        InlineValueVariableLookup2.create = create;
+        InlineValueVariableLookup3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup) && (Is.string(candidate.variableName) || candidate.variableName === void 0);
+          return candidate !== void 0 && candidate !== null && Range4.is(candidate.range) && Is2.boolean(candidate.caseSensitiveLookup) && (Is2.string(candidate.variableName) || candidate.variableName === void 0);
         }
         __name(is, "is");
-        InlineValueVariableLookup2.is = is;
-      })(InlineValueVariableLookup || (exports3.InlineValueVariableLookup = InlineValueVariableLookup = {}));
-      var InlineValueEvaluatableExpression;
-      (function(InlineValueEvaluatableExpression2) {
+        InlineValueVariableLookup3.is = is;
+      })(InlineValueVariableLookup2 || (exports3.InlineValueVariableLookup = InlineValueVariableLookup2 = {}));
+      var InlineValueEvaluatableExpression2;
+      (function(InlineValueEvaluatableExpression3) {
         function create(range, expression) {
           return { range, expression };
         }
         __name(create, "create");
-        InlineValueEvaluatableExpression2.create = create;
+        InlineValueEvaluatableExpression3.create = create;
         function is(value) {
           var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && (Is.string(candidate.expression) || candidate.expression === void 0);
+          return candidate !== void 0 && candidate !== null && Range4.is(candidate.range) && (Is2.string(candidate.expression) || candidate.expression === void 0);
         }
         __name(is, "is");
-        InlineValueEvaluatableExpression2.is = is;
-      })(InlineValueEvaluatableExpression || (exports3.InlineValueEvaluatableExpression = InlineValueEvaluatableExpression = {}));
-      var InlineValueContext;
-      (function(InlineValueContext2) {
+        InlineValueEvaluatableExpression3.is = is;
+      })(InlineValueEvaluatableExpression2 || (exports3.InlineValueEvaluatableExpression = InlineValueEvaluatableExpression2 = {}));
+      var InlineValueContext2;
+      (function(InlineValueContext3) {
         function create(frameId, stoppedLocation) {
           return { frameId, stoppedLocation };
         }
         __name(create, "create");
-        InlineValueContext2.create = create;
+        InlineValueContext3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Range.is(value.stoppedLocation);
+          return Is2.defined(candidate) && Range4.is(value.stoppedLocation);
         }
         __name(is, "is");
-        InlineValueContext2.is = is;
-      })(InlineValueContext || (exports3.InlineValueContext = InlineValueContext = {}));
-      var InlayHintKind;
-      (function(InlayHintKind2) {
-        InlayHintKind2.Type = 1;
-        InlayHintKind2.Parameter = 2;
+        InlineValueContext3.is = is;
+      })(InlineValueContext2 || (exports3.InlineValueContext = InlineValueContext2 = {}));
+      var InlayHintKind2;
+      (function(InlayHintKind3) {
+        InlayHintKind3.Type = 1;
+        InlayHintKind3.Parameter = 2;
         function is(value) {
           return value === 1 || value === 2;
         }
         __name(is, "is");
-        InlayHintKind2.is = is;
-      })(InlayHintKind || (exports3.InlayHintKind = InlayHintKind = {}));
-      var InlayHintLabelPart;
-      (function(InlayHintLabelPart2) {
+        InlayHintKind3.is = is;
+      })(InlayHintKind2 || (exports3.InlayHintKind = InlayHintKind2 = {}));
+      var InlayHintLabelPart2;
+      (function(InlayHintLabelPart3) {
         function create(value) {
           return { value };
         }
         __name(create, "create");
-        InlayHintLabelPart2.create = create;
+        InlayHintLabelPart3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.location === void 0 || Location.is(candidate.location)) && (candidate.command === void 0 || Command.is(candidate.command));
+          return Is2.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is2.string(candidate.tooltip) || MarkupContent2.is(candidate.tooltip)) && (candidate.location === void 0 || Location2.is(candidate.location)) && (candidate.command === void 0 || Command3.is(candidate.command));
         }
         __name(is, "is");
-        InlayHintLabelPart2.is = is;
-      })(InlayHintLabelPart || (exports3.InlayHintLabelPart = InlayHintLabelPart = {}));
-      var InlayHint;
-      (function(InlayHint2) {
+        InlayHintLabelPart3.is = is;
+      })(InlayHintLabelPart2 || (exports3.InlayHintLabelPart = InlayHintLabelPart2 = {}));
+      var InlayHint2;
+      (function(InlayHint3) {
         function create(position, label, kind) {
           var result = { position, label };
           if (kind !== void 0) {
@@ -4913,90 +4923,90 @@ var require_main2 = __commonJS({
           return result;
         }
         __name(create, "create");
-        InlayHint2.create = create;
+        InlayHint3.create = create;
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && Position.is(candidate.position) && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is)) && (candidate.kind === void 0 || InlayHintKind.is(candidate.kind)) && candidate.textEdits === void 0 || Is.typedArray(candidate.textEdits, TextEdit.is) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is.boolean(candidate.paddingRight));
+          return Is2.objectLiteral(candidate) && Position4.is(candidate.position) && (Is2.string(candidate.label) || Is2.typedArray(candidate.label, InlayHintLabelPart2.is)) && (candidate.kind === void 0 || InlayHintKind2.is(candidate.kind)) && candidate.textEdits === void 0 || Is2.typedArray(candidate.textEdits, TextEdit4.is) && (candidate.tooltip === void 0 || Is2.string(candidate.tooltip) || MarkupContent2.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is2.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is2.boolean(candidate.paddingRight));
         }
         __name(is, "is");
-        InlayHint2.is = is;
-      })(InlayHint || (exports3.InlayHint = InlayHint = {}));
-      var StringValue;
-      (function(StringValue2) {
+        InlayHint3.is = is;
+      })(InlayHint2 || (exports3.InlayHint = InlayHint2 = {}));
+      var StringValue2;
+      (function(StringValue3) {
         function createSnippet(value) {
           return { kind: "snippet", value };
         }
         __name(createSnippet, "createSnippet");
-        StringValue2.createSnippet = createSnippet;
-      })(StringValue || (exports3.StringValue = StringValue = {}));
-      var InlineCompletionItem;
-      (function(InlineCompletionItem2) {
-        function create(insertText, filterText, range, command) {
-          return { insertText, filterText, range, command };
+        StringValue3.createSnippet = createSnippet;
+      })(StringValue2 || (exports3.StringValue = StringValue2 = {}));
+      var InlineCompletionItem2;
+      (function(InlineCompletionItem3) {
+        function create(insertText, filterText, range, command2) {
+          return { insertText, filterText, range, command: command2 };
         }
         __name(create, "create");
-        InlineCompletionItem2.create = create;
-      })(InlineCompletionItem || (exports3.InlineCompletionItem = InlineCompletionItem = {}));
-      var InlineCompletionList;
-      (function(InlineCompletionList2) {
+        InlineCompletionItem3.create = create;
+      })(InlineCompletionItem2 || (exports3.InlineCompletionItem = InlineCompletionItem2 = {}));
+      var InlineCompletionList2;
+      (function(InlineCompletionList3) {
         function create(items) {
           return { items };
         }
         __name(create, "create");
-        InlineCompletionList2.create = create;
-      })(InlineCompletionList || (exports3.InlineCompletionList = InlineCompletionList = {}));
-      var InlineCompletionTriggerKind;
-      (function(InlineCompletionTriggerKind2) {
-        InlineCompletionTriggerKind2.Invoked = 0;
-        InlineCompletionTriggerKind2.Automatic = 1;
-      })(InlineCompletionTriggerKind || (exports3.InlineCompletionTriggerKind = InlineCompletionTriggerKind = {}));
-      var SelectedCompletionInfo;
-      (function(SelectedCompletionInfo2) {
+        InlineCompletionList3.create = create;
+      })(InlineCompletionList2 || (exports3.InlineCompletionList = InlineCompletionList2 = {}));
+      var InlineCompletionTriggerKind2;
+      (function(InlineCompletionTriggerKind3) {
+        InlineCompletionTriggerKind3.Invoked = 0;
+        InlineCompletionTriggerKind3.Automatic = 1;
+      })(InlineCompletionTriggerKind2 || (exports3.InlineCompletionTriggerKind = InlineCompletionTriggerKind2 = {}));
+      var SelectedCompletionInfo2;
+      (function(SelectedCompletionInfo3) {
         function create(range, text) {
           return { range, text };
         }
         __name(create, "create");
-        SelectedCompletionInfo2.create = create;
-      })(SelectedCompletionInfo || (exports3.SelectedCompletionInfo = SelectedCompletionInfo = {}));
-      var InlineCompletionContext;
-      (function(InlineCompletionContext2) {
+        SelectedCompletionInfo3.create = create;
+      })(SelectedCompletionInfo2 || (exports3.SelectedCompletionInfo = SelectedCompletionInfo2 = {}));
+      var InlineCompletionContext2;
+      (function(InlineCompletionContext3) {
         function create(triggerKind, selectedCompletionInfo) {
           return { triggerKind, selectedCompletionInfo };
         }
         __name(create, "create");
-        InlineCompletionContext2.create = create;
-      })(InlineCompletionContext || (exports3.InlineCompletionContext = InlineCompletionContext = {}));
-      var WorkspaceFolder;
-      (function(WorkspaceFolder2) {
+        InlineCompletionContext3.create = create;
+      })(InlineCompletionContext2 || (exports3.InlineCompletionContext = InlineCompletionContext2 = {}));
+      var WorkspaceFolder2;
+      (function(WorkspaceFolder3) {
         function is(value) {
           var candidate = value;
-          return Is.objectLiteral(candidate) && URI.is(candidate.uri) && Is.string(candidate.name);
+          return Is2.objectLiteral(candidate) && URI3.is(candidate.uri) && Is2.string(candidate.name);
         }
         __name(is, "is");
-        WorkspaceFolder2.is = is;
-      })(WorkspaceFolder || (exports3.WorkspaceFolder = WorkspaceFolder = {}));
+        WorkspaceFolder3.is = is;
+      })(WorkspaceFolder2 || (exports3.WorkspaceFolder = WorkspaceFolder2 = {}));
       exports3.EOL = ["\n", "\r\n", "\r"];
-      var TextDocument2;
-      (function(TextDocument3) {
+      var TextDocument3;
+      (function(TextDocument4) {
         function create(uri, languageId, version, content) {
-          return new FullTextDocument2(uri, languageId, version, content);
+          return new FullTextDocument3(uri, languageId, version, content);
         }
         __name(create, "create");
-        TextDocument3.create = create;
+        TextDocument4.create = create;
         function is(value) {
           var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount) && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
+          return Is2.defined(candidate) && Is2.string(candidate.uri) && (Is2.undefined(candidate.languageId) || Is2.string(candidate.languageId)) && Is2.uinteger(candidate.lineCount) && Is2.func(candidate.getText) && Is2.func(candidate.positionAt) && Is2.func(candidate.offsetAt) ? true : false;
         }
         __name(is, "is");
-        TextDocument3.is = is;
+        TextDocument4.is = is;
         function applyEdits(document, edits) {
           var text = document.getText();
           var sortedEdits = mergeSort2(edits, function(a, b) {
-            var diff = a.range.start.line - b.range.start.line;
-            if (diff === 0) {
+            var diff2 = a.range.start.line - b.range.start.line;
+            if (diff2 === 0) {
               return a.range.start.character - b.range.start.character;
             }
-            return diff;
+            return diff2;
           });
           var lastModifiedOffset = text.length;
           for (var i = sortedEdits.length - 1; i >= 0; i--) {
@@ -5013,7 +5023,7 @@ var require_main2 = __commonJS({
           return text;
         }
         __name(applyEdits, "applyEdits");
-        TextDocument3.applyEdits = applyEdits;
+        TextDocument4.applyEdits = applyEdits;
         function mergeSort2(data, compare) {
           if (data.length <= 1) {
             return data;
@@ -5043,40 +5053,40 @@ var require_main2 = __commonJS({
           return data;
         }
         __name(mergeSort2, "mergeSort");
-      })(TextDocument2 || (exports3.TextDocument = TextDocument2 = {}));
-      var FullTextDocument2 = (
+      })(TextDocument3 || (exports3.TextDocument = TextDocument3 = {}));
+      var FullTextDocument3 = (
         /** @class */
         (function() {
-          function FullTextDocument3(uri, languageId, version, content) {
+          function FullTextDocument4(uri, languageId, version, content) {
             this._uri = uri;
             this._languageId = languageId;
             this._version = version;
             this._content = content;
             this._lineOffsets = void 0;
           }
-          __name(FullTextDocument3, "FullTextDocument");
-          Object.defineProperty(FullTextDocument3.prototype, "uri", {
+          __name(FullTextDocument4, "FullTextDocument");
+          Object.defineProperty(FullTextDocument4.prototype, "uri", {
             get: /* @__PURE__ */ __name(function() {
               return this._uri;
             }, "get"),
             enumerable: false,
             configurable: true
           });
-          Object.defineProperty(FullTextDocument3.prototype, "languageId", {
+          Object.defineProperty(FullTextDocument4.prototype, "languageId", {
             get: /* @__PURE__ */ __name(function() {
               return this._languageId;
             }, "get"),
             enumerable: false,
             configurable: true
           });
-          Object.defineProperty(FullTextDocument3.prototype, "version", {
+          Object.defineProperty(FullTextDocument4.prototype, "version", {
             get: /* @__PURE__ */ __name(function() {
               return this._version;
             }, "get"),
             enumerable: false,
             configurable: true
           });
-          FullTextDocument3.prototype.getText = function(range) {
+          FullTextDocument4.prototype.getText = function(range) {
             if (range) {
               var start = this.offsetAt(range.start);
               var end = this.offsetAt(range.end);
@@ -5084,12 +5094,12 @@ var require_main2 = __commonJS({
             }
             return this._content;
           };
-          FullTextDocument3.prototype.update = function(event, version) {
+          FullTextDocument4.prototype.update = function(event, version) {
             this._content = event.text;
             this._version = version;
             this._lineOffsets = void 0;
           };
-          FullTextDocument3.prototype.getLineOffsets = function() {
+          FullTextDocument4.prototype.getLineOffsets = function() {
             if (this._lineOffsets === void 0) {
               var lineOffsets = [];
               var text = this._content;
@@ -5112,12 +5122,12 @@ var require_main2 = __commonJS({
             }
             return this._lineOffsets;
           };
-          FullTextDocument3.prototype.positionAt = function(offset) {
+          FullTextDocument4.prototype.positionAt = function(offset) {
             offset = Math.max(Math.min(offset, this._content.length), 0);
             var lineOffsets = this.getLineOffsets();
             var low = 0, high = lineOffsets.length;
             if (high === 0) {
-              return Position.create(0, offset);
+              return Position4.create(0, offset);
             }
             while (low < high) {
               var mid = Math.floor((low + high) / 2);
@@ -5128,9 +5138,9 @@ var require_main2 = __commonJS({
               }
             }
             var line = low - 1;
-            return Position.create(line, offset - lineOffsets[line]);
+            return Position4.create(line, offset - lineOffsets[line]);
           };
-          FullTextDocument3.prototype.offsetAt = function(position) {
+          FullTextDocument4.prototype.offsetAt = function(position) {
             var lineOffsets = this.getLineOffsets();
             if (position.line >= lineOffsets.length) {
               return this._content.length;
@@ -5141,75 +5151,75 @@ var require_main2 = __commonJS({
             var nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
             return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
           };
-          Object.defineProperty(FullTextDocument3.prototype, "lineCount", {
+          Object.defineProperty(FullTextDocument4.prototype, "lineCount", {
             get: /* @__PURE__ */ __name(function() {
               return this.getLineOffsets().length;
             }, "get"),
             enumerable: false,
             configurable: true
           });
-          return FullTextDocument3;
+          return FullTextDocument4;
         })()
       );
-      var Is;
-      (function(Is2) {
+      var Is2;
+      (function(Is3) {
         var toString = Object.prototype.toString;
         function defined(value) {
           return typeof value !== "undefined";
         }
         __name(defined, "defined");
-        Is2.defined = defined;
+        Is3.defined = defined;
         function undefined2(value) {
           return typeof value === "undefined";
         }
         __name(undefined2, "undefined");
-        Is2.undefined = undefined2;
+        Is3.undefined = undefined2;
         function boolean(value) {
           return value === true || value === false;
         }
         __name(boolean, "boolean");
-        Is2.boolean = boolean;
+        Is3.boolean = boolean;
         function string(value) {
           return toString.call(value) === "[object String]";
         }
         __name(string, "string");
-        Is2.string = string;
+        Is3.string = string;
         function number(value) {
           return toString.call(value) === "[object Number]";
         }
         __name(number, "number");
-        Is2.number = number;
+        Is3.number = number;
         function numberRange(value, min, max) {
           return toString.call(value) === "[object Number]" && min <= value && value <= max;
         }
         __name(numberRange, "numberRange");
-        Is2.numberRange = numberRange;
-        function integer2(value) {
+        Is3.numberRange = numberRange;
+        function integer3(value) {
           return toString.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
         }
-        __name(integer2, "integer");
-        Is2.integer = integer2;
-        function uinteger2(value) {
+        __name(integer3, "integer");
+        Is3.integer = integer3;
+        function uinteger4(value) {
           return toString.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
         }
-        __name(uinteger2, "uinteger");
-        Is2.uinteger = uinteger2;
+        __name(uinteger4, "uinteger");
+        Is3.uinteger = uinteger4;
         function func(value) {
           return toString.call(value) === "[object Function]";
         }
         __name(func, "func");
-        Is2.func = func;
+        Is3.func = func;
         function objectLiteral(value) {
           return value !== null && typeof value === "object";
         }
         __name(objectLiteral, "objectLiteral");
-        Is2.objectLiteral = objectLiteral;
+        Is3.objectLiteral = objectLiteral;
         function typedArray(value, check) {
           return Array.isArray(value) && value.every(check);
         }
         __name(typedArray, "typedArray");
-        Is2.typedArray = typedArray;
-      })(Is || (Is = {}));
+        Is3.typedArray = typedArray;
+      })(Is2 || (Is2 = {}));
     });
   }
 });
@@ -5374,12 +5384,12 @@ var require_protocol_workspaceFolder = __commonJS({
       WorkspaceFoldersRequest2.messageDirection = messages_1.MessageDirection.serverToClient;
       WorkspaceFoldersRequest2.type = new messages_1.ProtocolRequestType0(WorkspaceFoldersRequest2.method);
     })(WorkspaceFoldersRequest || (exports2.WorkspaceFoldersRequest = WorkspaceFoldersRequest = {}));
-    var DidChangeWorkspaceFoldersNotification;
-    (function(DidChangeWorkspaceFoldersNotification2) {
-      DidChangeWorkspaceFoldersNotification2.method = "workspace/didChangeWorkspaceFolders";
-      DidChangeWorkspaceFoldersNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
-      DidChangeWorkspaceFoldersNotification2.type = new messages_1.ProtocolNotificationType(DidChangeWorkspaceFoldersNotification2.method);
-    })(DidChangeWorkspaceFoldersNotification || (exports2.DidChangeWorkspaceFoldersNotification = DidChangeWorkspaceFoldersNotification = {}));
+    var DidChangeWorkspaceFoldersNotification2;
+    (function(DidChangeWorkspaceFoldersNotification3) {
+      DidChangeWorkspaceFoldersNotification3.method = "workspace/didChangeWorkspaceFolders";
+      DidChangeWorkspaceFoldersNotification3.messageDirection = messages_1.MessageDirection.clientToServer;
+      DidChangeWorkspaceFoldersNotification3.type = new messages_1.ProtocolNotificationType(DidChangeWorkspaceFoldersNotification3.method);
+    })(DidChangeWorkspaceFoldersNotification2 || (exports2.DidChangeWorkspaceFoldersNotification = DidChangeWorkspaceFoldersNotification2 = {}));
   }
 });
 
@@ -5779,13 +5789,13 @@ var require_protocol_diagnostic = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.DiagnosticRefreshRequest = exports2.WorkspaceDiagnosticRequest = exports2.DocumentDiagnosticRequest = exports2.DocumentDiagnosticReportKind = exports2.DiagnosticServerCancellationData = void 0;
     var vscode_jsonrpc_1 = require_main();
-    var Is = require_is3();
+    var Is2 = require_is3();
     var messages_1 = require_messages2();
     var DiagnosticServerCancellationData;
     (function(DiagnosticServerCancellationData2) {
       function is(value) {
         const candidate = value;
-        return candidate && Is.boolean(candidate.retriggerRequest);
+        return candidate && Is2.boolean(candidate.retriggerRequest);
       }
       __name(is, "is");
       DiagnosticServerCancellationData2.is = is;
@@ -5825,7 +5835,7 @@ var require_protocol_notebook = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.DidCloseNotebookDocumentNotification = exports2.DidSaveNotebookDocumentNotification = exports2.DidChangeNotebookDocumentNotification = exports2.NotebookCellArrayChange = exports2.DidOpenNotebookDocumentNotification = exports2.NotebookDocumentSyncRegistrationType = exports2.NotebookDocument = exports2.NotebookCell = exports2.ExecutionSummary = exports2.NotebookCellKind = void 0;
     var vscode_languageserver_types_1 = require_main2();
-    var Is = require_is3();
+    var Is2 = require_is3();
     var messages_1 = require_messages2();
     var NotebookCellKind;
     (function(NotebookCellKind2) {
@@ -5850,7 +5860,7 @@ var require_protocol_notebook = __commonJS({
       ExecutionSummary2.create = create;
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.executionOrder) && (candidate.success === void 0 || Is.boolean(candidate.success));
+        return Is2.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.executionOrder) && (candidate.success === void 0 || Is2.boolean(candidate.success));
       }
       __name(is, "is");
       ExecutionSummary2.is = is;
@@ -5875,11 +5885,11 @@ var require_protocol_notebook = __commonJS({
       NotebookCell2.create = create;
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && NotebookCellKind.is(candidate.kind) && vscode_languageserver_types_1.DocumentUri.is(candidate.document) && (candidate.metadata === void 0 || Is.objectLiteral(candidate.metadata));
+        return Is2.objectLiteral(candidate) && NotebookCellKind.is(candidate.kind) && vscode_languageserver_types_1.DocumentUri.is(candidate.document) && (candidate.metadata === void 0 || Is2.objectLiteral(candidate.metadata));
       }
       __name(is, "is");
       NotebookCell2.is = is;
-      function diff(one, two) {
+      function diff2(one, two) {
         const result = /* @__PURE__ */ new Set();
         if (one.document !== two.document) {
           result.add("document");
@@ -5898,8 +5908,8 @@ var require_protocol_notebook = __commonJS({
         }
         return result;
       }
-      __name(diff, "diff");
-      NotebookCell2.diff = diff;
+      __name(diff2, "diff");
+      NotebookCell2.diff = diff2;
       function equalsMetadata(one, other) {
         if (one === other) {
           return true;
@@ -5928,7 +5938,7 @@ var require_protocol_notebook = __commonJS({
             }
           }
         }
-        if (Is.objectLiteral(one) && Is.objectLiteral(other)) {
+        if (Is2.objectLiteral(one) && Is2.objectLiteral(other)) {
           const oneKeys = Object.keys(one);
           const otherKeys = Object.keys(other);
           if (oneKeys.length !== otherKeys.length) {
@@ -5959,7 +5969,7 @@ var require_protocol_notebook = __commonJS({
       NotebookDocument2.create = create;
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && Is.string(candidate.uri) && vscode_languageserver_types_1.integer.is(candidate.version) && Is.typedArray(candidate.cells, NotebookCell.is);
+        return Is2.objectLiteral(candidate) && Is2.string(candidate.uri) && vscode_languageserver_types_1.integer.is(candidate.version) && Is2.typedArray(candidate.cells, NotebookCell.is);
       }
       __name(is, "is");
       NotebookDocument2.is = is;
@@ -5981,7 +5991,7 @@ var require_protocol_notebook = __commonJS({
     (function(NotebookCellArrayChange2) {
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.start) && vscode_languageserver_types_1.uinteger.is(candidate.deleteCount) && (candidate.cells === void 0 || Is.typedArray(candidate.cells, NotebookCell.is));
+        return Is2.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.start) && vscode_languageserver_types_1.uinteger.is(candidate.deleteCount) && (candidate.cells === void 0 || Is2.typedArray(candidate.cells, NotebookCell.is));
       }
       __name(is, "is");
       NotebookCellArrayChange2.is = is;
@@ -6045,7 +6055,7 @@ var require_protocol = __commonJS({
     exports2.InlineCompletionRequest = exports2.DidCloseNotebookDocumentNotification = exports2.DidSaveNotebookDocumentNotification = exports2.DidChangeNotebookDocumentNotification = exports2.NotebookCellArrayChange = exports2.DidOpenNotebookDocumentNotification = exports2.NotebookDocumentSyncRegistrationType = exports2.NotebookDocument = exports2.NotebookCell = exports2.ExecutionSummary = exports2.NotebookCellKind = exports2.DiagnosticRefreshRequest = exports2.WorkspaceDiagnosticRequest = exports2.DocumentDiagnosticRequest = exports2.DocumentDiagnosticReportKind = exports2.DiagnosticServerCancellationData = exports2.InlayHintRefreshRequest = exports2.InlayHintResolveRequest = exports2.InlayHintRequest = exports2.InlineValueRefreshRequest = exports2.InlineValueRequest = exports2.TypeHierarchySupertypesRequest = exports2.TypeHierarchySubtypesRequest = exports2.TypeHierarchyPrepareRequest = void 0;
     var messages_1 = require_messages2();
     var vscode_languageserver_types_1 = require_main2();
-    var Is = require_is3();
+    var Is2 = require_is3();
     var protocol_implementation_1 = require_protocol_implementation();
     Object.defineProperty(exports2, "ImplementationRequest", { enumerable: true, get: /* @__PURE__ */ __name(function() {
       return protocol_implementation_1.ImplementationRequest;
@@ -6248,7 +6258,7 @@ var require_protocol = __commonJS({
     (function(TextDocumentFilter2) {
       function is(value) {
         const candidate = value;
-        return Is.string(candidate) || (Is.string(candidate.language) || Is.string(candidate.scheme) || Is.string(candidate.pattern));
+        return Is2.string(candidate) || (Is2.string(candidate.language) || Is2.string(candidate.scheme) || Is2.string(candidate.pattern));
       }
       __name(is, "is");
       TextDocumentFilter2.is = is;
@@ -6257,7 +6267,7 @@ var require_protocol = __commonJS({
     (function(NotebookDocumentFilter2) {
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && (Is.string(candidate.notebookType) || Is.string(candidate.scheme) || Is.string(candidate.pattern));
+        return Is2.objectLiteral(candidate) && (Is2.string(candidate.notebookType) || Is2.string(candidate.scheme) || Is2.string(candidate.pattern));
       }
       __name(is, "is");
       NotebookDocumentFilter2.is = is;
@@ -6266,7 +6276,7 @@ var require_protocol = __commonJS({
     (function(NotebookCellTextDocumentFilter2) {
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && (Is.string(candidate.notebook) || NotebookDocumentFilter.is(candidate.notebook)) && (candidate.language === void 0 || Is.string(candidate.language));
+        return Is2.objectLiteral(candidate) && (Is2.string(candidate.notebook) || NotebookDocumentFilter.is(candidate.notebook)) && (candidate.language === void 0 || Is2.string(candidate.language));
       }
       __name(is, "is");
       NotebookCellTextDocumentFilter2.is = is;
@@ -6278,7 +6288,7 @@ var require_protocol = __commonJS({
           return false;
         }
         for (let elem of value) {
-          if (!Is.string(elem) && !TextDocumentFilter.is(elem) && !NotebookCellTextDocumentFilter.is(elem)) {
+          if (!Is2.string(elem) && !TextDocumentFilter.is(elem) && !NotebookCellTextDocumentFilter.is(elem)) {
             return false;
           }
         }
@@ -6322,7 +6332,7 @@ var require_protocol = __commonJS({
     (function(StaticRegistrationOptions2) {
       function hasId(value) {
         const candidate = value;
-        return candidate && Is.string(candidate.id) && candidate.id.length > 0;
+        return candidate && Is2.string(candidate.id) && candidate.id.length > 0;
       }
       __name(hasId, "hasId");
       StaticRegistrationOptions2.hasId = hasId;
@@ -6340,13 +6350,13 @@ var require_protocol = __commonJS({
     (function(WorkDoneProgressOptions2) {
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && (candidate.workDoneProgress === void 0 || Is.boolean(candidate.workDoneProgress));
+        return Is2.objectLiteral(candidate) && (candidate.workDoneProgress === void 0 || Is2.boolean(candidate.workDoneProgress));
       }
       __name(is, "is");
       WorkDoneProgressOptions2.is = is;
       function hasWorkDoneProgress(value) {
         const candidate = value;
-        return candidate && Is.boolean(candidate.workDoneProgress);
+        return candidate && Is2.boolean(candidate.workDoneProgress);
       }
       __name(hasWorkDoneProgress, "hasWorkDoneProgress");
       WorkDoneProgressOptions2.hasWorkDoneProgress = hasWorkDoneProgress;
@@ -6379,12 +6389,12 @@ var require_protocol = __commonJS({
       ExitNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
       ExitNotification2.type = new messages_1.ProtocolNotificationType0(ExitNotification2.method);
     })(ExitNotification || (exports2.ExitNotification = ExitNotification = {}));
-    var DidChangeConfigurationNotification;
-    (function(DidChangeConfigurationNotification2) {
-      DidChangeConfigurationNotification2.method = "workspace/didChangeConfiguration";
-      DidChangeConfigurationNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
-      DidChangeConfigurationNotification2.type = new messages_1.ProtocolNotificationType(DidChangeConfigurationNotification2.method);
-    })(DidChangeConfigurationNotification || (exports2.DidChangeConfigurationNotification = DidChangeConfigurationNotification = {}));
+    var DidChangeConfigurationNotification4;
+    (function(DidChangeConfigurationNotification5) {
+      DidChangeConfigurationNotification5.method = "workspace/didChangeConfiguration";
+      DidChangeConfigurationNotification5.messageDirection = messages_1.MessageDirection.clientToServer;
+      DidChangeConfigurationNotification5.type = new messages_1.ProtocolNotificationType(DidChangeConfigurationNotification5.method);
+    })(DidChangeConfigurationNotification4 || (exports2.DidChangeConfigurationNotification = DidChangeConfigurationNotification4 = {}));
     var MessageType;
     (function(MessageType2) {
       MessageType2.Error = 1;
@@ -6417,12 +6427,12 @@ var require_protocol = __commonJS({
       TelemetryEventNotification2.messageDirection = messages_1.MessageDirection.serverToClient;
       TelemetryEventNotification2.type = new messages_1.ProtocolNotificationType(TelemetryEventNotification2.method);
     })(TelemetryEventNotification || (exports2.TelemetryEventNotification = TelemetryEventNotification = {}));
-    var TextDocumentSyncKind;
-    (function(TextDocumentSyncKind2) {
-      TextDocumentSyncKind2.None = 0;
-      TextDocumentSyncKind2.Full = 1;
-      TextDocumentSyncKind2.Incremental = 2;
-    })(TextDocumentSyncKind || (exports2.TextDocumentSyncKind = TextDocumentSyncKind = {}));
+    var TextDocumentSyncKind2;
+    (function(TextDocumentSyncKind3) {
+      TextDocumentSyncKind3.None = 0;
+      TextDocumentSyncKind3.Full = 1;
+      TextDocumentSyncKind3.Incremental = 2;
+    })(TextDocumentSyncKind2 || (exports2.TextDocumentSyncKind = TextDocumentSyncKind2 = {}));
     var DidOpenTextDocumentNotification;
     (function(DidOpenTextDocumentNotification2) {
       DidOpenTextDocumentNotification2.method = "textDocument/didOpen";
@@ -6480,12 +6490,12 @@ var require_protocol = __commonJS({
       WillSaveTextDocumentWaitUntilRequest2.messageDirection = messages_1.MessageDirection.clientToServer;
       WillSaveTextDocumentWaitUntilRequest2.type = new messages_1.ProtocolRequestType(WillSaveTextDocumentWaitUntilRequest2.method);
     })(WillSaveTextDocumentWaitUntilRequest || (exports2.WillSaveTextDocumentWaitUntilRequest = WillSaveTextDocumentWaitUntilRequest = {}));
-    var DidChangeWatchedFilesNotification;
-    (function(DidChangeWatchedFilesNotification2) {
-      DidChangeWatchedFilesNotification2.method = "workspace/didChangeWatchedFiles";
-      DidChangeWatchedFilesNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
-      DidChangeWatchedFilesNotification2.type = new messages_1.ProtocolNotificationType(DidChangeWatchedFilesNotification2.method);
-    })(DidChangeWatchedFilesNotification || (exports2.DidChangeWatchedFilesNotification = DidChangeWatchedFilesNotification = {}));
+    var DidChangeWatchedFilesNotification3;
+    (function(DidChangeWatchedFilesNotification4) {
+      DidChangeWatchedFilesNotification4.method = "workspace/didChangeWatchedFiles";
+      DidChangeWatchedFilesNotification4.messageDirection = messages_1.MessageDirection.clientToServer;
+      DidChangeWatchedFilesNotification4.type = new messages_1.ProtocolNotificationType(DidChangeWatchedFilesNotification4.method);
+    })(DidChangeWatchedFilesNotification3 || (exports2.DidChangeWatchedFilesNotification = DidChangeWatchedFilesNotification3 = {}));
     var FileChangeType;
     (function(FileChangeType2) {
       FileChangeType2.Created = 1;
@@ -6496,7 +6506,7 @@ var require_protocol = __commonJS({
     (function(RelativePattern2) {
       function is(value) {
         const candidate = value;
-        return Is.objectLiteral(candidate) && (vscode_languageserver_types_1.URI.is(candidate.baseUri) || vscode_languageserver_types_1.WorkspaceFolder.is(candidate.baseUri)) && Is.string(candidate.pattern);
+        return Is2.objectLiteral(candidate) && (vscode_languageserver_types_1.URI.is(candidate.baseUri) || vscode_languageserver_types_1.WorkspaceFolder.is(candidate.baseUri)) && Is2.string(candidate.pattern);
       }
       __name(is, "is");
       RelativePattern2.is = is;
@@ -6627,12 +6637,12 @@ var require_protocol = __commonJS({
       DocumentLinkResolveRequest2.messageDirection = messages_1.MessageDirection.clientToServer;
       DocumentLinkResolveRequest2.type = new messages_1.ProtocolRequestType(DocumentLinkResolveRequest2.method);
     })(DocumentLinkResolveRequest || (exports2.DocumentLinkResolveRequest = DocumentLinkResolveRequest = {}));
-    var DocumentFormattingRequest;
-    (function(DocumentFormattingRequest2) {
-      DocumentFormattingRequest2.method = "textDocument/formatting";
-      DocumentFormattingRequest2.messageDirection = messages_1.MessageDirection.clientToServer;
-      DocumentFormattingRequest2.type = new messages_1.ProtocolRequestType(DocumentFormattingRequest2.method);
-    })(DocumentFormattingRequest || (exports2.DocumentFormattingRequest = DocumentFormattingRequest = {}));
+    var DocumentFormattingRequest2;
+    (function(DocumentFormattingRequest3) {
+      DocumentFormattingRequest3.method = "textDocument/formatting";
+      DocumentFormattingRequest3.messageDirection = messages_1.MessageDirection.clientToServer;
+      DocumentFormattingRequest3.type = new messages_1.ProtocolRequestType(DocumentFormattingRequest3.method);
+    })(DocumentFormattingRequest2 || (exports2.DocumentFormattingRequest = DocumentFormattingRequest2 = {}));
     var DocumentRangeFormattingRequest;
     (function(DocumentRangeFormattingRequest2) {
       DocumentRangeFormattingRequest2.method = "textDocument/rangeFormatting";
@@ -7058,13 +7068,13 @@ var require_configuration = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.ConfigurationFeature = void 0;
     var vscode_languageserver_protocol_1 = require_main3();
-    var Is = require_is();
+    var Is2 = require_is();
     var ConfigurationFeature = /* @__PURE__ */ __name((Base) => {
       return class extends Base {
         getConfiguration(arg) {
           if (!arg) {
             return this._getConfiguration({});
-          } else if (Is.string(arg)) {
+          } else if (Is2.string(arg)) {
             return this._getConfiguration({ section: arg });
           } else {
             return this._getConfiguration(arg);
@@ -7569,7 +7579,7 @@ var require_textDocuments = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.TextDocuments = void 0;
     var vscode_languageserver_protocol_1 = require_main3();
-    var TextDocuments = class {
+    var TextDocuments2 = class {
       static {
         __name(this, "TextDocuments");
       }
@@ -7726,7 +7736,7 @@ var require_textDocuments = __commonJS({
         });
       }
     };
-    exports2.TextDocuments = TextDocuments;
+    exports2.TextDocuments = TextDocuments2;
   }
 });
 
@@ -8027,7 +8037,7 @@ var require_server = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createConnection = exports2.combineFeatures = exports2.combineNotebooksFeatures = exports2.combineLanguagesFeatures = exports2.combineWorkspaceFeatures = exports2.combineWindowFeatures = exports2.combineClientFeatures = exports2.combineTracerFeatures = exports2.combineTelemetryFeatures = exports2.combineConsoleFeatures = exports2._NotebooksImpl = exports2._LanguagesImpl = exports2.BulkUnregistration = exports2.BulkRegistration = exports2.ErrorMessageTracker = void 0;
     var vscode_languageserver_protocol_1 = require_main3();
-    var Is = require_is();
+    var Is2 = require_is();
     var UUID = require_uuid();
     var progress_1 = require_progress();
     var configuration_1 = require_configuration();
@@ -8178,7 +8188,7 @@ var require_server = __commonJS({
         this._registered = /* @__PURE__ */ new Set();
       }
       add(type, registerOptions) {
-        const method = Is.string(type) ? type : type.method;
+        const method = Is2.string(type) ? type : type.method;
         if (this._registered.has(method)) {
           throw new Error(`${method} is already added to this registration`);
         }
@@ -8237,7 +8247,7 @@ var require_server = __commonJS({
         });
       }
       disposeSingle(arg) {
-        const method = Is.string(arg) ? arg : arg.method;
+        const method = Is2.string(arg) ? arg : arg.method;
         const unregistration = this._unregistrations.get(method);
         if (!unregistration) {
           return false;
@@ -8280,7 +8290,7 @@ var require_server = __commonJS({
         }
       }
       registerSingle1(unregistration, type, registerOptions) {
-        const method = Is.string(type) ? type : type.method;
+        const method = Is2.string(type) ? type : type.method;
         const id = UUID.generateUuid();
         let params = {
           registrations: [{ id, method, registerOptions: registerOptions || {} }]
@@ -8297,7 +8307,7 @@ var require_server = __commonJS({
         });
       }
       registerSingle2(type, registerOptions) {
-        const method = Is.string(type) ? type : type.method;
+        const method = Is2.string(type) ? type : type.method;
         const id = UUID.generateUuid();
         let params = {
           registrations: [{ id, method, registerOptions: registerOptions || {} }]
@@ -8574,7 +8584,7 @@ var require_server = __commonJS({
       function asPromise(value) {
         if (value instanceof Promise) {
           return value;
-        } else if (Is.thenable(value)) {
+        } else if (Is2.thenable(value)) {
           return new Promise((resolve, reject) => {
             value.then((resolved) => resolve(resolved), (error) => reject(error));
           });
@@ -8588,10 +8598,10 @@ var require_server = __commonJS({
       let exitHandler = void 0;
       let protocolConnection = {
         listen: /* @__PURE__ */ __name(() => connection2.listen(), "listen"),
-        sendRequest: /* @__PURE__ */ __name((type, ...params) => connection2.sendRequest(Is.string(type) ? type : type.method, ...params), "sendRequest"),
+        sendRequest: /* @__PURE__ */ __name((type, ...params) => connection2.sendRequest(Is2.string(type) ? type : type.method, ...params), "sendRequest"),
         onRequest: /* @__PURE__ */ __name((type, handler) => connection2.onRequest(type, handler), "onRequest"),
         sendNotification: /* @__PURE__ */ __name((type, param) => {
-          const method = Is.string(type) ? type : type.method;
+          const method = Is2.string(type) ? type : type.method;
           return connection2.sendNotification(method, param);
         }, "sendNotification"),
         onNotification: /* @__PURE__ */ __name((type, handler) => connection2.onNotification(type, handler), "onNotification"),
@@ -8746,7 +8756,7 @@ var require_server = __commonJS({
       }
       connection2.onRequest(vscode_languageserver_protocol_1.InitializeRequest.type, (params) => {
         watchDog.initialize(params);
-        if (Is.string(params.trace)) {
+        if (Is2.string(params.trace)) {
           tracer.trace = vscode_languageserver_protocol_1.Trace.fromString(params.trace);
         }
         for (let remote of allRemotes) {
@@ -8768,9 +8778,9 @@ var require_server = __commonJS({
               result2.capabilities = capabilities;
             }
             if (capabilities.textDocumentSync === void 0 || capabilities.textDocumentSync === null) {
-              capabilities.textDocumentSync = Is.number(protocolConnection.__textDocumentSync) ? protocolConnection.__textDocumentSync : vscode_languageserver_protocol_1.TextDocumentSyncKind.None;
-            } else if (!Is.number(capabilities.textDocumentSync) && !Is.number(capabilities.textDocumentSync.change)) {
-              capabilities.textDocumentSync.change = Is.number(protocolConnection.__textDocumentSync) ? protocolConnection.__textDocumentSync : vscode_languageserver_protocol_1.TextDocumentSyncKind.None;
+              capabilities.textDocumentSync = Is2.number(protocolConnection.__textDocumentSync) ? protocolConnection.__textDocumentSync : vscode_languageserver_protocol_1.TextDocumentSyncKind.None;
+            } else if (!Is2.number(capabilities.textDocumentSync) && !Is2.number(capabilities.textDocumentSync.change)) {
+              capabilities.textDocumentSync.change = Is2.number(protocolConnection.__textDocumentSync) ? protocolConnection.__textDocumentSync : vscode_languageserver_protocol_1.TextDocumentSyncKind.None;
             }
             for (let remote of allRemotes) {
               remote.fillServerCapabilities(capabilities);
@@ -8823,8 +8833,8 @@ var require_files = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.resolveModulePath = exports2.FileSystem = exports2.resolveGlobalYarnPath = exports2.resolveGlobalNodePath = exports2.resolve = exports2.uriToFilePath = void 0;
     var url = require("url");
-    var path = require("path");
-    var fs = require("fs");
+    var path6 = require("path");
+    var fs4 = require("fs");
     var child_process_1 = require("child_process");
     function uriToFilePath(uri) {
       let parsed = url.parse(uri);
@@ -8842,7 +8852,7 @@ var require_files = __commonJS({
           segments.shift();
         }
       }
-      return path.normalize(segments.join("/"));
+      return path6.normalize(segments.join("/"));
     }
     __name(uriToFilePath, "uriToFilePath");
     exports2.uriToFilePath = uriToFilePath;
@@ -8873,9 +8883,9 @@ var require_files = __commonJS({
         let env = process.env;
         let newEnv = /* @__PURE__ */ Object.create(null);
         Object.keys(env).forEach((key) => newEnv[key] = env[key]);
-        if (nodePath && fs.existsSync(nodePath)) {
+        if (nodePath && fs4.existsSync(nodePath)) {
           if (newEnv[nodePathKey]) {
-            newEnv[nodePathKey] = nodePath + path.delimiter + newEnv[nodePathKey];
+            newEnv[nodePathKey] = nodePath + path6.delimiter + newEnv[nodePathKey];
           } else {
             newEnv[nodePathKey] = nodePath;
           }
@@ -8885,21 +8895,21 @@ var require_files = __commonJS({
         }
         newEnv["ELECTRON_RUN_AS_NODE"] = "1";
         try {
-          let cp = (0, child_process_1.fork)("", [], {
+          let cp2 = (0, child_process_1.fork)("", [], {
             cwd,
             env: newEnv,
             execArgv: ["-e", app]
           });
-          if (cp.pid === void 0) {
+          if (cp2.pid === void 0) {
             reject(new Error(`Starting process to resolve node module  ${moduleName} failed`));
             return;
           }
-          cp.on("error", (error) => {
+          cp2.on("error", (error) => {
             reject(error);
           });
-          cp.on("message", (message2) => {
+          cp2.on("message", (message2) => {
             if (message2.c === "r") {
-              cp.send({ c: "e" });
+              cp2.send({ c: "e" });
               if (message2.s) {
                 resolve2(message2.r);
               } else {
@@ -8911,7 +8921,7 @@ var require_files = __commonJS({
             c: "rs",
             a: moduleName
           };
-          cp.send(message);
+          cp2.send(message);
         } catch (error) {
           reject(error);
         }
@@ -8949,9 +8959,9 @@ var require_files = __commonJS({
         }
         if (prefix.length > 0) {
           if (isWindows()) {
-            return path.join(prefix, "node_modules");
+            return path6.join(prefix, "node_modules");
           } else {
-            return path.join(prefix, "lib", "node_modules");
+            return path6.join(prefix, "lib", "node_modules");
           }
         }
         return void 0;
@@ -8992,7 +9002,7 @@ var require_files = __commonJS({
           try {
             let yarn = JSON.parse(line);
             if (yarn.type === "log") {
-              return path.join(yarn.data, "node_modules");
+              return path6.join(yarn.data, "node_modules");
             }
           } catch (e) {
           }
@@ -9016,7 +9026,7 @@ var require_files = __commonJS({
         if (process.platform === "win32") {
           _isCaseSensitive = false;
         } else {
-          _isCaseSensitive = !fs.existsSync(__filename.toUpperCase()) || !fs.existsSync(__filename.toLowerCase());
+          _isCaseSensitive = !fs4.existsSync(__filename.toUpperCase()) || !fs4.existsSync(__filename.toLowerCase());
         }
         return _isCaseSensitive;
       }
@@ -9024,9 +9034,9 @@ var require_files = __commonJS({
       FileSystem2.isCaseSensitive = isCaseSensitive;
       function isParent(parent, child) {
         if (isCaseSensitive()) {
-          return path.normalize(child).indexOf(path.normalize(parent)) === 0;
+          return path6.normalize(child).indexOf(path6.normalize(parent)) === 0;
         } else {
-          return path.normalize(child).toLowerCase().indexOf(path.normalize(parent).toLowerCase()) === 0;
+          return path6.normalize(child).toLowerCase().indexOf(path6.normalize(parent).toLowerCase()) === 0;
         }
       }
       __name(isParent, "isParent");
@@ -9034,8 +9044,8 @@ var require_files = __commonJS({
     })(FileSystem || (exports2.FileSystem = FileSystem = {}));
     function resolveModulePath(workspaceRoot, moduleName, nodePath, tracer) {
       if (nodePath) {
-        if (!path.isAbsolute(nodePath)) {
-          nodePath = path.join(workspaceRoot, nodePath);
+        if (!path6.isAbsolute(nodePath)) {
+          nodePath = path6.join(workspaceRoot, nodePath);
         }
         return resolve(moduleName, nodePath, nodePath, tracer).then((value) => {
           if (FileSystem.isParent(nodePath, value)) {
@@ -9057,9 +9067,9 @@ var require_files = __commonJS({
 
 // node_modules/vscode-languageserver-protocol/node.js
 var require_node2 = __commonJS({
-  "node_modules/vscode-languageserver-protocol/node.js"(exports2, module2) {
+  "node_modules/vscode-languageserver-protocol/node.js"(exports2, module3) {
     "use strict";
-    module2.exports = require_main3();
+    module3.exports = require_main3();
   }
 });
 
@@ -9157,7 +9167,7 @@ var require_main4 = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createConnection = exports2.Files = void 0;
     var node_util_1 = require("node:util");
-    var Is = require_is();
+    var Is2 = require_is();
     var server_1 = require_server();
     var fm = require_files();
     var node_12 = require_node2();
@@ -9221,7 +9231,7 @@ var require_main4 = __commonJS({
     var watchDog = {
       initialize: /* @__PURE__ */ __name((params) => {
         const processId = params.processId;
-        if (Is.number(processId) && exitTimer === void 0) {
+        if (Is2.number(processId) && exitTimer === void 0) {
           setInterval(() => {
             try {
               process.kill(processId, 0);
@@ -9315,7 +9325,7 @@ var require_main4 = __commonJS({
       if (!output) {
         throw new Error("Connection output stream is not set. " + commandLineMessage);
       }
-      if (Is.func(input.read) && Is.func(input.on)) {
+      if (Is2.func(input.read) && Is2.func(input.on)) {
         let inputStream = input;
         inputStream.on("end", () => {
           endProtocolConnection();
@@ -9398,15 +9408,15 @@ ${stack}`);
 
 // node_modules/vscode-languageserver/node.js
 var require_node3 = __commonJS({
-  "node_modules/vscode-languageserver/node.js"(exports2, module2) {
+  "node_modules/vscode-languageserver/node.js"(exports2, module3) {
     "use strict";
-    module2.exports = require_main4();
+    module3.exports = require_main4();
   }
 });
 
 // node_modules/logform/format.js
 var require_format = __commonJS({
-  "node_modules/logform/format.js"(exports2, module2) {
+  "node_modules/logform/format.js"(exports2, module3) {
     "use strict";
     var InvalidFormatError = class _InvalidFormatError extends Error {
       static {
@@ -9419,7 +9429,7 @@ Found: ${formatFn.toString().split("\n")[0]}
         Error.captureStackTrace(this, _InvalidFormatError);
       }
     };
-    module2.exports = (formatFn) => {
+    module3.exports = (formatFn) => {
       if (formatFn.length > 2) {
         throw new InvalidFormatError(formatFn);
       }
@@ -9440,9 +9450,9 @@ Found: ${formatFn.toString().split("\n")[0]}
 
 // node_modules/@colors/colors/lib/styles.js
 var require_styles = __commonJS({
-  "node_modules/@colors/colors/lib/styles.js"(exports2, module2) {
+  "node_modules/@colors/colors/lib/styles.js"(exports2, module3) {
     var styles = {};
-    module2["exports"] = styles;
+    module3["exports"] = styles;
     var codes = {
       reset: [0, 0],
       bold: [1, 22],
@@ -9507,9 +9517,9 @@ var require_styles = __commonJS({
 
 // node_modules/@colors/colors/lib/system/has-flag.js
 var require_has_flag = __commonJS({
-  "node_modules/@colors/colors/lib/system/has-flag.js"(exports2, module2) {
+  "node_modules/@colors/colors/lib/system/has-flag.js"(exports2, module3) {
     "use strict";
-    module2.exports = function(flag, argv) {
+    module3.exports = function(flag, argv) {
       argv = argv || process.argv || [];
       var terminatorPos = argv.indexOf("--");
       var prefix = /^-{1,2}/.test(flag) ? "" : "--";
@@ -9521,9 +9531,9 @@ var require_has_flag = __commonJS({
 
 // node_modules/@colors/colors/lib/system/supports-colors.js
 var require_supports_colors = __commonJS({
-  "node_modules/@colors/colors/lib/system/supports-colors.js"(exports2, module2) {
+  "node_modules/@colors/colors/lib/system/supports-colors.js"(exports2, module3) {
     "use strict";
-    var os = require("os");
+    var os4 = require("os");
     var hasFlag = require_has_flag();
     var env = process.env;
     var forceColor = void 0;
@@ -9562,7 +9572,7 @@ var require_supports_colors = __commonJS({
       }
       var min = forceColor ? 1 : 0;
       if (process.platform === "win32") {
-        var osRelease = os.release().split(".");
+        var osRelease = os4.release().split(".");
         if (Number(process.versions.node.split(".")[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
           return Number(osRelease[2]) >= 14931 ? 3 : 2;
         }
@@ -9610,7 +9620,7 @@ var require_supports_colors = __commonJS({
       return translateLevel(level);
     }
     __name(getSupportLevel, "getSupportLevel");
-    module2.exports = {
+    module3.exports = {
       supportsColor: getSupportLevel,
       stdout: getSupportLevel(process.stdout),
       stderr: getSupportLevel(process.stderr)
@@ -9620,8 +9630,8 @@ var require_supports_colors = __commonJS({
 
 // node_modules/@colors/colors/lib/custom/trap.js
 var require_trap = __commonJS({
-  "node_modules/@colors/colors/lib/custom/trap.js"(exports2, module2) {
-    module2["exports"] = /* @__PURE__ */ __name(function runTheTrap(text, options) {
+  "node_modules/@colors/colors/lib/custom/trap.js"(exports2, module3) {
+    module3["exports"] = /* @__PURE__ */ __name(function runTheTrap(text, options) {
       var result = "";
       text = text || "Run the trap, drop the bass";
       text = text.split("");
@@ -9689,8 +9699,8 @@ var require_trap = __commonJS({
 
 // node_modules/@colors/colors/lib/custom/zalgo.js
 var require_zalgo = __commonJS({
-  "node_modules/@colors/colors/lib/custom/zalgo.js"(exports2, module2) {
-    module2["exports"] = /* @__PURE__ */ __name(function zalgo(text, options) {
+  "node_modules/@colors/colors/lib/custom/zalgo.js"(exports2, module3) {
+    module3["exports"] = /* @__PURE__ */ __name(function zalgo(text, options) {
       text = text || "   he is here   ";
       var soul = {
         "up": [
@@ -9879,8 +9889,8 @@ var require_zalgo = __commonJS({
 
 // node_modules/@colors/colors/lib/maps/america.js
 var require_america = __commonJS({
-  "node_modules/@colors/colors/lib/maps/america.js"(exports2, module2) {
-    module2["exports"] = function(colors) {
+  "node_modules/@colors/colors/lib/maps/america.js"(exports2, module3) {
+    module3["exports"] = function(colors) {
       return function(letter, i, exploded) {
         if (letter === " ") return letter;
         switch (i % 3) {
@@ -9898,8 +9908,8 @@ var require_america = __commonJS({
 
 // node_modules/@colors/colors/lib/maps/zebra.js
 var require_zebra = __commonJS({
-  "node_modules/@colors/colors/lib/maps/zebra.js"(exports2, module2) {
-    module2["exports"] = function(colors) {
+  "node_modules/@colors/colors/lib/maps/zebra.js"(exports2, module3) {
+    module3["exports"] = function(colors) {
       return function(letter, i, exploded) {
         return i % 2 === 0 ? letter : colors.inverse(letter);
       };
@@ -9909,8 +9919,8 @@ var require_zebra = __commonJS({
 
 // node_modules/@colors/colors/lib/maps/rainbow.js
 var require_rainbow = __commonJS({
-  "node_modules/@colors/colors/lib/maps/rainbow.js"(exports2, module2) {
-    module2["exports"] = function(colors) {
+  "node_modules/@colors/colors/lib/maps/rainbow.js"(exports2, module3) {
+    module3["exports"] = function(colors) {
       var rainbowColors = ["red", "yellow", "green", "blue", "magenta"];
       return function(letter, i, exploded) {
         if (letter === " ") {
@@ -9925,8 +9935,8 @@ var require_rainbow = __commonJS({
 
 // node_modules/@colors/colors/lib/maps/random.js
 var require_random = __commonJS({
-  "node_modules/@colors/colors/lib/maps/random.js"(exports2, module2) {
-    module2["exports"] = function(colors) {
+  "node_modules/@colors/colors/lib/maps/random.js"(exports2, module3) {
+    module3["exports"] = function(colors) {
       var available = [
         "underline",
         "inverse",
@@ -9955,9 +9965,9 @@ var require_random = __commonJS({
 
 // node_modules/@colors/colors/lib/colors.js
 var require_colors = __commonJS({
-  "node_modules/@colors/colors/lib/colors.js"(exports2, module2) {
+  "node_modules/@colors/colors/lib/colors.js"(exports2, module3) {
     var colors = {};
-    module2["exports"] = colors;
+    module3["exports"] = colors;
     colors.themes = {};
     var util = require("util");
     var ansiStyles = colors.styles = require_styles();
@@ -10102,9 +10112,9 @@ var require_colors = __commonJS({
 
 // node_modules/@colors/colors/safe.js
 var require_safe = __commonJS({
-  "node_modules/@colors/colors/safe.js"(exports2, module2) {
+  "node_modules/@colors/colors/safe.js"(exports2, module3) {
     var colors = require_colors();
-    module2["exports"] = colors;
+    module3["exports"] = colors;
   }
 });
 
@@ -10228,10 +10238,10 @@ var require_triple_beam = __commonJS({
 
 // node_modules/logform/colorize.js
 var require_colorize = __commonJS({
-  "node_modules/logform/colorize.js"(exports2, module2) {
+  "node_modules/logform/colorize.js"(exports2, module3) {
     "use strict";
     var colors = require_safe();
-    var { LEVEL, MESSAGE } = require_triple_beam();
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
     colors.enabled = true;
     var hasSpace = /\s+/;
     var Colorizer = class _Colorizer {
@@ -10289,29 +10299,29 @@ var require_colorize = __commonJS({
        * `logform` info object.
        */
       transform(info, opts) {
-        if (opts.all && typeof info[MESSAGE] === "string") {
-          info[MESSAGE] = this.colorize(info[LEVEL], info.level, info[MESSAGE]);
+        if (opts.all && typeof info[MESSAGE3] === "string") {
+          info[MESSAGE3] = this.colorize(info[LEVEL3], info.level, info[MESSAGE3]);
         }
         if (opts.level || opts.all || !opts.message) {
-          info.level = this.colorize(info[LEVEL], info.level);
+          info.level = this.colorize(info[LEVEL3], info.level);
         }
         if (opts.all || opts.message) {
-          info.message = this.colorize(info[LEVEL], info.level, info.message);
+          info.message = this.colorize(info[LEVEL3], info.level, info.message);
         }
         return info;
       }
     };
-    module2.exports = (opts) => new Colorizer(opts);
-    module2.exports.Colorizer = module2.exports.Format = Colorizer;
+    module3.exports = (opts) => new Colorizer(opts);
+    module3.exports.Colorizer = module3.exports.Format = Colorizer;
   }
 });
 
 // node_modules/logform/levels.js
 var require_levels = __commonJS({
-  "node_modules/logform/levels.js"(exports2, module2) {
+  "node_modules/logform/levels.js"(exports2, module3) {
     "use strict";
     var { Colorizer } = require_colorize();
-    module2.exports = (config) => {
+    module3.exports = (config) => {
       Colorizer.addColors(config.colors || config);
       return config;
     };
@@ -10320,10 +10330,10 @@ var require_levels = __commonJS({
 
 // node_modules/logform/align.js
 var require_align = __commonJS({
-  "node_modules/logform/align.js"(exports2, module2) {
+  "node_modules/logform/align.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    module2.exports = format((info) => {
+    module3.exports = format((info) => {
       info.message = `	${info.message}`;
       return info;
     });
@@ -10332,17 +10342,17 @@ var require_align = __commonJS({
 
 // node_modules/logform/errors.js
 var require_errors = __commonJS({
-  "node_modules/logform/errors.js"(exports2, module2) {
+  "node_modules/logform/errors.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    var { LEVEL, MESSAGE } = require_triple_beam();
-    module2.exports = format((einfo, { stack, cause }) => {
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
+    module3.exports = format((einfo, { stack, cause }) => {
       if (einfo instanceof Error) {
         const info = Object.assign({}, einfo, {
           level: einfo.level,
-          [LEVEL]: einfo[LEVEL] || einfo.level,
+          [LEVEL3]: einfo[LEVEL3] || einfo.level,
           message: einfo.message,
-          [MESSAGE]: einfo[MESSAGE] || einfo.message
+          [MESSAGE3]: einfo[MESSAGE3] || einfo.message
         });
         if (stack) info.stack = einfo.stack;
         if (cause) info.cause = einfo.cause;
@@ -10352,7 +10362,7 @@ var require_errors = __commonJS({
       const err = einfo.message;
       Object.assign(einfo, err);
       einfo.message = err.message;
-      einfo[MESSAGE] = err.message;
+      einfo[MESSAGE3] = err.message;
       if (stack) einfo.stack = err.stack;
       if (cause) einfo.cause = err.cause;
       return einfo;
@@ -10362,9 +10372,9 @@ var require_errors = __commonJS({
 
 // node_modules/logform/pad-levels.js
 var require_pad_levels = __commonJS({
-  "node_modules/logform/pad-levels.js"(exports2, module2) {
+  "node_modules/logform/pad-levels.js"(exports2, module3) {
     "use strict";
-    var { configs, LEVEL, MESSAGE } = require_triple_beam();
+    var { configs, LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
     var Padder = class _Padder {
       static {
         __name(this, "Padder");
@@ -10422,25 +10432,25 @@ var require_pad_levels = __commonJS({
        * @returns {Info} Modified logform info object.
        */
       transform(info, opts) {
-        info.message = `${this.paddings[info[LEVEL]]}${info.message}`;
-        if (info[MESSAGE]) {
-          info[MESSAGE] = `${this.paddings[info[LEVEL]]}${info[MESSAGE]}`;
+        info.message = `${this.paddings[info[LEVEL3]]}${info.message}`;
+        if (info[MESSAGE3]) {
+          info[MESSAGE3] = `${this.paddings[info[LEVEL3]]}${info[MESSAGE3]}`;
         }
         return info;
       }
     };
-    module2.exports = (opts) => new Padder(opts);
-    module2.exports.Padder = module2.exports.Format = Padder;
+    module3.exports = (opts) => new Padder(opts);
+    module3.exports.Padder = module3.exports.Format = Padder;
   }
 });
 
 // node_modules/logform/cli.js
 var require_cli2 = __commonJS({
-  "node_modules/logform/cli.js"(exports2, module2) {
+  "node_modules/logform/cli.js"(exports2, module3) {
     "use strict";
     var { Colorizer } = require_colorize();
     var { Padder } = require_pad_levels();
-    var { configs, MESSAGE } = require_triple_beam();
+    var { configs, MESSAGE: MESSAGE3 } = require_triple_beam();
     var CliFormat = class {
       static {
         __name(this, "CliFormat");
@@ -10465,18 +10475,18 @@ var require_cli2 = __commonJS({
           this.padder.transform(info, opts),
           opts
         );
-        info[MESSAGE] = `${info.level}:${info.message}`;
+        info[MESSAGE3] = `${info.level}:${info.message}`;
         return info;
       }
     };
-    module2.exports = (opts) => new CliFormat(opts);
-    module2.exports.Format = CliFormat;
+    module3.exports = (opts) => new CliFormat(opts);
+    module3.exports.Format = CliFormat;
   }
 });
 
 // node_modules/logform/combine.js
 var require_combine = __commonJS({
-  "node_modules/logform/combine.js"(exports2, module2) {
+  "node_modules/logform/combine.js"(exports2, module3) {
     "use strict";
     var format = require_format();
     function cascade(formats) {
@@ -10506,19 +10516,19 @@ var require_combine = __commonJS({
       return true;
     }
     __name(isValidFormat, "isValidFormat");
-    module2.exports = (...formats) => {
+    module3.exports = (...formats) => {
       const combinedFormat = format(cascade(formats));
       const instance = combinedFormat();
       instance.Format = combinedFormat.Format;
       return instance;
     };
-    module2.exports.cascade = cascade;
+    module3.exports.cascade = cascade;
   }
 });
 
 // node_modules/safe-stable-stringify/index.js
 var require_safe_stable_stringify = __commonJS({
-  "node_modules/safe-stable-stringify/index.js"(exports2, module2) {
+  "node_modules/safe-stable-stringify/index.js"(exports2, module3) {
     "use strict";
     var { hasOwnProperty } = Object.prototype;
     var stringify2 = configure();
@@ -10527,7 +10537,7 @@ var require_safe_stable_stringify = __commonJS({
     stringify2.default = stringify2;
     exports2.stringify = stringify2;
     exports2.configure = configure;
-    module2.exports = stringify2;
+    module3.exports = stringify2;
     var strEscapeSequencesRegExp = /[\u0000-\u001f\u0022\u005c\ud800-\udfff]/;
     function strEscape(str) {
       if (str.length < 5e3 && !strEscapeSequencesRegExp.test(str)) {
@@ -11131,10 +11141,10 @@ ${originalIndentation}`;
 
 // node_modules/logform/json.js
 var require_json = __commonJS({
-  "node_modules/logform/json.js"(exports2, module2) {
+  "node_modules/logform/json.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var stringify2 = require_safe_stable_stringify();
     function replacer(key, value) {
       if (typeof value === "bigint")
@@ -11142,9 +11152,9 @@ var require_json = __commonJS({
       return value;
     }
     __name(replacer, "replacer");
-    module2.exports = format((info, opts) => {
+    module3.exports = format((info, opts) => {
       const jsonStringify = stringify2.configure(opts);
-      info[MESSAGE] = jsonStringify(info, opts.replacer || replacer, opts.space);
+      info[MESSAGE3] = jsonStringify(info, opts.replacer || replacer, opts.space);
       return info;
     });
   }
@@ -11152,10 +11162,10 @@ var require_json = __commonJS({
 
 // node_modules/logform/label.js
 var require_label = __commonJS({
-  "node_modules/logform/label.js"(exports2, module2) {
+  "node_modules/logform/label.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    module2.exports = format((info, opts) => {
+    module3.exports = format((info, opts) => {
       if (opts.message) {
         info.message = `[${opts.label}] ${info.message}`;
         return info;
@@ -11168,12 +11178,12 @@ var require_label = __commonJS({
 
 // node_modules/logform/logstash.js
 var require_logstash = __commonJS({
-  "node_modules/logform/logstash.js"(exports2, module2) {
+  "node_modules/logform/logstash.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var jsonStringify = require_safe_stable_stringify();
-    module2.exports = format((info) => {
+    module3.exports = format((info) => {
       const logstash = {};
       if (info.message) {
         logstash["@message"] = info.message;
@@ -11184,7 +11194,7 @@ var require_logstash = __commonJS({
         delete info.timestamp;
       }
       logstash["@fields"] = info;
-      info[MESSAGE] = jsonStringify(logstash);
+      info[MESSAGE3] = jsonStringify(logstash);
       return info;
     });
   }
@@ -11192,7 +11202,7 @@ var require_logstash = __commonJS({
 
 // node_modules/logform/metadata.js
 var require_metadata = __commonJS({
-  "node_modules/logform/metadata.js"(exports2, module2) {
+  "node_modules/logform/metadata.js"(exports2, module3) {
     "use strict";
     var format = require_format();
     function fillExcept(info, fillExceptKeys, metadataKey) {
@@ -11221,7 +11231,7 @@ var require_metadata = __commonJS({
       return info;
     }
     __name(fillWith, "fillWith");
-    module2.exports = format((info, opts = {}) => {
+    module3.exports = format((info, opts = {}) => {
       let metadataKey = "metadata";
       if (opts.key) {
         metadataKey = opts.key;
@@ -11247,14 +11257,14 @@ var require_metadata = __commonJS({
 
 // node_modules/ms/index.js
 var require_ms = __commonJS({
-  "node_modules/ms/index.js"(exports2, module2) {
+  "node_modules/ms/index.js"(exports2, module3) {
     var s = 1e3;
     var m = s * 60;
     var h = m * 60;
     var d = h * 24;
     var w = d * 7;
     var y = d * 365.25;
-    module2.exports = function(val, options) {
+    module3.exports = function(val, options) {
       options = options || {};
       var type = typeof val;
       if (type === "string" && val.length > 0) {
@@ -11367,11 +11377,11 @@ var require_ms = __commonJS({
 
 // node_modules/logform/ms.js
 var require_ms2 = __commonJS({
-  "node_modules/logform/ms.js"(exports2, module2) {
+  "node_modules/logform/ms.js"(exports2, module3) {
     "use strict";
     var format = require_format();
     var ms = require_ms();
-    module2.exports = format((info) => {
+    module3.exports = format((info) => {
       const curr = +/* @__PURE__ */ new Date();
       exports2.diff = curr - (exports2.prevTime || curr);
       exports2.prevTime = curr;
@@ -11383,17 +11393,17 @@ var require_ms2 = __commonJS({
 
 // node_modules/logform/pretty-print.js
 var require_pretty_print = __commonJS({
-  "node_modules/logform/pretty-print.js"(exports2, module2) {
+  "node_modules/logform/pretty-print.js"(exports2, module3) {
     "use strict";
     var inspect = require("util").inspect;
     var format = require_format();
-    var { LEVEL, MESSAGE, SPLAT } = require_triple_beam();
-    module2.exports = format((info, opts = {}) => {
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3, SPLAT } = require_triple_beam();
+    module3.exports = format((info, opts = {}) => {
       const stripped = Object.assign({}, info);
-      delete stripped[LEVEL];
-      delete stripped[MESSAGE];
+      delete stripped[LEVEL3];
+      delete stripped[MESSAGE3];
       delete stripped[SPLAT];
-      info[MESSAGE] = inspect(stripped, false, opts.depth || null, opts.colorize);
+      info[MESSAGE3] = inspect(stripped, false, opts.depth || null, opts.colorize);
       return info;
     });
   }
@@ -11401,9 +11411,9 @@ var require_pretty_print = __commonJS({
 
 // node_modules/logform/printf.js
 var require_printf = __commonJS({
-  "node_modules/logform/printf.js"(exports2, module2) {
+  "node_modules/logform/printf.js"(exports2, module3) {
     "use strict";
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var Printf = class {
       static {
         __name(this, "Printf");
@@ -11412,23 +11422,23 @@ var require_printf = __commonJS({
         this.template = templateFn;
       }
       transform(info) {
-        info[MESSAGE] = this.template(info);
+        info[MESSAGE3] = this.template(info);
         return info;
       }
     };
-    module2.exports = (opts) => new Printf(opts);
-    module2.exports.Printf = module2.exports.Format = Printf;
+    module3.exports = (opts) => new Printf(opts);
+    module3.exports.Printf = module3.exports.Format = Printf;
   }
 });
 
 // node_modules/logform/simple.js
 var require_simple = __commonJS({
-  "node_modules/logform/simple.js"(exports2, module2) {
+  "node_modules/logform/simple.js"(exports2, module3) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var jsonStringify = require_safe_stable_stringify();
-    module2.exports = format((info) => {
+    module3.exports = format((info) => {
       const stringifiedRest = jsonStringify(Object.assign({}, info, {
         level: void 0,
         message: void 0,
@@ -11436,9 +11446,9 @@ var require_simple = __commonJS({
       }));
       const padding = info.padding && info.padding[info.level] || "";
       if (stringifiedRest !== "{}") {
-        info[MESSAGE] = `${info.level}:${padding} ${info.message} ${stringifiedRest}`;
+        info[MESSAGE3] = `${info.level}:${padding} ${info.message} ${stringifiedRest}`;
       } else {
-        info[MESSAGE] = `${info.level}:${padding} ${info.message}`;
+        info[MESSAGE3] = `${info.level}:${padding} ${info.message}`;
       }
       return info;
     });
@@ -11447,7 +11457,7 @@ var require_simple = __commonJS({
 
 // node_modules/logform/splat.js
 var require_splat = __commonJS({
-  "node_modules/logform/splat.js"(exports2, module2) {
+  "node_modules/logform/splat.js"(exports2, module3) {
     "use strict";
     var util = require("util");
     var { SPLAT } = require_triple_beam();
@@ -11518,15 +11528,15 @@ var require_splat = __commonJS({
         return info;
       }
     };
-    module2.exports = (opts) => new Splatter(opts);
+    module3.exports = (opts) => new Splatter(opts);
   }
 });
 
 // node_modules/fecha/lib/fecha.umd.js
 var require_fecha_umd = __commonJS({
-  "node_modules/fecha/lib/fecha.umd.js"(exports2, module2) {
+  "node_modules/fecha/lib/fecha.umd.js"(exports2, module3) {
     (function(global2, factory) {
-      typeof exports2 === "object" && typeof module2 !== "undefined" ? factory(exports2) : typeof define === "function" && define.amd ? define(["exports"], factory) : factory(global2.fecha = {});
+      typeof exports2 === "object" && typeof module3 !== "undefined" ? factory(exports2) : typeof define === "function" && define.amd ? define(["exports"], factory) : factory(global2.fecha = {});
     })(exports2, (function(exports3) {
       "use strict";
       var token = /d{1,4}|M{1,4}|YY(?:YY)?|S{1,3}|Do|ZZ|Z|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
@@ -11941,11 +11951,11 @@ var require_fecha_umd = __commonJS({
 
 // node_modules/logform/timestamp.js
 var require_timestamp = __commonJS({
-  "node_modules/logform/timestamp.js"(exports2, module2) {
+  "node_modules/logform/timestamp.js"(exports2, module3) {
     "use strict";
     var fecha = require_fecha_umd();
     var format = require_format();
-    module2.exports = format((info, opts = {}) => {
+    module3.exports = format((info, opts = {}) => {
       if (opts.format) {
         info.timestamp = typeof opts.format === "function" ? opts.format() : fecha.format(/* @__PURE__ */ new Date(), opts.format);
       }
@@ -11962,20 +11972,20 @@ var require_timestamp = __commonJS({
 
 // node_modules/logform/uncolorize.js
 var require_uncolorize = __commonJS({
-  "node_modules/logform/uncolorize.js"(exports2, module2) {
+  "node_modules/logform/uncolorize.js"(exports2, module3) {
     "use strict";
     var colors = require_safe();
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
-    module2.exports = format((info, opts) => {
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
+    module3.exports = format((info, opts) => {
       if (opts.level !== false) {
         info.level = colors.strip(info.level);
       }
       if (opts.message !== false) {
         info.message = colors.strip(String(info.message));
       }
-      if (opts.raw !== false && info[MESSAGE]) {
-        info[MESSAGE] = colors.strip(String(info[MESSAGE]));
+      if (opts.raw !== false && info[MESSAGE3]) {
+        info[MESSAGE3] = colors.strip(String(info[MESSAGE3]));
       }
       return info;
     });
@@ -12090,8 +12100,8 @@ var require_common = __commonJS({
 
 // node_modules/winston/package.json
 var require_package = __commonJS({
-  "node_modules/winston/package.json"(exports2, module2) {
-    module2.exports = {
+  "node_modules/winston/package.json"(exports2, module3) {
+    module3.exports = {
       name: "winston",
       description: "A logger for just about everything.",
       version: "3.19.0",
@@ -12170,21 +12180,21 @@ var require_package = __commonJS({
 
 // node_modules/util-deprecate/node.js
 var require_node4 = __commonJS({
-  "node_modules/util-deprecate/node.js"(exports2, module2) {
-    module2.exports = require("util").deprecate;
+  "node_modules/util-deprecate/node.js"(exports2, module3) {
+    module3.exports = require("util").deprecate;
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js"(exports2, module2) {
-    module2.exports = require("stream");
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/stream.js"(exports2, module3) {
+    module3.exports = require("stream");
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports2, module3) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -12269,7 +12279,7 @@ var require_destroy = __commonJS({
       else stream.emit("error", err);
     }
     __name(errorOrDestroy, "errorOrDestroy");
-    module2.exports = {
+    module3.exports = {
       destroy,
       undestroy,
       errorOrDestroy
@@ -12279,7 +12289,7 @@ var require_destroy = __commonJS({
 
 // node_modules/winston-transport/node_modules/readable-stream/errors.js
 var require_errors2 = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/errors.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/errors.js"(exports2, module3) {
     "use strict";
     var codes = {};
     function createErrorType(code, message, Base) {
@@ -12382,13 +12392,13 @@ var require_errors2 = __commonJS({
       return "Unknown encoding: " + arg;
     }, TypeError);
     createErrorType("ERR_STREAM_UNSHIFT_AFTER_END_EVENT", "stream.unshift() after end event");
-    module2.exports.codes = codes;
+    module3.exports.codes = codes;
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/state.js"(exports2, module3) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors2().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -12407,7 +12417,7 @@ var require_state = __commonJS({
       return state.objectMode ? 16 : 16 * 1024;
     }
     __name(getHighWaterMark, "getHighWaterMark");
-    module2.exports = {
+    module3.exports = {
       getHighWaterMark
     };
   }
@@ -12415,9 +12425,9 @@ var require_state = __commonJS({
 
 // node_modules/inherits/inherits_browser.js
 var require_inherits_browser = __commonJS({
-  "node_modules/inherits/inherits_browser.js"(exports2, module2) {
+  "node_modules/inherits/inherits_browser.js"(exports2, module3) {
     if (typeof Object.create === "function") {
-      module2.exports = /* @__PURE__ */ __name(function inherits(ctor, superCtor) {
+      module3.exports = /* @__PURE__ */ __name(function inherits(ctor, superCtor) {
         if (superCtor) {
           ctor.super_ = superCtor;
           ctor.prototype = Object.create(superCtor.prototype, {
@@ -12431,7 +12441,7 @@ var require_inherits_browser = __commonJS({
         }
       }, "inherits");
     } else {
-      module2.exports = /* @__PURE__ */ __name(function inherits(ctor, superCtor) {
+      module3.exports = /* @__PURE__ */ __name(function inherits(ctor, superCtor) {
         if (superCtor) {
           ctor.super_ = superCtor;
           var TempCtor = /* @__PURE__ */ __name(function() {
@@ -12447,13 +12457,13 @@ var require_inherits_browser = __commonJS({
 
 // node_modules/inherits/inherits.js
 var require_inherits = __commonJS({
-  "node_modules/inherits/inherits.js"(exports2, module2) {
+  "node_modules/inherits/inherits.js"(exports2, module3) {
     try {
       util = require("util");
       if (typeof util.inherits !== "function") throw "";
-      module2.exports = util.inherits;
+      module3.exports = util.inherits;
     } catch (e) {
-      module2.exports = require_inherits_browser();
+      module3.exports = require_inherits_browser();
     }
     var util;
   }
@@ -12461,7 +12471,7 @@ var require_inherits = __commonJS({
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports2, module3) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -12544,7 +12554,7 @@ var require_buffer_list = __commonJS({
       Buffer2.prototype.copy.call(src, target, offset);
     }
     __name(copyBuffer, "copyBuffer");
-    module2.exports = /* @__PURE__ */ (function() {
+    module3.exports = /* @__PURE__ */ (function() {
       function BufferList() {
         _classCallCheck(this, BufferList);
         this.head = null;
@@ -12713,7 +12723,7 @@ var require_buffer_list = __commonJS({
 
 // node_modules/string_decoder/node_modules/safe-buffer/index.js
 var require_safe_buffer = __commonJS({
-  "node_modules/string_decoder/node_modules/safe-buffer/index.js"(exports2, module2) {
+  "node_modules/string_decoder/node_modules/safe-buffer/index.js"(exports2, module3) {
     var buffer = require("buffer");
     var Buffer2 = buffer.Buffer;
     function copyProps(src, dst) {
@@ -12723,7 +12733,7 @@ var require_safe_buffer = __commonJS({
     }
     __name(copyProps, "copyProps");
     if (Buffer2.from && Buffer2.alloc && Buffer2.allocUnsafe && Buffer2.allocUnsafeSlow) {
-      module2.exports = buffer;
+      module3.exports = buffer;
     } else {
       copyProps(buffer, exports2);
       exports2.Buffer = SafeBuffer;
@@ -13025,7 +13035,7 @@ var require_string_decoder = __commonJS({
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports2, module3) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors2().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once(callback) {
@@ -13112,13 +13122,13 @@ var require_end_of_stream = __commonJS({
       };
     }
     __name(eos, "eos");
-    module2.exports = eos;
+    module3.exports = eos;
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js
 var require_async_iterator = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports2, module3) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -13302,13 +13312,13 @@ var require_async_iterator = __commonJS({
       stream.on("readable", onReadable.bind(null, iterator));
       return iterator;
     }, "createReadableStreamAsyncIterator");
-    module2.exports = createReadableStreamAsyncIterator;
+    module3.exports = createReadableStreamAsyncIterator;
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/internal/streams/from.js"(exports2, module3) {
     "use strict";
     function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
       try {
@@ -13435,15 +13445,15 @@ var require_from = __commonJS({
       return readable;
     }
     __name(from, "from");
-    module2.exports = from;
+    module3.exports = from;
   }
 });
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_readable.js"(exports2, module3) {
     "use strict";
-    module2.exports = Readable;
+    module3.exports = Readable;
     var Duplex;
     Readable.ReadableState = ReadableState;
     var EE = require("events").EventEmitter;
@@ -14207,14 +14217,14 @@ var require_stream_readable = __commonJS({
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_duplex.js"(exports2, module3) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
       for (var key in obj) keys2.push(key);
       return keys2;
     };
-    module2.exports = Duplex;
+    module3.exports = Duplex;
     var Readable = require_stream_readable();
     var Writable = require_stream_writable();
     require_inherits()(Duplex, Readable);
@@ -14303,9 +14313,9 @@ var require_stream_duplex = __commonJS({
 
 // node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable = __commonJS({
-  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js"(exports2, module2) {
+  "node_modules/winston-transport/node_modules/readable-stream/lib/_stream_writable.js"(exports2, module3) {
     "use strict";
-    module2.exports = Writable;
+    module3.exports = Writable;
     function CorkedRequest(state) {
       var _this = this;
       this.next = null;
@@ -14797,12 +14807,12 @@ var require_stream_writable = __commonJS({
 
 // node_modules/winston-transport/modern.js
 var require_modern = __commonJS({
-  "node_modules/winston-transport/modern.js"(exports2, module2) {
+  "node_modules/winston-transport/modern.js"(exports2, module3) {
     "use strict";
     var util = require("util");
     var Writable = require_stream_writable();
-    var { LEVEL } = require_triple_beam();
-    var TransportStream = module2.exports = /* @__PURE__ */ __name(function TransportStream2(options = {}) {
+    var { LEVEL: LEVEL3 } = require_triple_beam();
+    var TransportStream2 = module3.exports = /* @__PURE__ */ __name(function TransportStream3(options = {}) {
       Writable.call(this, { objectMode: true, highWaterMark: options.highWaterMark });
       this.format = options.format;
       this.level = options.level;
@@ -14825,13 +14835,13 @@ var require_modern = __commonJS({
         }
       });
     }, "TransportStream");
-    util.inherits(TransportStream, Writable);
-    TransportStream.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
+    util.inherits(TransportStream2, Writable);
+    TransportStream2.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
       if (this.silent || info.exception === true && !this.handleExceptions) {
         return callback(null);
       }
       const level = this.level || this.parent && this.parent.level;
-      if (!level || this.levels[level] >= this.levels[info[LEVEL]]) {
+      if (!level || this.levels[level] >= this.levels[info[LEVEL3]]) {
         if (info && !this.format) {
           return this.log(info, callback);
         }
@@ -14852,7 +14862,7 @@ var require_modern = __commonJS({
       this._writableState.sync = false;
       return callback(null);
     }, "_write");
-    TransportStream.prototype._writev = /* @__PURE__ */ __name(function _writev(chunks, callback) {
+    TransportStream2.prototype._writev = /* @__PURE__ */ __name(function _writev(chunks, callback) {
       if (this.logv) {
         const infos = chunks.filter(this._accept, this);
         if (!infos.length) {
@@ -14888,20 +14898,20 @@ var require_modern = __commonJS({
       }
       return callback(null);
     }, "_writev");
-    TransportStream.prototype._accept = /* @__PURE__ */ __name(function _accept(write) {
+    TransportStream2.prototype._accept = /* @__PURE__ */ __name(function _accept(write) {
       const info = write.chunk;
       if (this.silent) {
         return false;
       }
       const level = this.level || this.parent && this.parent.level;
-      if (info.exception === true || !level || this.levels[level] >= this.levels[info[LEVEL]]) {
+      if (info.exception === true || !level || this.levels[level] >= this.levels[info[LEVEL3]]) {
         if (this.handleExceptions || info.exception !== true) {
           return true;
         }
       }
       return false;
     }, "_accept");
-    TransportStream.prototype._nop = /* @__PURE__ */ __name(function _nop() {
+    TransportStream2.prototype._nop = /* @__PURE__ */ __name(function _nop() {
       return void 0;
     }, "_nop");
   }
@@ -14909,13 +14919,13 @@ var require_modern = __commonJS({
 
 // node_modules/winston-transport/legacy.js
 var require_legacy = __commonJS({
-  "node_modules/winston-transport/legacy.js"(exports2, module2) {
+  "node_modules/winston-transport/legacy.js"(exports2, module3) {
     "use strict";
     var util = require("util");
-    var { LEVEL } = require_triple_beam();
-    var TransportStream = require_modern();
-    var LegacyTransportStream = module2.exports = /* @__PURE__ */ __name(function LegacyTransportStream2(options = {}) {
-      TransportStream.call(this, options);
+    var { LEVEL: LEVEL3 } = require_triple_beam();
+    var TransportStream2 = require_modern();
+    var LegacyTransportStream = module3.exports = /* @__PURE__ */ __name(function LegacyTransportStream2(options = {}) {
+      TransportStream2.call(this, options);
       if (!options.transport || typeof options.transport.log !== "function") {
         throw new Error("Invalid transport, must be an object with a log method.");
       }
@@ -14932,13 +14942,13 @@ var require_legacy = __commonJS({
         this.transport.on("error", this.transport.__winstonError);
       }
     }, "LegacyTransportStream");
-    util.inherits(LegacyTransportStream, TransportStream);
+    util.inherits(LegacyTransportStream, TransportStream2);
     LegacyTransportStream.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
       if (this.silent || info.exception === true && !this.handleExceptions) {
         return callback(null);
       }
-      if (!this.level || this.levels[this.level] >= this.levels[info[LEVEL]]) {
-        this.transport.log(info[LEVEL], info.message, info, this._nop);
+      if (!this.level || this.levels[this.level] >= this.levels[info[LEVEL3]]) {
+        this.transport.log(info[LEVEL3], info.message, info, this._nop);
       }
       callback(null);
     }, "_write");
@@ -14946,7 +14956,7 @@ var require_legacy = __commonJS({
       for (let i = 0; i < chunks.length; i++) {
         if (this._accept(chunks[i])) {
           this.transport.log(
-            chunks[i].chunk[LEVEL],
+            chunks[i].chunk[LEVEL3],
             chunks[i].chunk.message,
             chunks[i].chunk,
             this._nop
@@ -14976,21 +14986,21 @@ var require_legacy = __commonJS({
 
 // node_modules/winston-transport/index.js
 var require_winston_transport = __commonJS({
-  "node_modules/winston-transport/index.js"(exports2, module2) {
+  "node_modules/winston-transport/index.js"(exports2, module3) {
     "use strict";
-    module2.exports = require_modern();
-    module2.exports.LegacyTransportStream = require_legacy();
+    module3.exports = require_modern();
+    module3.exports.LegacyTransportStream = require_legacy();
   }
 });
 
 // node_modules/winston/lib/winston/transports/console.js
 var require_console = __commonJS({
-  "node_modules/winston/lib/winston/transports/console.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/transports/console.js"(exports2, module3) {
     "use strict";
-    var os = require("os");
-    var { LEVEL, MESSAGE } = require_triple_beam();
-    var TransportStream = require_winston_transport();
-    module2.exports = class Console extends TransportStream {
+    var os4 = require("os");
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
+    var TransportStream2 = require_winston_transport();
+    module3.exports = class Console extends TransportStream2 {
       static {
         __name(this, "Console");
       }
@@ -15004,7 +15014,7 @@ var require_console = __commonJS({
         this.name = options.name || "console";
         this.stderrLevels = this._stringArrayToSet(options.stderrLevels);
         this.consoleWarnLevels = this._stringArrayToSet(options.consoleWarnLevels);
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os4.EOL;
         this.forceConsole = options.forceConsole || false;
         this._consoleLog = console.log.bind(console);
         this._consoleWarn = console.warn.bind(console);
@@ -15019,21 +15029,21 @@ var require_console = __commonJS({
        */
       log(info, callback) {
         setImmediate(() => this.emit("logged", info));
-        if (this.stderrLevels[info[LEVEL]]) {
+        if (this.stderrLevels[info[LEVEL3]]) {
           if (console._stderr && !this.forceConsole) {
-            console._stderr.write(`${info[MESSAGE]}${this.eol}`);
+            console._stderr.write(`${info[MESSAGE3]}${this.eol}`);
           } else {
-            this._consoleError(info[MESSAGE]);
+            this._consoleError(info[MESSAGE3]);
           }
           if (callback) {
             callback();
           }
           return;
-        } else if (this.consoleWarnLevels[info[LEVEL]]) {
+        } else if (this.consoleWarnLevels[info[LEVEL3]]) {
           if (console._stderr && !this.forceConsole) {
-            console._stderr.write(`${info[MESSAGE]}${this.eol}`);
+            console._stderr.write(`${info[MESSAGE3]}${this.eol}`);
           } else {
-            this._consoleWarn(info[MESSAGE]);
+            this._consoleWarn(info[MESSAGE3]);
           }
           if (callback) {
             callback();
@@ -15041,9 +15051,9 @@ var require_console = __commonJS({
           return;
         }
         if (console._stdout && !this.forceConsole) {
-          console._stdout.write(`${info[MESSAGE]}${this.eol}`);
+          console._stdout.write(`${info[MESSAGE3]}${this.eol}`);
         } else {
-          this._consoleLog(info[MESSAGE]);
+          this._consoleLog(info[MESSAGE3]);
         }
         if (callback) {
           callback();
@@ -15077,7 +15087,7 @@ var require_console = __commonJS({
 
 // node_modules/async/internal/isArrayLike.js
 var require_isArrayLike = __commonJS({
-  "node_modules/async/internal/isArrayLike.js"(exports2, module2) {
+  "node_modules/async/internal/isArrayLike.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15087,13 +15097,13 @@ var require_isArrayLike = __commonJS({
       return value && typeof value.length === "number" && value.length >= 0 && value.length % 1 === 0;
     }
     __name(isArrayLike, "isArrayLike");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/initialParams.js
 var require_initialParams = __commonJS({
-  "node_modules/async/internal/initialParams.js"(exports2, module2) {
+  "node_modules/async/internal/initialParams.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15104,7 +15114,7 @@ var require_initialParams = __commonJS({
         return fn.call(this, args, callback);
       };
     };
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
@@ -15144,7 +15154,7 @@ var require_setImmediate = __commonJS({
 
 // node_modules/async/asyncify.js
 var require_asyncify = __commonJS({
-  "node_modules/async/asyncify.js"(exports2, module2) {
+  "node_modules/async/asyncify.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15200,7 +15210,7 @@ var require_asyncify = __commonJS({
       }
     }
     __name(invokeCallback, "invokeCallback");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
@@ -15244,7 +15254,7 @@ var require_wrapAsync = __commonJS({
 
 // node_modules/async/internal/awaitify.js
 var require_awaitify = __commonJS({
-  "node_modules/async/internal/awaitify.js"(exports2, module2) {
+  "node_modules/async/internal/awaitify.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15269,13 +15279,13 @@ var require_awaitify = __commonJS({
       return awaitable;
     }
     __name(awaitify, "awaitify");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/parallel.js
 var require_parallel = __commonJS({
-  "node_modules/async/internal/parallel.js"(exports2, module2) {
+  "node_modules/async/internal/parallel.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15302,13 +15312,13 @@ var require_parallel = __commonJS({
         });
       }, (err) => callback(err, results));
     }, 3);
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/once.js
 var require_once = __commonJS({
-  "node_modules/async/internal/once.js"(exports2, module2) {
+  "node_modules/async/internal/once.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15326,13 +15336,13 @@ var require_once = __commonJS({
       return wrapper;
     }
     __name(once, "once");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/getIterator.js
 var require_getIterator = __commonJS({
-  "node_modules/async/internal/getIterator.js"(exports2, module2) {
+  "node_modules/async/internal/getIterator.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15340,13 +15350,13 @@ var require_getIterator = __commonJS({
     exports2.default = function(coll) {
       return coll[Symbol.iterator] && coll[Symbol.iterator]();
     };
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/iterator.js
 var require_iterator = __commonJS({
-  "node_modules/async/internal/iterator.js"(exports2, module2) {
+  "node_modules/async/internal/iterator.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15399,13 +15409,13 @@ var require_iterator = __commonJS({
       return iterator ? createES2015Iterator(iterator) : createObjectIterator(coll);
     }
     __name(createIterator, "createIterator");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/onlyOnce.js
 var require_onlyOnce = __commonJS({
-  "node_modules/async/internal/onlyOnce.js"(exports2, module2) {
+  "node_modules/async/internal/onlyOnce.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15420,26 +15430,26 @@ var require_onlyOnce = __commonJS({
       };
     }
     __name(onlyOnce, "onlyOnce");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/breakLoop.js
 var require_breakLoop = __commonJS({
-  "node_modules/async/internal/breakLoop.js"(exports2, module2) {
+  "node_modules/async/internal/breakLoop.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
     });
     var breakLoop = {};
     exports2.default = breakLoop;
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/asyncEachOfLimit.js
 var require_asyncEachOfLimit = __commonJS({
-  "node_modules/async/internal/asyncEachOfLimit.js"(exports2, module2) {
+  "node_modules/async/internal/asyncEachOfLimit.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15503,13 +15513,13 @@ var require_asyncEachOfLimit = __commonJS({
       replenish();
     }
     __name(asyncEachOfLimit, "asyncEachOfLimit");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/eachOfLimit.js
 var require_eachOfLimit = __commonJS({
-  "node_modules/async/internal/eachOfLimit.js"(exports2, module2) {
+  "node_modules/async/internal/eachOfLimit.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15586,13 +15596,13 @@ var require_eachOfLimit = __commonJS({
         replenish();
       };
     };
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/eachOfLimit.js
 var require_eachOfLimit2 = __commonJS({
-  "node_modules/async/eachOfLimit.js"(exports2, module2) {
+  "node_modules/async/eachOfLimit.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15612,13 +15622,13 @@ var require_eachOfLimit2 = __commonJS({
     }
     __name(eachOfLimit, "eachOfLimit");
     exports2.default = (0, _awaitify2.default)(eachOfLimit, 4);
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/eachOfSeries.js
 var require_eachOfSeries = __commonJS({
-  "node_modules/async/eachOfSeries.js"(exports2, module2) {
+  "node_modules/async/eachOfSeries.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15636,13 +15646,13 @@ var require_eachOfSeries = __commonJS({
     }
     __name(eachOfSeries, "eachOfSeries");
     exports2.default = (0, _awaitify2.default)(eachOfSeries, 3);
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/series.js
 var require_series = __commonJS({
-  "node_modules/async/series.js"(exports2, module2) {
+  "node_modules/async/series.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -15660,20 +15670,20 @@ var require_series = __commonJS({
       return (0, _parallel3.default)(_eachOfSeries2.default, tasks, callback);
     }
     __name(series, "series");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js
 var require_stream2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js"(exports2, module2) {
-    module2.exports = require("stream");
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/stream.js"(exports2, module3) {
+    module3.exports = require("stream");
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js
 var require_buffer_list2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/buffer_list.js"(exports2, module3) {
     "use strict";
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
@@ -15756,7 +15766,7 @@ var require_buffer_list2 = __commonJS({
       Buffer2.prototype.copy.call(src, target, offset);
     }
     __name(copyBuffer, "copyBuffer");
-    module2.exports = /* @__PURE__ */ (function() {
+    module3.exports = /* @__PURE__ */ (function() {
       function BufferList() {
         _classCallCheck(this, BufferList);
         this.head = null;
@@ -15925,7 +15935,7 @@ var require_buffer_list2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js
 var require_destroy2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/destroy.js"(exports2, module3) {
     "use strict";
     function destroy(err, cb) {
       var _this = this;
@@ -16010,7 +16020,7 @@ var require_destroy2 = __commonJS({
       else stream.emit("error", err);
     }
     __name(errorOrDestroy, "errorOrDestroy");
-    module2.exports = {
+    module3.exports = {
       destroy,
       undestroy,
       errorOrDestroy
@@ -16020,7 +16030,7 @@ var require_destroy2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/errors.js
 var require_errors3 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/errors.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/errors.js"(exports2, module3) {
     "use strict";
     var codes = {};
     function createErrorType(code, message, Base) {
@@ -16123,13 +16133,13 @@ var require_errors3 = __commonJS({
       return "Unknown encoding: " + arg;
     }, TypeError);
     createErrorType("ERR_STREAM_UNSHIFT_AFTER_END_EVENT", "stream.unshift() after end event");
-    module2.exports.codes = codes;
+    module3.exports.codes = codes;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js
 var require_state2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/state.js"(exports2, module3) {
     "use strict";
     var ERR_INVALID_OPT_VALUE = require_errors3().codes.ERR_INVALID_OPT_VALUE;
     function highWaterMarkFrom(options, isDuplex, duplexKey) {
@@ -16148,7 +16158,7 @@ var require_state2 = __commonJS({
       return state.objectMode ? 16 : 16 * 1024;
     }
     __name(getHighWaterMark, "getHighWaterMark");
-    module2.exports = {
+    module3.exports = {
       getHighWaterMark
     };
   }
@@ -16156,9 +16166,9 @@ var require_state2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js
 var require_stream_writable2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_writable.js"(exports2, module3) {
     "use strict";
-    module2.exports = Writable;
+    module3.exports = Writable;
     function CorkedRequest(state) {
       var _this = this;
       this.next = null;
@@ -16650,14 +16660,14 @@ var require_stream_writable2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js
 var require_stream_duplex2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_duplex.js"(exports2, module3) {
     "use strict";
     var objectKeys = Object.keys || function(obj) {
       var keys2 = [];
       for (var key in obj) keys2.push(key);
       return keys2;
     };
-    module2.exports = Duplex;
+    module3.exports = Duplex;
     var Readable = require_stream_readable2();
     var Writable = require_stream_writable2();
     require_inherits()(Duplex, Readable);
@@ -16746,7 +16756,7 @@ var require_stream_duplex2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js
 var require_end_of_stream2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/end-of-stream.js"(exports2, module3) {
     "use strict";
     var ERR_STREAM_PREMATURE_CLOSE = require_errors3().codes.ERR_STREAM_PREMATURE_CLOSE;
     function once(callback) {
@@ -16833,13 +16843,13 @@ var require_end_of_stream2 = __commonJS({
       };
     }
     __name(eos, "eos");
-    module2.exports = eos;
+    module3.exports = eos;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js
 var require_async_iterator2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/async_iterator.js"(exports2, module3) {
     "use strict";
     var _Object$setPrototypeO;
     function _defineProperty(obj, key, value) {
@@ -17023,13 +17033,13 @@ var require_async_iterator2 = __commonJS({
       stream.on("readable", onReadable.bind(null, iterator));
       return iterator;
     }, "createReadableStreamAsyncIterator");
-    module2.exports = createReadableStreamAsyncIterator;
+    module3.exports = createReadableStreamAsyncIterator;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js
 var require_from2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/from.js"(exports2, module3) {
     "use strict";
     function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
       try {
@@ -17156,15 +17166,15 @@ var require_from2 = __commonJS({
       return readable;
     }
     __name(from, "from");
-    module2.exports = from;
+    module3.exports = from;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js
 var require_stream_readable2 = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_readable.js"(exports2, module3) {
     "use strict";
-    module2.exports = Readable;
+    module3.exports = Readable;
     var Duplex;
     Readable.ReadableState = ReadableState;
     var EE = require("events").EventEmitter;
@@ -17928,9 +17938,9 @@ var require_stream_readable2 = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js
 var require_stream_transform = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_transform.js"(exports2, module3) {
     "use strict";
-    module2.exports = Transform;
+    module3.exports = Transform;
     var _require$codes = require_errors3().codes;
     var ERR_METHOD_NOT_IMPLEMENTED = _require$codes.ERR_METHOD_NOT_IMPLEMENTED;
     var ERR_MULTIPLE_CALLBACK = _require$codes.ERR_MULTIPLE_CALLBACK;
@@ -18033,9 +18043,9 @@ var require_stream_transform = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js
 var require_stream_passthrough = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/_stream_passthrough.js"(exports2, module3) {
     "use strict";
-    module2.exports = PassThrough;
+    module3.exports = PassThrough;
     var Transform = require_stream_transform();
     require_inherits()(PassThrough, Transform);
     function PassThrough(options) {
@@ -18051,7 +18061,7 @@ var require_stream_passthrough = __commonJS({
 
 // node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js
 var require_pipeline = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/lib/internal/streams/pipeline.js"(exports2, module3) {
     "use strict";
     var eos;
     function once(callback) {
@@ -18138,20 +18148,20 @@ var require_pipeline = __commonJS({
       return streams.reduce(pipe);
     }
     __name(pipeline, "pipeline");
-    module2.exports = pipeline;
+    module3.exports = pipeline;
   }
 });
 
 // node_modules/winston/node_modules/readable-stream/readable.js
 var require_readable = __commonJS({
-  "node_modules/winston/node_modules/readable-stream/readable.js"(exports2, module2) {
+  "node_modules/winston/node_modules/readable-stream/readable.js"(exports2, module3) {
     var Stream = require("stream");
     if (process.env.READABLE_STREAM === "disable" && Stream) {
-      module2.exports = Stream.Readable;
-      Object.assign(module2.exports, Stream);
-      module2.exports.Stream = Stream;
+      module3.exports = Stream.Readable;
+      Object.assign(module3.exports, Stream);
+      module3.exports.Stream = Stream;
     } else {
-      exports2 = module2.exports = require_stream_readable2();
+      exports2 = module3.exports = require_stream_readable2();
       exports2.Stream = Stream || exports2;
       exports2.Readable = exports2;
       exports2.Writable = require_stream_writable2();
@@ -18166,7 +18176,7 @@ var require_readable = __commonJS({
 
 // node_modules/@dabh/diagnostics/diagnostics.js
 var require_diagnostics = __commonJS({
-  "node_modules/@dabh/diagnostics/diagnostics.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/diagnostics.js"(exports2, module3) {
     var adapters = [];
     var modifiers = [];
     var logger = /* @__PURE__ */ __name(function devnull() {
@@ -18212,13 +18222,13 @@ var require_diagnostics = __commonJS({
       logger.apply(logger, arguments);
     }
     __name(write, "write");
-    function process2(message) {
+    function process7(message) {
       for (var i = 0; i < modifiers.length; i++) {
         message = modifiers[i].apply(modifiers[i], arguments);
       }
       return message;
     }
-    __name(process2, "process");
+    __name(process7, "process");
     function introduce(fn, options) {
       var has = Object.prototype.hasOwnProperty;
       for (var key in options) {
@@ -18242,7 +18252,7 @@ var require_diagnostics = __commonJS({
     function yep(options) {
       function diagnostics() {
         var args = Array.prototype.slice.call(arguments, 0);
-        write.call(write, options, process2(args, options));
+        write.call(write, options, process7(args, options));
         return true;
       }
       __name(diagnostics, "diagnostics");
@@ -18253,10 +18263,10 @@ var require_diagnostics = __commonJS({
       return introduce(diagnostics, options);
     }
     __name(yep, "yep");
-    module2.exports = /* @__PURE__ */ __name(function create(diagnostics) {
+    module3.exports = /* @__PURE__ */ __name(function create(diagnostics) {
       diagnostics.introduce = introduce;
       diagnostics.enabled = enabled;
-      diagnostics.process = process2;
+      diagnostics.process = process7;
       diagnostics.modify = modify;
       diagnostics.write = write;
       diagnostics.nope = nope;
@@ -18270,7 +18280,7 @@ var require_diagnostics = __commonJS({
 
 // node_modules/@dabh/diagnostics/node/production.js
 var require_production = __commonJS({
-  "node_modules/@dabh/diagnostics/node/production.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/node/production.js"(exports2, module3) {
     var create = require_diagnostics();
     var diagnostics = create(/* @__PURE__ */ __name(function prod(namespace, options) {
       options = options || {};
@@ -18280,13 +18290,13 @@ var require_production = __commonJS({
       if (!(options.force || prod.force)) return prod.nope(options);
       return prod.yep(options);
     }, "prod"));
-    module2.exports = diagnostics;
+    module3.exports = diagnostics;
   }
 });
 
 // node_modules/@so-ric/colorspace/dist/index.cjs.js
 var require_index_cjs = __commonJS({
-  "node_modules/@so-ric/colorspace/dist/index.cjs.js"(exports2, module2) {
+  "node_modules/@so-ric/colorspace/dist/index.cjs.js"(exports2, module3) {
     "use strict";
     var cssKeywords = {
       aliceblue: [240, 248, 255],
@@ -18705,15 +18715,15 @@ var require_index_cjs = __commonJS({
       const g = rgb[1] / 255;
       const b = rgb[2] / 255;
       const v = Math.max(r, g, b);
-      const diff = v - Math.min(r, g, b);
+      const diff2 = v - Math.min(r, g, b);
       const diffc = /* @__PURE__ */ __name(function(c) {
-        return (v - c) / 6 / diff + 1 / 2;
+        return (v - c) / 6 / diff2 + 1 / 2;
       }, "diffc");
-      if (diff === 0) {
+      if (diff2 === 0) {
         h = 0;
         s = 0;
       } else {
-        s = diff / v;
+        s = diff2 / v;
         rdif = diffc(r);
         gdif = diffc(g);
         bdif = diffc(b);
@@ -19165,8 +19175,8 @@ var require_index_cjs = __commonJS({
       return [r, g, b];
     };
     convert$1.rgb.hex = function(args) {
-      const integer = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
-      const string = integer.toString(16).toUpperCase();
+      const integer2 = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
+      const string = integer2.toString(16).toUpperCase();
       return "000000".slice(string.length) + string;
     };
     convert$1.hex.rgb = function(args) {
@@ -19178,10 +19188,10 @@ var require_index_cjs = __commonJS({
       if (match[0].length === 3) {
         colorString = [...colorString].map((char) => char + char).join("");
       }
-      const integer = Number.parseInt(colorString, 16);
-      const r = integer >> 16 & 255;
-      const g = integer >> 8 & 255;
-      const b = integer & 255;
+      const integer2 = Number.parseInt(colorString, 16);
+      const r = integer2 >> 16 & 255;
+      const g = integer2 >> 8 & 255;
+      const b = integer2 & 255;
       return [r, g, b];
     };
     convert$1.rgb.hcg = function(rgb) {
@@ -19345,8 +19355,8 @@ var require_index_cjs = __commonJS({
     };
     convert$1.gray.hex = function(gray) {
       const value = Math.round(gray[0] / 100 * 255) & 255;
-      const integer = (value << 16) + (value << 8) + value;
-      const string = integer.toString(16).toUpperCase();
+      const integer2 = (value << 16) + (value << 8) + value;
+      const string = integer2.toString(16).toUpperCase();
       return "000000".slice(string.length) + string;
     };
     convert$1.rgb.gray = function(rgb) {
@@ -19394,15 +19404,15 @@ var require_index_cjs = __commonJS({
     }
     __name(link, "link");
     function wrapConversion(toModel, graph) {
-      const path = [graph[toModel].parent, toModel];
+      const path6 = [graph[toModel].parent, toModel];
       let fn = convert$1[graph[toModel].parent][toModel];
       let cur = graph[toModel].parent;
       while (graph[cur].parent) {
-        path.unshift(graph[cur].parent);
+        path6.unshift(graph[cur].parent);
         fn = link(convert$1[graph[cur].parent][cur], fn);
         cur = graph[cur].parent;
       }
-      fn.conversion = path;
+      fn.conversion = path6;
       return fn;
     }
     __name(wrapConversion, "wrapConversion");
@@ -19488,9 +19498,9 @@ var require_index_cjs = __commonJS({
       hashedModelKeys[[...convert[model].labels].sort().join("")] = model;
     }
     var limiters = {};
-    function Color(object, model) {
-      if (!(this instanceof Color)) {
-        return new Color(object, model);
+    function Color2(object, model) {
+      if (!(this instanceof Color2)) {
+        return new Color2(object, model);
       }
       if (model && model in skippedModels) {
         model = null;
@@ -19504,7 +19514,7 @@ var require_index_cjs = __commonJS({
         this.model = "rgb";
         this.color = [0, 0, 0];
         this.valpha = 1;
-      } else if (object instanceof Color) {
+      } else if (object instanceof Color2) {
         this.model = object.model;
         this.color = [...object.color];
         this.valpha = object.valpha;
@@ -19564,8 +19574,8 @@ var require_index_cjs = __commonJS({
         Object.freeze(this);
       }
     }
-    __name(Color, "Color");
-    Color.prototype = {
+    __name(Color2, "Color");
+    Color2.prototype = {
       toString() {
         return this.string();
       },
@@ -19620,11 +19630,11 @@ var require_index_cjs = __commonJS({
       },
       round(places) {
         places = Math.max(places || 0, 0);
-        return new Color([...this.color.map(roundToPlace(places)), this.valpha], this.model);
+        return new Color2([...this.color.map(roundToPlace(places)), this.valpha], this.model);
       },
       alpha(value) {
         if (value !== void 0) {
-          return new Color([...this.color, Math.max(0, Math.min(1, value))], this.model);
+          return new Color2([...this.color, Math.max(0, Math.min(1, value))], this.model);
         }
         return this.valpha;
       },
@@ -19653,19 +19663,19 @@ var require_index_cjs = __commonJS({
       b: getset("lab", 2),
       keyword(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         return convert[this.model].keyword(this.color);
       },
       hex(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         return cs.to.hex(...this.rgb().round().color);
       },
       hexa(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         const rgbArray = this.rgb().round().color;
         let alphaHex = Math.round(this.valpha * 255).toString(16).toUpperCase();
@@ -19750,7 +19760,7 @@ var require_index_cjs = __commonJS({
       grayscale() {
         const rgb = this.rgb().color;
         const value = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
-        return Color.rgb(value, value, value);
+        return Color2.rgb(value, value, value);
       },
       fade(ratio) {
         return this.alpha(this.valpha - this.valpha * ratio);
@@ -19777,7 +19787,7 @@ var require_index_cjs = __commonJS({
         const a = color1.alpha() - color2.alpha();
         const w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2;
         const w2 = 1 - w1;
-        return Color.rgb(
+        return Color2.rgb(
           w1 * color1.red() + w2 * color2.red(),
           w1 * color1.green() + w2 * color2.green(),
           w1 * color1.blue() + w2 * color2.blue(),
@@ -19790,21 +19800,21 @@ var require_index_cjs = __commonJS({
         continue;
       }
       const { channels } = convert[model];
-      Color.prototype[model] = function(...arguments_) {
+      Color2.prototype[model] = function(...arguments_) {
         if (this.model === model) {
-          return new Color(this);
+          return new Color2(this);
         }
         if (arguments_.length > 0) {
-          return new Color(arguments_, model);
+          return new Color2(arguments_, model);
         }
-        return new Color([...assertArray(convert[this.model][model].raw(this.color)), this.valpha], model);
+        return new Color2([...assertArray(convert[this.model][model].raw(this.color)), this.valpha], model);
       };
-      Color[model] = function(...arguments_) {
+      Color2[model] = function(...arguments_) {
         let color = arguments_[0];
         if (typeof color === "number") {
           color = zeroArray(arguments_, channels);
         }
-        return new Color(color, model);
+        return new Color2(color, model);
       };
     }
     function roundTo(number, places) {
@@ -19879,18 +19889,18 @@ var require_index_cjs = __commonJS({
       let base = hex(split[0]);
       if (!split.length) return base;
       for (let i = 0, l = split.length - 1; i < l; i++) {
-        base = Color(base).mix(Color(hex(split[i + 1]))).saturate(1).hex();
+        base = Color2(base).mix(Color2(hex(split[i + 1]))).saturate(1).hex();
       }
       return base;
     }
     __name(colorspace, "colorspace");
-    module2.exports = colorspace;
+    module3.exports = colorspace;
   }
 });
 
 // node_modules/kuler/index.js
 var require_kuler = __commonJS({
-  "node_modules/kuler/index.js"(exports2, module2) {
+  "node_modules/kuler/index.js"(exports2, module3) {
     "use strict";
     function Kuler(text, color) {
       if (color) return new Kuler(text).style(color);
@@ -19928,16 +19938,16 @@ var require_kuler = __commonJS({
     Kuler.prototype.style = /* @__PURE__ */ __name(function style(color) {
       return this.prefix + "38;5;" + this.rgb.apply(this, this.hex(color)) + this.suffix + this.text + this.reset();
     }, "style");
-    module2.exports = Kuler;
+    module3.exports = Kuler;
   }
 });
 
 // node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js
 var require_namespace_ansi = __commonJS({
-  "node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/modifiers/namespace-ansi.js"(exports2, module3) {
     var colorspace = require_index_cjs();
     var kuler = require_kuler();
-    module2.exports = /* @__PURE__ */ __name(function ansiModifier(args, options) {
+    module3.exports = /* @__PURE__ */ __name(function ansiModifier(args, options) {
       var namespace = options.namespace;
       var ansi = options.colors !== false ? kuler(namespace + ":", colorspace(namespace)) : namespace + ":";
       args[0] = ansi + " " + args[0];
@@ -19948,9 +19958,9 @@ var require_namespace_ansi = __commonJS({
 
 // node_modules/enabled/index.js
 var require_enabled = __commonJS({
-  "node_modules/enabled/index.js"(exports2, module2) {
+  "node_modules/enabled/index.js"(exports2, module3) {
     "use strict";
-    module2.exports = /* @__PURE__ */ __name(function enabled(name, variable) {
+    module3.exports = /* @__PURE__ */ __name(function enabled(name, variable) {
       if (!variable) return false;
       var variables = variable.split(/[\s,]+/), i = 0;
       for (; i < variables.length; i++) {
@@ -19972,9 +19982,9 @@ var require_enabled = __commonJS({
 
 // node_modules/@dabh/diagnostics/adapters/index.js
 var require_adapters = __commonJS({
-  "node_modules/@dabh/diagnostics/adapters/index.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/adapters/index.js"(exports2, module3) {
     var enabled = require_enabled();
-    module2.exports = /* @__PURE__ */ __name(function create(fn) {
+    module3.exports = /* @__PURE__ */ __name(function create(fn) {
       return /* @__PURE__ */ __name(function adapter(namespace) {
         try {
           return enabled(namespace, fn());
@@ -19988,9 +19998,9 @@ var require_adapters = __commonJS({
 
 // node_modules/@dabh/diagnostics/adapters/process.env.js
 var require_process_env = __commonJS({
-  "node_modules/@dabh/diagnostics/adapters/process.env.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/adapters/process.env.js"(exports2, module3) {
     var adapter = require_adapters();
-    module2.exports = adapter(/* @__PURE__ */ __name(function processenv() {
+    module3.exports = adapter(/* @__PURE__ */ __name(function processenv() {
       return process.env.DEBUG || process.env.DIAGNOSTICS;
     }, "processenv"));
   }
@@ -19998,8 +20008,8 @@ var require_process_env = __commonJS({
 
 // node_modules/@dabh/diagnostics/logger/console.js
 var require_console2 = __commonJS({
-  "node_modules/@dabh/diagnostics/logger/console.js"(exports2, module2) {
-    module2.exports = function(meta, messages) {
+  "node_modules/@dabh/diagnostics/logger/console.js"(exports2, module3) {
+    module3.exports = function(meta, messages) {
       try {
         Function.prototype.apply.call(console.log, console, messages);
       } catch (e) {
@@ -20010,7 +20020,7 @@ var require_console2 = __commonJS({
 
 // node_modules/@dabh/diagnostics/node/development.js
 var require_development = __commonJS({
-  "node_modules/@dabh/diagnostics/node/development.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/node/development.js"(exports2, module3) {
     var create = require_diagnostics();
     var tty = require("tty").isatty(1);
     var diagnostics = create(/* @__PURE__ */ __name(function dev(namespace, options) {
@@ -20027,32 +20037,32 @@ var require_development = __commonJS({
     diagnostics.modify(require_namespace_ansi());
     diagnostics.use(require_process_env());
     diagnostics.set(require_console2());
-    module2.exports = diagnostics;
+    module3.exports = diagnostics;
   }
 });
 
 // node_modules/@dabh/diagnostics/node/index.js
 var require_node5 = __commonJS({
-  "node_modules/@dabh/diagnostics/node/index.js"(exports2, module2) {
+  "node_modules/@dabh/diagnostics/node/index.js"(exports2, module3) {
     if (process.env.NODE_ENV === "production") {
-      module2.exports = require_production();
+      module3.exports = require_production();
     } else {
-      module2.exports = require_development();
+      module3.exports = require_development();
     }
   }
 });
 
 // node_modules/winston/lib/winston/tail-file.js
 var require_tail_file = __commonJS({
-  "node_modules/winston/lib/winston/tail-file.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/tail-file.js"(exports2, module3) {
     "use strict";
-    var fs = require("fs");
+    var fs4 = require("fs");
     var { StringDecoder } = require("string_decoder");
     var { Stream } = require_readable();
     function noop() {
     }
     __name(noop, "noop");
-    module2.exports = (options, iter) => {
+    module3.exports = (options, iter) => {
       const buffer = Buffer.alloc(64 * 1024);
       const decode = new StringDecoder("utf8");
       const stream = new Stream();
@@ -20068,7 +20078,7 @@ var require_tail_file = __commonJS({
         stream.emit("end");
         stream.emit("close");
       };
-      fs.open(options.file, "a+", "0644", (err, fd) => {
+      fs4.open(options.file, "a+", "0644", (err, fd) => {
         if (err) {
           if (!iter) {
             stream.emit("error", err);
@@ -20080,10 +20090,10 @@ var require_tail_file = __commonJS({
         }
         (/* @__PURE__ */ __name(function read() {
           if (stream.destroyed) {
-            fs.close(fd, noop);
+            fs4.close(fd, noop);
             return;
           }
-          return fs.read(fd, buffer, 0, buffer.length, pos, (error, bytes) => {
+          return fs4.read(fd, buffer, 0, buffer.length, pos, (error, bytes) => {
             if (error) {
               if (!iter) {
                 stream.emit("error", error);
@@ -20140,19 +20150,19 @@ var require_tail_file = __commonJS({
 
 // node_modules/winston/lib/winston/transports/file.js
 var require_file = __commonJS({
-  "node_modules/winston/lib/winston/transports/file.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/transports/file.js"(exports2, module3) {
     "use strict";
-    var fs = require("fs");
-    var path = require("path");
+    var fs4 = require("fs");
+    var path6 = require("path");
     var asyncSeries = require_series();
     var zlib = require("zlib");
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var { Stream, PassThrough } = require_readable();
-    var TransportStream = require_winston_transport();
+    var TransportStream2 = require_winston_transport();
     var debug = require_node5()("winston:file");
-    var os = require("os");
+    var os4 = require("os");
     var tailFile = require_tail_file();
-    module2.exports = class File extends TransportStream {
+    module3.exports = class File extends TransportStream2 {
       static {
         __name(this, "File");
       }
@@ -20177,14 +20187,14 @@ var require_file = __commonJS({
         this._onError = this._onError.bind(this);
         if (options.filename || options.dirname) {
           throwIf("filename or dirname", "stream");
-          this._basename = this.filename = options.filename ? path.basename(options.filename) : "winston.log";
-          this.dirname = options.dirname || path.dirname(options.filename);
+          this._basename = this.filename = options.filename ? path6.basename(options.filename) : "winston.log";
+          this.dirname = options.dirname || path6.dirname(options.filename);
           this.options = options.options || { flags: "a" };
         } else if (options.stream) {
           console.warn("options.stream will be removed in winston@4. Use winston.transports.Stream");
           throwIf("stream", "filename", "maxsize");
           this._dest = this._stream.pipe(this._setupStream(options.stream));
-          this.dirname = path.dirname(this._dest.path);
+          this.dirname = path6.dirname(this._dest.path);
         } else {
           throw new Error("Cannot log to file without filename or stream.");
         }
@@ -20192,7 +20202,7 @@ var require_file = __commonJS({
         this.rotationFormat = options.rotationFormat || false;
         this.zippedArchive = options.zippedArchive || false;
         this.maxFiles = options.maxFiles || null;
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os4.EOL;
         this.tailable = options.tailable || false;
         this.lazy = options.lazy || false;
         this._size = 0;
@@ -20292,7 +20302,7 @@ var require_file = __commonJS({
             return;
           }
         }
-        const output = `${info[MESSAGE]}${this.eol}`;
+        const output = `${info[MESSAGE3]}${this.eol}`;
         const bytes = Buffer.byteLength(output);
         function logged() {
           this._size += bytes;
@@ -20348,11 +20358,11 @@ var require_file = __commonJS({
           options = {};
         }
         options = normalizeQuery(options);
-        const file = path.join(this.dirname, this.filename);
+        const file = path6.join(this.dirname, this.filename);
         let buff = "";
         let results = [];
         let row = 0;
-        const stream = fs.createReadStream(file, {
+        const stream = fs4.createReadStream(file, {
           encoding: "utf8"
         });
         stream.on("error", (err) => {
@@ -20457,7 +20467,7 @@ var require_file = __commonJS({
        * TODO: Refactor me.
        */
       stream(options = {}) {
-        const file = path.join(this.dirname, this.filename);
+        const file = path6.join(this.dirname, this.filename);
         const stream = new Stream();
         const tail = {
           file,
@@ -20507,8 +20517,8 @@ var require_file = __commonJS({
        */
       stat(callback) {
         const target = this._getFile();
-        const fullpath = path.join(this.dirname, target);
-        fs.stat(fullpath, (err, stat) => {
+        const fullpath = path6.join(this.dirname, target);
+        fs4.stat(fullpath, (err, stat) => {
           if (err && err.code === "ENOENT") {
             debug("ENOENT\xA0ok", fullpath);
             this.filename = target;
@@ -20611,9 +20621,9 @@ var require_file = __commonJS({
        * @returns {WritableStream} Stream that writes to disk for the active file.
        */
       _createStream(source) {
-        const fullpath = path.join(this.dirname, this.filename);
+        const fullpath = path6.join(this.dirname, this.filename);
         debug("create stream start", fullpath, this.options);
-        const dest = fs.createWriteStream(fullpath, this.options).on("error", (err) => debug(err)).on("close", () => debug("close", dest.path, dest.bytesWritten)).on("open", () => {
+        const dest = fs4.createWriteStream(fullpath, this.options).on("error", (err) => debug(err)).on("close", () => debug("close", dest.path, dest.bytesWritten)).on("open", () => {
           debug("file open ok", fullpath);
           this.emit("open", fullpath);
           source.pipe(dest);
@@ -20636,16 +20646,16 @@ var require_file = __commonJS({
        */
       _incFile(callback) {
         debug("_incFile", this.filename);
-        const ext = path.extname(this._basename);
-        const basename = path.basename(this._basename, ext);
+        const ext = path6.extname(this._basename);
+        const basename = path6.basename(this._basename, ext);
         const tasks = [];
         if (this.zippedArchive) {
           tasks.push(
             function(cb) {
               const num = this._created > 0 && !this.tailable ? this._created : "";
               this._compressFile(
-                path.join(this.dirname, `${basename}${num}${ext}`),
-                path.join(this.dirname, `${basename}${num}${ext}.gz`),
+                path6.join(this.dirname, `${basename}${num}${ext}`),
+                path6.join(this.dirname, `${basename}${num}${ext}.gz`),
                 cb
               );
             }.bind(this)
@@ -20670,8 +20680,8 @@ var require_file = __commonJS({
        * @private
        */
       _getFile() {
-        const ext = path.extname(this._basename);
-        const basename = path.basename(this._basename, ext);
+        const ext = path6.extname(this._basename);
+        const basename = path6.basename(this._basename, ext);
         const isRotation = this.rotationFormat ? this.rotationFormat() : this._created;
         return !this.tailable && this._created ? `${basename}${isRotation}${ext}` : `${basename}${ext}`;
       }
@@ -20691,8 +20701,8 @@ var require_file = __commonJS({
         const isOldest = oldest !== 0 ? oldest : "";
         const isZipped = this.zippedArchive ? ".gz" : "";
         const filePath = `${basename}${isOldest}${ext}${isZipped}`;
-        const target = path.join(this.dirname, filePath);
-        fs.unlink(target, callback);
+        const target = path6.join(this.dirname, filePath);
+        fs4.unlink(target, callback);
       }
       /**
        * Roll files forward based on integer, up to maxFiles. e.g. if base if
@@ -20714,20 +20724,20 @@ var require_file = __commonJS({
         for (let x = this.maxFiles - 1; x > 1; x--) {
           tasks.push(function(i, cb) {
             let fileName = `${basename}${i - 1}${ext}${isZipped}`;
-            const tmppath = path.join(this.dirname, fileName);
-            fs.exists(tmppath, (exists) => {
+            const tmppath = path6.join(this.dirname, fileName);
+            fs4.exists(tmppath, (exists) => {
               if (!exists) {
                 return cb(null);
               }
               fileName = `${basename}${i}${ext}${isZipped}`;
-              fs.rename(tmppath, path.join(this.dirname, fileName), cb);
+              fs4.rename(tmppath, path6.join(this.dirname, fileName), cb);
             });
           }.bind(this, x));
         }
         asyncSeries(tasks, () => {
-          fs.rename(
-            path.join(this.dirname, `${basename}${ext}${isZipped}`),
-            path.join(this.dirname, `${basename}1${ext}${isZipped}`),
+          fs4.rename(
+            path6.join(this.dirname, `${basename}${ext}${isZipped}`),
+            path6.join(this.dirname, `${basename}1${ext}${isZipped}`),
             callback
           );
         });
@@ -20741,22 +20751,22 @@ var require_file = __commonJS({
        * @private
        */
       _compressFile(src, dest, callback) {
-        fs.access(src, fs.F_OK, (err) => {
+        fs4.access(src, fs4.F_OK, (err) => {
           if (err) {
             return callback();
           }
           var gzip = zlib.createGzip();
-          var inp = fs.createReadStream(src);
-          var out = fs.createWriteStream(dest);
+          var inp = fs4.createReadStream(src);
+          var out = fs4.createWriteStream(dest);
           out.on("finish", () => {
-            fs.unlink(src, callback);
+            fs4.unlink(src, callback);
           });
           inp.pipe(gzip).pipe(out);
         });
       }
       _createLogDirIfNotExist(dirPath) {
-        if (!fs.existsSync(dirPath)) {
-          fs.mkdirSync(dirPath, { recursive: true });
+        if (!fs4.existsSync(dirPath)) {
+          fs4.mkdirSync(dirPath, { recursive: true });
         }
       }
     };
@@ -20765,14 +20775,14 @@ var require_file = __commonJS({
 
 // node_modules/winston/lib/winston/transports/http.js
 var require_http = __commonJS({
-  "node_modules/winston/lib/winston/transports/http.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/transports/http.js"(exports2, module3) {
     "use strict";
     var http = require("http");
     var https = require("https");
     var { Stream } = require_readable();
-    var TransportStream = require_winston_transport();
+    var TransportStream2 = require_winston_transport();
     var { configure } = require_safe_stable_stringify();
-    module2.exports = class Http extends TransportStream {
+    module3.exports = class Http extends TransportStream2 {
       static {
         __name(this, "Http");
       }
@@ -20843,9 +20853,9 @@ var require_http = __commonJS({
         };
         const auth = options.params.auth || null;
         delete options.params.auth;
-        const path = options.params.path || null;
+        const path6 = options.params.path || null;
         delete options.params.path;
-        this._request(options, auth, path, (err, res, body) => {
+        this._request(options, auth, path6, (err, res, body) => {
           if (res && res.statusCode !== 200) {
             err = new Error(`Invalid HTTP Status Code: ${res.statusCode}`);
           }
@@ -20873,12 +20883,12 @@ var require_http = __commonJS({
           method: "stream",
           params: options
         };
-        const path = options.params.path || null;
+        const path6 = options.params.path || null;
         delete options.params.path;
         const auth = options.params.auth || null;
         delete options.params.auth;
         let buff = "";
-        const req = this._request(options, auth, path);
+        const req = this._request(options, auth, path6);
         stream.destroy = () => req.destroy();
         req.on("data", (data) => {
           data = (buff + data).split(/\n+/);
@@ -20904,14 +20914,14 @@ var require_http = __commonJS({
        * @param {string} path - request path
        * @param {function} callback - Continuation to respond to when complete.
        */
-      _request(options, auth, path, callback) {
+      _request(options, auth, path6, callback) {
         options = options || {};
         auth = auth || this.auth;
-        path = path || this.path || "";
+        path6 = path6 || this.path || "";
         if (this.batch) {
-          this._doBatch(options, callback, auth, path);
+          this._doBatch(options, callback, auth, path6);
         } else {
-          this._doRequest(options, callback, auth, path);
+          this._doRequest(options, callback, auth, path6);
         }
       }
       /**
@@ -20921,18 +20931,18 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doBatch(options, callback, auth, path) {
+      _doBatch(options, callback, auth, path6) {
         this.batchOptions.push(options);
         if (this.batchOptions.length === 1) {
           const me = this;
           this.batchCallback = callback;
           this.batchTimeoutID = setTimeout(function() {
             me.batchTimeoutID = -1;
-            me._doBatchRequest(me.batchCallback, auth, path);
+            me._doBatchRequest(me.batchCallback, auth, path6);
           }, this.batchInterval);
         }
         if (this.batchOptions.length === this.batchCount) {
-          this._doBatchRequest(this.batchCallback, auth, path);
+          this._doBatchRequest(this.batchCallback, auth, path6);
         }
       }
       /**
@@ -20941,14 +20951,14 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doBatchRequest(callback, auth, path) {
+      _doBatchRequest(callback, auth, path6) {
         if (this.batchTimeoutID > 0) {
           clearTimeout(this.batchTimeoutID);
           this.batchTimeoutID = -1;
         }
         const batchOptionsCopy = this.batchOptions.slice();
         this.batchOptions = [];
-        this._doRequest(batchOptionsCopy, callback, auth, path);
+        this._doRequest(batchOptionsCopy, callback, auth, path6);
       }
       /**
        * Make a request to a winstond server or any http server which can
@@ -20958,7 +20968,7 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doRequest(options, callback, auth, path) {
+      _doRequest(options, callback, auth, path6) {
         const headers = Object.assign({}, this.headers);
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
@@ -20968,7 +20978,7 @@ var require_http = __commonJS({
           method: "POST",
           host: this.host,
           port: this.port,
-          path: `/${path.replace(/^\//, "")}`,
+          path: `/${path6.replace(/^\//, "")}`,
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
@@ -20986,26 +20996,26 @@ var require_http = __commonJS({
 
 // node_modules/winston/node_modules/is-stream/index.js
 var require_is_stream = __commonJS({
-  "node_modules/winston/node_modules/is-stream/index.js"(exports2, module2) {
+  "node_modules/winston/node_modules/is-stream/index.js"(exports2, module3) {
     "use strict";
     var isStream = /* @__PURE__ */ __name((stream) => stream !== null && typeof stream === "object" && typeof stream.pipe === "function", "isStream");
     isStream.writable = (stream) => isStream(stream) && stream.writable !== false && typeof stream._write === "function" && typeof stream._writableState === "object";
     isStream.readable = (stream) => isStream(stream) && stream.readable !== false && typeof stream._read === "function" && typeof stream._readableState === "object";
     isStream.duplex = (stream) => isStream.writable(stream) && isStream.readable(stream);
     isStream.transform = (stream) => isStream.duplex(stream) && typeof stream._transform === "function";
-    module2.exports = isStream;
+    module3.exports = isStream;
   }
 });
 
 // node_modules/winston/lib/winston/transports/stream.js
 var require_stream3 = __commonJS({
-  "node_modules/winston/lib/winston/transports/stream.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/transports/stream.js"(exports2, module3) {
     "use strict";
     var isStream = require_is_stream();
-    var { MESSAGE } = require_triple_beam();
-    var os = require("os");
-    var TransportStream = require_winston_transport();
-    module2.exports = class Stream extends TransportStream {
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
+    var os4 = require("os");
+    var TransportStream2 = require_winston_transport();
+    module3.exports = class Stream extends TransportStream2 {
       static {
         __name(this, "Stream");
       }
@@ -21022,7 +21032,7 @@ var require_stream3 = __commonJS({
         this._stream = options.stream;
         this._stream.setMaxListeners(Infinity);
         this.isObjectMode = options.stream._writableState.objectMode;
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os4.EOL;
       }
       /**
        * Core logging method exposed to Winston.
@@ -21039,7 +21049,7 @@ var require_stream3 = __commonJS({
           }
           return;
         }
-        this._stream.write(`${info[MESSAGE]}${this.eol}`);
+        this._stream.write(`${info[MESSAGE3]}${this.eol}`);
         if (callback) {
           callback();
         }
@@ -21099,7 +21109,7 @@ var require_config2 = __commonJS({
 
 // node_modules/async/eachOf.js
 var require_eachOf = __commonJS({
-  "node_modules/async/eachOf.js"(exports2, module2) {
+  "node_modules/async/eachOf.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -21155,13 +21165,13 @@ var require_eachOf = __commonJS({
     }
     __name(eachOf, "eachOf");
     exports2.default = (0, _awaitify2.default)(eachOf, 3);
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/internal/withoutIndex.js
 var require_withoutIndex = __commonJS({
-  "node_modules/async/internal/withoutIndex.js"(exports2, module2) {
+  "node_modules/async/internal/withoutIndex.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -21171,13 +21181,13 @@ var require_withoutIndex = __commonJS({
       return (value, index, callback) => iteratee(value, callback);
     }
     __name(_withoutIndex, "_withoutIndex");
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/async/forEach.js
 var require_forEach = __commonJS({
-  "node_modules/async/forEach.js"(exports2, module2) {
+  "node_modules/async/forEach.js"(exports2, module3) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", {
       value: true
@@ -21199,16 +21209,16 @@ var require_forEach = __commonJS({
     }
     __name(eachLimit, "eachLimit");
     exports2.default = (0, _awaitify2.default)(eachLimit, 3);
-    module2.exports = exports2.default;
+    module3.exports = exports2.default;
   }
 });
 
 // node_modules/fn.name/index.js
 var require_fn = __commonJS({
-  "node_modules/fn.name/index.js"(exports2, module2) {
+  "node_modules/fn.name/index.js"(exports2, module3) {
     "use strict";
     var toString = Object.prototype.toString;
-    module2.exports = /* @__PURE__ */ __name(function name(fn) {
+    module3.exports = /* @__PURE__ */ __name(function name(fn) {
       if ("string" === typeof fn.displayName && fn.constructor.name) {
         return fn.displayName;
       } else if ("string" === typeof fn.name && fn.name) {
@@ -21228,10 +21238,10 @@ var require_fn = __commonJS({
 
 // node_modules/one-time/index.js
 var require_one_time = __commonJS({
-  "node_modules/one-time/index.js"(exports2, module2) {
+  "node_modules/one-time/index.js"(exports2, module3) {
     "use strict";
     var name = require_fn();
-    module2.exports = /* @__PURE__ */ __name(function one(fn) {
+    module3.exports = /* @__PURE__ */ __name(function one(fn) {
       var called = 0, value;
       function onetime() {
         if (called) return value;
@@ -21373,10 +21383,10 @@ var require_stack_trace = __commonJS({
 
 // node_modules/winston/lib/winston/exception-stream.js
 var require_exception_stream = __commonJS({
-  "node_modules/winston/lib/winston/exception-stream.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/exception-stream.js"(exports2, module3) {
     "use strict";
     var { Writable } = require_readable();
-    module2.exports = class ExceptionStream extends Writable {
+    module3.exports = class ExceptionStream extends Writable {
       static {
         __name(this, "ExceptionStream");
       }
@@ -21416,15 +21426,15 @@ var require_exception_stream = __commonJS({
 
 // node_modules/winston/lib/winston/exception-handler.js
 var require_exception_handler = __commonJS({
-  "node_modules/winston/lib/winston/exception-handler.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/exception-handler.js"(exports2, module3) {
     "use strict";
-    var os = require("os");
+    var os4 = require("os");
     var asyncForEach = require_forEach();
     var debug = require_node5()("winston:exception");
     var once = require_one_time();
     var stackTrace = require_stack_trace();
     var ExceptionStream = require_exception_stream();
-    module2.exports = class ExceptionHandler {
+    module3.exports = class ExceptionHandler {
       static {
         __name(this, "ExceptionHandler");
       }
@@ -21516,8 +21526,8 @@ var require_exception_handler = __commonJS({
        */
       getOsInfo() {
         return {
-          loadavg: os.loadavg(),
-          uptime: os.uptime()
+          loadavg: os4.loadavg(),
+          uptime: os4.uptime()
         };
       }
       /**
@@ -21619,10 +21629,10 @@ var require_exception_handler = __commonJS({
 
 // node_modules/winston/lib/winston/rejection-stream.js
 var require_rejection_stream = __commonJS({
-  "node_modules/winston/lib/winston/rejection-stream.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/rejection-stream.js"(exports2, module3) {
     "use strict";
     var { Writable } = require_readable();
-    module2.exports = class RejectionStream extends Writable {
+    module3.exports = class RejectionStream extends Writable {
       static {
         __name(this, "RejectionStream");
       }
@@ -21662,15 +21672,15 @@ var require_rejection_stream = __commonJS({
 
 // node_modules/winston/lib/winston/rejection-handler.js
 var require_rejection_handler = __commonJS({
-  "node_modules/winston/lib/winston/rejection-handler.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/rejection-handler.js"(exports2, module3) {
     "use strict";
-    var os = require("os");
+    var os4 = require("os");
     var asyncForEach = require_forEach();
     var debug = require_node5()("winston:rejection");
     var once = require_one_time();
     var stackTrace = require_stack_trace();
     var RejectionStream = require_rejection_stream();
-    module2.exports = class RejectionHandler {
+    module3.exports = class RejectionHandler {
       static {
         __name(this, "RejectionHandler");
       }
@@ -21764,8 +21774,8 @@ var require_rejection_handler = __commonJS({
        */
       getOsInfo() {
         return {
-          loadavg: os.loadavg(),
-          uptime: os.uptime()
+          loadavg: os4.loadavg(),
+          uptime: os4.uptime()
         };
       }
       /**
@@ -21871,7 +21881,7 @@ var require_rejection_handler = __commonJS({
 
 // node_modules/winston/lib/winston/profiler.js
 var require_profiler = __commonJS({
-  "node_modules/winston/lib/winston/profiler.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/profiler.js"(exports2, module3) {
     "use strict";
     var Profiler = class {
       static {
@@ -21910,17 +21920,17 @@ var require_profiler = __commonJS({
         return this.logger.write(info);
       }
     };
-    module2.exports = Profiler;
+    module3.exports = Profiler;
   }
 });
 
 // node_modules/winston/lib/winston/logger.js
 var require_logger = __commonJS({
-  "node_modules/winston/lib/winston/logger.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/logger.js"(exports2, module3) {
     "use strict";
     var { Stream, Transform } = require_readable();
     var asyncForEach = require_forEach();
-    var { LEVEL, SPLAT } = require_triple_beam();
+    var { LEVEL: LEVEL3, SPLAT } = require_triple_beam();
     var isStream = require_is_stream();
     var ExceptionHandler = require_exception_handler();
     var RejectionHandler = require_rejection_handler();
@@ -22095,19 +22105,19 @@ var require_logger = __commonJS({
       /* eslint-enable valid-jsdoc */
       log(level, msg, ...splat) {
         if (arguments.length === 1) {
-          level[LEVEL] = level.level;
+          level[LEVEL3] = level.level;
           this._addDefaultMeta(level);
           this.write(level);
           return this;
         }
         if (arguments.length === 2) {
           if (msg && typeof msg === "object") {
-            msg[LEVEL] = msg.level = level;
+            msg[LEVEL3] = msg.level = level;
             this._addDefaultMeta(msg);
             this.write(msg);
             return this;
           }
-          msg = { [LEVEL]: level, level, message: msg };
+          msg = { [LEVEL3]: level, level, message: msg };
           this._addDefaultMeta(msg);
           this.write(msg);
           return this;
@@ -22117,7 +22127,7 @@ var require_logger = __commonJS({
           const tokens = msg && msg.match && msg.match(formatRegExp);
           if (!tokens) {
             const info = Object.assign({}, this.defaultMeta, meta, {
-              [LEVEL]: level,
+              [LEVEL3]: level,
               [SPLAT]: splat,
               level,
               message: msg
@@ -22130,7 +22140,7 @@ var require_logger = __commonJS({
           }
         }
         this.write(Object.assign({}, this.defaultMeta, {
-          [LEVEL]: level,
+          [LEVEL3]: level,
           [SPLAT]: splat,
           level,
           message: msg
@@ -22149,11 +22159,11 @@ var require_logger = __commonJS({
         if (this.silent) {
           return callback();
         }
-        if (!info[LEVEL]) {
-          info[LEVEL] = info.level;
+        if (!info[LEVEL3]) {
+          info[LEVEL3] = info.level;
         }
-        if (!this.levels[info[LEVEL]] && this.levels[info[LEVEL]] !== 0) {
-          console.error("[winston] Unknown logger level: %s", info[LEVEL]);
+        if (!this.levels[info[LEVEL3]] && this.levels[info[LEVEL3]] !== 0) {
+          console.error("[winston] Unknown logger level: %s", info[LEVEL3]);
         }
         if (!this._readableState.pipes) {
           console.error(
@@ -22455,15 +22465,15 @@ var require_logger = __commonJS({
         return !Array.isArray(pipes) ? [pipes].filter(Boolean) : pipes;
       }
     });
-    module2.exports = Logger;
+    module3.exports = Logger;
   }
 });
 
 // node_modules/winston/lib/winston/create-logger.js
 var require_create_logger = __commonJS({
-  "node_modules/winston/lib/winston/create-logger.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/create-logger.js"(exports2, module3) {
     "use strict";
-    var { LEVEL } = require_triple_beam();
+    var { LEVEL: LEVEL3 } = require_triple_beam();
     var config = require_config2();
     var Logger = require_logger();
     var debug = require_node5()("winston:create-logger");
@@ -22471,7 +22481,7 @@ var require_create_logger = __commonJS({
       return "is" + level.charAt(0).toUpperCase() + level.slice(1) + "Enabled";
     }
     __name(isLevelEnabledFunctionName, "isLevelEnabledFunctionName");
-    module2.exports = function(opts = {}) {
+    module3.exports = function(opts = {}) {
       opts.levels = opts.levels || config.npm.levels;
       class DerivedLogger extends Logger {
         static {
@@ -22499,7 +22509,7 @@ var require_create_logger = __commonJS({
           if (args.length === 1) {
             const [msg] = args;
             const info = msg && msg.message && msg || { message: msg };
-            info.level = info[LEVEL] = level;
+            info.level = info[LEVEL3] = level;
             self2._addDefaultMeta(info);
             self2.write(info);
             return this || logger;
@@ -22521,10 +22531,10 @@ var require_create_logger = __commonJS({
 
 // node_modules/winston/lib/winston/container.js
 var require_container = __commonJS({
-  "node_modules/winston/lib/winston/container.js"(exports2, module2) {
+  "node_modules/winston/lib/winston/container.js"(exports2, module3) {
     "use strict";
     var createLogger = require_create_logger();
-    module2.exports = class Container {
+    module3.exports = class Container {
       static {
         __name(this, "Container");
       }
@@ -22705,286 +22715,270 @@ var require_winston = __commonJS({
   }
 });
 
-// build/di/hooks.js
-var require_hooks = __commonJS({
-  "build/di/hooks.js"(exports2) {
+// packages/language-server/build/di/hooks.js
+function registerInitializationHook(target, hook) {
+  const hookableTarget = target;
+  if (hookableTarget[initializationHooksKey]) {
+    hookableTarget[initializationHooksKey].push(hook);
+    return;
+  }
+  Object.defineProperty(hookableTarget, initializationHooksKey, {
+    value: [hook],
+    writable: false,
+    configurable: false,
+    enumerable: false
+  });
+}
+function getInitializationHooks(target) {
+  return target[initializationHooksKey] ?? [];
+}
+var initializationHooksKey;
+var init_hooks = __esm({
+  "packages/language-server/build/di/hooks.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.registerInitializationHook = registerInitializationHook;
-    exports2.getInitializationHooks = getInitializationHooks;
-    var initializationHooksKey = /* @__PURE__ */ Symbol("diInitializationHooks");
-    function registerInitializationHook(target, hook) {
-      const hookableTarget = target;
-      if (hookableTarget[initializationHooksKey]) {
-        hookableTarget[initializationHooksKey].push(hook);
-        return;
-      }
-      Object.defineProperty(hookableTarget, initializationHooksKey, {
-        value: [hook],
-        writable: false,
-        configurable: false,
-        enumerable: false
-      });
-    }
+    initializationHooksKey = /* @__PURE__ */ Symbol("diInitializationHooks");
     __name(registerInitializationHook, "registerInitializationHook");
-    function getInitializationHooks(target) {
-      return target[initializationHooksKey] ?? [];
-    }
     __name(getInitializationHooks, "getInitializationHooks");
   }
 });
 
-// build/di/container.js
-var require_container2 = __commonJS({
-  "build/di/container.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createContainer = createContainer;
-    var hooks_js_1 = require_hooks();
-    function describeToken(token) {
+// packages/language-server/build/di/container.js
+function describeToken(token) {
+  if (typeof token === "function") {
+    return token.name || "<anonymous class>";
+  }
+  return token.description ?? token.toString();
+}
+function mergeProviders(modules) {
+  const merged = /* @__PURE__ */ new Map();
+  const moduleList = Array.isArray(modules) ? modules : [modules];
+  for (const moduleMetadata of moduleList) {
+    for (const [token, definition] of moduleMetadata.providers) {
+      if (merged.has(token)) {
+        throw new Error(`Token ${describeToken(token)} registered multiple times across modules`);
+      }
+      merged.set(token, definition);
+    }
+  }
+  return merged;
+}
+function createContainer(modules, options = {}) {
+  const mergedProviders = mergeProviders(modules);
+  const overrides = new Map(options.overrides ?? []);
+  const singletons = /* @__PURE__ */ new Map();
+  const resolutionStack = [];
+  const resolve = /* @__PURE__ */ __name((token) => {
+    if (overrides.has(token)) {
+      return overrides.get(token);
+    }
+    if (singletons.has(token)) {
+      return singletons.get(token);
+    }
+    const provider = mergedProviders.get(token);
+    if (!provider) {
+      throw new Error(`No provider found for ${describeToken(token)}`);
+    }
+    if (resolutionStack.includes(token)) {
+      const cycle = [...resolutionStack, token].map(describeToken).join(" -> ");
+      throw new Error(`Circular dependency detected: ${cycle}`);
+    }
+    resolutionStack.push(token);
+    try {
+      const dependencies = provider.inject.map((dependencyToken) => resolve(dependencyToken));
+      const instance = provider.create(...dependencies);
       if (typeof token === "function") {
-        return token.name || "<anonymous class>";
+        const hooks = getInitializationHooks(token);
+        for (const hook of hooks) {
+          hook({
+            instance,
+            token,
+            dependencies,
+            resolve
+          });
+        }
       }
-      return token.description ?? token.toString();
+      if (provider.scope === "singleton") {
+        singletons.set(token, instance);
+      }
+      return instance;
+    } finally {
+      resolutionStack.pop();
     }
+  }, "resolve");
+  return { resolve };
+}
+var init_container = __esm({
+  "packages/language-server/build/di/container.js"() {
+    "use strict";
+    init_hooks();
     __name(describeToken, "describeToken");
-    function mergeProviders(modules) {
-      const merged = /* @__PURE__ */ new Map();
-      const moduleList = Array.isArray(modules) ? modules : [modules];
-      for (const moduleMetadata of moduleList) {
-        for (const [token, definition] of moduleMetadata.providers) {
-          if (merged.has(token)) {
-            throw new Error(`Token ${describeToken(token)} registered multiple times across modules`);
-          }
-          merged.set(token, definition);
-        }
-      }
-      return merged;
-    }
     __name(mergeProviders, "mergeProviders");
-    function createContainer(modules, options = {}) {
-      const mergedProviders = mergeProviders(modules);
-      const overrides = new Map(options.overrides ?? []);
-      const singletons = /* @__PURE__ */ new Map();
-      const resolutionStack = [];
-      const resolve = /* @__PURE__ */ __name((token) => {
-        if (overrides.has(token)) {
-          return overrides.get(token);
-        }
-        if (singletons.has(token)) {
-          return singletons.get(token);
-        }
-        const provider = mergedProviders.get(token);
-        if (!provider) {
-          throw new Error(`No provider found for ${describeToken(token)}`);
-        }
-        if (resolutionStack.includes(token)) {
-          const cycle = [...resolutionStack, token].map(describeToken).join(" -> ");
-          throw new Error(`Circular dependency detected: ${cycle}`);
-        }
-        resolutionStack.push(token);
-        try {
-          const dependencies = provider.inject.map((dependencyToken) => resolve(dependencyToken));
-          const instance = provider.create(...dependencies);
-          if (typeof token === "function") {
-            const hooks = (0, hooks_js_1.getInitializationHooks)(token);
-            for (const hook of hooks) {
-              hook({
-                instance,
-                token,
-                dependencies,
-                resolve
-              });
-            }
-          }
-          if (provider.scope === "singleton") {
-            singletons.set(token, instance);
-          }
-          return instance;
-        } finally {
-          resolutionStack.pop();
-        }
-      }, "resolve");
-      return { resolve };
-    }
     __name(createContainer, "createContainer");
   }
 });
 
-// build/di/inject.js
-var require_inject = __commonJS({
-  "build/di/inject.js"(exports2) {
+// packages/language-server/build/di/inject.js
+function isInjectFunction(func) {
+  return "__injectMetadata__" in func;
+}
+function inject(options = {}) {
+  return /* @__PURE__ */ __name(function InjectDecorator(target) {
+    const injectMetadata = {
+      scope: options.scope ?? "singleton",
+      inject: options.inject ?? []
+    };
+    Object.defineProperty(target, "__injectMetadata__", {
+      value: injectMetadata,
+      enumerable: false,
+      configurable: false,
+      writable: false
+    });
+  }, "InjectDecorator");
+}
+function getInjectMetadata(func) {
+  if (isInjectFunction(func)) {
+    return func.__injectMetadata__;
+  }
+  return void 0;
+}
+var init_inject = __esm({
+  "packages/language-server/build/di/inject.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.inject = inject;
-    exports2.getInjectMetadata = getInjectMetadata;
-    function isInjectFunction(func) {
-      return "__injectMetadata__" in func;
-    }
     __name(isInjectFunction, "isInjectFunction");
-    function inject(options = {}) {
-      return /* @__PURE__ */ __name(function InjectDecorator(target) {
-        const injectMetadata = {
-          scope: options.scope ?? "singleton",
-          inject: options.inject ?? []
-        };
-        Object.defineProperty(target, "__injectMetadata__", {
-          value: injectMetadata,
-          enumerable: false,
-          configurable: false,
-          writable: false
-        });
-      }, "InjectDecorator");
-    }
     __name(inject, "inject");
-    function getInjectMetadata(func) {
-      if (isInjectFunction(func)) {
-        return func.__injectMetadata__;
-      }
-      return void 0;
-    }
     __name(getInjectMetadata, "getInjectMetadata");
   }
 });
 
-// build/di/module.js
-var require_module = __commonJS({
-  "build/di/module.js"(exports2) {
+// packages/language-server/build/di/module.js
+function describeToken2(token) {
+  if (typeof token === "function") {
+    return token.name || "<anonymous class>";
+  }
+  return token.description ?? token.toString();
+}
+function createClassProvider(ctor) {
+  const injectMetadata = getInjectMetadata(ctor);
+  if (!injectMetadata) {
+    throw new Error(`Class ${ctor.name || "<anonymous>"} must be decorated with @inject to be registered`);
+  }
+  const concreteCtor = ctor;
+  return {
+    token: ctor,
+    scope: injectMetadata.scope,
+    inject: [...injectMetadata.inject],
+    create: /* @__PURE__ */ __name((...deps) => new concreteCtor(...deps), "create")
+  };
+}
+function createFactoryProvider(entry) {
+  return {
+    token: entry.token,
+    scope: entry.scope ?? "singleton",
+    inject: entry.inject ? [...entry.inject] : [],
+    create: /* @__PURE__ */ __name((...deps) => entry.useFactory(...deps), "create")
+  };
+}
+function module2(options = {}) {
+  const providers = /* @__PURE__ */ new Map();
+  if (options.imports) {
+    for (const importedModule of options.imports) {
+      for (const [token, definition] of importedModule.providers) {
+        if (providers.has(token)) {
+          throw new Error(`Token ${describeToken2(token)} registered multiple times while importing modules`);
+        }
+        providers.set(token, definition);
+      }
+    }
+  }
+  if (options.register) {
+    for (const entry of options.register) {
+      const provider = typeof entry === "function" ? createClassProvider(entry) : createFactoryProvider(entry);
+      if (providers.has(provider.token)) {
+        throw new Error(`Token ${describeToken2(provider.token)} registered multiple times in module()`);
+      }
+      providers.set(provider.token, provider);
+    }
+  }
+  return { providers };
+}
+function provideValue(token, factory, scope) {
+  return scope ? { token, useFactory: factory, scope } : { token, useFactory: factory };
+}
+var init_module = __esm({
+  "packages/language-server/build/di/module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.module = module2;
-    exports2.provideValue = provideValue;
-    exports2.provideTestValue = provideTestValue;
-    var inject_js_1 = require_inject();
-    function describeToken(token) {
-      if (typeof token === "function") {
-        return token.name || "<anonymous class>";
-      }
-      return token.description ?? token.toString();
-    }
-    __name(describeToken, "describeToken");
-    function createClassProvider(ctor) {
-      const injectMetadata = (0, inject_js_1.getInjectMetadata)(ctor);
-      if (!injectMetadata) {
-        throw new Error(`Class ${ctor.name || "<anonymous>"} must be decorated with @inject to be registered`);
-      }
-      const concreteCtor = ctor;
-      return {
-        token: ctor,
-        scope: injectMetadata.scope,
-        inject: [...injectMetadata.inject],
-        create: /* @__PURE__ */ __name((...deps) => new concreteCtor(...deps), "create")
-      };
-    }
+    init_inject();
+    __name(describeToken2, "describeToken");
     __name(createClassProvider, "createClassProvider");
-    function createFactoryProvider(entry) {
-      return {
-        token: entry.token,
-        scope: entry.scope ?? "singleton",
-        inject: entry.inject ? [...entry.inject] : [],
-        create: /* @__PURE__ */ __name((...deps) => entry.useFactory(...deps), "create")
-      };
-    }
     __name(createFactoryProvider, "createFactoryProvider");
-    function module2(options = {}) {
-      const providers = /* @__PURE__ */ new Map();
-      if (options.imports) {
-        for (const importedModule of options.imports) {
-          for (const [token, definition] of importedModule.providers) {
-            if (providers.has(token)) {
-              throw new Error(`Token ${describeToken(token)} registered multiple times while importing modules`);
-            }
-            providers.set(token, definition);
-          }
-        }
-      }
-      if (options.register) {
-        for (const entry of options.register) {
-          const provider = typeof entry === "function" ? createClassProvider(entry) : createFactoryProvider(entry);
-          if (providers.has(provider.token)) {
-            throw new Error(`Token ${describeToken(provider.token)} registered multiple times in module()`);
-          }
-          providers.set(provider.token, provider);
-        }
-      }
-      return { providers };
-    }
     __name(module2, "module");
-    function provideValue(token, factory, scope) {
-      return scope ? { token, useFactory: factory, scope } : { token, useFactory: factory };
-    }
     __name(provideValue, "provideValue");
-    function provideTestValue(token, factory, scope) {
-      return scope ? { token, useFactory: factory, scope } : { token, useFactory: factory };
-    }
-    __name(provideTestValue, "provideTestValue");
   }
 });
 
-// build/di/runtime/symbols.js
-var require_symbols = __commonJS({
-  "build/di/runtime/symbols.js"(exports2) {
+// packages/language-server/build/di/runtime/symbols.js
+var runtimeServiceSymbol;
+var init_symbols = __esm({
+  "packages/language-server/build/di/runtime/symbols.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.runtimeServiceSymbol = void 0;
-    exports2.runtimeServiceSymbol = /* @__PURE__ */ Symbol("runtimeService");
+    runtimeServiceSymbol = /* @__PURE__ */ Symbol("runtimeService");
   }
 });
 
-// build/di/runtime/decorators.js
-var require_decorators = __commonJS({
-  "build/di/runtime/decorators.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.runtimeService = runtimeService;
-    exports2.isRuntimeServiceConstructor = isRuntimeServiceConstructor;
-    var symbols_js_1 = require_symbols();
-    function runtimeService() {
-      return (target, { kind }) => {
-        if (kind !== "class") {
-          throw new Error("@runtimeService() can only be applied to classes.");
-        }
-        Object.defineProperty(target, symbols_js_1.runtimeServiceSymbol, {
-          value: true,
-          writable: false,
-          configurable: false,
-          enumerable: false
-        });
-      };
+// packages/language-server/build/di/runtime/decorators.js
+function runtimeService() {
+  return (target, { kind }) => {
+    if (kind !== "class") {
+      throw new Error("@runtimeService() can only be applied to classes.");
     }
+    Object.defineProperty(target, runtimeServiceSymbol, {
+      value: true,
+      writable: false,
+      configurable: false,
+      enumerable: false
+    });
+  };
+}
+function isRuntimeServiceConstructor(target) {
+  return Boolean(target[runtimeServiceSymbol]);
+}
+var init_decorators = __esm({
+  "packages/language-server/build/di/runtime/decorators.js"() {
+    "use strict";
+    init_symbols();
     __name(runtimeService, "runtimeService");
-    function isRuntimeServiceConstructor(target) {
-      return Boolean(target[symbols_js_1.runtimeServiceSymbol]);
-    }
     __name(isRuntimeServiceConstructor, "isRuntimeServiceConstructor");
   }
 });
 
-// build/di/runtime/application.js
-var require_application = __commonJS({
-  "build/di/runtime/application.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createRuntimeApplication = createRuntimeApplication;
-    var container_js_1 = require_container2();
-    var decorators_js_1 = require_decorators();
-    function collectRuntimeServiceConstructors(modules) {
-      const constructors = /* @__PURE__ */ new Set();
-      for (const metadata of modules) {
-        for (const [token] of metadata.providers) {
-          if (typeof token === "function" && (0, decorators_js_1.isRuntimeServiceConstructor)(token)) {
-            constructors.add(token);
-          }
-        }
+// packages/language-server/build/di/runtime/application.js
+function collectRuntimeServiceConstructors(modules) {
+  const constructors = /* @__PURE__ */ new Set();
+  for (const metadata of modules) {
+    for (const [token] of metadata.providers) {
+      if (typeof token === "function" && isRuntimeServiceConstructor(token)) {
+        constructors.add(token);
       }
-      return constructors;
     }
+  }
+  return constructors;
+}
+function isLifecycleParticipant(value) {
+  return typeof value === "object" && value !== null && (typeof value.onStart === "function" || typeof value.onShutdown === "function");
+}
+function createRuntimeApplication(options) {
+  const container = createContainer(options.modules, { overrides: options.overrides });
+  return new DefaultRuntimeApplication(container, options.modules, options.features ?? []);
+}
+var DefaultRuntimeApplication;
+var init_application = __esm({
+  "packages/language-server/build/di/runtime/application.js"() {
+    "use strict";
+    init_container();
+    init_decorators();
     __name(collectRuntimeServiceConstructors, "collectRuntimeServiceConstructors");
-    function isLifecycleParticipant(value) {
-      return typeof value === "object" && value !== null && (typeof value.onStart === "function" || typeof value.onShutdown === "function");
-    }
     __name(isLifecycleParticipant, "isLifecycleParticipant");
-    var DefaultRuntimeApplication = class {
+    DefaultRuntimeApplication = class {
       static {
         __name(this, "DefaultRuntimeApplication");
       }
@@ -23156,117 +23150,77 @@ var require_application = __commonJS({
         }
       }
     };
-    function createRuntimeApplication(options) {
-      const container = (0, container_js_1.createContainer)(options.modules, { overrides: options.overrides });
-      return new DefaultRuntimeApplication(container, options.modules, options.features ?? []);
-    }
     __name(createRuntimeApplication, "createRuntimeApplication");
   }
 });
 
-// build/di/runtime/types.js
-var require_types = __commonJS({
-  "build/di/runtime/types.js"(exports2) {
+// packages/language-server/build/di/runtime/types.js
+var init_types = __esm({
+  "packages/language-server/build/di/runtime/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// build/di/runtime/index.js
-var require_runtime = __commonJS({
-  "build/di/runtime/index.js"(exports2) {
+// packages/language-server/build/di/runtime/index.js
+var init_runtime = __esm({
+  "packages/language-server/build/di/runtime/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_application(), exports2);
-    __exportStar(require_decorators(), exports2);
-    __exportStar(require_types(), exports2);
+    init_application();
+    init_decorators();
+    init_types();
   }
 });
 
-// build/di/tokens.js
-var require_tokens = __commonJS({
-  "build/di/tokens.js"(exports2) {
+// packages/language-server/build/di/tokens.js
+function createToken(description) {
+  return Symbol(description);
+}
+var init_tokens = __esm({
+  "packages/language-server/build/di/tokens.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createToken = createToken;
-    function createToken(description) {
-      return Symbol(description);
-    }
     __name(createToken, "createToken");
   }
 });
 
-// build/di/types.js
-var require_types2 = __commonJS({
-  "build/di/types.js"(exports2) {
+// packages/language-server/build/di/types.js
+var init_types2 = __esm({
+  "packages/language-server/build/di/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// build/di/index.js
-var require_di = __commonJS({
-  "build/di/index.js"(exports2) {
+// packages/language-server/build/di/index.js
+var init_di = __esm({
+  "packages/language-server/build/di/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_container2(), exports2);
-    __exportStar(require_hooks(), exports2);
-    __exportStar(require_inject(), exports2);
-    __exportStar(require_module(), exports2);
-    __exportStar(require_runtime(), exports2);
-    __exportStar(require_tokens(), exports2);
-    __exportStar(require_types2(), exports2);
+    init_container();
+    init_hooks();
+    init_inject();
+    init_module();
+    init_runtime();
+    init_tokens();
+    init_types2();
   }
 });
 
-// build/server/services/infrastructure/logging.service.js
-var require_logging_service = __commonJS({
-  "build/server/services/infrastructure/logging.service.js"(exports2) {
+// packages/language-server/build/server/services/infrastructure/logging.service.js
+var loggingServiceToken;
+var init_logging_service = __esm({
+  "packages/language-server/build/server/services/infrastructure/logging.service.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.loggingServiceToken = void 0;
-    var index_js_12 = require_di();
-    exports2.loggingServiceToken = (0, index_js_12.createToken)("LoggingService");
+    init_di();
+    loggingServiceToken = createToken("LoggingService");
   }
 });
 
-// build/server/services/documents/document-diagnostics.service.js
-var require_document_diagnostics_service = __commonJS({
-  "build/server/services/documents/document-diagnostics.service.js"(exports2) {
+// packages/language-server/build/server/services/documents/document-diagnostics.service.js
+var __esDecorate, __runInitializers, DocumentDiagnosticsService;
+var init_document_diagnostics_service = __esm({
+  "packages/language-server/build/server/services/documents/document-diagnostics.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_inject();
+    init_logging_service();
+    __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -23299,20 +23253,16 @@ var require_document_diagnostics_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DocumentDiagnosticsService = void 0;
-    var inject_js_1 = require_inject();
-    var logging_service_js_1 = require_logging_service();
-    var DocumentDiagnosticsService = (() => {
-      let _classDecorators = [(0, inject_js_1.inject)({
-        inject: [logging_service_js_1.loggingServiceToken]
+    DocumentDiagnosticsService = (() => {
+      let _classDecorators = [inject({
+        inject: [loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -23364,26 +23314,1260 @@ var require_document_diagnostics_service = __commonJS({
       };
       return DocumentDiagnosticsService2 = _classThis;
     })();
-    exports2.DocumentDiagnosticsService = DocumentDiagnosticsService;
   }
 });
 
-// build/server/stylelint/types.js
-var require_types3 = __commonJS({
-  "build/server/stylelint/types.js"(exports2) {
+// node_modules/vscode-languageserver-types/lib/esm/main.js
+var DocumentUri, URI, integer, uinteger, Position, Range, Location, LocationLink, Color, ColorInformation, ColorPresentation, FoldingRangeKind, FoldingRange, DiagnosticRelatedInformation, DiagnosticSeverity, DiagnosticTag, CodeDescription, Diagnostic, Command, TextEdit, ChangeAnnotation, ChangeAnnotationIdentifier, AnnotatedTextEdit, TextDocumentEdit, CreateFile, RenameFile, DeleteFile, WorkspaceEdit, TextDocumentIdentifier, VersionedTextDocumentIdentifier, OptionalVersionedTextDocumentIdentifier, TextDocumentItem, MarkupKind, MarkupContent, CompletionItemKind, InsertTextFormat, CompletionItemTag, InsertReplaceEdit, InsertTextMode, CompletionItemLabelDetails, CompletionItem, CompletionList, MarkedString, Hover, ParameterInformation, SignatureInformation, DocumentHighlightKind, DocumentHighlight, SymbolKind, SymbolTag, SymbolInformation, WorkspaceSymbol, DocumentSymbol, CodeActionKind, CodeActionTriggerKind, CodeActionContext, CodeAction, CodeLens, FormattingOptions, DocumentLink, SelectionRange, SemanticTokenTypes, SemanticTokenModifiers, SemanticTokens, InlineValueText, InlineValueVariableLookup, InlineValueEvaluatableExpression, InlineValueContext, InlayHintKind, InlayHintLabelPart, InlayHint, StringValue, InlineCompletionItem, InlineCompletionList, InlineCompletionTriggerKind, SelectedCompletionInfo, InlineCompletionContext, WorkspaceFolder, TextDocument, FullTextDocument, Is;
+var init_main = __esm({
+  "node_modules/vscode-languageserver-types/lib/esm/main.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.InvalidOptionError = exports2.DisableReportRuleNames = void 0;
-    exports2.createRuleMetadataSourceFromStylelint = createRuleMetadataSourceFromStylelint;
-    exports2.createRuleMetadataSourceFromSnapshot = createRuleMetadataSourceFromSnapshot;
-    var DisableReportRuleNames;
+    (function(DocumentUri2) {
+      function is(value) {
+        return typeof value === "string";
+      }
+      __name(is, "is");
+      DocumentUri2.is = is;
+    })(DocumentUri || (DocumentUri = {}));
+    (function(URI3) {
+      function is(value) {
+        return typeof value === "string";
+      }
+      __name(is, "is");
+      URI3.is = is;
+    })(URI || (URI = {}));
+    (function(integer2) {
+      integer2.MIN_VALUE = -2147483648;
+      integer2.MAX_VALUE = 2147483647;
+      function is(value) {
+        return typeof value === "number" && integer2.MIN_VALUE <= value && value <= integer2.MAX_VALUE;
+      }
+      __name(is, "is");
+      integer2.is = is;
+    })(integer || (integer = {}));
+    (function(uinteger3) {
+      uinteger3.MIN_VALUE = 0;
+      uinteger3.MAX_VALUE = 2147483647;
+      function is(value) {
+        return typeof value === "number" && uinteger3.MIN_VALUE <= value && value <= uinteger3.MAX_VALUE;
+      }
+      __name(is, "is");
+      uinteger3.is = is;
+    })(uinteger || (uinteger = {}));
+    (function(Position4) {
+      function create(line, character) {
+        if (line === Number.MAX_VALUE) {
+          line = uinteger.MAX_VALUE;
+        }
+        if (character === Number.MAX_VALUE) {
+          character = uinteger.MAX_VALUE;
+        }
+        return { line, character };
+      }
+      __name(create, "create");
+      Position4.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
+      }
+      __name(is, "is");
+      Position4.is = is;
+    })(Position || (Position = {}));
+    (function(Range4) {
+      function create(one, two, three, four) {
+        if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
+          return { start: Position.create(one, two), end: Position.create(three, four) };
+        } else if (Position.is(one) && Position.is(two)) {
+          return { start: one, end: two };
+        } else {
+          throw new Error(`Range#create called with invalid arguments[${one}, ${two}, ${three}, ${four}]`);
+        }
+      }
+      __name(create, "create");
+      Range4.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
+      }
+      __name(is, "is");
+      Range4.is = is;
+    })(Range || (Range = {}));
+    (function(Location2) {
+      function create(uri, range) {
+        return { uri, range };
+      }
+      __name(create, "create");
+      Location2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
+      }
+      __name(is, "is");
+      Location2.is = is;
+    })(Location || (Location = {}));
+    (function(LocationLink2) {
+      function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
+        return { targetUri, targetRange, targetSelectionRange, originSelectionRange };
+      }
+      __name(create, "create");
+      LocationLink2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri) && Range.is(candidate.targetSelectionRange) && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
+      }
+      __name(is, "is");
+      LocationLink2.is = is;
+    })(LocationLink || (LocationLink = {}));
+    (function(Color2) {
+      function create(red, green, blue, alpha) {
+        return {
+          red,
+          green,
+          blue,
+          alpha
+        };
+      }
+      __name(create, "create");
+      Color2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1) && Is.numberRange(candidate.green, 0, 1) && Is.numberRange(candidate.blue, 0, 1) && Is.numberRange(candidate.alpha, 0, 1);
+      }
+      __name(is, "is");
+      Color2.is = is;
+    })(Color || (Color = {}));
+    (function(ColorInformation2) {
+      function create(range, color) {
+        return {
+          range,
+          color
+        };
+      }
+      __name(create, "create");
+      ColorInformation2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
+      }
+      __name(is, "is");
+      ColorInformation2.is = is;
+    })(ColorInformation || (ColorInformation = {}));
+    (function(ColorPresentation2) {
+      function create(label, textEdit, additionalTextEdits) {
+        return {
+          label,
+          textEdit,
+          additionalTextEdits
+        };
+      }
+      __name(create, "create");
+      ColorPresentation2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate)) && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
+      }
+      __name(is, "is");
+      ColorPresentation2.is = is;
+    })(ColorPresentation || (ColorPresentation = {}));
+    (function(FoldingRangeKind2) {
+      FoldingRangeKind2.Comment = "comment";
+      FoldingRangeKind2.Imports = "imports";
+      FoldingRangeKind2.Region = "region";
+    })(FoldingRangeKind || (FoldingRangeKind = {}));
+    (function(FoldingRange2) {
+      function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
+        const result = {
+          startLine,
+          endLine
+        };
+        if (Is.defined(startCharacter)) {
+          result.startCharacter = startCharacter;
+        }
+        if (Is.defined(endCharacter)) {
+          result.endCharacter = endCharacter;
+        }
+        if (Is.defined(kind)) {
+          result.kind = kind;
+        }
+        if (Is.defined(collapsedText)) {
+          result.collapsedText = collapsedText;
+        }
+        return result;
+      }
+      __name(create, "create");
+      FoldingRange2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine) && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter)) && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter)) && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
+      }
+      __name(is, "is");
+      FoldingRange2.is = is;
+    })(FoldingRange || (FoldingRange = {}));
+    (function(DiagnosticRelatedInformation2) {
+      function create(location, message) {
+        return {
+          location,
+          message
+        };
+      }
+      __name(create, "create");
+      DiagnosticRelatedInformation2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
+      }
+      __name(is, "is");
+      DiagnosticRelatedInformation2.is = is;
+    })(DiagnosticRelatedInformation || (DiagnosticRelatedInformation = {}));
+    (function(DiagnosticSeverity2) {
+      DiagnosticSeverity2.Error = 1;
+      DiagnosticSeverity2.Warning = 2;
+      DiagnosticSeverity2.Information = 3;
+      DiagnosticSeverity2.Hint = 4;
+    })(DiagnosticSeverity || (DiagnosticSeverity = {}));
+    (function(DiagnosticTag2) {
+      DiagnosticTag2.Unnecessary = 1;
+      DiagnosticTag2.Deprecated = 2;
+    })(DiagnosticTag || (DiagnosticTag = {}));
+    (function(CodeDescription2) {
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.string(candidate.href);
+      }
+      __name(is, "is");
+      CodeDescription2.is = is;
+    })(CodeDescription || (CodeDescription = {}));
+    (function(Diagnostic2) {
+      function create(range, message, severity, code, source, relatedInformation) {
+        let result = { range, message };
+        if (Is.defined(severity)) {
+          result.severity = severity;
+        }
+        if (Is.defined(code)) {
+          result.code = code;
+        }
+        if (Is.defined(source)) {
+          result.source = source;
+        }
+        if (Is.defined(relatedInformation)) {
+          result.relatedInformation = relatedInformation;
+        }
+        return result;
+      }
+      __name(create, "create");
+      Diagnostic2.create = create;
+      function is(value) {
+        var _a;
+        let candidate = value;
+        return Is.defined(candidate) && Range.is(candidate.range) && Is.string(candidate.message) && (Is.number(candidate.severity) || Is.undefined(candidate.severity)) && (Is.integer(candidate.code) || Is.string(candidate.code) || Is.undefined(candidate.code)) && (Is.undefined(candidate.codeDescription) || Is.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)) && (Is.string(candidate.source) || Is.undefined(candidate.source)) && (Is.undefined(candidate.relatedInformation) || Is.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation.is));
+      }
+      __name(is, "is");
+      Diagnostic2.is = is;
+    })(Diagnostic || (Diagnostic = {}));
+    (function(Command3) {
+      function create(title, command2, ...args) {
+        let result = { title, command: command2 };
+        if (Is.defined(args) && args.length > 0) {
+          result.arguments = args;
+        }
+        return result;
+      }
+      __name(create, "create");
+      Command3.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
+      }
+      __name(is, "is");
+      Command3.is = is;
+    })(Command || (Command = {}));
+    (function(TextEdit4) {
+      function replace(range, newText) {
+        return { range, newText };
+      }
+      __name(replace, "replace");
+      TextEdit4.replace = replace;
+      function insert(position, newText) {
+        return { range: { start: position, end: position }, newText };
+      }
+      __name(insert, "insert");
+      TextEdit4.insert = insert;
+      function del(range) {
+        return { range, newText: "" };
+      }
+      __name(del, "del");
+      TextEdit4.del = del;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.string(candidate.newText) && Range.is(candidate.range);
+      }
+      __name(is, "is");
+      TextEdit4.is = is;
+    })(TextEdit || (TextEdit = {}));
+    (function(ChangeAnnotation2) {
+      function create(label, needsConfirmation, description) {
+        const result = { label };
+        if (needsConfirmation !== void 0) {
+          result.needsConfirmation = needsConfirmation;
+        }
+        if (description !== void 0) {
+          result.description = description;
+        }
+        return result;
+      }
+      __name(create, "create");
+      ChangeAnnotation2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+      }
+      __name(is, "is");
+      ChangeAnnotation2.is = is;
+    })(ChangeAnnotation || (ChangeAnnotation = {}));
+    (function(ChangeAnnotationIdentifier2) {
+      function is(value) {
+        const candidate = value;
+        return Is.string(candidate);
+      }
+      __name(is, "is");
+      ChangeAnnotationIdentifier2.is = is;
+    })(ChangeAnnotationIdentifier || (ChangeAnnotationIdentifier = {}));
+    (function(AnnotatedTextEdit2) {
+      function replace(range, newText, annotation) {
+        return { range, newText, annotationId: annotation };
+      }
+      __name(replace, "replace");
+      AnnotatedTextEdit2.replace = replace;
+      function insert(position, newText, annotation) {
+        return { range: { start: position, end: position }, newText, annotationId: annotation };
+      }
+      __name(insert, "insert");
+      AnnotatedTextEdit2.insert = insert;
+      function del(range, annotation) {
+        return { range, newText: "", annotationId: annotation };
+      }
+      __name(del, "del");
+      AnnotatedTextEdit2.del = del;
+      function is(value) {
+        const candidate = value;
+        return TextEdit.is(candidate) && (ChangeAnnotation.is(candidate.annotationId) || ChangeAnnotationIdentifier.is(candidate.annotationId));
+      }
+      __name(is, "is");
+      AnnotatedTextEdit2.is = is;
+    })(AnnotatedTextEdit || (AnnotatedTextEdit = {}));
+    (function(TextDocumentEdit3) {
+      function create(textDocument, edits) {
+        return { textDocument, edits };
+      }
+      __name(create, "create");
+      TextDocumentEdit3.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument) && Array.isArray(candidate.edits);
+      }
+      __name(is, "is");
+      TextDocumentEdit3.is = is;
+    })(TextDocumentEdit || (TextDocumentEdit = {}));
+    (function(CreateFile2) {
+      function create(uri, options, annotation) {
+        let result = {
+          kind: "create",
+          uri
+        };
+        if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
+          result.options = options;
+        }
+        if (annotation !== void 0) {
+          result.annotationId = annotation;
+        }
+        return result;
+      }
+      __name(create, "create");
+      CreateFile2.create = create;
+      function is(value) {
+        let candidate = value;
+        return candidate && candidate.kind === "create" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+      }
+      __name(is, "is");
+      CreateFile2.is = is;
+    })(CreateFile || (CreateFile = {}));
+    (function(RenameFile2) {
+      function create(oldUri, newUri, options, annotation) {
+        let result = {
+          kind: "rename",
+          oldUri,
+          newUri
+        };
+        if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
+          result.options = options;
+        }
+        if (annotation !== void 0) {
+          result.annotationId = annotation;
+        }
+        return result;
+      }
+      __name(create, "create");
+      RenameFile2.create = create;
+      function is(value) {
+        let candidate = value;
+        return candidate && candidate.kind === "rename" && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+      }
+      __name(is, "is");
+      RenameFile2.is = is;
+    })(RenameFile || (RenameFile = {}));
+    (function(DeleteFile2) {
+      function create(uri, options, annotation) {
+        let result = {
+          kind: "delete",
+          uri
+        };
+        if (options !== void 0 && (options.recursive !== void 0 || options.ignoreIfNotExists !== void 0)) {
+          result.options = options;
+        }
+        if (annotation !== void 0) {
+          result.annotationId = annotation;
+        }
+        return result;
+      }
+      __name(create, "create");
+      DeleteFile2.create = create;
+      function is(value) {
+        let candidate = value;
+        return candidate && candidate.kind === "delete" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+      }
+      __name(is, "is");
+      DeleteFile2.is = is;
+    })(DeleteFile || (DeleteFile = {}));
+    (function(WorkspaceEdit2) {
+      function is(value) {
+        let candidate = value;
+        return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every((change) => {
+          if (Is.string(change.kind)) {
+            return CreateFile.is(change) || RenameFile.is(change) || DeleteFile.is(change);
+          } else {
+            return TextDocumentEdit.is(change);
+          }
+        }));
+      }
+      __name(is, "is");
+      WorkspaceEdit2.is = is;
+    })(WorkspaceEdit || (WorkspaceEdit = {}));
+    (function(TextDocumentIdentifier2) {
+      function create(uri) {
+        return { uri };
+      }
+      __name(create, "create");
+      TextDocumentIdentifier2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.uri);
+      }
+      __name(is, "is");
+      TextDocumentIdentifier2.is = is;
+    })(TextDocumentIdentifier || (TextDocumentIdentifier = {}));
+    (function(VersionedTextDocumentIdentifier2) {
+      function create(uri, version) {
+        return { uri, version };
+      }
+      __name(create, "create");
+      VersionedTextDocumentIdentifier2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
+      }
+      __name(is, "is");
+      VersionedTextDocumentIdentifier2.is = is;
+    })(VersionedTextDocumentIdentifier || (VersionedTextDocumentIdentifier = {}));
+    (function(OptionalVersionedTextDocumentIdentifier2) {
+      function create(uri, version) {
+        return { uri, version };
+      }
+      __name(create, "create");
+      OptionalVersionedTextDocumentIdentifier2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
+      }
+      __name(is, "is");
+      OptionalVersionedTextDocumentIdentifier2.is = is;
+    })(OptionalVersionedTextDocumentIdentifier || (OptionalVersionedTextDocumentIdentifier = {}));
+    (function(TextDocumentItem2) {
+      function create(uri, languageId, version, text) {
+        return { uri, languageId, version, text };
+      }
+      __name(create, "create");
+      TextDocumentItem2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
+      }
+      __name(is, "is");
+      TextDocumentItem2.is = is;
+    })(TextDocumentItem || (TextDocumentItem = {}));
+    (function(MarkupKind2) {
+      MarkupKind2.PlainText = "plaintext";
+      MarkupKind2.Markdown = "markdown";
+      function is(value) {
+        const candidate = value;
+        return candidate === MarkupKind2.PlainText || candidate === MarkupKind2.Markdown;
+      }
+      __name(is, "is");
+      MarkupKind2.is = is;
+    })(MarkupKind || (MarkupKind = {}));
+    (function(MarkupContent2) {
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(value) && MarkupKind.is(candidate.kind) && Is.string(candidate.value);
+      }
+      __name(is, "is");
+      MarkupContent2.is = is;
+    })(MarkupContent || (MarkupContent = {}));
+    (function(CompletionItemKind3) {
+      CompletionItemKind3.Text = 1;
+      CompletionItemKind3.Method = 2;
+      CompletionItemKind3.Function = 3;
+      CompletionItemKind3.Constructor = 4;
+      CompletionItemKind3.Field = 5;
+      CompletionItemKind3.Variable = 6;
+      CompletionItemKind3.Class = 7;
+      CompletionItemKind3.Interface = 8;
+      CompletionItemKind3.Module = 9;
+      CompletionItemKind3.Property = 10;
+      CompletionItemKind3.Unit = 11;
+      CompletionItemKind3.Value = 12;
+      CompletionItemKind3.Enum = 13;
+      CompletionItemKind3.Keyword = 14;
+      CompletionItemKind3.Snippet = 15;
+      CompletionItemKind3.Color = 16;
+      CompletionItemKind3.File = 17;
+      CompletionItemKind3.Reference = 18;
+      CompletionItemKind3.Folder = 19;
+      CompletionItemKind3.EnumMember = 20;
+      CompletionItemKind3.Constant = 21;
+      CompletionItemKind3.Struct = 22;
+      CompletionItemKind3.Event = 23;
+      CompletionItemKind3.Operator = 24;
+      CompletionItemKind3.TypeParameter = 25;
+    })(CompletionItemKind || (CompletionItemKind = {}));
+    (function(InsertTextFormat2) {
+      InsertTextFormat2.PlainText = 1;
+      InsertTextFormat2.Snippet = 2;
+    })(InsertTextFormat || (InsertTextFormat = {}));
+    (function(CompletionItemTag2) {
+      CompletionItemTag2.Deprecated = 1;
+    })(CompletionItemTag || (CompletionItemTag = {}));
+    (function(InsertReplaceEdit2) {
+      function create(newText, insert, replace) {
+        return { newText, insert, replace };
+      }
+      __name(create, "create");
+      InsertReplaceEdit2.create = create;
+      function is(value) {
+        const candidate = value;
+        return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
+      }
+      __name(is, "is");
+      InsertReplaceEdit2.is = is;
+    })(InsertReplaceEdit || (InsertReplaceEdit = {}));
+    (function(InsertTextMode2) {
+      InsertTextMode2.asIs = 1;
+      InsertTextMode2.adjustIndentation = 2;
+    })(InsertTextMode || (InsertTextMode = {}));
+    (function(CompletionItemLabelDetails2) {
+      function is(value) {
+        const candidate = value;
+        return candidate && (Is.string(candidate.detail) || candidate.detail === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+      }
+      __name(is, "is");
+      CompletionItemLabelDetails2.is = is;
+    })(CompletionItemLabelDetails || (CompletionItemLabelDetails = {}));
+    (function(CompletionItem2) {
+      function create(label) {
+        return { label };
+      }
+      __name(create, "create");
+      CompletionItem2.create = create;
+    })(CompletionItem || (CompletionItem = {}));
+    (function(CompletionList2) {
+      function create(items, isIncomplete) {
+        return { items: items ? items : [], isIncomplete: !!isIncomplete };
+      }
+      __name(create, "create");
+      CompletionList2.create = create;
+    })(CompletionList || (CompletionList = {}));
+    (function(MarkedString2) {
+      function fromPlainText(plainText) {
+        return plainText.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
+      }
+      __name(fromPlainText, "fromPlainText");
+      MarkedString2.fromPlainText = fromPlainText;
+      function is(value) {
+        const candidate = value;
+        return Is.string(candidate) || Is.objectLiteral(candidate) && Is.string(candidate.language) && Is.string(candidate.value);
+      }
+      __name(is, "is");
+      MarkedString2.is = is;
+    })(MarkedString || (MarkedString = {}));
+    (function(Hover2) {
+      function is(value) {
+        let candidate = value;
+        return !!candidate && Is.objectLiteral(candidate) && (MarkupContent.is(candidate.contents) || MarkedString.is(candidate.contents) || Is.typedArray(candidate.contents, MarkedString.is)) && (value.range === void 0 || Range.is(value.range));
+      }
+      __name(is, "is");
+      Hover2.is = is;
+    })(Hover || (Hover = {}));
+    (function(ParameterInformation2) {
+      function create(label, documentation) {
+        return documentation ? { label, documentation } : { label };
+      }
+      __name(create, "create");
+      ParameterInformation2.create = create;
+    })(ParameterInformation || (ParameterInformation = {}));
+    (function(SignatureInformation2) {
+      function create(label, documentation, ...parameters) {
+        let result = { label };
+        if (Is.defined(documentation)) {
+          result.documentation = documentation;
+        }
+        if (Is.defined(parameters)) {
+          result.parameters = parameters;
+        } else {
+          result.parameters = [];
+        }
+        return result;
+      }
+      __name(create, "create");
+      SignatureInformation2.create = create;
+    })(SignatureInformation || (SignatureInformation = {}));
+    (function(DocumentHighlightKind2) {
+      DocumentHighlightKind2.Text = 1;
+      DocumentHighlightKind2.Read = 2;
+      DocumentHighlightKind2.Write = 3;
+    })(DocumentHighlightKind || (DocumentHighlightKind = {}));
+    (function(DocumentHighlight2) {
+      function create(range, kind) {
+        let result = { range };
+        if (Is.number(kind)) {
+          result.kind = kind;
+        }
+        return result;
+      }
+      __name(create, "create");
+      DocumentHighlight2.create = create;
+    })(DocumentHighlight || (DocumentHighlight = {}));
+    (function(SymbolKind2) {
+      SymbolKind2.File = 1;
+      SymbolKind2.Module = 2;
+      SymbolKind2.Namespace = 3;
+      SymbolKind2.Package = 4;
+      SymbolKind2.Class = 5;
+      SymbolKind2.Method = 6;
+      SymbolKind2.Property = 7;
+      SymbolKind2.Field = 8;
+      SymbolKind2.Constructor = 9;
+      SymbolKind2.Enum = 10;
+      SymbolKind2.Interface = 11;
+      SymbolKind2.Function = 12;
+      SymbolKind2.Variable = 13;
+      SymbolKind2.Constant = 14;
+      SymbolKind2.String = 15;
+      SymbolKind2.Number = 16;
+      SymbolKind2.Boolean = 17;
+      SymbolKind2.Array = 18;
+      SymbolKind2.Object = 19;
+      SymbolKind2.Key = 20;
+      SymbolKind2.Null = 21;
+      SymbolKind2.EnumMember = 22;
+      SymbolKind2.Struct = 23;
+      SymbolKind2.Event = 24;
+      SymbolKind2.Operator = 25;
+      SymbolKind2.TypeParameter = 26;
+    })(SymbolKind || (SymbolKind = {}));
+    (function(SymbolTag2) {
+      SymbolTag2.Deprecated = 1;
+    })(SymbolTag || (SymbolTag = {}));
+    (function(SymbolInformation2) {
+      function create(name, kind, range, uri, containerName) {
+        let result = {
+          name,
+          kind,
+          location: { uri, range }
+        };
+        if (containerName) {
+          result.containerName = containerName;
+        }
+        return result;
+      }
+      __name(create, "create");
+      SymbolInformation2.create = create;
+    })(SymbolInformation || (SymbolInformation = {}));
+    (function(WorkspaceSymbol2) {
+      function create(name, kind, uri, range) {
+        return range !== void 0 ? { name, kind, location: { uri, range } } : { name, kind, location: { uri } };
+      }
+      __name(create, "create");
+      WorkspaceSymbol2.create = create;
+    })(WorkspaceSymbol || (WorkspaceSymbol = {}));
+    (function(DocumentSymbol2) {
+      function create(name, detail, kind, range, selectionRange, children) {
+        let result = {
+          name,
+          detail,
+          kind,
+          range,
+          selectionRange
+        };
+        if (children !== void 0) {
+          result.children = children;
+        }
+        return result;
+      }
+      __name(create, "create");
+      DocumentSymbol2.create = create;
+      function is(value) {
+        let candidate = value;
+        return candidate && Is.string(candidate.name) && Is.number(candidate.kind) && Range.is(candidate.range) && Range.is(candidate.selectionRange) && (candidate.detail === void 0 || Is.string(candidate.detail)) && (candidate.deprecated === void 0 || Is.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
+      }
+      __name(is, "is");
+      DocumentSymbol2.is = is;
+    })(DocumentSymbol || (DocumentSymbol = {}));
+    (function(CodeActionKind6) {
+      CodeActionKind6.Empty = "";
+      CodeActionKind6.QuickFix = "quickfix";
+      CodeActionKind6.Refactor = "refactor";
+      CodeActionKind6.RefactorExtract = "refactor.extract";
+      CodeActionKind6.RefactorInline = "refactor.inline";
+      CodeActionKind6.RefactorRewrite = "refactor.rewrite";
+      CodeActionKind6.Source = "source";
+      CodeActionKind6.SourceOrganizeImports = "source.organizeImports";
+      CodeActionKind6.SourceFixAll = "source.fixAll";
+    })(CodeActionKind || (CodeActionKind = {}));
+    (function(CodeActionTriggerKind2) {
+      CodeActionTriggerKind2.Invoked = 1;
+      CodeActionTriggerKind2.Automatic = 2;
+    })(CodeActionTriggerKind || (CodeActionTriggerKind = {}));
+    (function(CodeActionContext2) {
+      function create(diagnostics, only, triggerKind) {
+        let result = { diagnostics };
+        if (only !== void 0 && only !== null) {
+          result.only = only;
+        }
+        if (triggerKind !== void 0 && triggerKind !== null) {
+          result.triggerKind = triggerKind;
+        }
+        return result;
+      }
+      __name(create, "create");
+      CodeActionContext2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is) && (candidate.only === void 0 || Is.typedArray(candidate.only, Is.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
+      }
+      __name(is, "is");
+      CodeActionContext2.is = is;
+    })(CodeActionContext || (CodeActionContext = {}));
+    (function(CodeAction5) {
+      function create(title, kindOrCommandOrEdit, kind) {
+        let result = { title };
+        let checkKind = true;
+        if (typeof kindOrCommandOrEdit === "string") {
+          checkKind = false;
+          result.kind = kindOrCommandOrEdit;
+        } else if (Command.is(kindOrCommandOrEdit)) {
+          result.command = kindOrCommandOrEdit;
+        } else {
+          result.edit = kindOrCommandOrEdit;
+        }
+        if (checkKind && kind !== void 0) {
+          result.kind = kind;
+        }
+        return result;
+      }
+      __name(create, "create");
+      CodeAction5.create = create;
+      function is(value) {
+        let candidate = value;
+        return candidate && Is.string(candidate.title) && (candidate.diagnostics === void 0 || Is.typedArray(candidate.diagnostics, Diagnostic.is)) && (candidate.kind === void 0 || Is.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command.is(candidate.command)) && (candidate.isPreferred === void 0 || Is.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit.is(candidate.edit));
+      }
+      __name(is, "is");
+      CodeAction5.is = is;
+    })(CodeAction || (CodeAction = {}));
+    (function(CodeLens2) {
+      function create(range, data) {
+        let result = { range };
+        if (Is.defined(data)) {
+          result.data = data;
+        }
+        return result;
+      }
+      __name(create, "create");
+      CodeLens2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
+      }
+      __name(is, "is");
+      CodeLens2.is = is;
+    })(CodeLens || (CodeLens = {}));
+    (function(FormattingOptions2) {
+      function create(tabSize, insertSpaces) {
+        return { tabSize, insertSpaces };
+      }
+      __name(create, "create");
+      FormattingOptions2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
+      }
+      __name(is, "is");
+      FormattingOptions2.is = is;
+    })(FormattingOptions || (FormattingOptions = {}));
+    (function(DocumentLink2) {
+      function create(range, target, data) {
+        return { range, target, data };
+      }
+      __name(create, "create");
+      DocumentLink2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
+      }
+      __name(is, "is");
+      DocumentLink2.is = is;
+    })(DocumentLink || (DocumentLink = {}));
+    (function(SelectionRange2) {
+      function create(range, parent) {
+        return { range, parent };
+      }
+      __name(create, "create");
+      SelectionRange2.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === void 0 || SelectionRange2.is(candidate.parent));
+      }
+      __name(is, "is");
+      SelectionRange2.is = is;
+    })(SelectionRange || (SelectionRange = {}));
+    (function(SemanticTokenTypes2) {
+      SemanticTokenTypes2["namespace"] = "namespace";
+      SemanticTokenTypes2["type"] = "type";
+      SemanticTokenTypes2["class"] = "class";
+      SemanticTokenTypes2["enum"] = "enum";
+      SemanticTokenTypes2["interface"] = "interface";
+      SemanticTokenTypes2["struct"] = "struct";
+      SemanticTokenTypes2["typeParameter"] = "typeParameter";
+      SemanticTokenTypes2["parameter"] = "parameter";
+      SemanticTokenTypes2["variable"] = "variable";
+      SemanticTokenTypes2["property"] = "property";
+      SemanticTokenTypes2["enumMember"] = "enumMember";
+      SemanticTokenTypes2["event"] = "event";
+      SemanticTokenTypes2["function"] = "function";
+      SemanticTokenTypes2["method"] = "method";
+      SemanticTokenTypes2["macro"] = "macro";
+      SemanticTokenTypes2["keyword"] = "keyword";
+      SemanticTokenTypes2["modifier"] = "modifier";
+      SemanticTokenTypes2["comment"] = "comment";
+      SemanticTokenTypes2["string"] = "string";
+      SemanticTokenTypes2["number"] = "number";
+      SemanticTokenTypes2["regexp"] = "regexp";
+      SemanticTokenTypes2["operator"] = "operator";
+      SemanticTokenTypes2["decorator"] = "decorator";
+    })(SemanticTokenTypes || (SemanticTokenTypes = {}));
+    (function(SemanticTokenModifiers2) {
+      SemanticTokenModifiers2["declaration"] = "declaration";
+      SemanticTokenModifiers2["definition"] = "definition";
+      SemanticTokenModifiers2["readonly"] = "readonly";
+      SemanticTokenModifiers2["static"] = "static";
+      SemanticTokenModifiers2["deprecated"] = "deprecated";
+      SemanticTokenModifiers2["abstract"] = "abstract";
+      SemanticTokenModifiers2["async"] = "async";
+      SemanticTokenModifiers2["modification"] = "modification";
+      SemanticTokenModifiers2["documentation"] = "documentation";
+      SemanticTokenModifiers2["defaultLibrary"] = "defaultLibrary";
+    })(SemanticTokenModifiers || (SemanticTokenModifiers = {}));
+    (function(SemanticTokens2) {
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && (candidate.resultId === void 0 || typeof candidate.resultId === "string") && Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === "number");
+      }
+      __name(is, "is");
+      SemanticTokens2.is = is;
+    })(SemanticTokens || (SemanticTokens = {}));
+    (function(InlineValueText2) {
+      function create(range, text) {
+        return { range, text };
+      }
+      __name(create, "create");
+      InlineValueText2.create = create;
+      function is(value) {
+        const candidate = value;
+        return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
+      }
+      __name(is, "is");
+      InlineValueText2.is = is;
+    })(InlineValueText || (InlineValueText = {}));
+    (function(InlineValueVariableLookup2) {
+      function create(range, variableName, caseSensitiveLookup) {
+        return { range, variableName, caseSensitiveLookup };
+      }
+      __name(create, "create");
+      InlineValueVariableLookup2.create = create;
+      function is(value) {
+        const candidate = value;
+        return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup) && (Is.string(candidate.variableName) || candidate.variableName === void 0);
+      }
+      __name(is, "is");
+      InlineValueVariableLookup2.is = is;
+    })(InlineValueVariableLookup || (InlineValueVariableLookup = {}));
+    (function(InlineValueEvaluatableExpression2) {
+      function create(range, expression) {
+        return { range, expression };
+      }
+      __name(create, "create");
+      InlineValueEvaluatableExpression2.create = create;
+      function is(value) {
+        const candidate = value;
+        return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && (Is.string(candidate.expression) || candidate.expression === void 0);
+      }
+      __name(is, "is");
+      InlineValueEvaluatableExpression2.is = is;
+    })(InlineValueEvaluatableExpression || (InlineValueEvaluatableExpression = {}));
+    (function(InlineValueContext2) {
+      function create(frameId, stoppedLocation) {
+        return { frameId, stoppedLocation };
+      }
+      __name(create, "create");
+      InlineValueContext2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.defined(candidate) && Range.is(value.stoppedLocation);
+      }
+      __name(is, "is");
+      InlineValueContext2.is = is;
+    })(InlineValueContext || (InlineValueContext = {}));
+    (function(InlayHintKind2) {
+      InlayHintKind2.Type = 1;
+      InlayHintKind2.Parameter = 2;
+      function is(value) {
+        return value === 1 || value === 2;
+      }
+      __name(is, "is");
+      InlayHintKind2.is = is;
+    })(InlayHintKind || (InlayHintKind = {}));
+    (function(InlayHintLabelPart2) {
+      function create(value) {
+        return { value };
+      }
+      __name(create, "create");
+      InlayHintLabelPart2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.location === void 0 || Location.is(candidate.location)) && (candidate.command === void 0 || Command.is(candidate.command));
+      }
+      __name(is, "is");
+      InlayHintLabelPart2.is = is;
+    })(InlayHintLabelPart || (InlayHintLabelPart = {}));
+    (function(InlayHint2) {
+      function create(position, label, kind) {
+        const result = { position, label };
+        if (kind !== void 0) {
+          result.kind = kind;
+        }
+        return result;
+      }
+      __name(create, "create");
+      InlayHint2.create = create;
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && Position.is(candidate.position) && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is)) && (candidate.kind === void 0 || InlayHintKind.is(candidate.kind)) && candidate.textEdits === void 0 || Is.typedArray(candidate.textEdits, TextEdit.is) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is.boolean(candidate.paddingRight));
+      }
+      __name(is, "is");
+      InlayHint2.is = is;
+    })(InlayHint || (InlayHint = {}));
+    (function(StringValue2) {
+      function createSnippet(value) {
+        return { kind: "snippet", value };
+      }
+      __name(createSnippet, "createSnippet");
+      StringValue2.createSnippet = createSnippet;
+    })(StringValue || (StringValue = {}));
+    (function(InlineCompletionItem2) {
+      function create(insertText, filterText, range, command2) {
+        return { insertText, filterText, range, command: command2 };
+      }
+      __name(create, "create");
+      InlineCompletionItem2.create = create;
+    })(InlineCompletionItem || (InlineCompletionItem = {}));
+    (function(InlineCompletionList2) {
+      function create(items) {
+        return { items };
+      }
+      __name(create, "create");
+      InlineCompletionList2.create = create;
+    })(InlineCompletionList || (InlineCompletionList = {}));
+    (function(InlineCompletionTriggerKind2) {
+      InlineCompletionTriggerKind2.Invoked = 0;
+      InlineCompletionTriggerKind2.Automatic = 1;
+    })(InlineCompletionTriggerKind || (InlineCompletionTriggerKind = {}));
+    (function(SelectedCompletionInfo2) {
+      function create(range, text) {
+        return { range, text };
+      }
+      __name(create, "create");
+      SelectedCompletionInfo2.create = create;
+    })(SelectedCompletionInfo || (SelectedCompletionInfo = {}));
+    (function(InlineCompletionContext2) {
+      function create(triggerKind, selectedCompletionInfo) {
+        return { triggerKind, selectedCompletionInfo };
+      }
+      __name(create, "create");
+      InlineCompletionContext2.create = create;
+    })(InlineCompletionContext || (InlineCompletionContext = {}));
+    (function(WorkspaceFolder2) {
+      function is(value) {
+        const candidate = value;
+        return Is.objectLiteral(candidate) && URI.is(candidate.uri) && Is.string(candidate.name);
+      }
+      __name(is, "is");
+      WorkspaceFolder2.is = is;
+    })(WorkspaceFolder || (WorkspaceFolder = {}));
+    (function(TextDocument3) {
+      function create(uri, languageId, version, content) {
+        return new FullTextDocument(uri, languageId, version, content);
+      }
+      __name(create, "create");
+      TextDocument3.create = create;
+      function is(value) {
+        let candidate = value;
+        return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount) && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
+      }
+      __name(is, "is");
+      TextDocument3.is = is;
+      function applyEdits(document, edits) {
+        let text = document.getText();
+        let sortedEdits = mergeSort2(edits, (a, b) => {
+          let diff2 = a.range.start.line - b.range.start.line;
+          if (diff2 === 0) {
+            return a.range.start.character - b.range.start.character;
+          }
+          return diff2;
+        });
+        let lastModifiedOffset = text.length;
+        for (let i = sortedEdits.length - 1; i >= 0; i--) {
+          let e = sortedEdits[i];
+          let startOffset = document.offsetAt(e.range.start);
+          let endOffset = document.offsetAt(e.range.end);
+          if (endOffset <= lastModifiedOffset) {
+            text = text.substring(0, startOffset) + e.newText + text.substring(endOffset, text.length);
+          } else {
+            throw new Error("Overlapping edit");
+          }
+          lastModifiedOffset = startOffset;
+        }
+        return text;
+      }
+      __name(applyEdits, "applyEdits");
+      TextDocument3.applyEdits = applyEdits;
+      function mergeSort2(data, compare) {
+        if (data.length <= 1) {
+          return data;
+        }
+        const p = data.length / 2 | 0;
+        const left = data.slice(0, p);
+        const right = data.slice(p);
+        mergeSort2(left, compare);
+        mergeSort2(right, compare);
+        let leftIdx = 0;
+        let rightIdx = 0;
+        let i = 0;
+        while (leftIdx < left.length && rightIdx < right.length) {
+          let ret = compare(left[leftIdx], right[rightIdx]);
+          if (ret <= 0) {
+            data[i++] = left[leftIdx++];
+          } else {
+            data[i++] = right[rightIdx++];
+          }
+        }
+        while (leftIdx < left.length) {
+          data[i++] = left[leftIdx++];
+        }
+        while (rightIdx < right.length) {
+          data[i++] = right[rightIdx++];
+        }
+        return data;
+      }
+      __name(mergeSort2, "mergeSort");
+    })(TextDocument || (TextDocument = {}));
+    FullTextDocument = class {
+      static {
+        __name(this, "FullTextDocument");
+      }
+      constructor(uri, languageId, version, content) {
+        this._uri = uri;
+        this._languageId = languageId;
+        this._version = version;
+        this._content = content;
+        this._lineOffsets = void 0;
+      }
+      get uri() {
+        return this._uri;
+      }
+      get languageId() {
+        return this._languageId;
+      }
+      get version() {
+        return this._version;
+      }
+      getText(range) {
+        if (range) {
+          let start = this.offsetAt(range.start);
+          let end = this.offsetAt(range.end);
+          return this._content.substring(start, end);
+        }
+        return this._content;
+      }
+      update(event, version) {
+        this._content = event.text;
+        this._version = version;
+        this._lineOffsets = void 0;
+      }
+      getLineOffsets() {
+        if (this._lineOffsets === void 0) {
+          let lineOffsets = [];
+          let text = this._content;
+          let isLineStart = true;
+          for (let i = 0; i < text.length; i++) {
+            if (isLineStart) {
+              lineOffsets.push(i);
+              isLineStart = false;
+            }
+            let ch = text.charAt(i);
+            isLineStart = ch === "\r" || ch === "\n";
+            if (ch === "\r" && i + 1 < text.length && text.charAt(i + 1) === "\n") {
+              i++;
+            }
+          }
+          if (isLineStart && text.length > 0) {
+            lineOffsets.push(text.length);
+          }
+          this._lineOffsets = lineOffsets;
+        }
+        return this._lineOffsets;
+      }
+      positionAt(offset) {
+        offset = Math.max(Math.min(offset, this._content.length), 0);
+        let lineOffsets = this.getLineOffsets();
+        let low = 0, high = lineOffsets.length;
+        if (high === 0) {
+          return Position.create(0, offset);
+        }
+        while (low < high) {
+          let mid = Math.floor((low + high) / 2);
+          if (lineOffsets[mid] > offset) {
+            high = mid;
+          } else {
+            low = mid + 1;
+          }
+        }
+        let line = low - 1;
+        return Position.create(line, offset - lineOffsets[line]);
+      }
+      offsetAt(position) {
+        let lineOffsets = this.getLineOffsets();
+        if (position.line >= lineOffsets.length) {
+          return this._content.length;
+        } else if (position.line < 0) {
+          return 0;
+        }
+        let lineOffset = lineOffsets[position.line];
+        let nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
+        return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
+      }
+      get lineCount() {
+        return this.getLineOffsets().length;
+      }
+    };
+    (function(Is2) {
+      const toString = Object.prototype.toString;
+      function defined(value) {
+        return typeof value !== "undefined";
+      }
+      __name(defined, "defined");
+      Is2.defined = defined;
+      function undefined2(value) {
+        return typeof value === "undefined";
+      }
+      __name(undefined2, "undefined");
+      Is2.undefined = undefined2;
+      function boolean(value) {
+        return value === true || value === false;
+      }
+      __name(boolean, "boolean");
+      Is2.boolean = boolean;
+      function string(value) {
+        return toString.call(value) === "[object String]";
+      }
+      __name(string, "string");
+      Is2.string = string;
+      function number(value) {
+        return toString.call(value) === "[object Number]";
+      }
+      __name(number, "number");
+      Is2.number = number;
+      function numberRange(value, min, max) {
+        return toString.call(value) === "[object Number]" && min <= value && value <= max;
+      }
+      __name(numberRange, "numberRange");
+      Is2.numberRange = numberRange;
+      function integer2(value) {
+        return toString.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
+      }
+      __name(integer2, "integer");
+      Is2.integer = integer2;
+      function uinteger3(value) {
+        return toString.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
+      }
+      __name(uinteger3, "uinteger");
+      Is2.uinteger = uinteger3;
+      function func(value) {
+        return toString.call(value) === "[object Function]";
+      }
+      __name(func, "func");
+      Is2.func = func;
+      function objectLiteral(value) {
+        return value !== null && typeof value === "object";
+      }
+      __name(objectLiteral, "objectLiteral");
+      Is2.objectLiteral = objectLiteral;
+      function typedArray(value, check) {
+        return Array.isArray(value) && value.every(check);
+      }
+      __name(typedArray, "typedArray");
+      Is2.typedArray = typedArray;
+    })(Is || (Is = {}));
+  }
+});
+
+// packages/language-server/build/server/stylelint/types.js
+function createRuleMetadataSourceFromSnapshot(snapshot) {
+  if (!snapshot) {
+    return void 0;
+  }
+  return {
+    get: /* @__PURE__ */ __name((ruleName) => snapshot[ruleName], "get")
+  };
+}
+var DisableReportRuleNames, InvalidOptionError;
+var init_types3 = __esm({
+  "packages/language-server/build/server/stylelint/types.js"() {
+    "use strict";
     (function(DisableReportRuleNames2) {
       DisableReportRuleNames2["Needless"] = "--report-needless-disables";
       DisableReportRuleNames2["InvalidScope"] = "--report-invalid-scope-disables";
       DisableReportRuleNames2["Descriptionless"] = "--report-descriptionless-disables";
       DisableReportRuleNames2["Illegal"] = "reportDisables";
-    })(DisableReportRuleNames || (exports2.DisableReportRuleNames = DisableReportRuleNames = {}));
-    var InvalidOptionError = class extends Error {
+    })(DisableReportRuleNames || (DisableReportRuleNames = {}));
+    InvalidOptionError = class extends Error {
       static {
         __name(this, "InvalidOptionError");
       }
@@ -23394,307 +24578,267 @@ var require_types3 = __commonJS({
         this.reasons = reasons;
       }
     };
-    exports2.InvalidOptionError = InvalidOptionError;
-    function createRuleMetadataSourceFromStylelint(stylelintInstance) {
-      if (!stylelintInstance) {
-        return void 0;
-      }
-      return {
-        get: /* @__PURE__ */ __name((ruleName) => {
-          const rules = stylelintInstance.rules;
-          return rules?.[ruleName]?.meta;
-        }, "get")
-      };
-    }
-    __name(createRuleMetadataSourceFromStylelint, "createRuleMetadataSourceFromStylelint");
-    function createRuleMetadataSourceFromSnapshot(snapshot) {
-      if (!snapshot) {
-        return void 0;
-      }
-      return {
-        get: /* @__PURE__ */ __name((ruleName) => snapshot[ruleName], "get")
-      };
-    }
     __name(createRuleMetadataSourceFromSnapshot, "createRuleMetadataSourceFromSnapshot");
   }
 });
 
-// build/server/stylelint/warning-to-diagnostic.js
-var require_warning_to_diagnostic = __commonJS({
-  "build/server/stylelint/warning-to-diagnostic.js"(exports2) {
+// packages/language-server/build/server/stylelint/warning-to-diagnostic.js
+function severityOverrideToLSPSeverity(override) {
+  switch (override) {
+    case "error":
+      return DiagnosticSeverity.Error;
+    case "warn":
+      return DiagnosticSeverity.Warning;
+    case "info":
+      return DiagnosticSeverity.Information;
+    case "off":
+      return null;
+  }
+}
+function applySeverityCustomization(warning, ruleCustomizations, logger) {
+  if (!ruleCustomizations || ruleCustomizations.length === 0) {
+    return DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
+  }
+  let customization;
+  for (let i = ruleCustomizations.length - 1; i >= 0; i--) {
+    const custom = ruleCustomizations[i];
+    const pattern = custom.rule;
+    const isNegated = pattern.startsWith("!");
+    const actualPattern = isNegated ? pattern.slice(1) : pattern;
+    let matches = false;
+    if (actualPattern === warning.rule) {
+      matches = true;
+    } else if (actualPattern.includes("*")) {
+      const regexPattern = actualPattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\\\*/g, ".*");
+      const regex = new RegExp(`^${regexPattern}$`);
+      matches = regex.test(warning.rule);
+    }
+    if (isNegated ? !matches : matches) {
+      customization = custom;
+      break;
+    }
+  }
+  if (!customization) {
+    return DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
+  }
+  const override = customization.severity;
+  const originalSeverity = DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
+  switch (override) {
+    case "downgrade":
+      return originalSeverity === DiagnosticSeverity.Error ? DiagnosticSeverity.Warning : DiagnosticSeverity.Information;
+    case "upgrade":
+      return originalSeverity === DiagnosticSeverity.Warning ? DiagnosticSeverity.Error : originalSeverity;
+    case "default":
+      return originalSeverity;
+    case "off":
+    case "warn":
+    case "info":
+    case "error":
+      return severityOverrideToLSPSeverity(override);
+    default:
+      logger.warn(`Unknown severity override: ${String(override)}`);
+      return originalSeverity;
+  }
+}
+function warningToDiagnostic(warning, logger, ruleMetadata, ruleCustomizations) {
+  const severity = applySeverityCustomization(warning, ruleCustomizations, logger);
+  if (severity === null) {
+    return null;
+  }
+  const start = Position.create(warning.line - 1, warning.column - 1);
+  const end = typeof warning.endLine === "number" && typeof warning.endColumn === "number" ? Position.create(warning.endLine - 1, warning.endColumn - 1) : Position.create(warning.line - 1, warning.column);
+  const ruleDocUrl = warning.url ?? ruleMetadata?.[warning.rule]?.url;
+  const diagnostic = Diagnostic.create(Range.create(start, end), warning.text, severity, warning.rule, "Stylelint");
+  if (ruleDocUrl) {
+    diagnostic.codeDescription = { href: ruleDocUrl };
+  }
+  return diagnostic;
+}
+var init_warning_to_diagnostic = __esm({
+  "packages/language-server/build/server/stylelint/warning-to-diagnostic.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.warningToDiagnostic = warningToDiagnostic;
-    var vscode_languageserver_types_1 = require_main2();
-    function severityOverrideToLSPSeverity(override) {
-      switch (override) {
-        case "error":
-          return vscode_languageserver_types_1.DiagnosticSeverity.Error;
-        case "warn":
-          return vscode_languageserver_types_1.DiagnosticSeverity.Warning;
-        case "info":
-          return vscode_languageserver_types_1.DiagnosticSeverity.Information;
-        case "off":
-          return null;
-      }
-    }
+    init_main();
     __name(severityOverrideToLSPSeverity, "severityOverrideToLSPSeverity");
-    function applySeverityCustomization(warning, ruleCustomizations, logger) {
-      if (!ruleCustomizations || ruleCustomizations.length === 0) {
-        return vscode_languageserver_types_1.DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
-      }
-      let customization;
-      for (let i = ruleCustomizations.length - 1; i >= 0; i--) {
-        const custom = ruleCustomizations[i];
-        const pattern = custom.rule;
-        const isNegated = pattern.startsWith("!");
-        const actualPattern = isNegated ? pattern.slice(1) : pattern;
-        let matches = false;
-        if (actualPattern === warning.rule) {
-          matches = true;
-        } else if (actualPattern.includes("*")) {
-          const regexPattern = actualPattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\\\*/g, ".*");
-          const regex = new RegExp(`^${regexPattern}$`);
-          matches = regex.test(warning.rule);
-        }
-        if (isNegated ? !matches : matches) {
-          customization = custom;
-          break;
-        }
-      }
-      if (!customization) {
-        return vscode_languageserver_types_1.DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
-      }
-      const override = customization.severity;
-      const originalSeverity = vscode_languageserver_types_1.DiagnosticSeverity[warning.severity === "warning" ? "Warning" : "Error"];
-      switch (override) {
-        case "downgrade":
-          return originalSeverity === vscode_languageserver_types_1.DiagnosticSeverity.Error ? vscode_languageserver_types_1.DiagnosticSeverity.Warning : vscode_languageserver_types_1.DiagnosticSeverity.Information;
-        case "upgrade":
-          return originalSeverity === vscode_languageserver_types_1.DiagnosticSeverity.Warning ? vscode_languageserver_types_1.DiagnosticSeverity.Error : originalSeverity;
-        case "default":
-          return originalSeverity;
-        case "off":
-        case "warn":
-        case "info":
-        case "error":
-          return severityOverrideToLSPSeverity(override);
-        default:
-          logger.warn(`Unknown severity override: ${String(override)}`);
-          return originalSeverity;
-      }
-    }
     __name(applySeverityCustomization, "applySeverityCustomization");
-    function warningToDiagnostic(warning, logger, ruleMetadata, ruleCustomizations) {
-      const severity = applySeverityCustomization(warning, ruleCustomizations, logger);
-      if (severity === null) {
-        return null;
-      }
-      const start = vscode_languageserver_types_1.Position.create(warning.line - 1, warning.column - 1);
-      const end = typeof warning.endLine === "number" && typeof warning.endColumn === "number" ? vscode_languageserver_types_1.Position.create(warning.endLine - 1, warning.endColumn - 1) : vscode_languageserver_types_1.Position.create(warning.line - 1, warning.column);
-      const ruleDocUrl = ruleMetadata?.[warning.rule]?.url;
-      const diagnostic = vscode_languageserver_types_1.Diagnostic.create(vscode_languageserver_types_1.Range.create(start, end), warning.text, severity, warning.rule, "Stylelint");
-      if (ruleDocUrl) {
-        diagnostic.codeDescription = { href: ruleDocUrl };
-      }
-      return diagnostic;
-    }
     __name(warningToDiagnostic, "warningToDiagnostic");
   }
 });
 
-// build/server/stylelint/process-linter-result.js
-var require_process_linter_result = __commonJS({
-  "build/server/stylelint/process-linter-result.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
+// packages/language-server/build/server/stylelint/process-linter-result.js
+function getDiagnosticKey(diagnostic) {
+  const range = diagnostic.range;
+  let message = "";
+  if (diagnostic.message) {
+    const hash = crypto.createHash("sha256");
+    hash.update(diagnostic.message);
+    message = hash.digest("base64");
+  }
+  return `[${range.start.line},${range.start.character},${range.end.line},${range.end.character}]-${diagnostic.code}-${message}`;
+}
+function resolveRuleMetadata(linterResult, ruleMetadataSource) {
+  if (linterResult.ruleMetadata) {
+    return linterResult.ruleMetadata;
+  }
+  if (ruleMetadataSource) {
+    return new Proxy({}, {
+      get: /* @__PURE__ */ __name((_, key) => ruleMetadataSource.get(key), "get")
     });
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.processLinterResult = processLinterResult;
-    var crypto = __importStar(require("crypto"));
-    var types_js_1 = require_types3();
-    var warning_to_diagnostic_js_1 = require_warning_to_diagnostic();
-    function getDiagnosticKey(diagnostic) {
-      const range = diagnostic.range;
-      let message = "";
-      if (diagnostic.message) {
-        const hash = crypto.createHash("sha256");
-        hash.update(diagnostic.message);
-        message = hash.digest("base64");
-      }
-      return `[${range.start.line},${range.start.character},${range.end.line},${range.end.character}]-${diagnostic.code}-${message}`;
+  }
+  return void 0;
+}
+function processSingleLintResult(result, logger, ruleMetadata, ruleCustomizations) {
+  if (result.ignored) {
+    return { diagnostics: [] };
+  }
+  if (result.invalidOptionWarnings.length !== 0) {
+    throw new InvalidOptionError(result.invalidOptionWarnings);
+  }
+  const diagnostics = [];
+  const warningsMap = /* @__PURE__ */ new Map();
+  for (const warning of result.warnings) {
+    const diagnostic = warningToDiagnostic(warning, logger, ruleMetadata, ruleCustomizations);
+    if (diagnostic !== null) {
+      diagnostics.push(diagnostic);
+      warningsMap.set(getDiagnosticKey(diagnostic), warning);
     }
+  }
+  const getWarning = /* @__PURE__ */ __name((diagnostic) => {
+    const key = getDiagnosticKey(diagnostic);
+    return warningsMap.get(key) ?? null;
+  }, "getWarning");
+  return { diagnostics, getWarning };
+}
+function processLinterResult(ruleMetadataSource, linterResult, logger, ruleCustomizations) {
+  const { results } = linterResult;
+  if (results.length === 0) {
+    return { diagnostics: [] };
+  }
+  const firstResult = results[0];
+  if (firstResult.ignored) {
+    return { diagnostics: [] };
+  }
+  const ruleMetadata = resolveRuleMetadata(linterResult, ruleMetadataSource);
+  const lintDiagnostics = processSingleLintResult(firstResult, logger, ruleMetadata, ruleCustomizations);
+  let hasReport = false;
+  if ("report" in linterResult && typeof linterResult.report === "string") {
+    lintDiagnostics.report = linterResult.report;
+    hasReport = true;
+  }
+  let hasModernFixes = false;
+  if ("code" in linterResult && typeof linterResult.code === "string") {
+    lintDiagnostics.code = linterResult.code;
+    hasModernFixes = true;
+  }
+  if (!hasModernFixes && !hasReport && "output" in linterResult) {
+    const { output: legacyOutput } = linterResult;
+    if (typeof legacyOutput === "string" && legacyOutput.length > 0) {
+      lintDiagnostics.output = legacyOutput;
+    }
+  }
+  return lintDiagnostics;
+}
+function processMultiFileLinterResult(ruleMetadataSource, linterResult, logger, ruleCustomizations) {
+  const { results } = linterResult;
+  const multiFileResult = /* @__PURE__ */ new Map();
+  const ruleMetadata = resolveRuleMetadata(linterResult, ruleMetadataSource);
+  for (const result of results) {
+    if (!result.source || result.ignored) {
+      continue;
+    }
+    multiFileResult.set(result.source, processSingleLintResult(result, logger, ruleMetadata, ruleCustomizations));
+  }
+  return multiFileResult;
+}
+var crypto;
+var init_process_linter_result = __esm({
+  "packages/language-server/build/server/stylelint/process-linter-result.js"() {
+    "use strict";
+    crypto = __toESM(require("crypto"), 1);
+    init_types3();
+    init_warning_to_diagnostic();
     __name(getDiagnosticKey, "getDiagnosticKey");
-    function processLinterResult(ruleMetadataSource, linterResult, logger, ruleCustomizations) {
-      const { results } = linterResult;
-      if (results.length === 0) {
-        return { diagnostics: [] };
-      }
-      const [{ invalidOptionWarnings, warnings, ignored }] = results;
-      if (ignored) {
-        return { diagnostics: [] };
-      }
-      if (invalidOptionWarnings.length !== 0) {
-        throw new types_js_1.InvalidOptionError(invalidOptionWarnings);
-      }
-      let { ruleMetadata } = linterResult;
-      if (!ruleMetadata && ruleMetadataSource) {
-        ruleMetadata = new Proxy({}, {
-          get: /* @__PURE__ */ __name((_, key) => ruleMetadataSource.get(key), "get")
-        });
-      }
-      const diagnostics = [];
-      const warningsMap = /* @__PURE__ */ new Map();
-      for (const warning of warnings) {
-        const diagnostic = (0, warning_to_diagnostic_js_1.warningToDiagnostic)(warning, logger, ruleMetadata, ruleCustomizations);
-        if (diagnostic !== null) {
-          diagnostics.push(diagnostic);
-          warningsMap.set(getDiagnosticKey(diagnostic), warning);
-        }
-      }
-      const getWarning = /* @__PURE__ */ __name((diagnostic) => {
-        const key = getDiagnosticKey(diagnostic);
-        return warningsMap.get(key) ?? null;
-      }, "getWarning");
-      const lintDiagnostics = { diagnostics, getWarning };
-      let hasReport = false;
-      if ("report" in linterResult && typeof linterResult.report === "string") {
-        lintDiagnostics.report = linterResult.report;
-        hasReport = true;
-      }
-      let hasModernFixes = false;
-      if ("code" in linterResult && typeof linterResult.code === "string") {
-        lintDiagnostics.code = linterResult.code;
-        hasModernFixes = true;
-      }
-      if (!hasModernFixes && !hasReport && "output" in linterResult) {
-        const { output: legacyOutput } = linterResult;
-        if (typeof legacyOutput === "string" && legacyOutput.length > 0) {
-          lintDiagnostics.output = legacyOutput;
-        }
-      }
-      return lintDiagnostics;
-    }
+    __name(resolveRuleMetadata, "resolveRuleMetadata");
+    __name(processSingleLintResult, "processSingleLintResult");
     __name(processLinterResult, "processLinterResult");
+    __name(processMultiFileLinterResult, "processMultiFileLinterResult");
   }
 });
 
-// build/server/tokens.js
-var require_tokens2 = __commonJS({
-  "build/server/tokens.js"(exports2) {
+// packages/language-server/build/server/tokens.js
+var FsPromisesModuleToken, PathModuleToken, OsModuleToken, ChildProcessModuleToken, ReadlineModuleToken, UriModuleToken, PathIsInsideToken, NormalizeFsPathToken, textDocumentsToken, lspConnectionToken, WorkspaceStylelintServiceFactoryToken;
+var init_tokens2 = __esm({
+  "packages/language-server/build/server/tokens.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceStylelintServiceFactoryToken = exports2.lspConnectionToken = exports2.textDocumentsToken = exports2.NormalizeFsPathToken = exports2.PathIsInsideToken = exports2.UriModuleToken = exports2.ReadlineModuleToken = exports2.ChildProcessModuleToken = exports2.OsModuleToken = exports2.PathModuleToken = exports2.FsPromisesModuleToken = void 0;
-    var tokens_js_1 = require_tokens();
-    exports2.FsPromisesModuleToken = (0, tokens_js_1.createToken)("FileSystem");
-    exports2.PathModuleToken = (0, tokens_js_1.createToken)("PathModule");
-    exports2.OsModuleToken = (0, tokens_js_1.createToken)("OsModule");
-    exports2.ChildProcessModuleToken = (0, tokens_js_1.createToken)("ChildProcessModule");
-    exports2.ReadlineModuleToken = (0, tokens_js_1.createToken)("ReadlineModule");
-    exports2.UriModuleToken = (0, tokens_js_1.createToken)("UriModule");
-    exports2.PathIsInsideToken = (0, tokens_js_1.createToken)("PathIsInside");
-    exports2.NormalizeFsPathToken = (0, tokens_js_1.createToken)("NormalizeFsPath");
-    exports2.textDocumentsToken = (0, tokens_js_1.createToken)("TextDocuments");
-    exports2.lspConnectionToken = (0, tokens_js_1.createToken)("LspConnection");
-    exports2.WorkspaceStylelintServiceFactoryToken = (0, tokens_js_1.createToken)("WorkspaceStylelintServiceFactory");
+    init_tokens();
+    FsPromisesModuleToken = createToken("FileSystem");
+    PathModuleToken = createToken("PathModule");
+    OsModuleToken = createToken("OsModule");
+    ChildProcessModuleToken = createToken("ChildProcessModule");
+    ReadlineModuleToken = createToken("ReadlineModule");
+    UriModuleToken = createToken("UriModule");
+    PathIsInsideToken = createToken("PathIsInside");
+    NormalizeFsPathToken = createToken("NormalizeFsPath");
+    textDocumentsToken = createToken("TextDocuments");
+    lspConnectionToken = createToken("LspConnection");
+    WorkspaceStylelintServiceFactoryToken = createToken("WorkspaceStylelintServiceFactory");
   }
 });
 
-// build/server/worker/types.js
-var require_types4 = __commonJS({
-  "build/server/worker/types.js"(exports2) {
+// packages/language-server/build/server/worker/types.js
+var stylelintNotFoundError;
+var init_types4 = __esm({
+  "packages/language-server/build/server/worker/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.stylelintNotFoundError = void 0;
-    exports2.stylelintNotFoundError = "STYLELINT_NOT_FOUND";
+    stylelintNotFoundError = "STYLELINT_NOT_FOUND";
   }
 });
 
-// build/server/worker/worker-process.js
-var require_worker_process = __commonJS({
-  "build/server/worker/worker-process.js"(exports2) {
+// packages/language-server/build/server/worker/worker-process.js
+var import_node_child_process, import_node_fs, import_node_path, import_node_process, import_node_url, import_meta, currentDir, getWorkerEntryPath, resolvedWorkerEntryPath, getResolvedWorkerEntryPath, defaultWorkerIdleTimeoutMs, createRequestId, StylelintNotFoundError, StylelintWorkerCrashedError, StylelintWorkerUnavailableError, StylelintWorkerProcess;
+var init_worker_process = __esm({
+  "packages/language-server/build/server/worker/worker-process.js"() {
     "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StylelintWorkerProcess = exports2.StylelintWorkerUnavailableError = exports2.StylelintWorkerCrashedError = exports2.StylelintNotFoundError = exports2.defaultWorkerIdleTimeoutMs = void 0;
-    var node_child_process_1 = require("node:child_process");
-    var node_fs_1 = __importDefault2(require("node:fs"));
-    var node_path_12 = __importDefault2(require("node:path"));
-    var node_process_12 = __importDefault2(require("node:process"));
-    var node_url_1 = require("node:url");
-    var types_js_1 = require_types4();
-    var getWorkerEntryPath = /* @__PURE__ */ __name(() => {
-      const bundledPath = node_path_12.default.join(__dirname, "worker-entry.js");
-      if (node_fs_1.default.existsSync(bundledPath)) {
+    import_node_child_process = require("node:child_process");
+    import_node_fs = __toESM(require("node:fs"), 1);
+    import_node_path = __toESM(require("node:path"), 1);
+    import_node_process = __toESM(require("node:process"), 1);
+    import_node_url = require("node:url");
+    init_types4();
+    import_meta = {};
+    currentDir = typeof __dirname === "string" ? __dirname : import_meta.dirname;
+    getWorkerEntryPath = /* @__PURE__ */ __name(() => {
+      const bundledPath = import_node_path.default.join(currentDir, "worker-entry.js");
+      if (import_node_fs.default.existsSync(bundledPath)) {
         return bundledPath;
       }
-      const distPath = node_path_12.default.resolve(__dirname, "../../../dist/worker-entry.js");
-      if (node_fs_1.default.existsSync(distPath)) {
+      const distPath = import_node_path.default.resolve(currentDir, "../../../../../dist/worker-entry.js");
+      if (import_node_fs.default.existsSync(distPath)) {
         return distPath;
       }
-      throw new Error('Unable to locate the Stylelint worker entry file. Run "npm run build-bundle" before executing integration tests.');
+      throw new Error('Unable to locate the Stylelint worker entry file. Run "node --run build-bundle" before executing integration tests.');
     }, "getWorkerEntryPath");
-    var resolvedWorkerEntryPath;
-    var getResolvedWorkerEntryPath = /* @__PURE__ */ __name(() => {
+    getResolvedWorkerEntryPath = /* @__PURE__ */ __name(() => {
       if (!resolvedWorkerEntryPath) {
         resolvedWorkerEntryPath = getWorkerEntryPath();
       }
       return resolvedWorkerEntryPath;
     }, "getResolvedWorkerEntryPath");
-    exports2.defaultWorkerIdleTimeoutMs = 2 * 60 * 1e3;
-    var createRequestId = /* @__PURE__ */ (() => {
+    defaultWorkerIdleTimeoutMs = 2 * 60 * 1e3;
+    createRequestId = /* @__PURE__ */ (() => {
       let counter = 0;
       return () => `${Date.now().toString(36)}-${(counter++).toString(36)}`;
     })();
-    var StylelintNotFoundError = class extends Error {
+    StylelintNotFoundError = class extends Error {
       static {
         __name(this, "StylelintNotFoundError");
       }
-      code = types_js_1.stylelintNotFoundError;
+      code = stylelintNotFoundError;
       constructor(message) {
         super(message ?? "Stylelint could not be resolved for the requested workspace.");
         this.name = "StylelintNotFoundError";
       }
     };
-    exports2.StylelintNotFoundError = StylelintNotFoundError;
-    var StylelintWorkerCrashedError = class extends Error {
+    StylelintWorkerCrashedError = class extends Error {
       static {
         __name(this, "StylelintWorkerCrashedError");
       }
@@ -23713,8 +24857,7 @@ var require_worker_process = __commonJS({
         this.originalError = options.originalError;
       }
     };
-    exports2.StylelintWorkerCrashedError = StylelintWorkerCrashedError;
-    var StylelintWorkerUnavailableError = class extends Error {
+    StylelintWorkerUnavailableError = class extends Error {
       static {
         __name(this, "StylelintWorkerUnavailableError");
       }
@@ -23734,8 +24877,7 @@ var require_worker_process = __commonJS({
         this.lastCrashError = options.lastCrashError;
       }
     };
-    exports2.StylelintWorkerUnavailableError = StylelintWorkerUnavailableError;
-    var StylelintWorkerProcess = class {
+    StylelintWorkerProcess = class {
       static {
         __name(this, "StylelintWorkerProcess");
       }
@@ -23747,7 +24889,7 @@ var require_worker_process = __commonJS({
       #idleTimer;
       #disposed = false;
       #pnpConfig;
-      constructor(workerRoot, logger, idleTimeout = exports2.defaultWorkerIdleTimeoutMs, pnpConfig) {
+      constructor(workerRoot, logger, idleTimeout = defaultWorkerIdleTimeoutMs, pnpConfig) {
         this.#workerRoot = workerRoot;
         this.#logger = logger;
         this.#idleTimeout = idleTimeout;
@@ -23829,12 +24971,12 @@ var require_worker_process = __commonJS({
           workerRoot: this.#workerRoot,
           execArgv
         });
-        this.#child = (0, node_child_process_1.fork)(getResolvedWorkerEntryPath(), {
+        this.#child = (0, import_node_child_process.fork)(getResolvedWorkerEntryPath(), {
           cwd: this.#workerRoot,
           execArgv,
           stdio: ["ignore", "ignore", "ignore", "ipc"],
           env: {
-            ...node_process_12.default.env,
+            ...import_node_process.default.env,
             STYLELINT_WORKSPACE: this.#workerRoot
           }
         });
@@ -23891,7 +25033,7 @@ var require_worker_process = __commonJS({
         pending.reject(error);
       }
       #deserializeError(error) {
-        if (error.code === types_js_1.stylelintNotFoundError) {
+        if (error.code === stylelintNotFoundError) {
           return new StylelintNotFoundError(error.message);
         }
         const instance = new Error(error.message);
@@ -23900,7 +25042,7 @@ var require_worker_process = __commonJS({
         return instance;
       }
       #createExecArgv(pnpArgs) {
-        const baseArgs = node_process_12.default.execArgv.filter((arg) => !arg.startsWith("--inspect"));
+        const baseArgs = import_node_process.default.execArgv.filter((arg) => !arg.startsWith("--inspect"));
         return [...baseArgs, ...pnpArgs];
       }
       #collectPnPArgs() {
@@ -23909,7 +25051,7 @@ var require_worker_process = __commonJS({
           args.push("-r", this.#pnpConfig.registerPath);
         }
         if (this.#pnpConfig?.loaderPath) {
-          const loaderSpecifier = this.#pnpConfig.loaderPath.startsWith("file://") ? this.#pnpConfig.loaderPath : (0, node_url_1.pathToFileURL)(this.#pnpConfig.loaderPath).href;
+          const loaderSpecifier = this.#pnpConfig.loaderPath.startsWith("file://") ? this.#pnpConfig.loaderPath : (0, import_node_url.pathToFileURL)(this.#pnpConfig.loaderPath).href;
           args.push("--loader", loaderSpecifier);
         }
         return args;
@@ -23926,15 +25068,19 @@ var require_worker_process = __commonJS({
         }, this.#idleTimeout);
       }
     };
-    exports2.StylelintWorkerProcess = StylelintWorkerProcess;
   }
 });
 
-// build/server/services/stylelint-runtime/package-root.service.js
-var require_package_root_service = __commonJS({
-  "build/server/services/stylelint-runtime/package-root.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/package-root.service.js
+var import_promises, import_path, __esDecorate2, __runInitializers2, PackageRootService;
+var init_package_root_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/package-root.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_promises = __toESM(require("fs/promises"), 1);
+    import_path = __toESM(require("path"), 1);
+    init_di();
+    init_tokens2();
+    __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -23967,25 +25113,16 @@ var require_package_root_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers2 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.PackageRootService = void 0;
-    var promises_1 = __importDefault2(require("fs/promises"));
-    var path_1 = __importDefault2(require("path"));
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var PackageRootService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.FsPromisesModuleToken, tokens_js_1.PathModuleToken]
+    PackageRootService = (() => {
+      let _classDecorators = [inject({
+        inject: [FsPromisesModuleToken, PathModuleToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -23999,16 +25136,16 @@ var require_package_root_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           PackageRootService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers2(_classThis, _classExtraInitializers);
         }
         #fs;
         #path;
-        constructor(fsModule, pathModule) {
-          this.#fs = fsModule ?? promises_1.default;
-          this.#path = pathModule ?? path_1.default;
+        constructor(fsModule, pathModule2) {
+          this.#fs = fsModule ?? import_promises.default;
+          this.#path = pathModule2 ?? import_path.default;
         }
         async find(startPath, rootFile = "package.json") {
           let currentDirectory = startPath;
@@ -24032,18 +25169,49 @@ var require_package_root_service = __commonJS({
             currentDirectory = parent;
           }
         }
+        async findSubPackages(rootDir, rootFile = "package.json") {
+          const results = [];
+          const walk = /* @__PURE__ */ __name(async (dir) => {
+            let entries;
+            try {
+              entries = await this.#fs.readdir(dir, { withFileTypes: true });
+            } catch {
+              return;
+            }
+            for (const entry of entries) {
+              if (!entry.isDirectory() || entry.name === "node_modules") {
+                continue;
+              }
+              const childDir = this.#path.join(dir, entry.name);
+              const manifestPath = this.#path.join(childDir, rootFile);
+              try {
+                const stat = await this.#fs.stat(manifestPath);
+                if (stat.isFile()) {
+                  results.push(childDir);
+                }
+              } catch {
+              }
+              await walk(childDir);
+            }
+          }, "walk");
+          await walk(rootDir);
+          return results;
+        }
       };
       return PackageRootService2 = _classThis;
     })();
-    exports2.PackageRootService = PackageRootService;
   }
 });
 
-// build/server/services/stylelint-runtime/stylelint-options.service.js
-var require_stylelint_options_service = __commonJS({
-  "build/server/services/stylelint-runtime/stylelint-options.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/stylelint-options.service.js
+var __esDecorate3, __runInitializers3, StylelintOptionsService;
+var init_stylelint_options_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/stylelint-options.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_tokens2();
+    init_package_root_service();
+    __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -24076,26 +25244,21 @@ var require_stylelint_options_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers3 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StylelintOptionsService = void 0;
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var package_root_service_js_1 = require_package_root_service();
-    var StylelintOptionsService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
+    StylelintOptionsService = (() => {
+      let _classDecorators = [inject({
         inject: [
-          tokens_js_1.PathModuleToken,
-          tokens_js_1.PathIsInsideToken,
-          tokens_js_1.UriModuleToken,
-          package_root_service_js_1.PackageRootService,
-          tokens_js_1.NormalizeFsPathToken
+          PathModuleToken,
+          PathIsInsideToken,
+          UriModuleToken,
+          PackageRootService,
+          NormalizeFsPathToken
         ]
       })];
       let _classDescriptor;
@@ -24110,27 +25273,27 @@ var require_stylelint_options_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           StylelintOptionsService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers3(_classThis, _classExtraInitializers);
         }
         #path;
         #pathIsInside;
         #uri;
         #packageRootFinder;
         #normalizeFsPath;
-        constructor(pathModule, pathIsInsideFn, uriModule, packageRootFinder, normalizeFsPathFn) {
-          this.#path = pathModule;
+        constructor(pathModule2, pathIsInsideFn, uriModule, packageRootFinder, normalizeFsPathFn) {
+          this.#path = pathModule2;
           this.#pathIsInside = pathIsInsideFn;
           this.#uri = uriModule;
           this.#packageRootFinder = packageRootFinder;
           this.#normalizeFsPath = normalizeFsPathFn;
         }
         async build(uri, workspaceFolder, baseOptions = {}, runnerOptions = {}) {
-          const { config, configFile, configBasedir, customSyntax, ignoreDisables, reportDescriptionlessDisables, reportNeedlessDisables, reportInvalidScopeDisables } = runnerOptions;
+          const { config, configFile, configBasedir, customSyntax, ignoreDisables, ignorePath, reportDescriptionlessDisables, reportNeedlessDisables, reportInvalidScopeDisables } = runnerOptions;
           const runnerOptionsProvided = Object.keys(runnerOptions).length > 0;
-          const pathModule = this.#path;
+          const pathModule2 = this.#path;
           const options = {
             ...baseOptions,
             config: config ?? baseOptions.config,
@@ -24138,6 +25301,7 @@ var require_stylelint_options_service = __commonJS({
             configBasedir: this.#resolveConfigBasedir(configBasedir, workspaceFolder, baseOptions.configBasedir),
             customSyntax: this.#resolvePathTemplate(customSyntax, workspaceFolder) ?? baseOptions.customSyntax,
             ignoreDisables: ignoreDisables ?? baseOptions.ignoreDisables,
+            ignorePath: this.#resolvePathTemplate(ignorePath, workspaceFolder) ?? baseOptions.ignorePath,
             reportDescriptionlessDisables: reportDescriptionlessDisables ?? baseOptions.reportDescriptionlessDisables,
             reportNeedlessDisables: reportNeedlessDisables ?? baseOptions.reportNeedlessDisables,
             reportInvalidScopeDisables: reportInvalidScopeDisables ?? baseOptions.reportInvalidScopeDisables
@@ -24147,7 +25311,7 @@ var require_stylelint_options_service = __commonJS({
           const normalizedWorkspaceFolder = workspaceFolder ? this.#normalizeFsPath(workspaceFolder) : void 0;
           const packageRoot = normalizedDocumentPath ? await this.#packageRootFinder.find(normalizedDocumentPath) : void 0;
           const normalizedPackageRoot = packageRoot ? this.#normalizeFsPath(packageRoot) : void 0;
-          const normalizedDocumentDir = normalizedDocumentPath ? pathModule.dirname(normalizedDocumentPath) : void 0;
+          const normalizedDocumentDir = normalizedDocumentPath ? pathModule2.dirname(normalizedDocumentPath) : void 0;
           const packageWithinWorkspace = Boolean(normalizedPackageRoot && normalizedWorkspaceFolder && this.#pathIsInside(normalizedPackageRoot, normalizedWorkspaceFolder));
           const documentInWorkspace = Boolean(normalizedDocumentPath && normalizedWorkspaceFolder && this.#pathIsInside(normalizedDocumentPath, normalizedWorkspaceFolder));
           const cwd = (() => {
@@ -24198,27 +25362,29 @@ var require_stylelint_options_service = __commonJS({
           if (!value) {
             return fallback;
           }
-          const pathModule = this.#path;
-          if (pathModule.isAbsolute(value)) {
+          const pathModule2 = this.#path;
+          if (pathModule2.isAbsolute(value)) {
             return value;
           }
           if (!workspaceFolder) {
             return value.replace(/^\.\//u, "");
           }
-          return pathModule.join(workspaceFolder, value);
+          return pathModule2.join(workspaceFolder, value);
         }
       };
       return StylelintOptionsService2 = _classThis;
     })();
-    exports2.StylelintOptionsService = StylelintOptionsService;
   }
 });
 
-// build/server/services/workspace/workspace-folder.service.js
-var require_workspace_folder_service = __commonJS({
-  "build/server/services/workspace/workspace-folder.service.js"(exports2) {
+// packages/language-server/build/server/services/workspace/workspace-folder.service.js
+var __esDecorate4, __runInitializers4, WorkspaceFolderService;
+var init_workspace_folder_service = __esm({
+  "packages/language-server/build/server/services/workspace/workspace-folder.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_tokens2();
+    __esDecorate4 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -24251,20 +25417,16 @@ var require_workspace_folder_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers4 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceFolderService = void 0;
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var WorkspaceFolderService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.PathIsInsideToken, tokens_js_1.UriModuleToken, tokens_js_1.NormalizeFsPathToken]
+    WorkspaceFolderService = (() => {
+      let _classDecorators = [inject({
+        inject: [PathIsInsideToken, UriModuleToken, NormalizeFsPathToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -24278,10 +25440,10 @@ var require_workspace_folder_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate4(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkspaceFolderService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers4(_classThis, _classExtraInitializers);
         }
         #pathIsInside;
         #uri;
@@ -24330,13 +25492,12 @@ var require_workspace_folder_service = __commonJS({
       };
       return WorkspaceFolderService2 = _classThis;
     })();
-    exports2.WorkspaceFolderService = WorkspaceFolderService;
   }
 });
 
 // node_modules/fast-diff/diff.js
 var require_diff = __commonJS({
-  "node_modules/fast-diff/diff.js"(exports2, module2) {
+  "node_modules/fast-diff/diff.js"(exports2, module3) {
     var DIFF_DELETE = -1;
     var DIFF_INSERT = 1;
     var DIFF_EQUAL = 0;
@@ -25112,237 +26273,143 @@ var require_diff = __commonJS({
       return null;
     }
     __name(find_cursor_edit_diff, "find_cursor_edit_diff");
-    function diff(text1, text2, cursor_pos, cleanup) {
+    function diff2(text1, text2, cursor_pos, cleanup) {
       return diff_main(text1, text2, cursor_pos, cleanup, true);
     }
-    __name(diff, "diff");
-    diff.INSERT = DIFF_INSERT;
-    diff.DELETE = DIFF_DELETE;
-    diff.EQUAL = DIFF_EQUAL;
-    module2.exports = diff;
+    __name(diff2, "diff");
+    diff2.INSERT = DIFF_INSERT;
+    diff2.DELETE = DIFF_DELETE;
+    diff2.EQUAL = DIFF_EQUAL;
+    module3.exports = diff2;
   }
 });
 
-// build/server/utils/documents/create-text-edits.js
-var require_create_text_edits = __commonJS({
-  "build/server/utils/documents/create-text-edits.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createTextEdits = createTextEdits;
-    var fast_diff_1 = __importDefault2(require_diff());
-    var vscode_languageserver_types_1 = require_main2();
-    function createTextEdits(document, newContents) {
-      const diffs = (0, fast_diff_1.default)(document.getText(), newContents);
-      const edits = [];
-      let offset = 0;
-      for (const [op, text] of diffs) {
-        const start = offset;
-        switch (op) {
-          case fast_diff_1.default.EQUAL:
-            offset += text.length;
-            break;
-          case fast_diff_1.default.DELETE:
-            offset += text.length;
-            edits.push(vscode_languageserver_types_1.TextEdit.del(vscode_languageserver_types_1.Range.create(document.positionAt(start), document.positionAt(offset))));
-            break;
-          case fast_diff_1.default.INSERT:
-            edits.push(vscode_languageserver_types_1.TextEdit.insert(document.positionAt(start), text));
-            break;
-        }
-      }
-      return edits;
+// packages/language-server/build/server/utils/documents/create-text-edits.js
+function createTextEdits(document, newContents) {
+  const diffs = (0, import_fast_diff.default)(document.getText(), newContents);
+  const edits = [];
+  let offset = 0;
+  for (const [op, text] of diffs) {
+    const start = offset;
+    switch (op) {
+      case import_fast_diff.default.EQUAL:
+        offset += text.length;
+        break;
+      case import_fast_diff.default.DELETE:
+        offset += text.length;
+        edits.push(TextEdit.del(Range.create(document.positionAt(start), document.positionAt(offset))));
+        break;
+      case import_fast_diff.default.INSERT:
+        edits.push(TextEdit.insert(document.positionAt(start), text));
+        break;
     }
+  }
+  return edits;
+}
+var import_fast_diff;
+var init_create_text_edits = __esm({
+  "packages/language-server/build/server/utils/documents/create-text-edits.js"() {
+    "use strict";
+    import_fast_diff = __toESM(require_diff(), 1);
+    init_main();
     __name(createTextEdits, "createTextEdits");
   }
 });
 
-// build/server/utils/documents/get-edit-info.js
-var require_get_edit_info = __commonJS({
-  "build/server/utils/documents/get-edit-info.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getEditInfo = getEditInfo;
-    function getEditInfo(document, diagnostic, lintResult) {
-      if (!lintResult || document.version !== lintResult.version) {
-        return void 0;
+// packages/language-server/build/server/utils/documents/get-edit-info.js
+function getEditInfo(document, diagnostic, lintResult) {
+  if (!lintResult || document.version !== lintResult.version) {
+    return void 0;
+  }
+  const warning = lintResult.getWarning?.(diagnostic);
+  if (!warning) {
+    return void 0;
+  }
+  const edit = warning.fix;
+  if (!edit) {
+    return void 0;
+  }
+  return {
+    label: `Fix this ${warning.rule} problem`,
+    edit: {
+      newText: edit.text,
+      range: {
+        start: document.positionAt(edit.range[0]),
+        end: document.positionAt(edit.range[1])
       }
-      const warning = lintResult.getWarning?.(diagnostic);
-      if (!warning) {
-        return void 0;
-      }
-      const edit = warning.fix;
-      if (!edit) {
-        return void 0;
-      }
-      return {
-        label: `Fix this ${warning.rule} problem`,
-        edit: {
-          newText: edit.text,
-          range: {
-            start: document.positionAt(edit.range[0]),
-            end: document.positionAt(edit.range[1])
-          }
-        }
-      };
     }
+  };
+}
+var init_get_edit_info = __esm({
+  "packages/language-server/build/server/utils/documents/get-edit-info.js"() {
+    "use strict";
     __name(getEditInfo, "getEditInfo");
   }
 });
 
-// build/server/utils/documents/get-disable-type.js
-var require_get_disable_type = __commonJS({
-  "build/server/utils/documents/get-disable-type.js"(exports2) {
+// packages/language-server/build/server/utils/documents/get-disable-type.js
+function getDisableType(document, position) {
+  const lineStartOffset = document.offsetAt(Position.create(position.line, 0));
+  const lineEndOffset = document.offsetAt(Position.create(position.line + 1, 0));
+  const line = document.getText().slice(lineStartOffset, lineEndOffset);
+  const before = line.slice(0, position.character);
+  const after = line.slice(position.character);
+  const disableKind = before.match(/\/\*\s*(stylelint-disable(?:(?:-next)?-line)?)\s[a-z\-/\s,]*$/i)?.[1]?.toLowerCase();
+  return disableKind && /^[a-z\-/\s,]*\*\//i.test(after) ? disableKind : void 0;
+}
+var init_get_disable_type = __esm({
+  "packages/language-server/build/server/utils/documents/get-disable-type.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getDisableType = getDisableType;
-    var vscode_languageserver_types_1 = require_main2();
-    function getDisableType(document, position) {
-      const lineStartOffset = document.offsetAt(vscode_languageserver_types_1.Position.create(position.line, 0));
-      const lineEndOffset = document.offsetAt(vscode_languageserver_types_1.Position.create(position.line + 1, 0));
-      const line = document.getText().slice(lineStartOffset, lineEndOffset);
-      const before = line.slice(0, position.character);
-      const after = line.slice(position.character);
-      const disableKind = before.match(/\/\*\s*(stylelint-disable(?:(?:-next)?-line)?)\s[a-z\-/\s,]*$/i)?.[1]?.toLowerCase();
-      return disableKind && /^[a-z\-/\s,]*\*\//i.test(after) ? disableKind : void 0;
-    }
+    init_main();
     __name(getDisableType, "getDisableType");
   }
 });
 
-// build/server/utils/documents/get-fixes.js
-var require_get_fixes = __commonJS({
-  "build/server/utils/documents/get-fixes.js"(exports2) {
+// packages/language-server/build/server/utils/documents/get-fixes.js
+async function getFixes(runner, document, linterOptions = {}, runnerOptions = {}) {
+  const result = await runner.lintDocument(document, { ...linterOptions, fix: true }, runnerOptions);
+  const fixedCode = typeof result.code === "string" ? result.code : typeof result.output === "string" && result.output.length > 0 ? result.output : void 0;
+  return typeof fixedCode === "string" ? createTextEdits(document, fixedCode) : [];
+}
+var init_get_fixes = __esm({
+  "packages/language-server/build/server/utils/documents/get-fixes.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getFixes = getFixes;
-    var create_text_edits_js_1 = require_create_text_edits();
-    async function getFixes(runner, document, linterOptions = {}, runnerOptions = {}) {
-      const result = await runner.lintDocument(document, { ...linterOptions, fix: true }, runnerOptions);
-      const fixedCode = typeof result.code === "string" ? result.code : typeof result.output === "string" && result.output.length > 0 ? result.output : void 0;
-      return typeof fixedCode === "string" ? (0, create_text_edits_js_1.createTextEdits)(document, fixedCode) : [];
-    }
+    init_create_text_edits();
     __name(getFixes, "getFixes");
   }
 });
 
-// build/server/utils/documents/index.js
-var require_documents = __commonJS({
-  "build/server/utils/documents/index.js"(exports2) {
+// packages/language-server/build/server/utils/documents/index.js
+var init_documents = __esm({
+  "packages/language-server/build/server/utils/documents/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_create_text_edits(), exports2);
-    __exportStar(require_get_edit_info(), exports2);
-    __exportStar(require_get_disable_type(), exports2);
-    __exportStar(require_get_fixes(), exports2);
+    init_create_text_edits();
+    init_get_edit_info();
+    init_get_disable_type();
+    init_get_fixes();
   }
 });
 
-// build/server/utils/functions/get-first-return-value.js
-var require_get_first_return_value = __commonJS({
-  "build/server/utils/functions/get-first-return-value.js"(exports2) {
+// packages/language-server/build/server/utils/functions/get-first-return-value.js
+var init_get_first_return_value = __esm({
+  "packages/language-server/build/server/utils/functions/get-first-return-value.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getFirstReturnValue = getFirstReturnValue;
-    exports2.getFirstResolvedValue = getFirstResolvedValue;
-    function getFirstReturnValue(...functions) {
-      for (const func of functions) {
-        const result = func();
-        if (result !== void 0) {
-          return result;
-        }
-      }
-      return void 0;
-    }
-    __name(getFirstReturnValue, "getFirstReturnValue");
-    async function getFirstResolvedValue(...functions) {
-      for (const func of functions) {
-        const result = await func();
-        if (result !== void 0) {
-          return result;
-        }
-      }
-      return void 0;
-    }
-    __name(getFirstResolvedValue, "getFirstResolvedValue");
   }
 });
 
-// build/server/utils/functions/lazy-call.js
-var require_lazy_call = __commonJS({
-  "build/server/utils/functions/lazy-call.js"(exports2) {
+// packages/language-server/build/server/utils/functions/lazy-call.js
+var init_lazy_call = __esm({
+  "packages/language-server/build/server/utils/functions/lazy-call.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.lazyCall = lazyCall;
-    exports2.lazyCallAsync = lazyCallAsync;
-    function lazyCall(inner) {
-      let cached = false;
-      let cache;
-      return () => {
-        if (!cached) {
-          cache = inner();
-          cached = true;
-        }
-        return cache;
-      };
-    }
-    __name(lazyCall, "lazyCall");
-    function lazyCallAsync(inner) {
-      let cached = false;
-      let cache;
-      return async () => {
-        if (!cached) {
-          cache = await inner();
-          cached = true;
-        }
-        return cache;
-      };
-    }
-    __name(lazyCallAsync, "lazyCallAsync");
   }
 });
 
-// build/server/utils/functions/index.js
-var require_functions = __commonJS({
-  "build/server/utils/functions/index.js"(exports2) {
+// packages/language-server/build/server/utils/functions/index.js
+var init_functions = __esm({
+  "packages/language-server/build/server/utils/functions/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_get_first_return_value(), exports2);
-    __exportStar(require_lazy_call(), exports2);
+    init_get_first_return_value();
+    init_lazy_call();
   }
 });
 
@@ -25461,41 +26528,6 @@ var init_non_error = __esm({
 });
 
 // node_modules/serialize-error/error-constructors.js
-function addKnownErrorConstructor(constructor, factory) {
-  let instance;
-  let resolvedName;
-  if (factory) {
-    if (typeof factory !== "function") {
-      throw new TypeError("Factory must be a function");
-    }
-    try {
-      instance = factory();
-    } catch (error) {
-      throw new Error("Factory is not compatible", { cause: error });
-    }
-    if (!(instance instanceof constructor)) {
-      throw new TypeError("Factory must return an instance of the constructor");
-    }
-    resolvedName = instance.name;
-  } else {
-    try {
-      instance = new constructor();
-    } catch (error) {
-      throw new Error(`Constructor "${constructor.name}" is not compatible`, { cause: error });
-    }
-    resolvedName = instance.name;
-  }
-  if (!resolvedName || typeof resolvedName !== "string") {
-    throw new TypeError('Error instances must have a non-empty string "name" property');
-  }
-  if (errorConstructors.has(resolvedName)) {
-    throw new Error(`Error constructor "${resolvedName}" is already known`);
-  }
-  errorConstructors.set(resolvedName, constructor);
-  if (factory) {
-    errorFactories.set(resolvedName, factory);
-  }
-}
 var list, errorConstructors, errorFactories;
 var init_error_constructors = __esm({
   "node_modules/serialize-error/error-constructors.js"() {
@@ -25518,19 +26550,10 @@ var init_error_constructors = __esm({
     ].filter(Boolean).map((constructor) => [constructor.name, constructor]);
     errorConstructors = new Map(list);
     errorFactories = /* @__PURE__ */ new Map();
-    __name(addKnownErrorConstructor, "addKnownErrorConstructor");
   }
 });
 
 // node_modules/serialize-error/index.js
-var serialize_error_exports = {};
-__export(serialize_error_exports, {
-  NonError: () => NonError,
-  addKnownErrorConstructor: () => addKnownErrorConstructor,
-  deserializeError: () => deserializeError,
-  isErrorLike: () => isErrorLike,
-  serializeError: () => serializeError
-});
 function serializeError(value, options = {}) {
   const {
     maxDepth = Number.POSITIVE_INFINITY,
@@ -25560,36 +26583,14 @@ function serializeError(value, options = {}) {
     serialize: true
   });
 }
-function deserializeError(value, options = {}) {
-  const { maxDepth = Number.POSITIVE_INFINITY } = options;
-  if (value instanceof Error) {
-    return value;
-  }
-  if (isMinimumViableSerializedError(value)) {
-    return destroyCircular({
-      from: value,
-      seen: /* @__PURE__ */ new Set(),
-      to: newError(value.name),
-      maxDepth,
-      depth: 0,
-      serialize: false
-    });
-  }
-  return new NonError(value);
-}
 function isErrorLike(value) {
   return Boolean(value) && typeof value === "object" && typeof value.name === "string" && typeof value.message === "string" && typeof value.stack === "string";
-}
-function isMinimumViableSerializedError(value) {
-  return Boolean(value) && typeof value === "object" && typeof value.message === "string" && !Array.isArray(value);
 }
 var errorProperties, toJsonWasCalled, toJSON, newError, destroyCircular;
 var init_serialize_error = __esm({
   "node_modules/serialize-error/index.js"() {
     init_non_error();
     init_error_constructors();
-    init_error_constructors();
-    init_non_error();
     errorProperties = [
       {
         property: "name",
@@ -25730,87 +26731,82 @@ var init_serialize_error = __esm({
       return to;
     }, "destroyCircular");
     __name(serializeError, "serializeError");
-    __name(deserializeError, "deserializeError");
     __name(isErrorLike, "isErrorLike");
-    __name(isMinimumViableSerializedError, "isMinimumViableSerializedError");
   }
 });
 
-// build/server/utils/iterables.js
-var require_iterables = __commonJS({
-  "build/server/utils/iterables.js"(exports2) {
+// packages/language-server/build/server/utils/iterables.js
+function isIterable(obj) {
+  return obj !== null && obj !== void 0 && typeof obj[Symbol.iterator] === "function";
+}
+function isIterableObject(obj) {
+  return isIterable(obj) && typeof obj === "object";
+}
+var init_iterables = __esm({
+  "packages/language-server/build/server/utils/iterables.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isIterable = isIterable;
-    exports2.isIterableObject = isIterableObject;
-    function isIterable(obj) {
-      return obj !== null && obj !== void 0 && typeof obj[Symbol.iterator] === "function";
-    }
     __name(isIterable, "isIterable");
-    function isIterableObject(obj) {
-      return isIterable(obj) && typeof obj === "object";
-    }
     __name(isIterableObject, "isIterableObject");
   }
 });
 
-// build/server/utils/objects/is-object.js
-var require_is_object = __commonJS({
-  "build/server/utils/objects/is-object.js"(exports2) {
+// packages/language-server/build/server/utils/objects/is-object.js
+function isObject(value) {
+  return typeof value === "object" && value !== null;
+}
+function isEmptyObject(value) {
+  return isObject(value) && !Array.isArray(value) && Object.keys(value).length === 0;
+}
+var init_is_object = __esm({
+  "packages/language-server/build/server/utils/objects/is-object.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isObject = isObject;
-    function isObject(value) {
-      return typeof value === "object" && value !== null;
-    }
     __name(isObject, "isObject");
+    __name(isEmptyObject, "isEmptyObject");
   }
 });
 
-// build/server/utils/objects/merge-assign.js
-var require_merge_assign = __commonJS({
-  "build/server/utils/objects/merge-assign.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.mergeAssign = mergeAssign;
-    var is_object_js_1 = require_is_object();
-    function mergeAssign(target, source1, source2) {
-      const targetAsUnion = target;
-      for (const object of [source1, source2]) {
-        if (!object) {
+// packages/language-server/build/server/utils/objects/merge-assign.js
+function mergeAssign(target, source1, source2) {
+  const targetAsUnion = target;
+  for (const object of [source1, source2]) {
+    if (!object) {
+      continue;
+    }
+    for (const key of Object.getOwnPropertyNames(object)) {
+      if (key === "__proto__" || key === "constructor") {
+        continue;
+      }
+      const value = object[key];
+      if (isObject(value)) {
+        if (Array.isArray(value)) {
+          const existing = targetAsUnion[key];
+          targetAsUnion[key] = Array.isArray(existing) ? existing.concat(value) : value;
           continue;
         }
-        for (const key of Object.getOwnPropertyNames(object)) {
-          if (key === "__proto__" || key === "constructor") {
-            continue;
-          }
-          const value = object[key];
-          if ((0, is_object_js_1.isObject)(value)) {
-            if (Array.isArray(value)) {
-              const existing = targetAsUnion[key];
-              targetAsUnion[key] = Array.isArray(existing) ? existing.concat(value) : value;
-              continue;
-            }
-            if (!targetAsUnion[key]) {
-              targetAsUnion[key] = {};
-            }
-            targetAsUnion[key] = mergeAssign(targetAsUnion[key], value);
-          } else {
-            targetAsUnion[key] = value;
-          }
+        if (!targetAsUnion[key]) {
+          targetAsUnion[key] = {};
         }
+        targetAsUnion[key] = mergeAssign(targetAsUnion[key], value);
+      } else {
+        targetAsUnion[key] = value;
       }
-      return targetAsUnion;
     }
+  }
+  return targetAsUnion;
+}
+var init_merge_assign = __esm({
+  "packages/language-server/build/server/utils/objects/merge-assign.js"() {
+    "use strict";
+    init_is_object();
     __name(mergeAssign, "mergeAssign");
   }
 });
 
 // node_modules/rfdc/index.js
 var require_rfdc = __commonJS({
-  "node_modules/rfdc/index.js"(exports2, module2) {
+  "node_modules/rfdc/index.js"(exports2, module3) {
     "use strict";
-    module2.exports = rfdc;
+    module3.exports = rfdc2;
     function copyBuffer(cur) {
       if (cur instanceof Buffer) {
         return Buffer.from(cur);
@@ -25818,7 +26814,7 @@ var require_rfdc = __commonJS({
       return new cur.constructor(cur.buffer.slice(), cur.byteOffset, cur.length);
     }
     __name(copyBuffer, "copyBuffer");
-    function rfdc(opts) {
+    function rfdc2(opts) {
       opts = opts || {};
       if (opts.circles) return rfdcCircles(opts);
       const constructorHandlers = /* @__PURE__ */ new Map();
@@ -25897,7 +26893,7 @@ var require_rfdc = __commonJS({
       }
       __name(cloneProto, "cloneProto");
     }
-    __name(rfdc, "rfdc");
+    __name(rfdc2, "rfdc");
     function rfdcCircles(opts) {
       const refs = [];
       const refsNew = [];
@@ -26004,245 +27000,213 @@ var require_rfdc = __commonJS({
   }
 });
 
-// build/server/utils/objects/merge-options-with-defaults.js
-var require_merge_options_with_defaults = __commonJS({
-  "build/server/utils/objects/merge-options-with-defaults.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.mergeOptionsWithDefaults = mergeOptionsWithDefaults;
-    var rfdc_1 = __importDefault2(require_rfdc());
-    var is_object_js_1 = require_is_object();
-    var deepClone = (0, rfdc_1.default)();
-    function mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars) {
-      if (!(0, is_object_js_1.isObject)(options)) {
-        return deepClone(defaults);
-      }
-      const result = {};
-      for (const key of Object.keys(defaults)) {
-        const fromDefaults = defaults[key];
-        const fromOptions = options[key];
-        if (fromOptions !== void 0) {
-          if ((0, is_object_js_1.isObject)(fromOptions)) {
-            if (seen.has(fromOptions)) {
-              circulars.add([fromOptions, result, key]);
-              continue;
-            }
-            seen.add(fromOptions);
-            const value = Array.isArray(fromOptions) ? fromOptions.map((item) => deepClone(item)) : (0, is_object_js_1.isObject)(fromDefaults) && !Array.isArray(fromDefaults) ? mergeOptionsWithDefaultsInner(fromOptions, fromDefaults, seen, mapped, circulars) : deepClone(fromOptions);
-            mapped.set(fromOptions, value);
-            result[key] = value;
-            continue;
-          }
-          result[key] = fromOptions;
+// packages/language-server/build/server/utils/objects/merge-options-with-defaults.js
+function mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars) {
+  if (!isObject(options)) {
+    return deepClone(defaults);
+  }
+  const result = {};
+  for (const key of Object.keys(defaults)) {
+    const fromDefaults = defaults[key];
+    const fromOptions = options[key];
+    if (fromOptions !== void 0) {
+      if (isObject(fromOptions)) {
+        if (seen.has(fromOptions)) {
+          circulars.add([fromOptions, result, key]);
           continue;
         }
-        result[key] = deepClone(fromDefaults);
+        seen.add(fromOptions);
+        const value = Array.isArray(fromOptions) ? fromOptions.map((item) => deepClone(item)) : isObject(fromDefaults) && !Array.isArray(fromDefaults) ? mergeOptionsWithDefaultsInner(fromOptions, fromDefaults, seen, mapped, circulars) : deepClone(fromOptions);
+        mapped.set(fromOptions, value);
+        result[key] = value;
+        continue;
       }
-      return result;
+      result[key] = fromOptions;
+      continue;
     }
+    result[key] = deepClone(fromDefaults);
+  }
+  return result;
+}
+function mergeOptionsWithDefaults(options, defaults) {
+  const seen = /* @__PURE__ */ new WeakSet();
+  const mapped = /* @__PURE__ */ new WeakMap();
+  const circulars = /* @__PURE__ */ new Set();
+  const result = mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars);
+  for (const [circular, obj, key] of circulars) {
+    obj[key] = mapped.get(circular);
+  }
+  return result;
+}
+var import_rfdc, deepClone;
+var init_merge_options_with_defaults = __esm({
+  "packages/language-server/build/server/utils/objects/merge-options-with-defaults.js"() {
+    "use strict";
+    import_rfdc = __toESM(require_rfdc(), 1);
+    init_is_object();
+    deepClone = (0, import_rfdc.default)();
     __name(mergeOptionsWithDefaultsInner, "mergeOptionsWithDefaultsInner");
-    function mergeOptionsWithDefaults(options, defaults) {
-      const seen = /* @__PURE__ */ new WeakSet();
-      const mapped = /* @__PURE__ */ new WeakMap();
-      const circulars = /* @__PURE__ */ new Set();
-      const result = mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars);
-      for (const [circular, obj, key] of circulars) {
-        obj[key] = mapped.get(circular);
-      }
-      return result;
-    }
     __name(mergeOptionsWithDefaults, "mergeOptionsWithDefaults");
   }
 });
 
-// build/server/utils/objects/index.js
-var require_objects = __commonJS({
-  "build/server/utils/objects/index.js"(exports2) {
+// packages/language-server/build/server/utils/objects/index.js
+var init_objects = __esm({
+  "packages/language-server/build/server/utils/objects/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_is_object(), exports2);
-    __exportStar(require_merge_assign(), exports2);
-    __exportStar(require_merge_options_with_defaults(), exports2);
+    init_is_object();
+    init_merge_assign();
+    init_merge_options_with_defaults();
   }
 });
 
-// build/server/utils/errors.js
-var require_errors4 = __commonJS({
-  "build/server/utils/errors.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.serializeErrors = serializeErrors;
-    var serialize_error_1 = (init_serialize_error(), __toCommonJS(serialize_error_exports));
-    var iterables_js_1 = require_iterables();
-    var index_js_12 = require_objects();
-    function serializeErrors(object) {
-      const serializeInner = /* @__PURE__ */ __name((obj, visited) => {
-        if (!obj || typeof obj !== "object") {
-          return obj;
-        }
-        if (visited.has(obj)) {
-          return visited.get(obj);
-        }
-        if (obj instanceof Error) {
-          const result = (0, serialize_error_1.serializeError)(obj);
-          visited.set(obj, result);
-          return result;
-        }
-        if (obj instanceof Map) {
-          const result = /* @__PURE__ */ new Map();
-          visited.set(obj, result);
-          for (const [key, value] of obj) {
-            const serializedKey = serializeInner(key, visited);
-            const serializedValue = serializeInner(value, visited);
-            if ((0, index_js_12.isObject)(key)) {
-              visited.set(key, serializedKey);
-            }
-            if ((0, index_js_12.isObject)(value)) {
-              visited.set(value, serializedValue);
-            }
-            result.set(serializedKey, serializedValue);
-          }
-          return result;
-        }
-        if (obj instanceof Set) {
-          const result = /* @__PURE__ */ new Set();
-          visited.set(obj, result);
-          for (const value of obj) {
-            if (!(0, index_js_12.isObject)(value)) {
-              result.add(value);
-              continue;
-            }
-            const serializedValue = serializeInner(value, visited);
-            visited.set(value, serializedValue);
-            result.add(serializedValue);
-          }
-          return result;
-        }
-        if ((0, iterables_js_1.isIterable)(obj)) {
-          const result = [];
-          visited.set(obj, result);
-          for (const value of obj) {
-            result.push(serializeInner(value, visited));
-          }
-          return result;
-        }
-        visited.set(obj, "[Circular]");
-        const serializedObj = Object.fromEntries(Object.entries(obj).map(([key, value]) => {
-          if (!(0, index_js_12.isObject)(value)) {
-            return [key, value];
-          }
-          if (visited.has(value)) {
-            return [key, visited.get(value)];
-          }
-          if (value instanceof Error) {
-            const serialized = (0, serialize_error_1.serializeError)(value);
-            visited.set(value, serialized);
-            return [key, serialized];
-          }
-          const result = serializeInner(value, visited);
-          visited.set(value, result);
-          return [key, result];
-        }));
-        visited.set(obj, serializedObj);
-        return serializedObj;
-      }, "serializeInner");
-      return serializeInner(object, /* @__PURE__ */ new WeakMap());
+// packages/language-server/build/server/utils/errors.js
+function serializeErrors(object) {
+  const serializeInner = /* @__PURE__ */ __name((obj, visited) => {
+    if (!obj || typeof obj !== "object") {
+      return obj;
     }
+    if (visited.has(obj)) {
+      return visited.get(obj);
+    }
+    if (obj instanceof Error) {
+      const result = serializeError(obj);
+      visited.set(obj, result);
+      return result;
+    }
+    if (obj instanceof Map) {
+      const result = /* @__PURE__ */ new Map();
+      visited.set(obj, result);
+      for (const [key, value] of obj) {
+        const serializedKey = serializeInner(key, visited);
+        const serializedValue = serializeInner(value, visited);
+        if (isObject(key)) {
+          visited.set(key, serializedKey);
+        }
+        if (isObject(value)) {
+          visited.set(value, serializedValue);
+        }
+        result.set(serializedKey, serializedValue);
+      }
+      return result;
+    }
+    if (obj instanceof Set) {
+      const result = /* @__PURE__ */ new Set();
+      visited.set(obj, result);
+      for (const value of obj) {
+        if (!isObject(value)) {
+          result.add(value);
+          continue;
+        }
+        const serializedValue = serializeInner(value, visited);
+        visited.set(value, serializedValue);
+        result.add(serializedValue);
+      }
+      return result;
+    }
+    if (isIterable(obj)) {
+      const result = [];
+      visited.set(obj, result);
+      for (const value of obj) {
+        result.push(serializeInner(value, visited));
+      }
+      return result;
+    }
+    visited.set(obj, "[Circular]");
+    const serializedObj = Object.fromEntries(Object.entries(obj).map(([key, value]) => {
+      if (!isObject(value)) {
+        return [key, value];
+      }
+      if (visited.has(value)) {
+        return [key, visited.get(value)];
+      }
+      if (value instanceof Error) {
+        const serialized = serializeError(value);
+        visited.set(value, serialized);
+        return [key, serialized];
+      }
+      const result = serializeInner(value, visited);
+      visited.set(value, result);
+      return [key, result];
+    }));
+    visited.set(obj, serializedObj);
+    return serializedObj;
+  }, "serializeInner");
+  return serializeInner(object, /* @__PURE__ */ new WeakMap());
+}
+var init_errors = __esm({
+  "packages/language-server/build/server/utils/errors.js"() {
+    "use strict";
+    init_serialize_error();
+    init_iterables();
+    init_objects();
     __name(serializeErrors, "serializeErrors");
   }
 });
 
-// build/server/utils/logging/error-formatter.js
-var require_error_formatter = __commonJS({
-  "build/server/utils/logging/error-formatter.js"(exports2) {
+// packages/language-server/build/server/utils/logging/error-formatter.js
+var ErrorFormatter;
+var init_error_formatter = __esm({
+  "packages/language-server/build/server/utils/logging/error-formatter.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ErrorFormatter = void 0;
-    var errors_js_1 = require_errors4();
-    var ErrorFormatter = class {
+    init_errors();
+    ErrorFormatter = class {
       static {
         __name(this, "ErrorFormatter");
       }
       transform(info) {
-        const transformed = (0, errors_js_1.serializeErrors)({ ...info });
+        const transformed = serializeErrors({ ...info });
         for (const key of Object.keys(transformed)) {
           info[key] = transformed[key];
         }
         return info;
       }
     };
-    exports2.ErrorFormatter = ErrorFormatter;
   }
 });
 
-// build/server/utils/logging/get-log-function.js
-var require_get_log_function = __commonJS({
-  "build/server/utils/logging/get-log-function.js"(exports2) {
+// packages/language-server/build/server/utils/logging/get-log-function.js
+var getLogFunction;
+var init_get_log_function = __esm({
+  "packages/language-server/build/server/utils/logging/get-log-function.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getLogFunction = void 0;
-    var getLogFunction = /* @__PURE__ */ __name((remoteConsole, level) => {
+    getLogFunction = /* @__PURE__ */ __name((remoteConsole, level) => {
       const logFunction = remoteConsole[level];
       if (typeof logFunction === "function") {
         return logFunction;
       }
       return void 0;
     }, "getLogFunction");
-    exports2.getLogFunction = getLogFunction;
   }
 });
 
-// build/server/utils/strings.js
-var require_strings = __commonJS({
-  "build/server/utils/strings.js"(exports2) {
+// packages/language-server/build/server/utils/strings.js
+var upperCaseFirstChar, padString, padNumber;
+var init_strings = __esm({
+  "packages/language-server/build/server/utils/strings.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.padNumber = exports2.padString = exports2.upperCaseFirstChar = void 0;
-    var upperCaseFirstChar = /* @__PURE__ */ __name((str) => {
+    upperCaseFirstChar = /* @__PURE__ */ __name((str) => {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }, "upperCaseFirstChar");
-    exports2.upperCaseFirstChar = upperCaseFirstChar;
-    var padString = /* @__PURE__ */ __name((str, length) => {
+    padString = /* @__PURE__ */ __name((str, length) => {
       return str + " ".repeat(length - str.length);
     }, "padString");
-    exports2.padString = padString;
-    var padNumber = /* @__PURE__ */ __name((number, length) => {
+    padNumber = /* @__PURE__ */ __name((number, length) => {
       const str = String(number);
       return "0".repeat(length - str.length) + str;
     }, "padNumber");
-    exports2.padNumber = padNumber;
   }
 });
 
-// build/server/utils/logging/language-server-formatter.js
-var require_language_server_formatter = __commonJS({
-  "build/server/utils/logging/language-server-formatter.js"(exports2) {
+// packages/language-server/build/server/utils/logging/language-server-formatter.js
+var import_triple_beam, LanguageServerFormatter;
+var init_language_server_formatter = __esm({
+  "packages/language-server/build/server/utils/logging/language-server-formatter.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.LanguageServerFormatter = void 0;
-    var triple_beam_1 = require_triple_beam();
-    var get_log_function_js_1 = require_get_log_function();
-    var strings_js_1 = require_strings();
-    var LanguageServerFormatter = class {
+    import_triple_beam = __toESM(require_triple_beam(), 1);
+    init_get_log_function();
+    init_strings();
+    LanguageServerFormatter = class {
       static {
         __name(this, "LanguageServerFormatter");
       }
@@ -26252,11 +27216,11 @@ var require_language_server_formatter = __commonJS({
       }
       transform(info) {
         const date = /* @__PURE__ */ new Date();
-        const timestamp = `${date.getHours() % 12 || 12}:${(0, strings_js_1.padNumber)(date.getMinutes(), 2)}:${(0, strings_js_1.padNumber)(date.getSeconds(), 2)} ${date.getHours() < 12 ? "a.m." : "p.m."}`;
+        const timestamp = `${date.getHours() % 12 || 12}:${padNumber(date.getMinutes(), 2)}:${padNumber(date.getSeconds(), 2)} ${date.getHours() < 12 ? "a.m." : "p.m."}`;
         const messageParts = [];
-        const level = String(info[triple_beam_1.LEVEL]);
-        if (!(0, get_log_function_js_1.getLogFunction)(this.options.connection.console, level)) {
-          messageParts.push(`[${(0, strings_js_1.padString)((0, strings_js_1.upperCaseFirstChar)(level), 5)} - ${timestamp}]`);
+        const level = String(info[import_triple_beam.LEVEL]);
+        if (!getLogFunction(this.options.connection.console, level)) {
+          messageParts.push(`[${padString(upperCaseFirstChar(level), 5)} - ${timestamp}]`);
         }
         if (info.component) {
           messageParts.push(`[${String(info.component)}]`);
@@ -26283,28 +27247,23 @@ var require_language_server_formatter = __commonJS({
           delete info[key];
         }
         const message = postMessageParts.length > 0 ? `${messageParts.join(" ")} | ${postMessageParts.join(" ")}` : messageParts.join(" ");
-        info[triple_beam_1.MESSAGE] = message;
+        info[import_triple_beam.MESSAGE] = message;
         info.message = message;
         return info;
       }
     };
-    exports2.LanguageServerFormatter = LanguageServerFormatter;
   }
 });
 
-// build/server/utils/logging/language-server-transport.js
-var require_language_server_transport = __commonJS({
-  "build/server/utils/logging/language-server-transport.js"(exports2) {
+// packages/language-server/build/server/utils/logging/language-server-transport.js
+var import_winston_transport, import_triple_beam2, LanguageServerTransport;
+var init_language_server_transport = __esm({
+  "packages/language-server/build/server/utils/logging/language-server-transport.js"() {
     "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.LanguageServerTransport = void 0;
-    var winston_transport_1 = __importDefault2(require_winston_transport());
-    var triple_beam_1 = require_triple_beam();
-    var get_log_function_js_1 = require_get_log_function();
-    var LanguageServerTransport = class extends winston_transport_1.default {
+    import_winston_transport = __toESM(require_winston_transport(), 1);
+    import_triple_beam2 = __toESM(require_triple_beam(), 1);
+    init_get_log_function();
+    LanguageServerTransport = class extends import_winston_transport.default {
       static {
         __name(this, "LanguageServerTransport");
       }
@@ -26321,11 +27280,11 @@ var require_language_server_transport = __commonJS({
           this.emit("logged", info);
         });
         try {
-          const logFunc = (0, get_log_function_js_1.getLogFunction)(this.#console, String(info[triple_beam_1.LEVEL]));
+          const logFunc = getLogFunction(this.#console, String(info[import_triple_beam2.LEVEL]));
           if (typeof logFunc === "function") {
-            logFunc.call(this.#console, String(info[triple_beam_1.MESSAGE]));
+            logFunc.call(this.#console, String(info[import_triple_beam2.MESSAGE]));
           } else {
-            this.#console.log(String(info[triple_beam_1.MESSAGE]));
+            this.#console.log(String(info[import_triple_beam2.MESSAGE]));
           }
         } catch (error) {
           if (!(error instanceof Error) || !error.message.includes("Connection is disposed")) {
@@ -26335,111 +27294,88 @@ var require_language_server_transport = __commonJS({
         callback();
       }
     };
-    exports2.LanguageServerTransport = LanguageServerTransport;
   }
 });
 
-// build/server/utils/logging/index.js
-var require_logging = __commonJS({
-  "build/server/utils/logging/index.js"(exports2) {
+// packages/language-server/build/server/utils/logging/index.js
+var init_logging = __esm({
+  "packages/language-server/build/server/utils/logging/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_error_formatter(), exports2);
-    __exportStar(require_get_log_function(), exports2);
-    __exportStar(require_language_server_formatter(), exports2);
-    __exportStar(require_language_server_transport(), exports2);
+    init_error_formatter();
+    init_get_log_function();
+    init_language_server_formatter();
+    init_language_server_transport();
   }
 });
 
-// build/server/utils/lsp/create-disable-completion-item.js
-var require_create_disable_completion_item = __commonJS({
-  "build/server/utils/lsp/create-disable-completion-item.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createDisableCompletionItem = createDisableCompletionItem;
-    var vscode_languageserver_types_1 = require_main2();
-    function createDisableCompletionItem(disableType, rule = "") {
-      const item = vscode_languageserver_types_1.CompletionItem.create(disableType);
-      item.kind = vscode_languageserver_types_1.CompletionItemKind.Snippet;
-      item.insertTextFormat = vscode_languageserver_types_1.InsertTextFormat.Snippet;
-      if (disableType === "stylelint-disable") {
-        item.insertText = `/* stylelint-disable \${0:${rule || "rule"}} */
+// packages/language-server/build/server/utils/lsp/create-disable-completion-item.js
+function createDisableCompletionItem(disableType, rule = "") {
+  const item = CompletionItem.create(disableType);
+  item.kind = CompletionItemKind.Snippet;
+  item.insertTextFormat = InsertTextFormat.Snippet;
+  if (disableType === "stylelint-disable") {
+    item.insertText = `/* stylelint-disable \${0:${rule || "rule"}} */
 /* stylelint-enable \${0:${rule || "rule"}} */`;
-        item.detail = "Turn off all Stylelint or individual rules, after which you do not need to re-enable Stylelint. (Stylelint)";
-        item.documentation = {
-          kind: vscode_languageserver_types_1.MarkupKind.Markdown,
-          value: `\`\`\`css
+    item.detail = "Turn off all Stylelint or individual rules, after which you do not need to re-enable Stylelint. (Stylelint)";
+    item.documentation = {
+      kind: MarkupKind.Markdown,
+      value: `\`\`\`css
 /* stylelint-disable ${rule || "rule"} */
 /* stylelint-enable ${rule || "rule"} */
 \`\`\``
-        };
-      } else {
-        item.insertText = `/* ${disableType} \${0:${rule || "rule"}} */`;
-        item.detail = disableType === "stylelint-disable-line" ? "Turn off Stylelint rules for individual lines only, after which you do not need to explicitly re-enable them. (Stylelint)" : "Turn off Stylelint rules for the next line only, after which you do not need to explicitly re-enable them. (Stylelint)";
-        item.documentation = {
-          kind: vscode_languageserver_types_1.MarkupKind.Markdown,
-          value: `\`\`\`css
+    };
+  } else {
+    item.insertText = `/* ${disableType} \${0:${rule || "rule"}} */`;
+    item.detail = disableType === "stylelint-disable-line" ? "Turn off Stylelint rules for individual lines only, after which you do not need to explicitly re-enable them. (Stylelint)" : "Turn off Stylelint rules for the next line only, after which you do not need to explicitly re-enable them. (Stylelint)";
+    item.documentation = {
+      kind: MarkupKind.Markdown,
+      value: `\`\`\`css
 /* ${disableType} ${rule || "rule"} */
 \`\`\``
-        };
-      }
-      return item;
-    }
+    };
+  }
+  return item;
+}
+var init_create_disable_completion_item = __esm({
+  "packages/language-server/build/server/utils/lsp/create-disable-completion-item.js"() {
+    "use strict";
+    init_main();
     __name(createDisableCompletionItem, "createDisableCompletionItem");
   }
 });
 
-// build/server/utils/lsp/display-error.js
-var require_display_error = __commonJS({
-  "build/server/utils/lsp/display-error.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.displayError = displayError;
-    var iterables_js_1 = require_iterables();
-    function displayError(connection2, err) {
-      if (!(err instanceof Error)) {
-        connection2.window.showErrorMessage(String(err).replace(/\n/gu, " "));
-        return;
-      }
-      if ((0, iterables_js_1.isIterableObject)(err?.reasons)) {
-        for (const reason of err.reasons) {
-          connection2.window.showErrorMessage(`Stylelint: ${reason}`);
-        }
-        return;
-      }
-      if (err?.code === 78) {
-        connection2.window.showErrorMessage(`Stylelint: ${err.message}`);
-        return;
-      }
-      connection2.window.showErrorMessage((err.stack || err.message).replace(/\n/gu, " "));
+// packages/language-server/build/server/utils/lsp/display-error.js
+function displayError(connection2, err) {
+  if (!(err instanceof Error)) {
+    connection2.window.showErrorMessage(String(err).replace(/\n/gu, " "));
+    return;
+  }
+  if (isIterableObject(err?.reasons)) {
+    for (const reason of err.reasons) {
+      connection2.window.showErrorMessage(`Stylelint: ${reason}`);
     }
+    return;
+  }
+  if (err?.code === 78) {
+    connection2.window.showErrorMessage(`Stylelint: ${err.message}`);
+    return;
+  }
+  connection2.window.showErrorMessage((err.stack || err.message).replace(/\n/gu, " "));
+}
+var init_display_error = __esm({
+  "packages/language-server/build/server/utils/lsp/display-error.js"() {
+    "use strict";
+    init_iterables();
     __name(displayError, "displayError");
   }
 });
 
-// build/server/utils/lsp/rule-code-actions-collection.js
-var require_rule_code_actions_collection = __commonJS({
-  "build/server/utils/lsp/rule-code-actions-collection.js"(exports2) {
+// packages/language-server/build/server/utils/lsp/rule-code-actions-collection.js
+var RuleCodeActionsCollection;
+var init_rule_code_actions_collection = __esm({
+  "packages/language-server/build/server/utils/lsp/rule-code-actions-collection.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.RuleCodeActionsCollection = void 0;
-    var RuleCodeActionsCollection = class {
+    RuleCodeActionsCollection = class {
       static {
         __name(this, "RuleCodeActionsCollection");
       }
@@ -26465,6 +27401,9 @@ var require_rule_code_actions_collection = __commonJS({
        */
       *[Symbol.iterator]() {
         for (const actions of this.#actions.values()) {
+          if (actions.fixAll) {
+            yield actions.fixAll;
+          }
           if (actions.disableLine) {
             yield actions.disableLine;
           }
@@ -26488,140 +27427,110 @@ var require_rule_code_actions_collection = __commonJS({
         return size;
       }
     };
-    exports2.RuleCodeActionsCollection = RuleCodeActionsCollection;
   }
 });
 
-// build/server/utils/lsp/types.js
-var require_types5 = __commonJS({
-  "build/server/utils/lsp/types.js"(exports2) {
+// packages/language-server/build/server/utils/lsp/types.js
+var init_types5 = __esm({
+  "packages/language-server/build/server/utils/lsp/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// build/server/utils/lsp/index.js
-var require_lsp = __commonJS({
-  "build/server/utils/lsp/index.js"(exports2) {
+// packages/language-server/build/server/utils/lsp/index.js
+var init_lsp = __esm({
+  "packages/language-server/build/server/utils/lsp/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_create_disable_completion_item(), exports2);
-    __exportStar(require_display_error(), exports2);
-    __exportStar(require_rule_code_actions_collection(), exports2);
-    __exportStar(require_types5(), exports2);
+    init_create_disable_completion_item();
+    init_display_error();
+    init_rule_code_actions_collection();
+    init_types5();
   }
 });
 
-// build/server/utils/fs.js
-var require_fs = __commonJS({
-  "build/server/utils/fs.js"(exports2) {
+// packages/language-server/build/server/utils/fs.js
+function normalizeFsPath(value, platform = import_node_process2.default.platform) {
+  if (!value) {
+    return void 0;
+  }
+  if (platform !== "win32") {
+    return value;
+  }
+  let result = value.replace(/\//gu, "\\");
+  if (/^[a-z]:\\/u.test(result)) {
+    result = result[0].toUpperCase() + result.slice(1);
+  }
+  return result;
+}
+var import_node_process2;
+var init_fs = __esm({
+  "packages/language-server/build/server/utils/fs.js"() {
     "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.normalizeFsPath = normalizeFsPath;
-    var node_process_12 = __importDefault2(require("node:process"));
-    function normalizeFsPath(value, platform = node_process_12.default.platform) {
-      if (!value) {
-        return void 0;
-      }
-      return platform === "win32" ? value.replace(/\//gu, "\\") : value;
-    }
+    import_node_process2 = __toESM(require("node:process"), 1);
     __name(normalizeFsPath, "normalizeFsPath");
   }
 });
 
-// build/server/utils/sets.js
-var require_sets = __commonJS({
-  "build/server/utils/sets.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.intersect = intersect;
-    function intersect(set1, set2) {
-      if (!set1) {
-        return set2;
-      }
-      if (!set2) {
-        return set1;
-      }
-      const [smallerSet, largerSet] = set1.size < set2.size ? [set1, set2] : [set2, set1];
-      const result = /* @__PURE__ */ new Set();
-      for (const item of smallerSet) {
-        if (largerSet.has(item)) {
-          result.add(item);
-        }
-      }
-      return result;
+// packages/language-server/build/server/utils/sets.js
+function intersect(set1, set2) {
+  if (!set1) {
+    return set2;
+  }
+  if (!set2) {
+    return set1;
+  }
+  const [smallerSet, largerSet] = set1.size < set2.size ? [set1, set2] : [set2, set1];
+  const result = /* @__PURE__ */ new Set();
+  for (const item of smallerSet) {
+    if (largerSet.has(item)) {
+      result.add(item);
     }
+  }
+  return result;
+}
+var init_sets = __esm({
+  "packages/language-server/build/server/utils/sets.js"() {
+    "use strict";
     __name(intersect, "intersect");
   }
 });
 
-// build/server/utils/types.js
-var require_types6 = __commonJS({
-  "build/server/utils/types.js"(exports2) {
+// packages/language-server/build/server/utils/types.js
+var init_types6 = __esm({
+  "packages/language-server/build/server/utils/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// build/server/utils/index.js
-var require_utils = __commonJS({
-  "build/server/utils/index.js"(exports2) {
+// packages/language-server/build/server/utils/index.js
+var init_utils = __esm({
+  "packages/language-server/build/server/utils/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_documents(), exports2);
-    __exportStar(require_functions(), exports2);
-    __exportStar(require_logging(), exports2);
-    __exportStar(require_lsp(), exports2);
-    __exportStar(require_objects(), exports2);
-    __exportStar(require_errors4(), exports2);
-    __exportStar(require_fs(), exports2);
-    __exportStar(require_iterables(), exports2);
-    __exportStar(require_sets(), exports2);
-    __exportStar(require_strings(), exports2);
-    __exportStar(require_types6(), exports2);
+    init_documents();
+    init_functions();
+    init_logging();
+    init_lsp();
+    init_objects();
+    init_errors();
+    init_fs();
+    init_iterables();
+    init_sets();
+    init_strings();
+    init_types6();
   }
 });
 
-// build/server/services/stylelint-runtime/package-root-cache.service.js
-var require_package_root_cache_service = __commonJS({
-  "build/server/services/stylelint-runtime/package-root-cache.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/package-root-cache.service.js
+var import_node_path2, import_node_process3, __esDecorate5, __runInitializers5, packageManifestFilename, PackageRootCacheService;
+var init_package_root_cache_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/package-root-cache.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_node_path2 = __toESM(require("node:path"), 1);
+    import_node_process3 = __toESM(require("node:process"), 1);
+    init_di();
+    init_utils();
+    init_package_root_service();
+    __esDecorate5 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -26654,27 +27563,17 @@ var require_package_root_cache_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers5 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.PackageRootCacheService = void 0;
-    var node_path_12 = __importDefault2(require("node:path"));
-    var node_process_12 = __importDefault2(require("node:process"));
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var package_root_service_js_1 = require_package_root_service();
-    var packageManifestFilename = "package.json";
-    var PackageRootCacheService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [package_root_service_js_1.PackageRootService]
+    packageManifestFilename = "package.json";
+    PackageRootCacheService = (() => {
+      let _classDecorators = [inject({
+        inject: [PackageRootService]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -26688,10 +27587,10 @@ var require_package_root_cache_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate5(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           PackageRootCacheService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers5(_classThis, _classExtraInitializers);
         }
         #packageRootFinder;
         #cache = /* @__PURE__ */ new Map();
@@ -26706,7 +27605,7 @@ var require_package_root_cache_service = __commonJS({
             }
           }
           if (stylelintPath) {
-            const absoluteStylelintPath = node_path_12.default.isAbsolute(stylelintPath) ? stylelintPath : node_path_12.default.join(workspaceFolder, stylelintPath);
+            const absoluteStylelintPath = import_node_path2.default.isAbsolute(stylelintPath) ? stylelintPath : import_node_path2.default.join(workspaceFolder, stylelintPath);
             const stylelintRoot = await this.#getCachedPackageRoot(absoluteStylelintPath);
             if (stylelintRoot) {
               return stylelintRoot;
@@ -26718,10 +27617,10 @@ var require_package_root_cache_service = __commonJS({
           if (!filePath) {
             return;
           }
-          if (node_path_12.default.basename(filePath) !== packageManifestFilename) {
+          if (import_node_path2.default.basename(filePath) !== packageManifestFilename) {
             return;
           }
-          this.#invalidatePackageRootCache(node_path_12.default.dirname(filePath));
+          this.#invalidatePackageRootCache(import_node_path2.default.dirname(filePath));
         }
         clearForWorkspace(workspaceFolder) {
           this.#deleteCacheEntriesWithinPath(workspaceFolder);
@@ -26759,29 +27658,35 @@ var require_package_root_cache_service = __commonJS({
           }
         }
         #normalizeCachePath(value) {
-          const absolute = node_path_12.default.isAbsolute(value) ? value : node_path_12.default.resolve(value);
-          return (0, index_js_2.normalizeFsPath)(absolute) ?? absolute;
+          const absolute = import_node_path2.default.isAbsolute(value) ? value : import_node_path2.default.resolve(value);
+          return normalizeFsPath(absolute) ?? absolute;
         }
         #isWithinNormalizedPath(normalizedRoot, candidateNormalized) {
-          const comparableRoot = node_process_12.default.platform === "win32" ? normalizedRoot.toLowerCase() : normalizedRoot;
-          const comparableCandidate = node_process_12.default.platform === "win32" ? candidateNormalized.toLowerCase() : candidateNormalized;
+          const comparableRoot = import_node_process3.default.platform === "win32" ? normalizedRoot.toLowerCase() : normalizedRoot;
+          const comparableCandidate = import_node_process3.default.platform === "win32" ? candidateNormalized.toLowerCase() : candidateNormalized;
           if (comparableCandidate === comparableRoot) {
             return true;
           }
-          return comparableCandidate.startsWith(`${comparableRoot}${node_path_12.default.sep}`);
+          return comparableCandidate.startsWith(`${comparableRoot}${import_node_path2.default.sep}`);
         }
       };
       return PackageRootCacheService2 = _classThis;
     })();
-    exports2.PackageRootCacheService = PackageRootCacheService;
   }
 });
 
-// build/server/services/stylelint-runtime/pnp-configuration-cache.service.js
-var require_pnp_configuration_cache_service = __commonJS({
-  "build/server/services/stylelint-runtime/pnp-configuration-cache.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/pnp-configuration-cache.service.js
+var import_promises2, import_node_path3, import_node_process4, __esDecorate6, __runInitializers6, pnpRegisterFilenames, pnpLoaderFilename, pnpConfigFilenames, resolvePnPConfigKey, PnPConfigurationCacheService;
+var init_pnp_configuration_cache_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/pnp-configuration-cache.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_promises2 = __toESM(require("node:fs/promises"), 1);
+    import_node_path3 = __toESM(require("node:path"), 1);
+    import_node_process4 = __toESM(require("node:process"), 1);
+    init_di();
+    init_utils();
+    init_tokens2();
+    __esDecorate6 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -26814,32 +27719,20 @@ var require_pnp_configuration_cache_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers6 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.PnPConfigurationCacheService = exports2.resolvePnPConfigKey = void 0;
-    var promises_1 = __importDefault2(require("node:fs/promises"));
-    var node_path_12 = __importDefault2(require("node:path"));
-    var node_process_12 = __importDefault2(require("node:process"));
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var tokens_js_1 = require_tokens2();
-    var pnpRegisterFilenames = [".pnp.cjs", ".pnp.js"];
-    var pnpLoaderFilename = ".pnp.loader.mjs";
-    var pnpConfigFilenames = /* @__PURE__ */ new Set([...pnpRegisterFilenames, pnpLoaderFilename]);
-    var resolvePnPConfigKey = /* @__PURE__ */ __name((config) => `${config?.registerPath ?? ""}|${config?.loaderPath ?? ""}`, "resolvePnPConfigKey");
-    exports2.resolvePnPConfigKey = resolvePnPConfigKey;
-    var PnPConfigurationCacheService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.FsPromisesModuleToken, tokens_js_1.PathModuleToken]
+    pnpRegisterFilenames = [".pnp.cjs", ".pnp.js"];
+    pnpLoaderFilename = ".pnp.loader.mjs";
+    pnpConfigFilenames = /* @__PURE__ */ new Set([...pnpRegisterFilenames, pnpLoaderFilename]);
+    resolvePnPConfigKey = /* @__PURE__ */ __name((config) => `${config?.registerPath ?? ""}|${config?.loaderPath ?? ""}`, "resolvePnPConfigKey");
+    PnPConfigurationCacheService = (() => {
+      let _classDecorators = [inject({
+        inject: [FsPromisesModuleToken, PathModuleToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -26853,26 +27746,26 @@ var require_pnp_configuration_cache_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate6(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           PnPConfigurationCacheService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers6(_classThis, _classExtraInitializers);
         }
         #fs;
         #path;
         #cache = /* @__PURE__ */ new Map();
-        constructor(fsModule, pathModule) {
-          this.#fs = fsModule ?? promises_1.default;
-          this.#path = pathModule ?? node_path_12.default;
+        constructor(fsModule, pathModule2) {
+          this.#fs = fsModule ?? import_promises2.default;
+          this.#path = pathModule2 ?? import_node_path3.default;
         }
         async findConfiguration(codeFilename) {
           if (!codeFilename) {
             return void 0;
           }
-          let currentDir = this.#path.dirname(codeFilename);
+          let currentDir2 = this.#path.dirname(codeFilename);
           const visitedKeys = [];
           while (true) {
-            const cacheKey = this.#normalizeCachePath(currentDir);
+            const cacheKey = this.#normalizeCachePath(currentDir2);
             visitedKeys.push(cacheKey);
             const cached = this.#cache.get(cacheKey);
             if (cached !== void 0) {
@@ -26881,7 +27774,7 @@ var require_pnp_configuration_cache_service = __commonJS({
                 return cached;
               }
             } else {
-              const config = await this.#readPnPConfiguration(currentDir);
+              const config = await this.#readPnPConfiguration(currentDir2);
               if (config) {
                 this.#cache.set(cacheKey, config);
                 this.#populateCache(visitedKeys, config);
@@ -26889,11 +27782,11 @@ var require_pnp_configuration_cache_service = __commonJS({
               }
               this.#cache.set(cacheKey, null);
             }
-            const parent = this.#path.dirname(currentDir);
-            if (parent === currentDir) {
+            const parent = this.#path.dirname(currentDir2);
+            if (parent === currentDir2) {
               return void 0;
             }
-            currentDir = parent;
+            currentDir2 = parent;
           }
         }
         invalidateForFile(filePath) {
@@ -26913,7 +27806,7 @@ var require_pnp_configuration_cache_service = __commonJS({
           this.#cache.clear();
         }
         resolveConfigKey(config) {
-          return (0, exports2.resolvePnPConfigKey)(config);
+          return resolvePnPConfigKey(config);
         }
         async #readPnPConfiguration(directory) {
           for (const filename of pnpRegisterFilenames) {
@@ -26975,28 +27868,33 @@ var require_pnp_configuration_cache_service = __commonJS({
         }
         #normalizeCachePath(value) {
           const absolute = this.#path.isAbsolute(value) ? value : this.#path.resolve(value);
-          return (0, index_js_2.normalizeFsPath)(absolute) ?? absolute;
+          return normalizeFsPath(absolute) ?? absolute;
         }
         #isWithinNormalizedPath(normalizedRoot, candidateNormalized) {
-          const comparableRoot = node_process_12.default.platform === "win32" ? normalizedRoot.toLowerCase() : normalizedRoot;
-          const comparableCandidate = node_process_12.default.platform === "win32" ? candidateNormalized.toLowerCase() : candidateNormalized;
+          const comparableRoot = import_node_process4.default.platform === "win32" ? normalizedRoot.toLowerCase() : normalizedRoot;
+          const comparableCandidate = import_node_process4.default.platform === "win32" ? candidateNormalized.toLowerCase() : candidateNormalized;
           if (comparableCandidate === comparableRoot) {
             return true;
           }
-          return comparableCandidate.startsWith(`${comparableRoot}${node_path_12.default.sep}`);
+          return comparableCandidate.startsWith(`${comparableRoot}${import_node_path3.default.sep}`);
         }
       };
       return PnPConfigurationCacheService2 = _classThis;
     })();
-    exports2.PnPConfigurationCacheService = PnPConfigurationCacheService;
   }
 });
 
-// build/server/services/stylelint-runtime/worker-environment.service.js
-var require_worker_environment_service = __commonJS({
-  "build/server/services/stylelint-runtime/worker-environment.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/worker-environment.service.js
+var __esDecorate7, __runInitializers7, WorkerEnvironmentService;
+var init_worker_environment_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/worker-environment.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_utils();
+    init_tokens2();
+    init_package_root_service();
+    init_pnp_configuration_cache_service();
+    __esDecorate7 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -27029,23 +27927,16 @@ var require_worker_environment_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers7 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkerEnvironmentService = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var tokens_js_1 = require_tokens2();
-    var package_root_service_js_1 = require_package_root_service();
-    var pnp_configuration_cache_service_js_1 = require_pnp_configuration_cache_service();
-    var WorkerEnvironmentService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.FsPromisesModuleToken, tokens_js_1.PathModuleToken, package_root_service_js_1.PackageRootService]
+    WorkerEnvironmentService = (() => {
+      let _classDecorators = [inject({
+        inject: [FsPromisesModuleToken, PathModuleToken, PackageRootService]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -27059,17 +27950,17 @@ var require_worker_environment_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate7(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkerEnvironmentService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers7(_classThis, _classExtraInitializers);
         }
         #fs;
         #path;
         #packageRootService;
-        constructor(fsModule, pathModule, packageRootService) {
+        constructor(fsModule, pathModule2, packageRootService) {
           this.#fs = fsModule;
-          this.#path = pathModule;
+          this.#path = pathModule2;
           this.#packageRootService = packageRootService;
         }
         async createKey(input) {
@@ -27094,7 +27985,7 @@ var require_worker_environment_service = __commonJS({
             `yarnLock:${yarnLock ?? "-"}`,
             `pnpmLock:${pnpmLock ?? "-"}`,
             `bunLock:${bunLock ?? "-"}`,
-            `pnp:${(0, pnp_configuration_cache_service_js_1.resolvePnPConfigKey)(input.pnpConfig)}`,
+            `pnp:${resolvePnPConfigKey(input.pnpConfig)}`,
             `pnpRegister:${pnpRegister ?? "-"}`,
             `pnpLoader:${pnpLoader ?? "-"}`,
             `stylelintPath:${resolvedStylelintPath ?? "-"}`,
@@ -27136,20 +28027,23 @@ var require_worker_environment_service = __commonJS({
         }
         #normalizePath(value) {
           const absolute = this.#path.isAbsolute(value) ? value : this.#path.resolve(value);
-          return (0, index_js_2.normalizeFsPath)(absolute) ?? absolute;
+          return normalizeFsPath(absolute) ?? absolute;
         }
       };
       return WorkerEnvironmentService2 = _classThis;
     })();
-    exports2.WorkerEnvironmentService = WorkerEnvironmentService;
   }
 });
 
-// build/server/services/stylelint-runtime/worker-process.service.js
-var require_worker_process_service = __commonJS({
-  "build/server/services/stylelint-runtime/worker-process.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/worker-process.service.js
+var __esDecorate8, __runInitializers8, WorkerProcessService;
+var init_worker_process_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/worker-process.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_worker_process();
+    init_logging_service();
+    __esDecorate8 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -27182,21 +28076,16 @@ var require_worker_process_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers8 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkerProcessService = void 0;
-    var index_js_12 = require_di();
-    var worker_process_js_1 = require_worker_process();
-    var logging_service_js_1 = require_logging_service();
-    var WorkerProcessService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [logging_service_js_1.loggingServiceToken]
+    WorkerProcessService = (() => {
+      let _classDecorators = [inject({
+        inject: [loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -27210,31 +28099,39 @@ var require_worker_process_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate8(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkerProcessService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers8(_classThis, _classExtraInitializers);
         }
         #logger;
         constructor(loggingService) {
           this.#logger = loggingService.createLogger(WorkerProcessService2);
         }
-        createWorkerProcess(workerRoot, idleTimeoutMs = worker_process_js_1.defaultWorkerIdleTimeoutMs, pnpConfig) {
+        createWorkerProcess(workerRoot, idleTimeoutMs = defaultWorkerIdleTimeoutMs, pnpConfig) {
           this.#logger.debug("Creating Stylelint worker process", { workerRoot });
-          return new worker_process_js_1.StylelintWorkerProcess(workerRoot, this.#logger.child({ workerRoot }), idleTimeoutMs, pnpConfig);
+          return new StylelintWorkerProcess(workerRoot, this.#logger.child({ workerRoot }), idleTimeoutMs, pnpConfig);
         }
       };
       return WorkerProcessService2 = _classThis;
     })();
-    exports2.WorkerProcessService = WorkerProcessService;
   }
 });
 
-// build/server/services/stylelint-runtime/worker-registry.service.js
-var require_worker_registry_service = __commonJS({
-  "build/server/services/stylelint-runtime/worker-registry.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/worker-registry.service.js
+var import_node_path4, import_node_process5, __esDecorate9, __runInitializers9, maxConsecutiveCrashes, workerRecoveryCooldownMs, suppressionNotificationIntervalMs, resolvePathKey, WorkerRegistryService;
+var init_worker_registry_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/worker-registry.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_node_path4 = __toESM(require("node:path"), 1);
+    import_node_process5 = __toESM(require("node:process"), 1);
+    init_di();
+    init_utils();
+    init_worker_process();
+    init_logging_service();
+    init_pnp_configuration_cache_service();
+    init_worker_process_service();
+    __esDecorate9 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -27267,36 +28164,23 @@ var require_worker_registry_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers9 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkerRegistryService = void 0;
-    var node_path_12 = __importDefault2(require("node:path"));
-    var node_process_12 = __importDefault2(require("node:process"));
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var worker_process_js_1 = require_worker_process();
-    var logging_service_js_1 = require_logging_service();
-    var pnp_configuration_cache_service_js_1 = require_pnp_configuration_cache_service();
-    var worker_process_service_js_1 = require_worker_process_service();
-    var maxConsecutiveCrashes = 3;
-    var workerRecoveryCooldownMs = 30 * 1e3;
-    var suppressionNotificationIntervalMs = 60 * 1e3;
-    var resolvePathKey = /* @__PURE__ */ __name((folderPath) => {
-      const normalized = (0, index_js_2.normalizeFsPath)(folderPath);
-      return normalized ?? node_path_12.default.resolve(folderPath);
+    maxConsecutiveCrashes = 3;
+    workerRecoveryCooldownMs = 30 * 1e3;
+    suppressionNotificationIntervalMs = 60 * 1e3;
+    resolvePathKey = /* @__PURE__ */ __name((folderPath) => {
+      const normalized = normalizeFsPath(folderPath);
+      return normalized ?? import_node_path4.default.resolve(folderPath);
     }, "resolvePathKey");
-    var WorkerRegistryService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [logging_service_js_1.loggingServiceToken, worker_process_service_js_1.WorkerProcessService]
+    WorkerRegistryService = (() => {
+      let _classDecorators = [inject({
+        inject: [loggingServiceToken, WorkerProcessService]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -27310,10 +28194,10 @@ var require_worker_registry_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate9(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkerRegistryService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers9(_classThis, _classExtraInitializers);
         }
         #logger;
         #idleTimeoutMs;
@@ -27334,7 +28218,7 @@ var require_worker_registry_service = __commonJS({
             this.#markWorkerHealthy(record.state);
             return result;
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintWorkerCrashedError) {
+            if (error instanceof StylelintWorkerCrashedError) {
               throw this.#handleWorkerCrash(context.workspaceFolder, context.workerRoot, record.state, error);
             }
             throw error;
@@ -27345,11 +28229,11 @@ var require_worker_registry_service = __commonJS({
           this.#resetWorkspaceWorkers(workspaceKey);
         }
         notifyFileActivity(filePath) {
-          const normalized = (0, index_js_2.normalizeFsPath)(filePath);
+          const normalized = normalizeFsPath(filePath);
           if (!normalized) {
             return;
           }
-          const absolute = node_path_12.default.isAbsolute(normalized) ? normalized : node_path_12.default.resolve(normalized);
+          const absolute = import_node_path4.default.isAbsolute(normalized) ? normalized : import_node_path4.default.resolve(normalized);
           for (const workspaceKey of this.#workers.keys()) {
             if (this.#pathWithinWorkspace(workspaceKey, absolute)) {
               this.#resetWorkspaceWorkers(workspaceKey);
@@ -27392,7 +28276,7 @@ var require_worker_registry_service = __commonJS({
             packageWorkers = /* @__PURE__ */ new Map();
             workspaceWorkers.set(packageKey, packageWorkers);
           }
-          const pnpKey = (0, pnp_configuration_cache_service_js_1.resolvePnPConfigKey)(context.pnpConfig);
+          const pnpKey = resolvePnPConfigKey(context.pnpConfig);
           const existing = packageWorkers.get(pnpKey);
           if (existing) {
             if (existing.process.isDisposed()) {
@@ -27433,10 +28317,14 @@ var require_worker_registry_service = __commonJS({
           state.consecutiveCrashes = 0;
           state.cooldownExpiresAt = void 0;
           state.lastCrashError = void 0;
+          state.lastHandledCrashError = void 0;
           state.lastNotificationAt = void 0;
         }
         #handleWorkerCrash(workspaceFolder, workerRoot, state, error) {
-          state.consecutiveCrashes += 1;
+          if (state.lastHandledCrashError !== error) {
+            state.consecutiveCrashes += 1;
+            state.lastHandledCrashError = error;
+          }
           state.lastCrashError = error;
           if (state.consecutiveCrashes < maxConsecutiveCrashes) {
             return error;
@@ -27462,6 +28350,7 @@ var require_worker_registry_service = __commonJS({
           if (now >= cooldown) {
             state.cooldownExpiresAt = void 0;
             state.consecutiveCrashes = 0;
+            state.lastHandledCrashError = void 0;
             state.lastNotificationAt = void 0;
             return void 0;
           }
@@ -27470,7 +28359,7 @@ var require_worker_registry_service = __commonJS({
         #buildUnavailableError(workspaceFolder, workerRoot, state, now) {
           const retryInMs = Math.max(0, (state.cooldownExpiresAt ?? now) - now);
           const notifyUser = this.#shouldNotifySuppression(state, now);
-          return new worker_process_js_1.StylelintWorkerUnavailableError({
+          return new StylelintWorkerUnavailableError({
             workspaceFolder,
             packageRoot: workerRoot,
             retryInMs,
@@ -27512,35 +28401,43 @@ var require_worker_registry_service = __commonJS({
           }
           state.cooldownExpiresAt = void 0;
           state.consecutiveCrashes = 0;
+          state.lastHandledCrashError = void 0;
           state.lastNotificationAt = void 0;
           return true;
         }
         #pathWithinWorkspace(workspaceKey, targetPath) {
-          const normalizedTarget = (0, index_js_2.normalizeFsPath)(node_path_12.default.resolve(targetPath));
+          const normalizedTarget = normalizeFsPath(import_node_path4.default.resolve(targetPath));
           if (!normalizedTarget) {
             return false;
           }
-          const normalizedWorkspace = (0, index_js_2.normalizeFsPath)(workspaceKey) ?? workspaceKey;
-          const normalizeValue = /* @__PURE__ */ __name((value) => node_process_12.default.platform === "win32" ? value.toLowerCase() : value, "normalizeValue");
+          const normalizedWorkspace = normalizeFsPath(workspaceKey) ?? workspaceKey;
+          const normalizeValue = /* @__PURE__ */ __name((value) => import_node_process5.default.platform === "win32" ? value.toLowerCase() : value, "normalizeValue");
           const comparableWorkspace = normalizeValue(normalizedWorkspace);
           const comparableTarget = normalizeValue(normalizedTarget);
           if (comparableTarget === comparableWorkspace) {
             return true;
           }
-          return comparableTarget.startsWith(`${comparableWorkspace}${node_path_12.default.sep}`);
+          return comparableTarget.startsWith(`${comparableWorkspace}${import_node_path4.default.sep}`);
         }
       };
       return WorkerRegistryService2 = _classThis;
     })();
-    exports2.WorkerRegistryService = WorkerRegistryService;
   }
 });
 
-// build/server/services/stylelint-runtime/workspace-stylelint.service.js
-var require_workspace_stylelint_service = __commonJS({
-  "build/server/services/stylelint-runtime/workspace-stylelint.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/workspace-stylelint.service.js
+var __esDecorate10, __runInitializers10, WorkspaceStylelintService;
+var init_workspace_stylelint_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/workspace-stylelint.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_worker_process();
+    init_logging_service();
+    init_package_root_cache_service();
+    init_pnp_configuration_cache_service();
+    init_worker_environment_service();
+    init_worker_registry_service();
+    __esDecorate10 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -27573,30 +28470,21 @@ var require_workspace_stylelint_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers10 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceStylelintService = void 0;
-    var index_js_12 = require_di();
-    var worker_process_js_1 = require_worker_process();
-    var logging_service_js_1 = require_logging_service();
-    var package_root_cache_service_js_1 = require_package_root_cache_service();
-    var pnp_configuration_cache_service_js_1 = require_pnp_configuration_cache_service();
-    var worker_environment_service_js_1 = require_worker_environment_service();
-    var worker_registry_service_js_1 = require_worker_registry_service();
-    var WorkspaceStylelintService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
+    WorkspaceStylelintService = (() => {
+      let _classDecorators = [inject({
         inject: [
-          logging_service_js_1.loggingServiceToken,
-          package_root_cache_service_js_1.PackageRootCacheService,
-          pnp_configuration_cache_service_js_1.PnPConfigurationCacheService,
-          worker_environment_service_js_1.WorkerEnvironmentService,
-          worker_registry_service_js_1.WorkerRegistryService
+          loggingServiceToken,
+          PackageRootCacheService,
+          PnPConfigurationCacheService,
+          WorkerEnvironmentService,
+          WorkerRegistryService
         ]
       })];
       let _classDescriptor;
@@ -27611,10 +28499,10 @@ var require_workspace_stylelint_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate10(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkspaceStylelintService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers10(_classThis, _classExtraInitializers);
         }
         #logger;
         #packageRootCache;
@@ -27648,7 +28536,7 @@ var require_workspace_stylelint_service = __commonJS({
               runnerOptions: request.runnerOptions
             }));
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
+            if (error instanceof StylelintNotFoundError) {
               this.#logger?.debug("Workspace Stylelint not found", {
                 workspaceFolder: request.workspaceFolder
               });
@@ -27676,7 +28564,7 @@ var require_workspace_stylelint_service = __commonJS({
               runnerOptions: request.runnerOptions
             }));
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
+            if (error instanceof StylelintNotFoundError) {
               this.#logger?.debug("Workspace Stylelint not found during resolve", {
                 workspaceFolder: request.workspaceFolder
               });
@@ -27704,7 +28592,7 @@ var require_workspace_stylelint_service = __commonJS({
               runnerOptions: request.runnerOptions
             }));
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
+            if (error instanceof StylelintNotFoundError) {
               this.#logger?.debug("Workspace Stylelint not found during resolveConfig", {
                 workspaceFolder: request.workspaceFolder
               });
@@ -27733,15 +28621,26 @@ var require_workspace_stylelint_service = __commonJS({
       };
       return WorkspaceStylelintService2 = _classThis;
     })();
-    exports2.WorkspaceStylelintService = WorkspaceStylelintService;
   }
 });
 
-// build/server/services/stylelint-runtime/stylelint-runner.service.js
-var require_stylelint_runner_service = __commonJS({
-  "build/server/services/stylelint-runtime/stylelint-runner.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/stylelint-runner.service.js
+var __esDecorate11, __runInitializers11, noopFormatter, StylelintRunnerService;
+var init_stylelint_runner_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/stylelint-runner.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_main();
+    init_di();
+    init_process_linter_result();
+    init_types3();
+    init_tokens2();
+    init_worker_process();
+    init_logging_service();
+    init_package_root_service();
+    init_stylelint_options_service();
+    init_workspace_folder_service();
+    init_workspace_stylelint_service();
+    __esDecorate11 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -27774,37 +28673,27 @@ var require_stylelint_runner_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers11 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StylelintRunnerService = void 0;
-    var vscode_languageserver_types_1 = require_main2();
-    var index_js_12 = require_di();
-    var process_linter_result_js_1 = require_process_linter_result();
-    var types_js_1 = require_types3();
-    var tokens_js_1 = require_tokens2();
-    var worker_process_js_1 = require_worker_process();
-    var logging_service_js_1 = require_logging_service();
-    var stylelint_options_service_js_1 = require_stylelint_options_service();
-    var workspace_folder_service_js_1 = require_workspace_folder_service();
-    var workspace_stylelint_service_js_1 = require_workspace_stylelint_service();
-    var noopFormatter = /* @__PURE__ */ __name((() => ""), "noopFormatter");
-    var StylelintRunnerService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
+    noopFormatter = /* @__PURE__ */ __name((() => ""), "noopFormatter");
+    StylelintRunnerService = (() => {
+      let _classDecorators = [inject({
         inject: [
-          tokens_js_1.OsModuleToken,
-          tokens_js_1.PathModuleToken,
-          tokens_js_1.UriModuleToken,
-          tokens_js_1.lspConnectionToken,
-          logging_service_js_1.loggingServiceToken,
-          workspace_stylelint_service_js_1.WorkspaceStylelintService,
-          workspace_folder_service_js_1.WorkspaceFolderService,
-          stylelint_options_service_js_1.StylelintOptionsService
+          OsModuleToken,
+          PathModuleToken,
+          UriModuleToken,
+          FsPromisesModuleToken,
+          lspConnectionToken,
+          loggingServiceToken,
+          WorkspaceStylelintService,
+          WorkspaceFolderService,
+          StylelintOptionsService,
+          PackageRootService
         ]
       })];
       let _classDescriptor;
@@ -27819,10 +28708,10 @@ var require_stylelint_runner_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate11(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           StylelintRunnerService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers11(_classThis, _classExtraInitializers);
         }
         /**
          * The language server connection.
@@ -27838,18 +28727,22 @@ var require_stylelint_runner_service = __commonJS({
         #workspaceService;
         #workspaceFolderService;
         #optionsBuilder;
+        #packageRootFinder;
         #os;
         #path;
         #uri;
-        constructor(osModule, pathModule, uriModule, connection2, loggingService, workspaceService, workspaceFolderService, optionsBuilder) {
+        #fs;
+        constructor(osModule, pathModule2, uriModule, fsModule, connection2, loggingService, workspaceService, workspaceFolderService, optionsBuilder, packageRootFinder) {
           this.#os = osModule;
-          this.#path = pathModule;
+          this.#path = pathModule2;
           this.#uri = uriModule;
+          this.#fs = fsModule;
           this.#connection = connection2;
           this.#logger = loggingService.createLogger(StylelintRunnerService2);
           this.#workspaceService = workspaceService;
           this.#workspaceFolderService = workspaceFolderService;
           this.#optionsBuilder = optionsBuilder;
+          this.#packageRootFinder = packageRootFinder;
         }
         /**
          * Lints the given document using Stylelint. The linting result is then
@@ -27860,7 +28753,7 @@ var require_stylelint_runner_service = __commonJS({
          */
         async lintDocument(document, linterOptions = {}, runnerOptions = {}) {
           const workspaceFolder = await this.#workspaceFolderService.getWorkspaceFolder(this.#connection, document);
-          const resolvedStylelintPath = runnerOptions.stylelintPath ? this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, workspaceFolder ?? this.#getDocumentFolder(document)) : void 0;
+          const resolvedStylelintPath = this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, workspaceFolder ?? this.#getDocumentFolder(document));
           const options = await this.#createLinterOptions(document, workspaceFolder, linterOptions, runnerOptions);
           const diagnostics = await this.#lintWithWorkspaceService(document, workspaceFolder, options, runnerOptions, resolvedStylelintPath);
           if (diagnostics) {
@@ -27872,6 +28765,84 @@ var require_stylelint_runner_service = __commonJS({
           });
           return { diagnostics: [] };
         }
+        /**
+         * Lint all files in a workspace folder.
+         * @param workspaceFolder Absolute path to the workspace folder.
+         * @param runnerOptions Extension options derived from settings.
+         */
+        async lintWorkspaceFolder(workspaceFolder, runnerOptions = {}) {
+          const subPackages = await this.#packageRootFinder.findSubPackages(workspaceFolder);
+          if (subPackages.length === 0) {
+            return this.#lintSingleRoot(workspaceFolder, workspaceFolder, runnerOptions);
+          }
+          this.#logger?.info("Found sub-packages in workspace folder", {
+            workspaceFolder,
+            subPackages
+          });
+          const baseGlob = runnerOptions.lintFilesGlob || "**/*.css";
+          const resolvedFiles = [];
+          for await (const file of this.#fs.glob(baseGlob, { cwd: workspaceFolder })) {
+            resolvedFiles.push(this.#path.resolve(workspaceFolder, file));
+          }
+          const filesByRoot = /* @__PURE__ */ new Map();
+          for (const absoluteFile of resolvedFiles) {
+            let bestMatch = workspaceFolder;
+            let bestDepth = 0;
+            for (const pkg of subPackages) {
+              const rel = this.#path.relative(pkg, absoluteFile);
+              if (!rel.startsWith("..") && !this.#path.isAbsolute(rel)) {
+                const depth = pkg.split(this.#path.sep).length;
+                if (depth > bestDepth) {
+                  bestMatch = pkg;
+                  bestDepth = depth;
+                }
+              }
+            }
+            const list2 = filesByRoot.get(bestMatch);
+            if (list2) {
+              list2.push(absoluteFile);
+            } else {
+              filesByRoot.set(bestMatch, [absoluteFile]);
+            }
+          }
+          const allDiagnostics = /* @__PURE__ */ new Map();
+          const lintPromises = [];
+          for (const [root, files] of filesByRoot) {
+            lintPromises.push(this.#lintSingleRoot(root, workspaceFolder, runnerOptions, files));
+          }
+          const results = await Promise.all(lintPromises);
+          for (const result of results) {
+            for (const [filePath, diagnostics] of result) {
+              allDiagnostics.set(filePath, diagnostics);
+            }
+          }
+          return allDiagnostics;
+        }
+        async #lintSingleRoot(cwd, workspaceFolder, runnerOptions, filePaths) {
+          const stylelintPath = this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, workspaceFolder);
+          const files = filePaths ? filePaths.map((f) => this.#path.relative(cwd, f).split(this.#path.sep).join("/")) : [runnerOptions.lintFilesGlob || "**/*.css"];
+          const options = await this.#createBaseOptions(this.#uri.file(cwd).toString(), workspaceFolder, runnerOptions, {
+            files,
+            cwd,
+            allowEmptyInput: true
+          });
+          this.#logger?.info("Linting folder", { cwd, workspaceFolder });
+          try {
+            const result = await this.#workspaceService.lint({
+              workspaceFolder: cwd,
+              options,
+              stylelintPath,
+              runnerOptions
+            });
+            if (!result) {
+              this.#logger?.info("No Stylelint found for folder", { cwd });
+              return /* @__PURE__ */ new Map();
+            }
+            return processMultiFileLinterResult(createRuleMetadataSourceFromSnapshot(result.ruleMetadata), result.linterResult, this.#logger, runnerOptions.rules?.customizations);
+          } catch (error) {
+            return this.#handleLintError(error, cwd, /* @__PURE__ */ new Map());
+          }
+        }
         async resolve(document, runnerOptions = {}) {
           if (!this.#workspaceService) {
             return void 0;
@@ -27881,7 +28852,7 @@ var require_stylelint_runner_service = __commonJS({
           if (!fallbackFolder) {
             return void 0;
           }
-          const stylelintPath = runnerOptions.stylelintPath ? this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, fallbackFolder) : void 0;
+          const stylelintPath = this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, fallbackFolder);
           try {
             const result = await this.#workspaceService.resolve({
               workspaceFolder: fallbackFolder,
@@ -27895,17 +28866,7 @@ var require_stylelint_runner_service = __commonJS({
               version: result.version
             } : void 0;
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
-              return void 0;
-            }
-            if (error instanceof worker_process_js_1.StylelintWorkerUnavailableError) {
-              this.#handleWorkerUnavailable(error, fallbackFolder);
-              if (error.notifyUser) {
-                throw error;
-              }
-              return void 0;
-            }
-            throw error;
+            return this.#handleLintError(error, fallbackFolder, void 0);
           }
         }
         async resolveConfig(document, runnerOptions = {}) {
@@ -27917,7 +28878,7 @@ var require_stylelint_runner_service = __commonJS({
           if (!fallbackFolder) {
             return void 0;
           }
-          const stylelintPath = runnerOptions.stylelintPath ? this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, fallbackFolder) : void 0;
+          const stylelintPath = this.#resolveConfiguredStylelintPath(runnerOptions.stylelintPath, fallbackFolder);
           const fsPath = this.#uri.parse(document.uri).fsPath;
           if (!fsPath) {
             return void 0;
@@ -27931,17 +28892,7 @@ var require_stylelint_runner_service = __commonJS({
             });
             return result?.config;
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
-              return void 0;
-            }
-            if (error instanceof worker_process_js_1.StylelintWorkerUnavailableError) {
-              this.#handleWorkerUnavailable(error, fallbackFolder);
-              if (error.notifyUser) {
-                throw error;
-              }
-              return void 0;
-            }
-            throw error;
+            return this.#handleLintError(error, fallbackFolder, void 0);
           }
         }
         async handleDocumentOpened(document) {
@@ -27984,21 +28935,23 @@ var require_stylelint_runner_service = __commonJS({
           });
         }
         #resolveConfiguredStylelintPath(stylelintPath, baseFolder) {
-          const pathModule = this.#path;
-          if (pathModule.isAbsolute(stylelintPath)) {
+          if (!stylelintPath) {
+            return void 0;
+          }
+          const pathModule2 = this.#path;
+          if (pathModule2.isAbsolute(stylelintPath)) {
             return stylelintPath;
           }
           if (baseFolder) {
-            return pathModule.join(baseFolder, stylelintPath);
+            return pathModule2.join(baseFolder, stylelintPath);
           }
-          return pathModule.resolve(stylelintPath);
+          return pathModule2.resolve(stylelintPath);
         }
-        async #createLinterOptions(document, workspaceFolder, linterOptions, runnerOptions) {
-          const baseOptions = await this.#optionsBuilder.build(document.uri, workspaceFolder, linterOptions, runnerOptions);
-          const { fsPath } = this.#uri.parse(document.uri);
+        async #createBaseOptions(resourceUri, workspaceFolder, runnerOptions, linterOptions = {}, overrides = {}) {
+          const baseOptions = await this.#optionsBuilder.build(resourceUri, workspaceFolder, linterOptions, runnerOptions);
           const options = {
             ...baseOptions,
-            code: document.getText(),
+            ...overrides,
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore -- (TS2353) `computeEditInfo` option is available since v16.15.
             computeEditInfo: true
@@ -28006,7 +28959,24 @@ var require_stylelint_runner_service = __commonJS({
           if (options.formatter === void 0) {
             options.formatter = noopFormatter;
           }
-          const codeFilename = this.#getCodeFilename(fsPath);
+          return options;
+        }
+        #handleLintError(error, workspaceFolder, fallback) {
+          if (error instanceof StylelintNotFoundError) {
+            return fallback;
+          }
+          if (error instanceof StylelintWorkerUnavailableError) {
+            this.#handleWorkerUnavailable(error, workspaceFolder);
+            if (error.notifyUser) {
+              throw error;
+            }
+            return fallback;
+          }
+          throw error;
+        }
+        async #createLinterOptions(document, workspaceFolder, linterOptions, runnerOptions) {
+          const options = await this.#createBaseOptions(document.uri, workspaceFolder, runnerOptions, linterOptions, { code: document.getText() });
+          const codeFilename = this.#getCodeFilename(this.#uri.parse(document.uri).fsPath);
           if (codeFilename) {
             options.codeFilename = codeFilename;
           } else if (!linterOptions?.config?.rules) {
@@ -28039,8 +29009,11 @@ var require_stylelint_runner_service = __commonJS({
             return void 0;
           }
           let cachedResult;
-          const convertResult = /* @__PURE__ */ __name((result) => (0, process_linter_result_js_1.processLinterResult)((0, types_js_1.createRuleMetadataSourceFromSnapshot)(result.ruleMetadata), result.linterResult, this.#logger, runnerOptions.rules?.customizations), "convertResult");
+          const convertResult = /* @__PURE__ */ __name((result) => processLinterResult(createRuleMetadataSourceFromSnapshot(result.ruleMetadata), result.linterResult, this.#logger, runnerOptions.rules?.customizations), "convertResult");
           const runLint = /* @__PURE__ */ __name(async (lintOptions) => {
+            if (lintOptions.codeFilename && !lintOptions.disableDefaultIgnores && /(?:^|[\\/])node_modules(?:[\\/]|$)/.test(lintOptions.codeFilename)) {
+              return { diagnostics: [] };
+            }
             const result = lintOptions === options && cachedResult ? cachedResult : await this.#workspaceService.lint({
               workspaceFolder: lintWorkspaceFolder,
               options: lintOptions,
@@ -28048,7 +29021,7 @@ var require_stylelint_runner_service = __commonJS({
               runnerOptions
             });
             if (!result) {
-              throw new worker_process_js_1.StylelintNotFoundError();
+              throw new StylelintNotFoundError();
             }
             if (lintOptions === options) {
               cachedResult = result;
@@ -28070,17 +29043,7 @@ var require_stylelint_runner_service = __commonJS({
           try {
             return await this.#runLintWithErrorHandling(runLint, options);
           } catch (error) {
-            if (error instanceof worker_process_js_1.StylelintNotFoundError) {
-              return void 0;
-            }
-            if (error instanceof worker_process_js_1.StylelintWorkerUnavailableError) {
-              this.#handleWorkerUnavailable(error, lintWorkspaceFolder);
-              if (error.notifyUser) {
-                throw error;
-              }
-              return void 0;
-            }
-            throw error;
+            return this.#handleLintError(error, lintWorkspaceFolder, void 0);
           }
         }
         async #runLintWithErrorHandling(runLint, options) {
@@ -28097,9 +29060,9 @@ var require_stylelint_runner_service = __commonJS({
             if (err.message.includes("No rules found within configuration")) {
               const combinedResult = await lintSyntax();
               combinedResult.diagnostics.push({
-                range: vscode_languageserver_types_1.Range.create(vscode_languageserver_types_1.Position.create(0, 0), vscode_languageserver_types_1.Position.create(0, 0)),
+                range: Range.create(Position.create(0, 0), Position.create(0, 0)),
                 message: err.message,
-                severity: vscode_languageserver_types_1.DiagnosticSeverity.Error,
+                severity: DiagnosticSeverity.Error,
                 source: "Stylelint",
                 code: "no-rules-configured"
               });
@@ -28117,17 +29080,15 @@ var require_stylelint_runner_service = __commonJS({
       };
       return StylelintRunnerService2 = _classThis;
     })();
-    exports2.StylelintRunnerService = StylelintRunnerService;
   }
 });
 
-// build/server/config/default-options.js
-var require_default_options = __commonJS({
-  "build/server/config/default-options.js"(exports2) {
+// packages/language-server/build/server/config/default-options.js
+var defaultLanguageServerOptions;
+var init_default_options = __esm({
+  "packages/language-server/build/server/config/default-options.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.defaultLanguageServerOptions = void 0;
-    exports2.defaultLanguageServerOptions = {
+    defaultLanguageServerOptions = {
       codeAction: {
         disableRuleComment: {
           location: "separateLine"
@@ -28138,25 +29099,45 @@ var require_default_options = __commonJS({
       configBasedir: "",
       customSyntax: "",
       ignoreDisables: false,
+      ignorePath: "",
       packageManager: "npm",
       reportDescriptionlessDisables: false,
       reportInvalidScopeDisables: false,
       reportNeedlessDisables: false,
+      run: "onType",
       rules: {
         customizations: []
       },
       snippet: ["css", "postcss"],
       stylelintPath: "",
-      validate: ["css", "postcss"]
+      validate: ["css", "postcss"],
+      lintFiles: {
+        glob: "**/*.css"
+      }
     };
   }
 });
 
-// build/server/services/workspace/workspace-options.service.js
-var require_workspace_options_service = __commonJS({
-  "build/server/services/workspace/workspace-options.service.js"(exports2) {
+// packages/language-server/build/server/services/workspace/workspace-options.service.js
+function extractStylelintSettings(settings) {
+  if (!settings || typeof settings !== "object") {
+    return void 0;
+  }
+  if ("stylelint" in settings) {
+    return settings.stylelint;
+  }
+  return settings;
+}
+var __esDecorate12, __runInitializers12, WorkspaceOptionsService;
+var init_workspace_options_service = __esm({
+  "packages/language-server/build/server/services/workspace/workspace-options.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_utils();
+    init_default_options();
+    init_tokens2();
+    init_logging_service();
+    __esDecorate12 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -28189,33 +29170,17 @@ var require_workspace_options_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers12 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceOptionsService = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var default_options_js_1 = require_default_options();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    function extractStylelintSettings(settings) {
-      if (!settings || typeof settings !== "object") {
-        return void 0;
-      }
-      if ("stylelint" in settings) {
-        return settings.stylelint;
-      }
-      return settings;
-    }
     __name(extractStylelintSettings, "extractStylelintSettings");
-    var WorkspaceOptionsService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.lspConnectionToken, logging_service_js_1.loggingServiceToken]
+    WorkspaceOptionsService = (() => {
+      let _classDecorators = [inject({
+        inject: [lspConnectionToken, loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -28229,15 +29194,15 @@ var require_workspace_options_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate12(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkspaceOptionsService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers12(_classThis, _classExtraInitializers);
         }
         #connection;
         #logger;
         #supportsScopedConfiguration = false;
-        #globalOptions = (0, index_js_2.mergeOptionsWithDefaults)({}, default_options_js_1.defaultLanguageServerOptions);
+        #globalOptions = mergeOptionsWithDefaults({}, defaultLanguageServerOptions);
         #inFlightRequests = /* @__PURE__ */ new Map();
         constructor(connection2, loggingService) {
           this.#connection = connection2;
@@ -28250,7 +29215,7 @@ var require_workspace_options_service = __commonJS({
           }
         }
         #buildOptions(configuration) {
-          const merged = (0, index_js_2.mergeOptionsWithDefaults)(extractStylelintSettings(configuration) ?? {}, default_options_js_1.defaultLanguageServerOptions);
+          const merged = mergeOptionsWithDefaults(extractStylelintSettings(configuration) ?? {}, defaultLanguageServerOptions);
           Object.freeze(merged);
           return merged;
         }
@@ -28288,15 +29253,19 @@ var require_workspace_options_service = __commonJS({
       };
       return WorkspaceOptionsService2 = _classThis;
     })();
-    exports2.WorkspaceOptionsService = WorkspaceOptionsService;
   }
 });
 
-// build/server/services/documents/document-fixes.service.js
-var require_document_fixes_service = __commonJS({
-  "build/server/services/documents/document-fixes.service.js"(exports2) {
+// packages/language-server/build/server/services/documents/document-fixes.service.js
+var __esDecorate13, __runInitializers13, getFixesFnToken, DocumentFixesService;
+var init_document_fixes_service = __esm({
+  "packages/language-server/build/server/services/documents/document-fixes.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_logging_service();
+    init_stylelint_runner_service();
+    init_workspace_options_service();
+    __esDecorate13 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -28329,23 +29298,17 @@ var require_document_fixes_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers13 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DocumentFixesService = exports2.getFixesFnToken = void 0;
-    var index_js_12 = require_di();
-    var logging_service_js_1 = require_logging_service();
-    var stylelint_runner_service_js_1 = require_stylelint_runner_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    exports2.getFixesFnToken = (0, index_js_12.createToken)("DocumentFixesGetFixesFn");
-    var DocumentFixesService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [stylelint_runner_service_js_1.StylelintRunnerService, workspace_options_service_js_1.WorkspaceOptionsService, logging_service_js_1.loggingServiceToken, exports2.getFixesFnToken]
+    getFixesFnToken = createToken("DocumentFixesGetFixesFn");
+    DocumentFixesService = (() => {
+      let _classDecorators = [inject({
+        inject: [StylelintRunnerService, WorkspaceOptionsService, loggingServiceToken, getFixesFnToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -28359,10 +29322,10 @@ var require_document_fixes_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate13(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           DocumentFixesService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers13(_classThis, _classExtraInitializers);
         }
         #runner;
         #options;
@@ -28399,59 +29362,28 @@ var require_document_fixes_service = __commonJS({
       };
       return DocumentFixesService2 = _classThis;
     })();
-    exports2.DocumentFixesService = DocumentFixesService;
   }
 });
 
-// build/server/services/documents/index.js
-var require_documents2 = __commonJS({
-  "build/server/services/documents/index.js"(exports2) {
+// packages/language-server/build/server/services/documents/index.js
+var init_documents2 = __esm({
+  "packages/language-server/build/server/services/documents/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_document_diagnostics_service(), exports2);
-    __exportStar(require_document_fixes_service(), exports2);
+    init_document_diagnostics_service();
+    init_document_fixes_service();
   }
 });
 
-// build/server/services/infrastructure/command.service.js
-var require_command_service = __commonJS({
-  "build/server/services/infrastructure/command.service.js"(exports2) {
+// packages/language-server/build/server/services/infrastructure/command.service.js
+var LSP, __esDecorate14, __runInitializers14, CommandService;
+var init_command_service = __esm({
+  "packages/language-server/build/server/services/infrastructure/command.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    LSP = __toESM(require_main3(), 1);
+    init_di();
+    init_tokens2();
+    init_logging_service();
+    __esDecorate14 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -28484,41 +29416,16 @@ var require_command_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers14 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.CommandService = void 0;
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    var CommandService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.lspConnectionToken, logging_service_js_1.loggingServiceToken]
+    CommandService = (() => {
+      let _classDecorators = [inject({
+        inject: [lspConnectionToken, loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -28532,10 +29439,10 @@ var require_command_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate14(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           CommandService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers14(_classThis, _classExtraInitializers);
         }
         /**
          * The language server connection.
@@ -28628,15 +29535,18 @@ var require_command_service = __commonJS({
       };
       return CommandService2 = _classThis;
     })();
-    exports2.CommandService = CommandService;
   }
 });
 
-// build/server/services/infrastructure/notification.service.js
-var require_notification_service = __commonJS({
-  "build/server/services/infrastructure/notification.service.js"(exports2) {
+// packages/language-server/build/server/services/infrastructure/notification.service.js
+var __esDecorate15, __runInitializers15, NotificationService;
+var init_notification_service = __esm({
+  "packages/language-server/build/server/services/infrastructure/notification.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_tokens2();
+    init_logging_service();
+    __esDecorate15 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -28669,21 +29579,16 @@ var require_notification_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers15 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.NotificationService = void 0;
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    var NotificationService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.lspConnectionToken, logging_service_js_1.loggingServiceToken]
+    NotificationService = (() => {
+      let _classDecorators = [inject({
+        inject: [lspConnectionToken, loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -28697,10 +29602,10 @@ var require_notification_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate15(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           NotificationService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers15(_classThis, _classExtraInitializers);
         }
         /**
          * The connection to the server.
@@ -28784,369 +29689,334 @@ var require_notification_service = __commonJS({
       };
       return NotificationService2 = _classThis;
     })();
-    exports2.NotificationService = NotificationService;
   }
 });
 
-// build/server/services/infrastructure/winston-logging.service.js
-var require_winston_logging_service = __commonJS({
-  "build/server/services/infrastructure/winston-logging.service.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.winstonToken = void 0;
-    exports2.createWinstonLoggingService = createWinstonLoggingService;
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    exports2.winstonToken = (0, index_js_12.createToken)("Winston");
-    function createWinstonLoggingService(level = "info", logPath) {
+// packages/language-server/build/server/services/infrastructure/winston-logging.service.js
+function createWinstonLoggingService(level = "info", logPath) {
+  return {
+    token: loggingServiceToken,
+    inject: [lspConnectionToken, winstonToken],
+    useFactory: /* @__PURE__ */ __name((connection2, winstonModule) => {
+      const transports = [
+        new LanguageServerTransport({
+          connection: connection2,
+          format: winstonModule.format.combine(new ErrorFormatter(), new LanguageServerFormatter({
+            connection: connection2,
+            preferredKeyOrder: ["service", "uri", "command"]
+          }))
+        })
+      ];
+      if (logPath) {
+        transports.push(new winstonModule.transports.File({
+          filename: logPath,
+          format: winstonModule.format.combine(new ErrorFormatter(), winstonModule.format.timestamp(), winstonModule.format.json())
+        }));
+      }
+      const logger = winstonModule.createLogger({
+        level,
+        transports,
+        levels: {
+          error: 0,
+          warn: 1,
+          info: 2,
+          debug: 3
+        }
+      });
       return {
-        token: logging_service_js_1.loggingServiceToken,
-        inject: [tokens_js_1.lspConnectionToken, exports2.winstonToken],
-        useFactory: /* @__PURE__ */ __name((connection2, winstonModule) => {
-          const transports = [
-            new index_js_2.LanguageServerTransport({
-              connection: connection2,
-              format: winstonModule.format.combine(new index_js_2.ErrorFormatter(), new index_js_2.LanguageServerFormatter({
-                connection: connection2,
-                preferredKeyOrder: ["service", "uri", "command"]
-              }))
-            })
-          ];
-          if (logPath) {
-            transports.push(new winstonModule.transports.File({
-              filename: logPath,
-              format: winstonModule.format.combine(new index_js_2.ErrorFormatter(), winstonModule.format.timestamp(), winstonModule.format.json())
-            }));
-          }
-          const logger = winstonModule.createLogger({
-            level,
-            transports,
-            levels: {
-              error: 0,
-              warn: 1,
-              info: 2,
-              debug: 3
-            }
-          });
-          return {
-            createLogger: /* @__PURE__ */ __name((component) => {
-              const serviceName = component.name || "UnknownService";
-              return logger.child({ service: serviceName });
-            }, "createLogger")
-          };
-        }, "useFactory")
+        createLogger: /* @__PURE__ */ __name((component) => {
+          const serviceName = component.name || "UnknownService";
+          return logger.child({ service: serviceName });
+        }, "createLogger")
       };
-    }
+    }, "useFactory")
+  };
+}
+var winstonToken;
+var init_winston_logging_service = __esm({
+  "packages/language-server/build/server/services/infrastructure/winston-logging.service.js"() {
+    "use strict";
+    init_di();
+    init_utils();
+    init_tokens2();
+    init_logging_service();
+    winstonToken = createToken("Winston");
     __name(createWinstonLoggingService, "createWinstonLoggingService");
   }
 });
 
-// build/server/services/infrastructure/index.js
-var require_infrastructure = __commonJS({
-  "build/server/services/infrastructure/index.js"(exports2) {
+// packages/language-server/build/server/services/infrastructure/index.js
+var init_infrastructure = __esm({
+  "packages/language-server/build/server/services/infrastructure/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_command_service(), exports2);
-    __exportStar(require_logging_service(), exports2);
-    __exportStar(require_notification_service(), exports2);
-    __exportStar(require_winston_logging_service(), exports2);
+    init_command_service();
+    init_logging_service();
+    init_notification_service();
+    init_winston_logging_service();
   }
 });
 
-// build/server/decorators.js
-var require_decorators2 = __commonJS({
-  "build/server/decorators.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isLanguageServerServiceInstance = isLanguageServerServiceInstance;
-    exports2.isLanguageServerServiceConstructor = isLanguageServerServiceConstructor;
-    exports2.getLanguageServerServiceMetadata = getLanguageServerServiceMetadata;
-    exports2.lspService = lspService;
-    exports2.command = command;
-    exports2.initialize = initialize;
-    exports2.textDocumentEvent = textDocumentEvent;
-    exports2.notification = notification;
-    exports2.completionRequest = completionRequest;
-    exports2.codeActionRequest = codeActionRequest;
-    exports2.documentFormattingRequest = documentFormattingRequest;
-    exports2.shutdown = shutdown;
-    var index_js_12 = require_di();
-    var notification_service_js_1 = require_notification_service();
-    var tokens_js_1 = require_tokens2();
-    var lspServiceMetadataKey = "__languageServerServiceMetadata__";
-    var lspServiceConstructorMetadataKey = "__isLanguageServerService__";
-    function isLanguageServerServiceInstance(instance) {
-      return typeof instance === "object" && instance !== null && lspServiceMetadataKey in instance;
+// packages/language-server/build/server/decorators.js
+function isLanguageServerServiceInstance(instance) {
+  return typeof instance === "object" && instance !== null && lspServiceMetadataKey in instance;
+}
+function isLanguageServerServiceConstructor(target) {
+  return lspServiceConstructorMetadataKey in target && target[lspServiceConstructorMetadataKey] === true;
+}
+function ensureLanguageServerServiceMetadata(instance) {
+  if (typeof instance !== "object" || instance === null) {
+    throw new Error("Language server services must be class instances.");
+  }
+  const ctor = instance.constructor;
+  if (!isLanguageServerServiceConstructor(ctor)) {
+    throw new Error("@lspService() must decorate a class before using language server service decorators.");
+  }
+  if (isLanguageServerServiceInstance(instance)) {
+    return instance[lspServiceMetadataKey];
+  }
+  const metadata = {
+    commandHandlers: [],
+    disposables: [],
+    connectionHandlers: [],
+    initializerHandlers: [],
+    notificationHandlers: [],
+    textDocumentHandlers: [],
+    shutdownHandlers: []
+  };
+  Object.defineProperty(instance, lspServiceMetadataKey, {
+    value: metadata,
+    writable: false,
+    configurable: false,
+    enumerable: false
+  });
+  return metadata;
+}
+function getLanguageServerServiceMetadata(instance) {
+  if (!isLanguageServerServiceInstance(instance)) {
+    return void 0;
+  }
+  return instance[lspServiceMetadataKey];
+}
+function registerNotificationHandler(manager, descriptor) {
+  const notificationType = descriptor.type;
+  if (typeof notificationType === "undefined") {
+    return manager.on(descriptor.handler);
+  }
+  return manager.on(notificationType, descriptor.handler);
+}
+function registerNotificationHandlers(metadata, resolve) {
+  if (metadata.notificationHandlers.length === 0) {
+    return;
+  }
+  const manager = resolve(NotificationService);
+  for (const descriptor of metadata.notificationHandlers) {
+    const disposable = registerNotificationHandler(manager, descriptor);
+    metadata.disposables.push(disposable);
+  }
+}
+function registerConnectionHandler(connection2, descriptor) {
+  switch (descriptor.kind) {
+    case "completion":
+      return connection2.onCompletion((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
+    case "codeAction":
+      return connection2.onCodeAction((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
+    case "documentFormatting":
+      return connection2.onDocumentFormatting((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
+    default: {
+      const neverDescriptor = descriptor;
+      throw new Error(`Unsupported connection handler kind: ${String(neverDescriptor)}`);
     }
-    __name(isLanguageServerServiceInstance, "isLanguageServerServiceInstance");
-    function isLanguageServerServiceConstructor(target) {
-      return lspServiceConstructorMetadataKey in target && target[lspServiceConstructorMetadataKey] === true;
+  }
+}
+function registerConnectionHandlers(metadata, resolve) {
+  if (metadata.connectionHandlers.length === 0) {
+    return;
+  }
+  const connection2 = resolve(lspConnectionToken);
+  for (const descriptor of metadata.connectionHandlers) {
+    const disposable = registerConnectionHandler(connection2, descriptor);
+    metadata.disposables.push(disposable);
+  }
+}
+function lspService() {
+  const runtimeServiceDecorator = runtimeService();
+  return (target, context) => {
+    const { kind } = context;
+    if (kind !== "class") {
+      throw new Error("@lspService() can only be used on a class.");
     }
-    __name(isLanguageServerServiceConstructor, "isLanguageServerServiceConstructor");
-    function ensureLanguageServerServiceMetadata(instance) {
-      if (typeof instance !== "object" || instance === null) {
-        throw new Error("Language server services must be class instances.");
-      }
-      const ctor = instance.constructor;
-      if (!isLanguageServerServiceConstructor(ctor)) {
-        throw new Error("@lspService() must decorate a class before using language server service decorators.");
-      }
-      if (isLanguageServerServiceInstance(instance)) {
-        return instance[lspServiceMetadataKey];
-      }
-      const metadata = {
-        commandHandlers: [],
-        disposables: [],
-        connectionHandlers: [],
-        initializerHandlers: [],
-        notificationHandlers: [],
-        textDocumentHandlers: [],
-        shutdownHandlers: []
-      };
-      Object.defineProperty(instance, lspServiceMetadataKey, {
-        value: metadata,
-        writable: false,
-        configurable: false,
-        enumerable: false
+    const ctor = target;
+    runtimeServiceDecorator(target, context);
+    Object.defineProperty(ctor, lspServiceConstructorMetadataKey, {
+      value: true,
+      writable: false,
+      configurable: false,
+      enumerable: false
+    });
+    registerInitializationHook(ctor, ({ instance, resolve }) => {
+      const metadata = ensureLanguageServerServiceMetadata(instance);
+      registerNotificationHandlers(metadata, resolve);
+      registerConnectionHandlers(metadata, resolve);
+    });
+  };
+}
+function command(commandId, options = {}) {
+  return (target, { kind, name, addInitializer }) => {
+    if (kind !== "method") {
+      throw new Error("@command(...) can only be used on a method.");
+    }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      instanceMetadata.commandHandlers.push({
+        commandId,
+        methodName: name ?? target.name,
+        handler: bound,
+        options
       });
-      return metadata;
+    });
+  };
+}
+function initialize() {
+  return (target, { kind, addInitializer }) => {
+    if (kind !== "method") {
+      throw new Error("@initialize() can only be used on a method.");
     }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      instanceMetadata.initializerHandlers.push(bound);
+    });
+  };
+}
+function textDocumentEvent(event) {
+  return (target, { kind, addInitializer }) => {
+    if (kind !== "method") {
+      throw new Error("@textDocumentEvent(...) can only be used on a method.");
+    }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      instanceMetadata.textDocumentHandlers.push({
+        event,
+        handler: bound
+      });
+    });
+  };
+}
+function notification(type) {
+  return (target, { kind, addInitializer }) => {
+    if (kind !== "method") {
+      throw new Error("@notification(...) can only be used on a method.");
+    }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      instanceMetadata.notificationHandlers.push({
+        type,
+        handler: bound
+      });
+    });
+  };
+}
+function createConnectionHandlerDecorator(kind, decoratorName) {
+  return (target, { kind: decoratorKind, addInitializer }) => {
+    if (decoratorKind !== "method") {
+      throw new Error(`${decoratorName} can only be used on a method.`);
+    }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      const descriptor = {
+        kind,
+        handler: bound
+      };
+      instanceMetadata.connectionHandlers.push(descriptor);
+    });
+  };
+}
+function completionRequest() {
+  return createConnectionHandlerDecorator("completion", "@completionRequest()");
+}
+function codeActionRequest() {
+  return createConnectionHandlerDecorator("codeAction", "@codeActionRequest()");
+}
+function documentFormattingRequest() {
+  return createConnectionHandlerDecorator("documentFormatting", "@documentFormattingRequest()");
+}
+function shutdown() {
+  return (target, { kind, addInitializer }) => {
+    if (kind !== "method") {
+      throw new Error("@shutdown() can only be used on a method.");
+    }
+    addInitializer(function() {
+      const instanceMetadata = ensureLanguageServerServiceMetadata(this);
+      const bound = target.bind(this);
+      instanceMetadata.shutdownHandlers.push(bound);
+    });
+  };
+}
+var lspServiceMetadataKey, lspServiceConstructorMetadataKey;
+var init_decorators2 = __esm({
+  "packages/language-server/build/server/decorators.js"() {
+    "use strict";
+    init_di();
+    init_notification_service();
+    init_tokens2();
+    lspServiceMetadataKey = "__languageServerServiceMetadata__";
+    lspServiceConstructorMetadataKey = "__isLanguageServerService__";
+    __name(isLanguageServerServiceInstance, "isLanguageServerServiceInstance");
+    __name(isLanguageServerServiceConstructor, "isLanguageServerServiceConstructor");
     __name(ensureLanguageServerServiceMetadata, "ensureLanguageServerServiceMetadata");
-    function getLanguageServerServiceMetadata(instance) {
-      if (!isLanguageServerServiceInstance(instance)) {
-        return void 0;
-      }
-      return instance[lspServiceMetadataKey];
-    }
     __name(getLanguageServerServiceMetadata, "getLanguageServerServiceMetadata");
-    function registerNotificationHandler(manager, descriptor) {
-      const notificationType = descriptor.type;
-      if (typeof notificationType === "undefined") {
-        return manager.on(descriptor.handler);
-      }
-      return manager.on(notificationType, descriptor.handler);
-    }
     __name(registerNotificationHandler, "registerNotificationHandler");
-    function registerNotificationHandlers(metadata, resolve) {
-      if (metadata.notificationHandlers.length === 0) {
-        return;
-      }
-      const manager = resolve(notification_service_js_1.NotificationService);
-      for (const descriptor of metadata.notificationHandlers) {
-        const disposable = registerNotificationHandler(manager, descriptor);
-        metadata.disposables.push(disposable);
-      }
-    }
     __name(registerNotificationHandlers, "registerNotificationHandlers");
-    function registerConnectionHandler(connection2, descriptor) {
-      switch (descriptor.kind) {
-        case "completion":
-          return connection2.onCompletion((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
-        case "codeAction":
-          return connection2.onCodeAction((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
-        case "documentFormatting":
-          return connection2.onDocumentFormatting((params, _token, _workDone, _resultProgress) => descriptor.handler(params));
-        default: {
-          const neverDescriptor = descriptor;
-          throw new Error(`Unsupported connection handler kind: ${String(neverDescriptor)}`);
-        }
-      }
-    }
     __name(registerConnectionHandler, "registerConnectionHandler");
-    function registerConnectionHandlers(metadata, resolve) {
-      if (metadata.connectionHandlers.length === 0) {
-        return;
-      }
-      const connection2 = resolve(tokens_js_1.lspConnectionToken);
-      for (const descriptor of metadata.connectionHandlers) {
-        const disposable = registerConnectionHandler(connection2, descriptor);
-        metadata.disposables.push(disposable);
-      }
-    }
     __name(registerConnectionHandlers, "registerConnectionHandlers");
-    function lspService() {
-      const runtimeServiceDecorator = (0, index_js_12.runtimeService)();
-      return (target, context) => {
-        const { kind } = context;
-        if (kind !== "class") {
-          throw new Error("@lspService() can only be used on a class.");
-        }
-        const ctor = target;
-        runtimeServiceDecorator(target, context);
-        Object.defineProperty(ctor, lspServiceConstructorMetadataKey, {
-          value: true,
-          writable: false,
-          configurable: false,
-          enumerable: false
-        });
-        (0, index_js_12.registerInitializationHook)(ctor, ({ instance, resolve }) => {
-          const metadata = ensureLanguageServerServiceMetadata(instance);
-          registerNotificationHandlers(metadata, resolve);
-          registerConnectionHandlers(metadata, resolve);
-        });
-      };
-    }
     __name(lspService, "lspService");
-    function command(commandId, options = {}) {
-      return (target, { kind, name, addInitializer }) => {
-        if (kind !== "method") {
-          throw new Error("@command(...) can only be used on a method.");
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          instanceMetadata.commandHandlers.push({
-            commandId,
-            methodName: name ?? target.name,
-            handler: bound,
-            options
-          });
-        });
-      };
-    }
     __name(command, "command");
-    function initialize() {
-      return (target, { kind, addInitializer }) => {
-        if (kind !== "method") {
-          throw new Error("@initialize() can only be used on a method.");
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          instanceMetadata.initializerHandlers.push(bound);
-        });
-      };
-    }
     __name(initialize, "initialize");
-    function textDocumentEvent(event) {
-      return (target, { kind, addInitializer }) => {
-        if (kind !== "method") {
-          throw new Error("@textDocumentEvent(...) can only be used on a method.");
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          instanceMetadata.textDocumentHandlers.push({
-            event,
-            handler: bound
-          });
-        });
-      };
-    }
     __name(textDocumentEvent, "textDocumentEvent");
-    function notification(type) {
-      return (target, { kind, addInitializer }) => {
-        if (kind !== "method") {
-          throw new Error("@notification(...) can only be used on a method.");
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          instanceMetadata.notificationHandlers.push({
-            type,
-            handler: bound
-          });
-        });
-      };
-    }
     __name(notification, "notification");
-    function createConnectionHandlerDecorator(kind, decoratorName) {
-      return (target, { kind: decoratorKind, addInitializer }) => {
-        if (decoratorKind !== "method") {
-          throw new Error(`${decoratorName} can only be used on a method.`);
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          const descriptor = {
-            kind,
-            handler: bound
-          };
-          instanceMetadata.connectionHandlers.push(descriptor);
-        });
-      };
-    }
     __name(createConnectionHandlerDecorator, "createConnectionHandlerDecorator");
-    function completionRequest() {
-      return createConnectionHandlerDecorator("completion", "@completionRequest()");
-    }
     __name(completionRequest, "completionRequest");
-    function codeActionRequest() {
-      return createConnectionHandlerDecorator("codeAction", "@codeActionRequest()");
-    }
     __name(codeActionRequest, "codeActionRequest");
-    function documentFormattingRequest() {
-      return createConnectionHandlerDecorator("documentFormatting", "@documentFormattingRequest()");
-    }
     __name(documentFormattingRequest, "documentFormattingRequest");
-    function shutdown() {
-      return (target, { kind, addInitializer }) => {
-        if (kind !== "method") {
-          throw new Error("@shutdown() can only be used on a method.");
-        }
-        addInitializer(function() {
-          const instanceMetadata = ensureLanguageServerServiceMetadata(this);
-          const bound = target.bind(this);
-          instanceMetadata.shutdownHandlers.push(bound);
-        });
-      };
-    }
     __name(shutdown, "shutdown");
   }
 });
 
-// build/server/stylelint/get-disable-diagnostic-rule.js
-var require_get_disable_diagnostic_rule = __commonJS({
-  "build/server/stylelint/get-disable-diagnostic-rule.js"(exports2) {
+// packages/language-server/build/server/stylelint/get-disable-diagnostic-rule.js
+function getDisableDiagnosticRule(diagnostic) {
+  switch (diagnostic.code) {
+    case DisableReportRuleNames.Needless:
+      return diagnostic.message.match(/^Needless disable for "(.+)"$/)?.[1];
+    case DisableReportRuleNames.InvalidScope:
+      return diagnostic.message.match(/^Rule "(.+)" isn't enabled$/)?.[1];
+    case DisableReportRuleNames.Descriptionless:
+      return diagnostic.message.match(/^Disable for "(.+)" is missing a description$/)?.[1];
+    case DisableReportRuleNames.Illegal:
+      return diagnostic.message.match(/^Rule "(.+)" may not be disabled$/)?.[1];
+    default:
+      return void 0;
+  }
+}
+var init_get_disable_diagnostic_rule = __esm({
+  "packages/language-server/build/server/stylelint/get-disable-diagnostic-rule.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getDisableDiagnosticRule = getDisableDiagnosticRule;
-    var types_js_1 = require_types3();
-    function getDisableDiagnosticRule(diagnostic) {
-      switch (diagnostic.code) {
-        case types_js_1.DisableReportRuleNames.Needless:
-          return diagnostic.message.match(/^Needless disable for "(.+)"$/)?.[1];
-        case types_js_1.DisableReportRuleNames.InvalidScope:
-          return diagnostic.message.match(/^Rule "(.+)" isn't enabled$/)?.[1];
-        case types_js_1.DisableReportRuleNames.Descriptionless:
-          return diagnostic.message.match(/^Disable for "(.+)" is missing a description$/)?.[1];
-        case types_js_1.DisableReportRuleNames.Illegal:
-          return diagnostic.message.match(/^Rule "(.+)" may not be disabled$/)?.[1];
-        default:
-          return void 0;
-      }
-    }
+    init_types3();
     __name(getDisableDiagnosticRule, "getDisableDiagnosticRule");
   }
 });
 
-// build/server/stylelint/disable-metadata-lookup-table.js
-var require_disable_metadata_lookup_table = __commonJS({
-  "build/server/stylelint/disable-metadata-lookup-table.js"(exports2) {
+// packages/language-server/build/server/stylelint/disable-metadata-lookup-table.js
+var DisableMetadataLookupTable;
+var init_disable_metadata_lookup_table = __esm({
+  "packages/language-server/build/server/stylelint/disable-metadata-lookup-table.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DisableMetadataLookupTable = void 0;
-    var index_js_12 = require_utils();
-    var get_disable_diagnostic_rule_js_1 = require_get_disable_diagnostic_rule();
-    var DisableMetadataLookupTable = class {
+    init_utils();
+    init_get_disable_diagnostic_rule();
+    DisableMetadataLookupTable = class {
       static {
         __name(this, "DisableMetadataLookupTable");
       }
@@ -29167,7 +30037,7 @@ var require_disable_metadata_lookup_table = __commonJS({
        */
       constructor(diagnostics) {
         for (const diagnostic of diagnostics) {
-          const rule = (0, get_disable_diagnostic_rule_js_1.getDisableDiagnosticRule)(diagnostic);
+          const rule = getDisableDiagnosticRule(diagnostic);
           if (!rule) {
             continue;
           }
@@ -29203,136 +30073,101 @@ var require_disable_metadata_lookup_table = __commonJS({
         const reportsByType = type ? this.#reportsByType.get(type) : void 0;
         const reportsByRule = rule ? this.#reportsByRule.get(rule) : void 0;
         const reportsByRange = range ? this.#reportsByRange.get(this.#getRangeKey(range)) : void 0;
-        return (0, index_js_12.intersect)((0, index_js_12.intersect)(reportsByType, reportsByRule), reportsByRange) ?? /* @__PURE__ */ new Set();
+        return intersect(intersect(reportsByType, reportsByRule), reportsByRange) ?? /* @__PURE__ */ new Set();
       }
     };
-    exports2.DisableMetadataLookupTable = DisableMetadataLookupTable;
   }
 });
 
-// build/server/stylelint/formatting-options-to-rules.js
-var require_formatting_options_to_rules = __commonJS({
-  "build/server/stylelint/formatting-options-to-rules.js"(exports2) {
+// packages/language-server/build/server/stylelint/formatting-options-to-rules.js
+function formattingOptionsToRules({ insertSpaces, tabSize, insertFinalNewline, trimTrailingWhitespace }) {
+  const rules = {
+    indentation: [insertSpaces ? tabSize : "tab"]
+  };
+  if (insertFinalNewline !== void 0) {
+    rules["no-missing-end-of-source-newline"] = insertFinalNewline || null;
+  }
+  if (trimTrailingWhitespace !== void 0) {
+    rules["no-eol-whitespace"] = trimTrailingWhitespace || null;
+  }
+  return rules;
+}
+var init_formatting_options_to_rules = __esm({
+  "packages/language-server/build/server/stylelint/formatting-options-to-rules.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.formattingOptionsToRules = formattingOptionsToRules;
-    function formattingOptionsToRules({ insertSpaces, tabSize, insertFinalNewline, trimTrailingWhitespace }) {
-      const rules = {
-        indentation: [insertSpaces ? tabSize : "tab"]
-      };
-      if (insertFinalNewline !== void 0) {
-        rules["no-missing-end-of-source-newline"] = insertFinalNewline || null;
-      }
-      if (trimTrailingWhitespace !== void 0) {
-        rules["no-eol-whitespace"] = trimTrailingWhitespace || null;
-      }
-      return rules;
-    }
     __name(formattingOptionsToRules, "formattingOptionsToRules");
   }
 });
 
-// build/server/stylelint/is-disable-report-rule.js
-var require_is_disable_report_rule = __commonJS({
-  "build/server/stylelint/is-disable-report-rule.js"(exports2) {
+// packages/language-server/build/server/stylelint/is-disable-report-rule.js
+function isDisableReportRule(rule) {
+  switch (rule) {
+    case DisableReportRuleNames.Descriptionless:
+    case DisableReportRuleNames.Illegal:
+    case DisableReportRuleNames.InvalidScope:
+    case DisableReportRuleNames.Needless:
+      return true;
+    default:
+      return false;
+  }
+}
+var init_is_disable_report_rule = __esm({
+  "packages/language-server/build/server/stylelint/is-disable-report-rule.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isDisableReportRule = isDisableReportRule;
-    var types_js_1 = require_types3();
-    function isDisableReportRule(rule) {
-      switch (rule) {
-        case types_js_1.DisableReportRuleNames.Descriptionless:
-        case types_js_1.DisableReportRuleNames.Illegal:
-        case types_js_1.DisableReportRuleNames.InvalidScope:
-        case types_js_1.DisableReportRuleNames.Needless:
-          return true;
-        default:
-          return false;
-      }
-    }
+    init_types3();
     __name(isDisableReportRule, "isDisableReportRule");
   }
 });
 
-// build/server/stylelint/index.js
-var require_stylelint = __commonJS({
-  "build/server/stylelint/index.js"(exports2) {
+// packages/language-server/build/server/stylelint/index.js
+var init_stylelint = __esm({
+  "packages/language-server/build/server/stylelint/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_disable_metadata_lookup_table(), exports2);
-    __exportStar(require_formatting_options_to_rules(), exports2);
-    __exportStar(require_get_disable_diagnostic_rule(), exports2);
-    __exportStar(require_is_disable_report_rule(), exports2);
-    __exportStar(require_process_linter_result(), exports2);
-    __exportStar(require_types3(), exports2);
-    __exportStar(require_warning_to_diagnostic(), exports2);
+    init_disable_metadata_lookup_table();
+    init_formatting_options_to_rules();
+    init_get_disable_diagnostic_rule();
+    init_is_disable_report_rule();
+    init_process_linter_result();
+    init_types3();
+    init_warning_to_diagnostic();
   }
 });
 
-// build/server/types.js
-var require_types7 = __commonJS({
-  "build/server/types.js"(exports2) {
+// packages/language-server/build/server/types.js
+var import_vscode_languageserver_protocol, CommandId, CodeActionKind2, Status, StatusNotification;
+var init_types7 = __esm({
+  "packages/language-server/build/server/types.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.Notification = exports2.CodeActionKind = exports2.CommandId = void 0;
-    var vscode_languageserver_types_1 = require_main2();
-    var CommandId;
+    init_main();
+    import_vscode_languageserver_protocol = __toESM(require_main3(), 1);
     (function(CommandId2) {
       CommandId2["ApplyAutoFix"] = "stylelint.applyAutoFix";
       CommandId2["OpenRuleDoc"] = "stylelint.openRuleDoc";
-    })(CommandId || (exports2.CommandId = CommandId = {}));
-    exports2.CodeActionKind = {
-      StylelintSourceFixAll: `${vscode_languageserver_types_1.CodeActionKind.SourceFixAll}.stylelint`
+      CommandId2["LintFiles"] = "stylelint.lintFiles";
+      CommandId2["ClearAllProblems"] = "stylelint.clearAllProblems";
+    })(CommandId || (CommandId = {}));
+    CodeActionKind2 = {
+      StylelintSourceFixAll: `${CodeActionKind.SourceFixAll}.stylelint`
     };
-    var Notification;
-    (function(Notification2) {
-      Notification2["DidRegisterCodeActionRequestHandler"] = "stylelint/didRegisterCodeActionRequestHandler";
-      Notification2["DidRegisterDocumentFormattingEditProvider"] = "stylelint/didRegisterDocumentFormattingEditProvider";
-      Notification2["DidResetConfiguration"] = "stylelint/didResetConfiguration";
-      Notification2["ResetWorkspaceState"] = "stylelint/resetWorkspaceState";
-    })(Notification || (exports2.Notification = Notification = {}));
+    (function(Status2) {
+      Status2[Status2["ok"] = 1] = "ok";
+      Status2[Status2["warn"] = 2] = "warn";
+      Status2[Status2["error"] = 3] = "error";
+    })(Status || (Status = {}));
+    StatusNotification = new import_vscode_languageserver_protocol.NotificationType("stylelint/status");
   }
 });
 
-// build/server/services/lsp/code-actions/disable-rule-file-code-action.service.js
-var require_disable_rule_file_code_action_service = __commonJS({
-  "build/server/services/lsp/code-actions/disable-rule-file-code-action.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/code-actions/disable-rule-file-code-action.service.js
+var import_os, LSP2, __esDecorate16, __runInitializers16, DisableRuleFileCodeActionService;
+var init_disable_rule_file_code_action_service = __esm({
+  "packages/language-server/build/server/services/lsp/code-actions/disable-rule-file-code-action.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_os = __toESM(require("os"), 1);
+    LSP2 = __toESM(require_main3(), 1);
+    init_di();
+    init_tokens2();
+    __esDecorate16 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -29365,43 +30200,15 @@ var require_disable_rule_file_code_action_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers16 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DisableRuleFileCodeActionService = void 0;
-    var os_1 = __importDefault2(require("os"));
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var DisableRuleFileCodeActionService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({ inject: [tokens_js_1.OsModuleToken] })];
+    DisableRuleFileCodeActionService = (() => {
+      let _classDecorators = [inject({ inject: [OsModuleToken] })];
       let _classDescriptor;
       let _classExtraInitializers = [];
       let _classThis;
@@ -29414,51 +30221,37 @@ var require_disable_rule_file_code_action_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate16(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           DisableRuleFileCodeActionService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers16(_classThis, _classExtraInitializers);
         }
         #eol;
         constructor(osModule) {
-          this.#eol = (osModule ?? os_1.default).EOL;
+          this.#eol = (osModule ?? import_os.default).EOL;
         }
         create(document, { code }) {
-          const workspaceChange = new LSP.WorkspaceChange();
-          const shebang = document.getText(LSP.Range.create(LSP.Position.create(0, 0), LSP.Position.create(0, 2)));
-          workspaceChange.getTextEditChange(document).add(LSP.TextEdit.insert(LSP.Position.create(shebang === "#!" ? 1 : 0, 0), `/* stylelint-disable ${code} */${this.#eol}`));
-          return LSP.CodeAction.create(`Disable ${code} for the entire file`, workspaceChange.edit, LSP.CodeActionKind.QuickFix);
+          const workspaceChange = new LSP2.WorkspaceChange();
+          const shebang = document.getText(LSP2.Range.create(LSP2.Position.create(0, 0), LSP2.Position.create(0, 2)));
+          workspaceChange.getTextEditChange(document).add(LSP2.TextEdit.insert(LSP2.Position.create(shebang === "#!" ? 1 : 0, 0), `/* stylelint-disable ${code} */${this.#eol}`));
+          return LSP2.CodeAction.create(`Disable ${code} for the entire file`, workspaceChange.edit, LSP2.CodeActionKind.QuickFix);
         }
       };
       return DisableRuleFileCodeActionService2 = _classThis;
     })();
-    exports2.DisableRuleFileCodeActionService = DisableRuleFileCodeActionService;
   }
 });
 
-// build/server/services/lsp/code-actions/disable-rule-line-code-action.service.js
-var require_disable_rule_line_code_action_service = __commonJS({
-  "build/server/services/lsp/code-actions/disable-rule-line-code-action.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/code-actions/disable-rule-line-code-action.service.js
+var import_os2, LSP3, __esDecorate17, __runInitializers17, DisableRuleLineCodeActionService;
+var init_disable_rule_line_code_action_service = __esm({
+  "packages/language-server/build/server/services/lsp/code-actions/disable-rule-line-code-action.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_os2 = __toESM(require("os"), 1);
+    LSP3 = __toESM(require_main3(), 1);
+    init_di();
+    init_tokens2();
+    __esDecorate17 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -29491,43 +30284,15 @@ var require_disable_rule_line_code_action_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers17 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.DisableRuleLineCodeActionService = void 0;
-    var os_1 = __importDefault2(require("os"));
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var DisableRuleLineCodeActionService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({ inject: [tokens_js_1.OsModuleToken] })];
+    DisableRuleLineCodeActionService = (() => {
+      let _classDecorators = [inject({ inject: [OsModuleToken] })];
       let _classDescriptor;
       let _classExtraInitializers = [];
       let _classThis;
@@ -29540,63 +30305,58 @@ var require_disable_rule_line_code_action_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate17(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           DisableRuleLineCodeActionService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers17(_classThis, _classExtraInitializers);
         }
         #eol;
         constructor(osModule) {
-          this.#eol = (osModule ?? os_1.default).EOL;
+          this.#eol = (osModule ?? import_os2.default).EOL;
         }
         create(document, { code, range }, location) {
-          const workspaceChange = new LSP.WorkspaceChange();
+          const workspaceChange = new LSP3.WorkspaceChange();
           if (location === "sameLine") {
-            workspaceChange.getTextEditChange(document).add(LSP.TextEdit.insert(LSP.Position.create(range.start.line, LSP.uinteger.MAX_VALUE), ` /* stylelint-disable-line ${code} */`));
+            workspaceChange.getTextEditChange(document).add(LSP3.TextEdit.insert(LSP3.Position.create(range.start.line, LSP3.uinteger.MAX_VALUE), ` /* stylelint-disable-line ${code} */`));
           } else {
-            const lineText = document.getText(LSP.Range.create(LSP.Position.create(range.start.line, 0), LSP.Position.create(range.start.line, LSP.uinteger.MAX_VALUE)));
+            const lineText = document.getText(LSP3.Range.create(LSP3.Position.create(range.start.line, 0), LSP3.Position.create(range.start.line, LSP3.uinteger.MAX_VALUE)));
             const indentation = lineText.match(/^([ \t]+)/)?.[1] ?? "";
-            workspaceChange.getTextEditChange(document).add(LSP.TextEdit.insert(LSP.Position.create(range.start.line, 0), `${indentation}/* stylelint-disable-next-line ${code} */${this.#eol}`));
+            workspaceChange.getTextEditChange(document).add(LSP3.TextEdit.insert(LSP3.Position.create(range.start.line, 0), `${indentation}/* stylelint-disable-next-line ${code} */${this.#eol}`));
           }
-          return LSP.CodeAction.create(`Disable ${code} for this line`, workspaceChange.edit, LSP.CodeActionKind.QuickFix);
+          return LSP3.CodeAction.create(`Disable ${code} for this line`, workspaceChange.edit, LSP3.CodeActionKind.QuickFix);
         }
       };
       return DisableRuleLineCodeActionService2 = _classThis;
     })();
-    exports2.DisableRuleLineCodeActionService = DisableRuleLineCodeActionService;
   }
 });
 
-// build/server/services/lsp/code-actions/code-action.service.js
-var require_code_action_service = __commonJS({
-  "build/server/services/lsp/code-actions/code-action.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/code-actions/code-action.service.js
+var LSP4, __runInitializers18, __esDecorate18, CodeActionService;
+var init_code_action_service = __esm({
+  "packages/language-server/build/server/services/lsp/code-actions/code-action.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    LSP4 = __toESM(require_main3(), 1);
+    init_di();
+    init_utils();
+    init_decorators2();
+    init_stylelint();
+    init_tokens2();
+    init_types7();
+    init_document_diagnostics_service();
+    init_document_fixes_service();
+    init_logging_service();
+    init_workspace_options_service();
+    init_disable_rule_file_code_action_service();
+    init_disable_rule_line_code_action_service();
+    __runInitializers18 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate18 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -29629,58 +30389,23 @@ var require_code_action_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.CodeActionService = void 0;
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var decorators_js_1 = require_decorators2();
-    var index_js_3 = require_stylelint();
-    var tokens_js_1 = require_tokens2();
-    var types_js_1 = require_types7();
-    var document_diagnostics_service_js_1 = require_document_diagnostics_service();
-    var document_fixes_service_js_1 = require_document_fixes_service();
-    var logging_service_js_1 = require_logging_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var disable_rule_file_code_action_service_js_1 = require_disable_rule_file_code_action_service();
-    var disable_rule_line_code_action_service_js_1 = require_disable_rule_line_code_action_service();
-    var CodeActionService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    CodeActionService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          tokens_js_1.textDocumentsToken,
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          document_fixes_service_js_1.DocumentFixesService,
-          document_diagnostics_service_js_1.DocumentDiagnosticsService,
-          disable_rule_line_code_action_service_js_1.DisableRuleLineCodeActionService,
-          disable_rule_file_code_action_service_js_1.DisableRuleFileCodeActionService,
-          tokens_js_1.lspConnectionToken,
-          logging_service_js_1.loggingServiceToken
+          textDocumentsToken,
+          WorkspaceOptionsService,
+          DocumentFixesService,
+          DocumentDiagnosticsService,
+          DisableRuleLineCodeActionService,
+          DisableRuleFileCodeActionService,
+          lspConnectionToken,
+          loggingServiceToken
         ]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
       let _classThis;
       let _instanceExtraInitializers = [];
-      let _onInitialized_decorators;
       let _onInitialize_decorators;
       let _openRuleDocumentation_decorators;
       let _handleCodeAction_decorators;
@@ -29693,20 +30418,18 @@ var require_code_action_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _onInitialized_decorators = [(0, decorators_js_1.notification)(LSP.InitializedNotification.type)];
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          _openRuleDocumentation_decorators = [(0, decorators_js_1.command)(types_js_1.CommandId.OpenRuleDoc, { minArgs: 1 })];
-          _handleCodeAction_decorators = [(0, decorators_js_1.codeActionRequest)()];
-          __esDecorate(this, null, _onInitialized_decorators, { kind: "method", name: "onInitialized", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialized" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialized, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _openRuleDocumentation_decorators, { kind: "method", name: "openRuleDocumentation", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "openRuleDocumentation" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.openRuleDocumentation, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleCodeAction_decorators, { kind: "method", name: "handleCodeAction", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleCodeAction" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleCodeAction, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _onInitialize_decorators = [initialize()];
+          _openRuleDocumentation_decorators = [command(CommandId.OpenRuleDoc, { minArgs: 1 })];
+          _handleCodeAction_decorators = [codeActionRequest()];
+          __esDecorate18(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate18(this, null, _openRuleDocumentation_decorators, { kind: "method", name: "openRuleDocumentation", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "openRuleDocumentation" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.openRuleDocumentation, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate18(this, null, _handleCodeAction_decorators, { kind: "method", name: "handleCodeAction", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleCodeAction" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleCodeAction, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate18(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           CodeActionService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers18(_classThis, _classExtraInitializers);
         }
-        #documents = __runInitializers(this, _instanceExtraInitializers);
+        #documents = __runInitializers18(this, _instanceExtraInitializers);
         #options;
         #fixes;
         #diagnostics;
@@ -29724,24 +30447,17 @@ var require_code_action_service = __commonJS({
           this.#connection = connection2;
           this.#logger = loggingService.createLogger(CodeActionService2);
         }
-        onInitialized() {
-          void this.#connection.sendNotification(types_js_1.Notification.DidRegisterCodeActionRequestHandler).catch((error) => {
-            this.#logger?.error("Failed to send DidRegisterCodeActionRequestHandler notification", {
-              error
-            });
-          });
-        }
         onInitialize() {
           return {
             capabilities: {
               codeActionProvider: {
                 codeActionKinds: [
-                  LSP.CodeActionKind.QuickFix,
-                  types_js_1.CodeActionKind.StylelintSourceFixAll
+                  LSP4.CodeActionKind.QuickFix,
+                  CodeActionKind2.StylelintSourceFixAll
                 ]
               },
               executeCommandProvider: {
-                commands: [types_js_1.CommandId.OpenRuleDoc]
+                commands: [CommandId.OpenRuleDoc]
               }
             }
           };
@@ -29756,7 +30472,7 @@ var require_code_action_service = __commonJS({
           const response = await this.#connection.window.showDocument({ uri, external: true });
           if (!response.success) {
             this.#logger?.warn("Failed to open rule documentation", { uri });
-            return new LSP.ResponseError(LSP.ErrorCodes.InternalError, "Failed to open rule documentation");
+            return new LSP4.ResponseError(LSP4.ErrorCodes.InternalError, "Failed to open rule documentation");
           }
           return {};
         }
@@ -29787,7 +30503,7 @@ var require_code_action_service = __commonJS({
         async #getCodeActions(document, context) {
           const only = context.only && new Set(context.only);
           const fixAllActions = [];
-          if (only?.has(LSP.CodeActionKind.SourceFixAll) || only?.has(types_js_1.CodeActionKind.StylelintSourceFixAll)) {
+          if (only?.has(LSP4.CodeActionKind.SourceFixAll) || only?.has(CodeActionKind2.StylelintSourceFixAll)) {
             this.#logger?.debug('Creating "source-fix-all" code action');
             const action = await this.#getAutoFixAllAction(document);
             if (action) {
@@ -29796,23 +30512,23 @@ var require_code_action_service = __commonJS({
           } else {
             this.#logger?.debug("No source-fix-all actions requested, skipping");
           }
-          if (only?.has(LSP.CodeActionKind.Source)) {
+          if (only?.has(LSP4.CodeActionKind.Source)) {
             this.#logger?.debug('Creating "source" code action');
             fixAllActions.push(this.#getAutoFixAllCommandAction(document));
           } else {
             this.#logger?.debug("No source actions requested, skipping");
           }
-          if (only && !only.has(LSP.CodeActionKind.QuickFix) && !only.has(LSP.CodeActionKind.SourceFixAll) && !only.has(types_js_1.CodeActionKind.StylelintSourceFixAll) && !only.has(LSP.CodeActionKind.Source)) {
+          if (only && !only.has(LSP4.CodeActionKind.QuickFix) && !only.has(LSP4.CodeActionKind.SourceFixAll) && !only.has(CodeActionKind2.StylelintSourceFixAll) && !only.has(LSP4.CodeActionKind.Source)) {
             this.#logger?.debug("No quick fix actions requested, skipping quick fixes");
             return fixAllActions;
           }
-          const result = new index_js_2.RuleCodeActionsCollection();
+          const result = new RuleCodeActionsCollection();
           for (const diagnostic of context.diagnostics) {
             const { source, code } = diagnostic;
             if (source !== "Stylelint" || typeof code !== "string") {
               continue;
             }
-            if (!(0, index_js_3.isDisableReportRule)(code)) {
+            if (!isDisableReportRule(code)) {
               const options = await this.#options.getOptions(document.uri);
               const { location } = options.codeAction.disableRuleComment;
               result.get(code).disableLine = this.#disableRuleLineFactory.create(document, diagnostic, location);
@@ -29824,87 +30540,123 @@ var require_code_action_service = __commonJS({
               result.get(code).documentation = this.#getOpenRuleDocAction(diagnostic);
             }
           }
+          this.#addFixAllForRuleActions(document, result);
           return [...this.#getQuickFixActions(document, context), ...result, ...fixAllActions];
         }
         async #getAutoFixAllAction(document) {
           const edits = await this.#fixes.getFixes(document);
           const identifier = { uri: document.uri, version: document.version };
-          return edits.length > 0 ? LSP.CodeAction.create("Fix all Stylelint auto-fixable problems", { documentChanges: [LSP.TextDocumentEdit.create(identifier, edits)] }, types_js_1.CodeActionKind.StylelintSourceFixAll) : void 0;
+          return edits.length > 0 ? LSP4.CodeAction.create("Fix all Stylelint auto-fixable problems", { documentChanges: [LSP4.TextDocumentEdit.create(identifier, edits)] }, CodeActionKind2.StylelintSourceFixAll) : void 0;
         }
         #getAutoFixAllCommandAction(document) {
-          const lspCommand = LSP.Command.create("Fix all Stylelint auto-fixable problems", types_js_1.CommandId.ApplyAutoFix, { uri: document.uri, version: document.version });
-          return LSP.CodeAction.create("Fix all Stylelint auto-fixable problems", lspCommand, LSP.CodeActionKind.Source);
+          const lspCommand = LSP4.Command.create("Fix all Stylelint auto-fixable problems", CommandId.ApplyAutoFix, { uri: document.uri, version: document.version });
+          return LSP4.CodeAction.create("Fix all Stylelint auto-fixable problems", lspCommand, LSP4.CodeActionKind.Source);
         }
         #getQuickFixActions(document, context) {
           const identifier = { uri: document.uri, version: document.version };
           const actions = [];
           const lintResult = this.#diagnostics.getLintResult(document.uri);
           for (const diagnostic of context.diagnostics) {
-            const editInfo = (0, index_js_2.getEditInfo)(document, diagnostic, lintResult);
+            const editInfo = getEditInfo(document, diagnostic, lintResult);
             if (!editInfo) {
               continue;
             }
-            const action = LSP.CodeAction.create(editInfo.label, { documentChanges: [LSP.TextDocumentEdit.create(identifier, [editInfo.edit])] }, LSP.CodeActionKind.QuickFix);
+            const action = LSP4.CodeAction.create(editInfo.label, { documentChanges: [LSP4.TextDocumentEdit.create(identifier, [editInfo.edit])] }, LSP4.CodeActionKind.QuickFix);
             actions.push(action);
           }
           return actions;
+        }
+        #addFixAllForRuleActions(document, result) {
+          const lintResult = this.#diagnostics.getLintResult(document.uri);
+          if (!lintResult || document.version !== lintResult.version) {
+            return;
+          }
+          const allDiagnostics = this.#diagnostics.getDiagnostics(document.uri);
+          const editsByRule = /* @__PURE__ */ new Map();
+          for (const diagnostic of allDiagnostics) {
+            if (diagnostic.source !== "Stylelint" || typeof diagnostic.code !== "string") {
+              continue;
+            }
+            const editInfo = getEditInfo(document, diagnostic, lintResult);
+            if (!editInfo) {
+              continue;
+            }
+            const startOffset = document.offsetAt(editInfo.edit.range.start);
+            const endOffset = document.offsetAt(editInfo.edit.range.end);
+            let edits = editsByRule.get(diagnostic.code);
+            if (!edits) {
+              edits = [];
+              editsByRule.set(diagnostic.code, edits);
+            }
+            edits.push({ edit: editInfo.edit, startOffset, endOffset });
+          }
+          const identifier = { uri: document.uri, version: document.version };
+          for (const [rule, edits] of editsByRule) {
+            if (edits.length < 2) {
+              continue;
+            }
+            edits.sort((a, b) => a.startOffset - b.startOffset);
+            const nonOverlapping = [];
+            let lastEnd = -1;
+            for (const entry of edits) {
+              if (entry.startOffset >= lastEnd) {
+                nonOverlapping.push(entry.edit);
+                lastEnd = entry.endOffset;
+              }
+            }
+            if (nonOverlapping.length < 2) {
+              continue;
+            }
+            result.get(rule).fixAll = LSP4.CodeAction.create(`Fix all ${rule} problems`, { documentChanges: [LSP4.TextDocumentEdit.create(identifier, nonOverlapping)] }, LSP4.CodeActionKind.QuickFix);
+          }
         }
         #getOpenRuleDocAction({ code, codeDescription }) {
           const uri = codeDescription?.href;
           if (!uri) {
             return void 0;
           }
-          const lspCommand = LSP.Command.create(`Open documentation for ${code}`, types_js_1.CommandId.OpenRuleDoc, {
+          const lspCommand = LSP4.Command.create(`Open documentation for ${code}`, CommandId.OpenRuleDoc, {
             uri
           });
-          return LSP.CodeAction.create(`Show documentation for ${code}`, lspCommand, LSP.CodeActionKind.QuickFix);
+          return LSP4.CodeAction.create(`Show documentation for ${code}`, lspCommand, LSP4.CodeActionKind.QuickFix);
         }
       };
       return CodeActionService2 = _classThis;
     })();
-    exports2.CodeActionService = CodeActionService;
   }
 });
 
-// build/server/services/lsp/code-actions/index.js
-var require_code_actions = __commonJS({
-  "build/server/services/lsp/code-actions/index.js"(exports2) {
+// packages/language-server/build/server/services/lsp/code-actions/index.js
+var init_code_actions = __esm({
+  "packages/language-server/build/server/services/lsp/code-actions/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_code_action_service(), exports2);
-    __exportStar(require_disable_rule_file_code_action_service(), exports2);
-    __exportStar(require_disable_rule_line_code_action_service(), exports2);
+    init_code_action_service();
+    init_disable_rule_file_code_action_service();
+    init_disable_rule_line_code_action_service();
   }
 });
 
-// build/server/services/lsp/auto-fix.service.js
-var require_auto_fix_service = __commonJS({
-  "build/server/services/lsp/auto-fix.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/auto-fix.service.js
+var import_vscode_languageserver_protocol2, __runInitializers19, __esDecorate19, AutoFixService;
+var init_auto_fix_service = __esm({
+  "packages/language-server/build/server/services/lsp/auto-fix.service.js"() {
     "use strict";
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    import_vscode_languageserver_protocol2 = __toESM(require_main3(), 1);
+    init_di();
+    init_decorators2();
+    init_tokens2();
+    init_types7();
+    init_document_fixes_service();
+    init_logging_service();
+    init_workspace_options_service();
+    __runInitializers19 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate19 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -29937,24 +30689,14 @@ var require_auto_fix_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.AutoFixService = void 0;
-    var vscode_languageserver_protocol_1 = require_main3();
-    var index_js_12 = require_di();
-    var decorators_js_1 = require_decorators2();
-    var tokens_js_1 = require_tokens2();
-    var types_js_1 = require_types7();
-    var document_fixes_service_js_1 = require_document_fixes_service();
-    var logging_service_js_1 = require_logging_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var AutoFixService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    AutoFixService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          tokens_js_1.textDocumentsToken,
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          document_fixes_service_js_1.DocumentFixesService,
-          tokens_js_1.lspConnectionToken,
-          logging_service_js_1.loggingServiceToken
+          textDocumentsToken,
+          WorkspaceOptionsService,
+          DocumentFixesService,
+          lspConnectionToken,
+          loggingServiceToken
         ]
       })];
       let _classDescriptor;
@@ -29972,16 +30714,16 @@ var require_auto_fix_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          _applyAutoFix_decorators = [(0, decorators_js_1.command)(types_js_1.CommandId.ApplyAutoFix, { minArgs: 1 })];
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _applyAutoFix_decorators, { kind: "method", name: "applyAutoFix", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "applyAutoFix" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.applyAutoFix, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _onInitialize_decorators = [initialize()];
+          _applyAutoFix_decorators = [command(CommandId.ApplyAutoFix, { minArgs: 1 })];
+          __esDecorate19(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate19(this, null, _applyAutoFix_decorators, { kind: "method", name: "applyAutoFix", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "applyAutoFix" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.applyAutoFix, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate19(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           AutoFixService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers19(_classThis, _classExtraInitializers);
         }
-        #documents = __runInitializers(this, _instanceExtraInitializers);
+        #documents = __runInitializers19(this, _instanceExtraInitializers);
         #options;
         #fixes;
         #connection;
@@ -30004,7 +30746,7 @@ var require_auto_fix_service = __commonJS({
           return {
             capabilities: {
               executeCommandProvider: {
-                commands: [types_js_1.CommandId.ApplyAutoFix]
+                commands: [CommandId.ApplyAutoFix]
               }
             }
           };
@@ -30031,7 +30773,7 @@ var require_auto_fix_service = __commonJS({
             });
             return;
           }
-          const workspaceChange = new vscode_languageserver_protocol_1.WorkspaceChange();
+          const workspaceChange = new import_vscode_languageserver_protocol2.WorkspaceChange();
           const textChange = workspaceChange.getTextEditChange(identifier);
           const edits = await this.#fixes.getFixes(document);
           edits.forEach((edit) => textChange.add(edit));
@@ -30048,40 +30790,31 @@ var require_auto_fix_service = __commonJS({
       };
       return AutoFixService2 = _classThis;
     })();
-    exports2.AutoFixService = AutoFixService;
   }
 });
 
-// build/server/services/lsp/completion.service.js
-var require_completion_service = __commonJS({
-  "build/server/services/lsp/completion.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/completion.service.js
+var LSP5, __runInitializers20, __esDecorate20, CompletionService;
+var init_completion_service = __esm({
+  "packages/language-server/build/server/services/lsp/completion.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    LSP5 = __toESM(require_main3(), 1);
+    init_di();
+    init_utils();
+    init_decorators2();
+    init_stylelint();
+    init_tokens2();
+    init_document_diagnostics_service();
+    init_logging_service();
+    init_workspace_options_service();
+    __runInitializers20 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate20 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -30114,43 +30847,13 @@ var require_completion_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.CompletionService = void 0;
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var decorators_js_1 = require_decorators2();
-    var index_js_3 = require_stylelint();
-    var tokens_js_1 = require_tokens2();
-    var document_diagnostics_service_js_1 = require_document_diagnostics_service();
-    var logging_service_js_1 = require_logging_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var CompletionService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    CompletionService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          tokens_js_1.textDocumentsToken,
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          document_diagnostics_service_js_1.DocumentDiagnosticsService,
-          logging_service_js_1.loggingServiceToken
+          textDocumentsToken,
+          WorkspaceOptionsService,
+          DocumentDiagnosticsService,
+          loggingServiceToken
         ]
       })];
       let _classDescriptor;
@@ -30168,16 +30871,16 @@ var require_completion_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          _handleCompletion_decorators = [(0, decorators_js_1.completionRequest)()];
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleCompletion_decorators, { kind: "method", name: "handleCompletion", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleCompletion" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleCompletion, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _onInitialize_decorators = [initialize()];
+          _handleCompletion_decorators = [completionRequest()];
+          __esDecorate20(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate20(this, null, _handleCompletion_decorators, { kind: "method", name: "handleCompletion", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleCompletion" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleCompletion, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate20(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           CompletionService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers20(_classThis, _classExtraInitializers);
         }
-        #documents = __runInitializers(this, _instanceExtraInitializers);
+        #documents = __runInitializers20(this, _instanceExtraInitializers);
         #options;
         #diagnostics;
         #logger;
@@ -30219,9 +30922,9 @@ var require_completion_service = __commonJS({
           const diagnostics = this.#diagnostics.getDiagnostics(uri);
           if (!diagnostics || diagnostics.length === 0) {
             const items = [
-              (0, index_js_2.createDisableCompletionItem)("stylelint-disable-line"),
-              (0, index_js_2.createDisableCompletionItem)("stylelint-disable-next-line"),
-              (0, index_js_2.createDisableCompletionItem)("stylelint-disable")
+              createDisableCompletionItem("stylelint-disable-line"),
+              createDisableCompletionItem("stylelint-disable-next-line"),
+              createDisableCompletionItem("stylelint-disable")
             ];
             this.#logger?.debug("No diagnostics for document, returning generic completion items", {
               uri,
@@ -30231,10 +30934,10 @@ var require_completion_service = __commonJS({
           }
           const thisLineRules = /* @__PURE__ */ new Set();
           const nextLineRules = /* @__PURE__ */ new Set();
-          const disableTable = new index_js_3.DisableMetadataLookupTable(diagnostics);
+          const disableTable = new DisableMetadataLookupTable(diagnostics);
           for (const { code, range } of diagnostics) {
             if (!code || typeof code !== "string" || code === "CssSyntaxError" || disableTable.find({
-              type: index_js_3.DisableReportRuleNames.Needless,
+              type: DisableReportRuleNames.Needless,
               rule: code,
               range
             }).size > 0) {
@@ -30249,13 +30952,13 @@ var require_completion_service = __commonJS({
           return this.#createCompletionItems(document, position, thisLineRules, nextLineRules);
         }
         #createCompletionItems(document, position, thisLineRules, nextLineRules) {
-          const disableType = (0, index_js_2.getDisableType)(document, position);
+          const disableType = getDisableType(document, position);
           const results = [];
           if (disableType === "stylelint-disable-line") {
             for (const rule of thisLineRules) {
               results.push({
                 label: rule,
-                kind: LSP.CompletionItemKind.Snippet,
+                kind: LSP5.CompletionItemKind.Snippet,
                 detail: `disable ${rule} rule. (Stylelint)`
               });
             }
@@ -30263,14 +30966,14 @@ var require_completion_service = __commonJS({
             for (const rule of nextLineRules) {
               results.push({
                 label: rule,
-                kind: LSP.CompletionItemKind.Snippet,
+                kind: LSP5.CompletionItemKind.Snippet,
                 detail: `disable ${rule} rule. (Stylelint)`
               });
             }
           } else {
-            results.push((0, index_js_2.createDisableCompletionItem)("stylelint-disable-line", thisLineRules.size === 1 ? thisLineRules.values().next().value : void 0));
-            results.push((0, index_js_2.createDisableCompletionItem)("stylelint-disable-next-line", nextLineRules.size === 1 ? nextLineRules.values().next().value : void 0));
-            results.push((0, index_js_2.createDisableCompletionItem)("stylelint-disable"));
+            results.push(createDisableCompletionItem("stylelint-disable-line", thisLineRules.size === 1 ? thisLineRules.values().next().value : void 0));
+            results.push(createDisableCompletionItem("stylelint-disable-next-line", nextLineRules.size === 1 ? nextLineRules.values().next().value : void 0));
+            results.push(createDisableCompletionItem("stylelint-disable"));
           }
           this.#logger?.debug("Returning completion items", { uri: document.uri, results });
           return results;
@@ -30278,40 +30981,29 @@ var require_completion_service = __commonJS({
       };
       return CompletionService2 = _classThis;
     })();
-    exports2.CompletionService = CompletionService;
   }
 });
 
-// build/server/services/lsp/formatter.service.js
-var require_formatter_service = __commonJS({
-  "build/server/services/lsp/formatter.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/empty-config-warning.service.js
+var __runInitializers21, __esDecorate21, EmptyConfigWarningLspService;
+var init_empty_config_warning_service = __esm({
+  "packages/language-server/build/server/services/lsp/empty-config-warning.service.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    init_di();
+    init_decorators2();
+    init_tokens2();
+    init_utils();
+    init_logging_service();
+    init_workspace_folder_service();
+    init_workspace_options_service();
+    __runInitializers21 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate21 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -30344,45 +31036,177 @@ var require_formatter_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.FormatterLspService = void 0;
-    var LSP = __importStar(require_main3());
-    var index_js_12 = require_di();
-    var decorators_js_1 = require_decorators2();
-    var index_js_2 = require_stylelint();
-    var tokens_js_1 = require_tokens2();
-    var types_js_1 = require_types7();
-    var document_fixes_service_js_1 = require_document_fixes_service();
-    var logging_service_js_1 = require_logging_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var FormatterLspService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    EmptyConfigWarningLspService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          tokens_js_1.textDocumentsToken,
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          document_fixes_service_js_1.DocumentFixesService,
-          tokens_js_1.lspConnectionToken,
-          tokens_js_1.UriModuleToken,
-          logging_service_js_1.loggingServiceToken
+          WorkspaceOptionsService,
+          WorkspaceFolderService,
+          lspConnectionToken,
+          loggingServiceToken
+        ]
+      })];
+      let _classDescriptor;
+      let _classExtraInitializers = [];
+      let _classThis;
+      let _instanceExtraInitializers = [];
+      let _handleDocumentOpened_decorators;
+      let _onInitialize_decorators;
+      var EmptyConfigWarningLspService2 = class {
+        static {
+          __name(this, "EmptyConfigWarningLspService");
+        }
+        static {
+          _classThis = this;
+        }
+        static {
+          const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+          _handleDocumentOpened_decorators = [textDocumentEvent("onDidOpen")];
+          _onInitialize_decorators = [initialize()];
+          __esDecorate21(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate21(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate21(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          EmptyConfigWarningLspService2 = _classThis = _classDescriptor.value;
+          if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+          __runInitializers21(_classThis, _classExtraInitializers);
+        }
+        #options = __runInitializers21(this, _instanceExtraInitializers);
+        #workspaceFolderService;
+        #connection;
+        #logger;
+        #warnedWorkspaces = /* @__PURE__ */ new Set();
+        #isVSCode = false;
+        #canShowDocument = false;
+        constructor(options, workspaceFolderService, connection2, loggingService) {
+          this.#options = options;
+          this.#workspaceFolderService = workspaceFolderService;
+          this.#connection = connection2;
+          this.#logger = loggingService.createLogger(EmptyConfigWarningLspService2);
+        }
+        async handleDocumentOpened({ document }) {
+          const hasEmptyConfig = await this.#check(document);
+          if (hasEmptyConfig) {
+            await this.#showWarning();
+          }
+        }
+        onInitialize(params) {
+          this.#isVSCode = params?.clientInfo?.name === "Visual Studio Code";
+          this.#canShowDocument = params?.capabilities.window?.showDocument?.support ?? false;
+        }
+        async #check(document) {
+          const workspaceFolder = await this.#workspaceFolderService.getWorkspaceFolder(this.#connection, document);
+          if (!workspaceFolder) {
+            this.#logger?.debug("Document not part of a workspace, ignoring", {
+              uri: document.uri
+            });
+            return false;
+          }
+          if (this.#warnedWorkspaces.has(workspaceFolder)) {
+            this.#logger?.debug("Already warned about empty config in this workspace", {
+              uri: document.uri
+            });
+            return false;
+          }
+          const options = await this.#options.getOptions(document.uri);
+          if (!isEmptyObject(options.config)) {
+            this.#logger?.debug("Config is not an empty object", {
+              uri: document.uri,
+              configType: typeof options.config,
+              configIsNull: options.config === null
+            });
+            return false;
+          }
+          this.#warnedWorkspaces.add(workspaceFolder);
+          this.#logger?.debug("Detected empty config object", { uri: document.uri });
+          return true;
+        }
+        async #showWarning() {
+          this.#logger?.warn('The "stylelint.config" setting is set to an empty object, overriding config file lookup');
+          const message = 'The "stylelint.config" setting is set to an empty object ({}). This overrides config file lookup and may cause "No rules found" errors. Remove this setting from User, Remote, or Workspace settings to let Stylelint find your configuration file.';
+          if (!this.#isVSCode || !this.#canShowDocument) {
+            this.#connection.window.showWarningMessage(message);
+            return;
+          }
+          const warningResponse = await this.#connection.window.showWarningMessage(message, {
+            title: "Open Settings"
+          });
+          if (warningResponse?.title === "Open Settings") {
+            const showDocumentResponse = await this.#connection.window.showDocument({
+              uri: "vscode://settings/stylelint.config",
+              external: true
+            });
+            if (!showDocumentResponse.success) {
+              this.#logger?.warn("Failed to open VS Code settings");
+            }
+          }
+        }
+      };
+      return EmptyConfigWarningLspService2 = _classThis;
+    })();
+  }
+});
+
+// packages/language-server/build/server/services/lsp/formatter.service.js
+var LSP6, __runInitializers22, __esDecorate22, FormatterLspService;
+var init_formatter_service = __esm({
+  "packages/language-server/build/server/services/lsp/formatter.service.js"() {
+    "use strict";
+    LSP6 = __toESM(require_main3(), 1);
+    init_di();
+    init_decorators2();
+    init_stylelint();
+    init_tokens2();
+    init_document_fixes_service();
+    init_logging_service();
+    init_workspace_options_service();
+    __runInitializers22 = function(thisArg, initializers, value) {
+      var useValue = arguments.length > 2;
+      for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+      }
+      return useValue ? value : void 0;
+    };
+    __esDecorate22 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+      function accept(f) {
+        if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+        return f;
+      }
+      __name(accept, "accept");
+      var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+      var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+      var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+      var _, done = false;
+      for (var i = decorators.length - 1; i >= 0; i--) {
+        var context = {};
+        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+        context.addInitializer = function(f) {
+          if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+          extraInitializers.push(accept(f || null));
+        };
+        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+        if (kind === "accessor") {
+          if (result === void 0) continue;
+          if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+          if (_ = accept(result.get)) descriptor.get = _;
+          if (_ = accept(result.set)) descriptor.set = _;
+          if (_ = accept(result.init)) initializers.unshift(_);
+        } else if (_ = accept(result)) {
+          if (kind === "field") initializers.unshift(_);
+          else descriptor[key] = _;
+        }
+      }
+      if (target) Object.defineProperty(target, contextIn.name, descriptor);
+      done = true;
+    };
+    FormatterLspService = (() => {
+      let _classDecorators = [lspService(), inject({
+        inject: [
+          textDocumentsToken,
+          WorkspaceOptionsService,
+          DocumentFixesService,
+          lspConnectionToken,
+          UriModuleToken,
+          loggingServiceToken
         ]
       })];
       let _classDescriptor;
@@ -30403,22 +31227,22 @@ var require_formatter_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          _handleDocumentRegistration_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidOpen"), (0, decorators_js_1.textDocumentEvent)("onDidChangeContent"), (0, decorators_js_1.textDocumentEvent)("onDidSave")];
-          _handleDocumentClosed_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidClose")];
-          _deregisterAll_decorators = [(0, decorators_js_1.notification)(LSP.DidChangeConfigurationNotification.type), (0, decorators_js_1.notification)(LSP.DidChangeWorkspaceFoldersNotification.type), (0, decorators_js_1.shutdown)()];
-          _handleDocumentFormatting_decorators = [(0, decorators_js_1.documentFormattingRequest)()];
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleDocumentRegistration_decorators, { kind: "method", name: "handleDocumentRegistration", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentRegistration" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentRegistration, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleDocumentClosed_decorators, { kind: "method", name: "handleDocumentClosed", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentClosed" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentClosed, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _deregisterAll_decorators, { kind: "method", name: "deregisterAll", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "deregisterAll" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.deregisterAll, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleDocumentFormatting_decorators, { kind: "method", name: "handleDocumentFormatting", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentFormatting" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentFormatting, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _onInitialize_decorators = [initialize()];
+          _handleDocumentRegistration_decorators = [textDocumentEvent("onDidOpen"), textDocumentEvent("onDidChangeContent"), textDocumentEvent("onDidSave")];
+          _handleDocumentClosed_decorators = [textDocumentEvent("onDidClose")];
+          _deregisterAll_decorators = [notification(LSP6.DidChangeConfigurationNotification.type), notification(LSP6.DidChangeWorkspaceFoldersNotification.type), shutdown()];
+          _handleDocumentFormatting_decorators = [documentFormattingRequest()];
+          __esDecorate22(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate22(this, null, _handleDocumentRegistration_decorators, { kind: "method", name: "handleDocumentRegistration", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentRegistration" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentRegistration, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate22(this, null, _handleDocumentClosed_decorators, { kind: "method", name: "handleDocumentClosed", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentClosed" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentClosed, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate22(this, null, _deregisterAll_decorators, { kind: "method", name: "deregisterAll", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "deregisterAll" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.deregisterAll, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate22(this, null, _handleDocumentFormatting_decorators, { kind: "method", name: "handleDocumentFormatting", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentFormatting" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentFormatting, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate22(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           FormatterLspService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers22(_classThis, _classExtraInitializers);
         }
-        #documents = __runInitializers(this, _instanceExtraInitializers);
+        #documents = __runInitializers22(this, _instanceExtraInitializers);
         #options;
         #fixes;
         #connection;
@@ -30463,12 +31287,11 @@ var require_formatter_service = __commonJS({
           const options = {
             documentSelector: [filter]
           };
-          this.#registrations.set(document.uri, this.#connection.client.register(LSP.DocumentFormattingRequest.type, options));
+          this.#registrations.set(document.uri, this.#connection.client.register(LSP6.DocumentFormattingRequest.type, options));
           this.#logger?.debug("Registering formatter for document", {
             uri: document.uri,
             options
           });
-          await this.#connection.sendNotification(types_js_1.Notification.DidRegisterDocumentFormattingEditProvider, { uri: document.uri, options });
         }
         #deregister(uri) {
           const registration = this.#registrations.get(uri);
@@ -30518,7 +31341,7 @@ var require_formatter_service = __commonJS({
             return null;
           }
           const resolvedConfig = await this.#fixes.resolveConfig(document);
-          const formattingRules = (0, index_js_2.formattingOptionsToRules)(options);
+          const formattingRules = formattingOptionsToRules(options);
           const mergedConfig = resolvedConfig ? {
             customSyntax: resolvedConfig.customSyntax,
             rules: {
@@ -30536,13 +31359,12 @@ var require_formatter_service = __commonJS({
       };
       return FormatterLspService2 = _classThis;
     })();
-    exports2.FormatterLspService = FormatterLspService;
   }
 });
 
 // node_modules/semver/internal/constants.js
 var require_constants = __commonJS({
-  "node_modules/semver/internal/constants.js"(exports2, module2) {
+  "node_modules/semver/internal/constants.js"(exports2, module3) {
     "use strict";
     var SEMVER_SPEC_VERSION = "2.0.0";
     var MAX_LENGTH = 256;
@@ -30559,7 +31381,7 @@ var require_constants = __commonJS({
       "prepatch",
       "prerelease"
     ];
-    module2.exports = {
+    module3.exports = {
       MAX_LENGTH,
       MAX_SAFE_COMPONENT_LENGTH,
       MAX_SAFE_BUILD_LENGTH,
@@ -30574,17 +31396,17 @@ var require_constants = __commonJS({
 
 // node_modules/semver/internal/debug.js
 var require_debug = __commonJS({
-  "node_modules/semver/internal/debug.js"(exports2, module2) {
+  "node_modules/semver/internal/debug.js"(exports2, module3) {
     "use strict";
     var debug = typeof process === "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
     };
-    module2.exports = debug;
+    module3.exports = debug;
   }
 });
 
 // node_modules/semver/internal/re.js
 var require_re = __commonJS({
-  "node_modules/semver/internal/re.js"(exports2, module2) {
+  "node_modules/semver/internal/re.js"(exports2, module3) {
     "use strict";
     var {
       MAX_SAFE_COMPONENT_LENGTH,
@@ -30592,7 +31414,7 @@ var require_re = __commonJS({
       MAX_LENGTH
     } = require_constants();
     var debug = require_debug();
-    exports2 = module2.exports = {};
+    exports2 = module3.exports = {};
     var re = exports2.re = [];
     var safeRe = exports2.safeRe = [];
     var src = exports2.src = [];
@@ -30611,7 +31433,7 @@ var require_re = __commonJS({
       }
       return value;
     }, "makeSafeRegex");
-    var createToken = /* @__PURE__ */ __name((name, value, isGlobal) => {
+    var createToken2 = /* @__PURE__ */ __name((name, value, isGlobal) => {
       const safe = makeSafeRegex(value);
       const index = R++;
       debug(name, index, value);
@@ -30621,58 +31443,58 @@ var require_re = __commonJS({
       re[index] = new RegExp(value, isGlobal ? "g" : void 0);
       safeRe[index] = new RegExp(safe, isGlobal ? "g" : void 0);
     }, "createToken");
-    createToken("NUMERICIDENTIFIER", "0|[1-9]\\d*");
-    createToken("NUMERICIDENTIFIERLOOSE", "\\d+");
-    createToken("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${LETTERDASHNUMBER}*`);
-    createToken("MAINVERSION", `(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})`);
-    createToken("MAINVERSIONLOOSE", `(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASEIDENTIFIER", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIER]})`);
-    createToken("PRERELEASEIDENTIFIERLOOSE", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASE", `(?:-(${src[t.PRERELEASEIDENTIFIER]}(?:\\.${src[t.PRERELEASEIDENTIFIER]})*))`);
-    createToken("PRERELEASELOOSE", `(?:-?(${src[t.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t.PRERELEASEIDENTIFIERLOOSE]})*))`);
-    createToken("BUILDIDENTIFIER", `${LETTERDASHNUMBER}+`);
-    createToken("BUILD", `(?:\\+(${src[t.BUILDIDENTIFIER]}(?:\\.${src[t.BUILDIDENTIFIER]})*))`);
-    createToken("FULLPLAIN", `v?${src[t.MAINVERSION]}${src[t.PRERELEASE]}?${src[t.BUILD]}?`);
-    createToken("FULL", `^${src[t.FULLPLAIN]}$`);
-    createToken("LOOSEPLAIN", `[v=\\s]*${src[t.MAINVERSIONLOOSE]}${src[t.PRERELEASELOOSE]}?${src[t.BUILD]}?`);
-    createToken("LOOSE", `^${src[t.LOOSEPLAIN]}$`);
-    createToken("GTLT", "((?:<|>)?=?)");
-    createToken("XRANGEIDENTIFIERLOOSE", `${src[t.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`);
-    createToken("XRANGEIDENTIFIER", `${src[t.NUMERICIDENTIFIER]}|x|X|\\*`);
-    createToken("XRANGEPLAIN", `[v=\\s]*(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:${src[t.PRERELEASE]})?${src[t.BUILD]}?)?)?`);
-    createToken("XRANGEPLAINLOOSE", `[v=\\s]*(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:${src[t.PRERELEASELOOSE]})?${src[t.BUILD]}?)?)?`);
-    createToken("XRANGE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAIN]}$`);
-    createToken("XRANGELOOSE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAINLOOSE]}$`);
-    createToken("COERCEPLAIN", `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?`);
-    createToken("COERCE", `${src[t.COERCEPLAIN]}(?:$|[^\\d])`);
-    createToken("COERCEFULL", src[t.COERCEPLAIN] + `(?:${src[t.PRERELEASE]})?(?:${src[t.BUILD]})?(?:$|[^\\d])`);
-    createToken("COERCERTL", src[t.COERCE], true);
-    createToken("COERCERTLFULL", src[t.COERCEFULL], true);
-    createToken("LONETILDE", "(?:~>?)");
-    createToken("TILDETRIM", `(\\s*)${src[t.LONETILDE]}\\s+`, true);
+    createToken2("NUMERICIDENTIFIER", "0|[1-9]\\d*");
+    createToken2("NUMERICIDENTIFIERLOOSE", "\\d+");
+    createToken2("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${LETTERDASHNUMBER}*`);
+    createToken2("MAINVERSION", `(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})`);
+    createToken2("MAINVERSIONLOOSE", `(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})`);
+    createToken2("PRERELEASEIDENTIFIER", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIER]})`);
+    createToken2("PRERELEASEIDENTIFIERLOOSE", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIERLOOSE]})`);
+    createToken2("PRERELEASE", `(?:-(${src[t.PRERELEASEIDENTIFIER]}(?:\\.${src[t.PRERELEASEIDENTIFIER]})*))`);
+    createToken2("PRERELEASELOOSE", `(?:-?(${src[t.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t.PRERELEASEIDENTIFIERLOOSE]})*))`);
+    createToken2("BUILDIDENTIFIER", `${LETTERDASHNUMBER}+`);
+    createToken2("BUILD", `(?:\\+(${src[t.BUILDIDENTIFIER]}(?:\\.${src[t.BUILDIDENTIFIER]})*))`);
+    createToken2("FULLPLAIN", `v?${src[t.MAINVERSION]}${src[t.PRERELEASE]}?${src[t.BUILD]}?`);
+    createToken2("FULL", `^${src[t.FULLPLAIN]}$`);
+    createToken2("LOOSEPLAIN", `[v=\\s]*${src[t.MAINVERSIONLOOSE]}${src[t.PRERELEASELOOSE]}?${src[t.BUILD]}?`);
+    createToken2("LOOSE", `^${src[t.LOOSEPLAIN]}$`);
+    createToken2("GTLT", "((?:<|>)?=?)");
+    createToken2("XRANGEIDENTIFIERLOOSE", `${src[t.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`);
+    createToken2("XRANGEIDENTIFIER", `${src[t.NUMERICIDENTIFIER]}|x|X|\\*`);
+    createToken2("XRANGEPLAIN", `[v=\\s]*(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:${src[t.PRERELEASE]})?${src[t.BUILD]}?)?)?`);
+    createToken2("XRANGEPLAINLOOSE", `[v=\\s]*(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:${src[t.PRERELEASELOOSE]})?${src[t.BUILD]}?)?)?`);
+    createToken2("XRANGE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAIN]}$`);
+    createToken2("XRANGELOOSE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAINLOOSE]}$`);
+    createToken2("COERCEPLAIN", `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?`);
+    createToken2("COERCE", `${src[t.COERCEPLAIN]}(?:$|[^\\d])`);
+    createToken2("COERCEFULL", src[t.COERCEPLAIN] + `(?:${src[t.PRERELEASE]})?(?:${src[t.BUILD]})?(?:$|[^\\d])`);
+    createToken2("COERCERTL", src[t.COERCE], true);
+    createToken2("COERCERTLFULL", src[t.COERCEFULL], true);
+    createToken2("LONETILDE", "(?:~>?)");
+    createToken2("TILDETRIM", `(\\s*)${src[t.LONETILDE]}\\s+`, true);
     exports2.tildeTrimReplace = "$1~";
-    createToken("TILDE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAIN]}$`);
-    createToken("TILDELOOSE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAINLOOSE]}$`);
-    createToken("LONECARET", "(?:\\^)");
-    createToken("CARETTRIM", `(\\s*)${src[t.LONECARET]}\\s+`, true);
+    createToken2("TILDE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAIN]}$`);
+    createToken2("TILDELOOSE", `^${src[t.LONETILDE]}${src[t.XRANGEPLAINLOOSE]}$`);
+    createToken2("LONECARET", "(?:\\^)");
+    createToken2("CARETTRIM", `(\\s*)${src[t.LONECARET]}\\s+`, true);
     exports2.caretTrimReplace = "$1^";
-    createToken("CARET", `^${src[t.LONECARET]}${src[t.XRANGEPLAIN]}$`);
-    createToken("CARETLOOSE", `^${src[t.LONECARET]}${src[t.XRANGEPLAINLOOSE]}$`);
-    createToken("COMPARATORLOOSE", `^${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]})$|^$`);
-    createToken("COMPARATOR", `^${src[t.GTLT]}\\s*(${src[t.FULLPLAIN]})$|^$`);
-    createToken("COMPARATORTRIM", `(\\s*)${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]}|${src[t.XRANGEPLAIN]})`, true);
+    createToken2("CARET", `^${src[t.LONECARET]}${src[t.XRANGEPLAIN]}$`);
+    createToken2("CARETLOOSE", `^${src[t.LONECARET]}${src[t.XRANGEPLAINLOOSE]}$`);
+    createToken2("COMPARATORLOOSE", `^${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]})$|^$`);
+    createToken2("COMPARATOR", `^${src[t.GTLT]}\\s*(${src[t.FULLPLAIN]})$|^$`);
+    createToken2("COMPARATORTRIM", `(\\s*)${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]}|${src[t.XRANGEPLAIN]})`, true);
     exports2.comparatorTrimReplace = "$1$2$3";
-    createToken("HYPHENRANGE", `^\\s*(${src[t.XRANGEPLAIN]})\\s+-\\s+(${src[t.XRANGEPLAIN]})\\s*$`);
-    createToken("HYPHENRANGELOOSE", `^\\s*(${src[t.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t.XRANGEPLAINLOOSE]})\\s*$`);
-    createToken("STAR", "(<|>)?=?\\s*\\*");
-    createToken("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
-    createToken("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
+    createToken2("HYPHENRANGE", `^\\s*(${src[t.XRANGEPLAIN]})\\s+-\\s+(${src[t.XRANGEPLAIN]})\\s*$`);
+    createToken2("HYPHENRANGELOOSE", `^\\s*(${src[t.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t.XRANGEPLAINLOOSE]})\\s*$`);
+    createToken2("STAR", "(<|>)?=?\\s*\\*");
+    createToken2("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
+    createToken2("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
   }
 });
 
 // node_modules/semver/internal/parse-options.js
 var require_parse_options = __commonJS({
-  "node_modules/semver/internal/parse-options.js"(exports2, module2) {
+  "node_modules/semver/internal/parse-options.js"(exports2, module3) {
     "use strict";
     var looseOption = Object.freeze({ loose: true });
     var emptyOpts = Object.freeze({});
@@ -30685,13 +31507,13 @@ var require_parse_options = __commonJS({
       }
       return options;
     }, "parseOptions");
-    module2.exports = parseOptions;
+    module3.exports = parseOptions;
   }
 });
 
 // node_modules/semver/internal/identifiers.js
 var require_identifiers = __commonJS({
-  "node_modules/semver/internal/identifiers.js"(exports2, module2) {
+  "node_modules/semver/internal/identifiers.js"(exports2, module3) {
     "use strict";
     var numeric = /^[0-9]+$/;
     var compareIdentifiers = /* @__PURE__ */ __name((a, b) => {
@@ -30707,7 +31529,7 @@ var require_identifiers = __commonJS({
       return a === b ? 0 : anum && !bnum ? -1 : bnum && !anum ? 1 : a < b ? -1 : 1;
     }, "compareIdentifiers");
     var rcompareIdentifiers = /* @__PURE__ */ __name((a, b) => compareIdentifiers(b, a), "rcompareIdentifiers");
-    module2.exports = {
+    module3.exports = {
       compareIdentifiers,
       rcompareIdentifiers
     };
@@ -30716,7 +31538,7 @@ var require_identifiers = __commonJS({
 
 // node_modules/semver/classes/semver.js
 var require_semver = __commonJS({
-  "node_modules/semver/classes/semver.js"(exports2, module2) {
+  "node_modules/semver/classes/semver.js"(exports2, module3) {
     "use strict";
     var debug = require_debug();
     var { MAX_LENGTH, MAX_SAFE_INTEGER } = require_constants();
@@ -30992,13 +31814,13 @@ var require_semver = __commonJS({
         return this;
       }
     };
-    module2.exports = SemVer;
+    module3.exports = SemVer;
   }
 });
 
 // node_modules/semver/functions/parse.js
 var require_parse = __commonJS({
-  "node_modules/semver/functions/parse.js"(exports2, module2) {
+  "node_modules/semver/functions/parse.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var parse = /* @__PURE__ */ __name((version, options, throwErrors = false) => {
@@ -31014,39 +31836,39 @@ var require_parse = __commonJS({
         throw er;
       }
     }, "parse");
-    module2.exports = parse;
+    module3.exports = parse;
   }
 });
 
 // node_modules/semver/functions/valid.js
 var require_valid = __commonJS({
-  "node_modules/semver/functions/valid.js"(exports2, module2) {
+  "node_modules/semver/functions/valid.js"(exports2, module3) {
     "use strict";
     var parse = require_parse();
     var valid = /* @__PURE__ */ __name((version, options) => {
       const v = parse(version, options);
       return v ? v.version : null;
     }, "valid");
-    module2.exports = valid;
+    module3.exports = valid;
   }
 });
 
 // node_modules/semver/functions/clean.js
 var require_clean = __commonJS({
-  "node_modules/semver/functions/clean.js"(exports2, module2) {
+  "node_modules/semver/functions/clean.js"(exports2, module3) {
     "use strict";
     var parse = require_parse();
     var clean = /* @__PURE__ */ __name((version, options) => {
       const s = parse(version.trim().replace(/^[=v]+/, ""), options);
       return s ? s.version : null;
     }, "clean");
-    module2.exports = clean;
+    module3.exports = clean;
   }
 });
 
 // node_modules/semver/functions/inc.js
 var require_inc = __commonJS({
-  "node_modules/semver/functions/inc.js"(exports2, module2) {
+  "node_modules/semver/functions/inc.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var inc = /* @__PURE__ */ __name((version, release, options, identifier, identifierBase) => {
@@ -31064,16 +31886,16 @@ var require_inc = __commonJS({
         return null;
       }
     }, "inc");
-    module2.exports = inc;
+    module3.exports = inc;
   }
 });
 
 // node_modules/semver/functions/diff.js
 var require_diff2 = __commonJS({
-  "node_modules/semver/functions/diff.js"(exports2, module2) {
+  "node_modules/semver/functions/diff.js"(exports2, module3) {
     "use strict";
     var parse = require_parse();
-    var diff = /* @__PURE__ */ __name((version1, version2) => {
+    var diff2 = /* @__PURE__ */ __name((version1, version2) => {
       const v1 = parse(version1, null, true);
       const v2 = parse(version2, null, true);
       const comparison = v1.compare(v2);
@@ -31108,86 +31930,86 @@ var require_diff2 = __commonJS({
       }
       return "prerelease";
     }, "diff");
-    module2.exports = diff;
+    module3.exports = diff2;
   }
 });
 
 // node_modules/semver/functions/major.js
 var require_major = __commonJS({
-  "node_modules/semver/functions/major.js"(exports2, module2) {
+  "node_modules/semver/functions/major.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var major = /* @__PURE__ */ __name((a, loose) => new SemVer(a, loose).major, "major");
-    module2.exports = major;
+    module3.exports = major;
   }
 });
 
 // node_modules/semver/functions/minor.js
 var require_minor = __commonJS({
-  "node_modules/semver/functions/minor.js"(exports2, module2) {
+  "node_modules/semver/functions/minor.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var minor = /* @__PURE__ */ __name((a, loose) => new SemVer(a, loose).minor, "minor");
-    module2.exports = minor;
+    module3.exports = minor;
   }
 });
 
 // node_modules/semver/functions/patch.js
 var require_patch = __commonJS({
-  "node_modules/semver/functions/patch.js"(exports2, module2) {
+  "node_modules/semver/functions/patch.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var patch = /* @__PURE__ */ __name((a, loose) => new SemVer(a, loose).patch, "patch");
-    module2.exports = patch;
+    module3.exports = patch;
   }
 });
 
 // node_modules/semver/functions/prerelease.js
 var require_prerelease = __commonJS({
-  "node_modules/semver/functions/prerelease.js"(exports2, module2) {
+  "node_modules/semver/functions/prerelease.js"(exports2, module3) {
     "use strict";
     var parse = require_parse();
     var prerelease = /* @__PURE__ */ __name((version, options) => {
       const parsed = parse(version, options);
       return parsed && parsed.prerelease.length ? parsed.prerelease : null;
     }, "prerelease");
-    module2.exports = prerelease;
+    module3.exports = prerelease;
   }
 });
 
 // node_modules/semver/functions/compare.js
 var require_compare = __commonJS({
-  "node_modules/semver/functions/compare.js"(exports2, module2) {
+  "node_modules/semver/functions/compare.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var compare = /* @__PURE__ */ __name((a, b, loose) => new SemVer(a, loose).compare(new SemVer(b, loose)), "compare");
-    module2.exports = compare;
+    module3.exports = compare;
   }
 });
 
 // node_modules/semver/functions/rcompare.js
 var require_rcompare = __commonJS({
-  "node_modules/semver/functions/rcompare.js"(exports2, module2) {
+  "node_modules/semver/functions/rcompare.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var rcompare = /* @__PURE__ */ __name((a, b, loose) => compare(b, a, loose), "rcompare");
-    module2.exports = rcompare;
+    module3.exports = rcompare;
   }
 });
 
 // node_modules/semver/functions/compare-loose.js
 var require_compare_loose = __commonJS({
-  "node_modules/semver/functions/compare-loose.js"(exports2, module2) {
+  "node_modules/semver/functions/compare-loose.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var compareLoose = /* @__PURE__ */ __name((a, b) => compare(a, b, true), "compareLoose");
-    module2.exports = compareLoose;
+    module3.exports = compareLoose;
   }
 });
 
 // node_modules/semver/functions/compare-build.js
 var require_compare_build = __commonJS({
-  "node_modules/semver/functions/compare-build.js"(exports2, module2) {
+  "node_modules/semver/functions/compare-build.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var compareBuild = /* @__PURE__ */ __name((a, b, loose) => {
@@ -31195,93 +32017,93 @@ var require_compare_build = __commonJS({
       const versionB = new SemVer(b, loose);
       return versionA.compare(versionB) || versionA.compareBuild(versionB);
     }, "compareBuild");
-    module2.exports = compareBuild;
+    module3.exports = compareBuild;
   }
 });
 
 // node_modules/semver/functions/sort.js
 var require_sort = __commonJS({
-  "node_modules/semver/functions/sort.js"(exports2, module2) {
+  "node_modules/semver/functions/sort.js"(exports2, module3) {
     "use strict";
     var compareBuild = require_compare_build();
     var sort = /* @__PURE__ */ __name((list2, loose) => list2.sort((a, b) => compareBuild(a, b, loose)), "sort");
-    module2.exports = sort;
+    module3.exports = sort;
   }
 });
 
 // node_modules/semver/functions/rsort.js
 var require_rsort = __commonJS({
-  "node_modules/semver/functions/rsort.js"(exports2, module2) {
+  "node_modules/semver/functions/rsort.js"(exports2, module3) {
     "use strict";
     var compareBuild = require_compare_build();
     var rsort = /* @__PURE__ */ __name((list2, loose) => list2.sort((a, b) => compareBuild(b, a, loose)), "rsort");
-    module2.exports = rsort;
+    module3.exports = rsort;
   }
 });
 
 // node_modules/semver/functions/gt.js
 var require_gt = __commonJS({
-  "node_modules/semver/functions/gt.js"(exports2, module2) {
+  "node_modules/semver/functions/gt.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var gt = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) > 0, "gt");
-    module2.exports = gt;
+    module3.exports = gt;
   }
 });
 
 // node_modules/semver/functions/lt.js
 var require_lt = __commonJS({
-  "node_modules/semver/functions/lt.js"(exports2, module2) {
+  "node_modules/semver/functions/lt.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var lt = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) < 0, "lt");
-    module2.exports = lt;
+    module3.exports = lt;
   }
 });
 
 // node_modules/semver/functions/eq.js
 var require_eq = __commonJS({
-  "node_modules/semver/functions/eq.js"(exports2, module2) {
+  "node_modules/semver/functions/eq.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var eq = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) === 0, "eq");
-    module2.exports = eq;
+    module3.exports = eq;
   }
 });
 
 // node_modules/semver/functions/neq.js
 var require_neq = __commonJS({
-  "node_modules/semver/functions/neq.js"(exports2, module2) {
+  "node_modules/semver/functions/neq.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var neq = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) !== 0, "neq");
-    module2.exports = neq;
+    module3.exports = neq;
   }
 });
 
 // node_modules/semver/functions/gte.js
 var require_gte = __commonJS({
-  "node_modules/semver/functions/gte.js"(exports2, module2) {
+  "node_modules/semver/functions/gte.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var gte = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) >= 0, "gte");
-    module2.exports = gte;
+    module3.exports = gte;
   }
 });
 
 // node_modules/semver/functions/lte.js
 var require_lte = __commonJS({
-  "node_modules/semver/functions/lte.js"(exports2, module2) {
+  "node_modules/semver/functions/lte.js"(exports2, module3) {
     "use strict";
     var compare = require_compare();
     var lte = /* @__PURE__ */ __name((a, b, loose) => compare(a, b, loose) <= 0, "lte");
-    module2.exports = lte;
+    module3.exports = lte;
   }
 });
 
 // node_modules/semver/functions/cmp.js
 var require_cmp = __commonJS({
-  "node_modules/semver/functions/cmp.js"(exports2, module2) {
+  "node_modules/semver/functions/cmp.js"(exports2, module3) {
     "use strict";
     var eq = require_eq();
     var neq = require_neq();
@@ -31325,13 +32147,13 @@ var require_cmp = __commonJS({
           throw new TypeError(`Invalid operator: ${op}`);
       }
     }, "cmp");
-    module2.exports = cmp;
+    module3.exports = cmp;
   }
 });
 
 // node_modules/semver/functions/coerce.js
 var require_coerce = __commonJS({
-  "node_modules/semver/functions/coerce.js"(exports2, module2) {
+  "node_modules/semver/functions/coerce.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var parse = require_parse();
@@ -31371,13 +32193,13 @@ var require_coerce = __commonJS({
       const build = options.includePrerelease && match[6] ? `+${match[6]}` : "";
       return parse(`${major}.${minor}.${patch}${prerelease}${build}`, options);
     }, "coerce");
-    module2.exports = coerce;
+    module3.exports = coerce;
   }
 });
 
 // node_modules/semver/internal/lrucache.js
 var require_lrucache = __commonJS({
-  "node_modules/semver/internal/lrucache.js"(exports2, module2) {
+  "node_modules/semver/internal/lrucache.js"(exports2, module3) {
     "use strict";
     var LRUCache = class {
       static {
@@ -31412,16 +32234,16 @@ var require_lrucache = __commonJS({
         return this;
       }
     };
-    module2.exports = LRUCache;
+    module3.exports = LRUCache;
   }
 });
 
 // node_modules/semver/classes/range.js
 var require_range = __commonJS({
-  "node_modules/semver/classes/range.js"(exports2, module2) {
+  "node_modules/semver/classes/range.js"(exports2, module3) {
     "use strict";
     var SPACE_CHARACTERS = /\s+/g;
-    var Range = class _Range {
+    var Range4 = class _Range {
       static {
         __name(this, "Range");
       }
@@ -31562,7 +32384,7 @@ var require_range = __commonJS({
         return false;
       }
     };
-    module2.exports = Range;
+    module3.exports = Range4;
     var LRU = require_lrucache();
     var cache = new LRU();
     var parseOptions = require_parse_options();
@@ -31798,7 +32620,7 @@ var require_range = __commonJS({
 
 // node_modules/semver/classes/comparator.js
 var require_comparator = __commonJS({
-  "node_modules/semver/classes/comparator.js"(exports2, module2) {
+  "node_modules/semver/classes/comparator.js"(exports2, module3) {
     "use strict";
     var ANY = /* @__PURE__ */ Symbol("SemVer ANY");
     var Comparator = class _Comparator {
@@ -31870,12 +32692,12 @@ var require_comparator = __commonJS({
           if (this.value === "") {
             return true;
           }
-          return new Range(comp.value, options).test(this.value);
+          return new Range4(comp.value, options).test(this.value);
         } else if (comp.operator === "") {
           if (comp.value === "") {
             return true;
           }
-          return new Range(this.value, options).test(comp.semver);
+          return new Range4(this.value, options).test(comp.semver);
         }
         options = parseOptions(options);
         if (options.includePrerelease && (this.value === "<0.0.0-0" || comp.value === "<0.0.0-0")) {
@@ -31902,55 +32724,55 @@ var require_comparator = __commonJS({
         return false;
       }
     };
-    module2.exports = Comparator;
+    module3.exports = Comparator;
     var parseOptions = require_parse_options();
     var { safeRe: re, t } = require_re();
     var cmp = require_cmp();
     var debug = require_debug();
     var SemVer = require_semver();
-    var Range = require_range();
+    var Range4 = require_range();
   }
 });
 
 // node_modules/semver/functions/satisfies.js
 var require_satisfies = __commonJS({
-  "node_modules/semver/functions/satisfies.js"(exports2, module2) {
+  "node_modules/semver/functions/satisfies.js"(exports2, module3) {
     "use strict";
-    var Range = require_range();
+    var Range4 = require_range();
     var satisfies = /* @__PURE__ */ __name((version, range, options) => {
       try {
-        range = new Range(range, options);
+        range = new Range4(range, options);
       } catch (er) {
         return false;
       }
       return range.test(version);
     }, "satisfies");
-    module2.exports = satisfies;
+    module3.exports = satisfies;
   }
 });
 
 // node_modules/semver/ranges/to-comparators.js
 var require_to_comparators = __commonJS({
-  "node_modules/semver/ranges/to-comparators.js"(exports2, module2) {
+  "node_modules/semver/ranges/to-comparators.js"(exports2, module3) {
     "use strict";
-    var Range = require_range();
-    var toComparators = /* @__PURE__ */ __name((range, options) => new Range(range, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" ")), "toComparators");
-    module2.exports = toComparators;
+    var Range4 = require_range();
+    var toComparators = /* @__PURE__ */ __name((range, options) => new Range4(range, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" ")), "toComparators");
+    module3.exports = toComparators;
   }
 });
 
 // node_modules/semver/ranges/max-satisfying.js
 var require_max_satisfying = __commonJS({
-  "node_modules/semver/ranges/max-satisfying.js"(exports2, module2) {
+  "node_modules/semver/ranges/max-satisfying.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
-    var Range = require_range();
+    var Range4 = require_range();
     var maxSatisfying = /* @__PURE__ */ __name((versions, range, options) => {
       let max = null;
       let maxSV = null;
       let rangeObj = null;
       try {
-        rangeObj = new Range(range, options);
+        rangeObj = new Range4(range, options);
       } catch (er) {
         return null;
       }
@@ -31964,22 +32786,22 @@ var require_max_satisfying = __commonJS({
       });
       return max;
     }, "maxSatisfying");
-    module2.exports = maxSatisfying;
+    module3.exports = maxSatisfying;
   }
 });
 
 // node_modules/semver/ranges/min-satisfying.js
 var require_min_satisfying = __commonJS({
-  "node_modules/semver/ranges/min-satisfying.js"(exports2, module2) {
+  "node_modules/semver/ranges/min-satisfying.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
-    var Range = require_range();
+    var Range4 = require_range();
     var minSatisfying = /* @__PURE__ */ __name((versions, range, options) => {
       let min = null;
       let minSV = null;
       let rangeObj = null;
       try {
-        rangeObj = new Range(range, options);
+        rangeObj = new Range4(range, options);
       } catch (er) {
         return null;
       }
@@ -31993,19 +32815,19 @@ var require_min_satisfying = __commonJS({
       });
       return min;
     }, "minSatisfying");
-    module2.exports = minSatisfying;
+    module3.exports = minSatisfying;
   }
 });
 
 // node_modules/semver/ranges/min-version.js
 var require_min_version = __commonJS({
-  "node_modules/semver/ranges/min-version.js"(exports2, module2) {
+  "node_modules/semver/ranges/min-version.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
-    var Range = require_range();
+    var Range4 = require_range();
     var gt = require_gt();
     var minVersion = /* @__PURE__ */ __name((range, loose) => {
-      range = new Range(range, loose);
+      range = new Range4(range, loose);
       let minver = new SemVer("0.0.0");
       if (range.test(minver)) {
         return minver;
@@ -32052,34 +32874,34 @@ var require_min_version = __commonJS({
       }
       return null;
     }, "minVersion");
-    module2.exports = minVersion;
+    module3.exports = minVersion;
   }
 });
 
 // node_modules/semver/ranges/valid.js
 var require_valid2 = __commonJS({
-  "node_modules/semver/ranges/valid.js"(exports2, module2) {
+  "node_modules/semver/ranges/valid.js"(exports2, module3) {
     "use strict";
-    var Range = require_range();
+    var Range4 = require_range();
     var validRange = /* @__PURE__ */ __name((range, options) => {
       try {
-        return new Range(range, options).range || "*";
+        return new Range4(range, options).range || "*";
       } catch (er) {
         return null;
       }
     }, "validRange");
-    module2.exports = validRange;
+    module3.exports = validRange;
   }
 });
 
 // node_modules/semver/ranges/outside.js
 var require_outside = __commonJS({
-  "node_modules/semver/ranges/outside.js"(exports2, module2) {
+  "node_modules/semver/ranges/outside.js"(exports2, module3) {
     "use strict";
     var SemVer = require_semver();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
-    var Range = require_range();
+    var Range4 = require_range();
     var satisfies = require_satisfies();
     var gt = require_gt();
     var lt = require_lt();
@@ -32087,7 +32909,7 @@ var require_outside = __commonJS({
     var gte = require_gte();
     var outside = /* @__PURE__ */ __name((version, range, hilo, options) => {
       version = new SemVer(version, options);
-      range = new Range(range, options);
+      range = new Range4(range, options);
       let gtfn, ltefn, ltfn, comp, ecomp;
       switch (hilo) {
         case ">":
@@ -32137,51 +32959,51 @@ var require_outside = __commonJS({
       }
       return true;
     }, "outside");
-    module2.exports = outside;
+    module3.exports = outside;
   }
 });
 
 // node_modules/semver/ranges/gtr.js
 var require_gtr = __commonJS({
-  "node_modules/semver/ranges/gtr.js"(exports2, module2) {
+  "node_modules/semver/ranges/gtr.js"(exports2, module3) {
     "use strict";
     var outside = require_outside();
     var gtr = /* @__PURE__ */ __name((version, range, options) => outside(version, range, ">", options), "gtr");
-    module2.exports = gtr;
+    module3.exports = gtr;
   }
 });
 
 // node_modules/semver/ranges/ltr.js
 var require_ltr = __commonJS({
-  "node_modules/semver/ranges/ltr.js"(exports2, module2) {
+  "node_modules/semver/ranges/ltr.js"(exports2, module3) {
     "use strict";
     var outside = require_outside();
     var ltr = /* @__PURE__ */ __name((version, range, options) => outside(version, range, "<", options), "ltr");
-    module2.exports = ltr;
+    module3.exports = ltr;
   }
 });
 
 // node_modules/semver/ranges/intersects.js
 var require_intersects = __commonJS({
-  "node_modules/semver/ranges/intersects.js"(exports2, module2) {
+  "node_modules/semver/ranges/intersects.js"(exports2, module3) {
     "use strict";
-    var Range = require_range();
+    var Range4 = require_range();
     var intersects = /* @__PURE__ */ __name((r1, r2, options) => {
-      r1 = new Range(r1, options);
-      r2 = new Range(r2, options);
+      r1 = new Range4(r1, options);
+      r2 = new Range4(r2, options);
       return r1.intersects(r2, options);
     }, "intersects");
-    module2.exports = intersects;
+    module3.exports = intersects;
   }
 });
 
 // node_modules/semver/ranges/simplify.js
 var require_simplify = __commonJS({
-  "node_modules/semver/ranges/simplify.js"(exports2, module2) {
+  "node_modules/semver/ranges/simplify.js"(exports2, module3) {
     "use strict";
     var satisfies = require_satisfies();
     var compare = require_compare();
-    module2.exports = (versions, range, options) => {
+    module3.exports = (versions, range, options) => {
       const set = [];
       let first = null;
       let prev = null;
@@ -32227,9 +33049,9 @@ var require_simplify = __commonJS({
 
 // node_modules/semver/ranges/subset.js
 var require_subset = __commonJS({
-  "node_modules/semver/ranges/subset.js"(exports2, module2) {
+  "node_modules/semver/ranges/subset.js"(exports2, module3) {
     "use strict";
-    var Range = require_range();
+    var Range4 = require_range();
     var Comparator = require_comparator();
     var { ANY } = Comparator;
     var satisfies = require_satisfies();
@@ -32238,8 +33060,8 @@ var require_subset = __commonJS({
       if (sub === dom) {
         return true;
       }
-      sub = new Range(sub, options);
-      dom = new Range(dom, options);
+      sub = new Range4(sub, options);
+      dom = new Range4(dom, options);
       let sawNonNull = false;
       OUTER: for (const simpleSub of sub.set) {
         for (const simpleDom of dom.set) {
@@ -32383,13 +33205,13 @@ var require_subset = __commonJS({
       const comp = compare(a.semver, b.semver, options);
       return comp < 0 ? a : comp > 0 ? b : b.operator === "<" && a.operator === "<=" ? b : a;
     }, "lowerLT");
-    module2.exports = subset;
+    module3.exports = subset;
   }
 });
 
 // node_modules/semver/index.js
 var require_semver2 = __commonJS({
-  "node_modules/semver/index.js"(exports2, module2) {
+  "node_modules/semver/index.js"(exports2, module3) {
     "use strict";
     var internalRe = require_re();
     var constants = require_constants();
@@ -32399,7 +33221,7 @@ var require_semver2 = __commonJS({
     var valid = require_valid();
     var clean = require_clean();
     var inc = require_inc();
-    var diff = require_diff2();
+    var diff2 = require_diff2();
     var major = require_major();
     var minor = require_minor();
     var patch = require_patch();
@@ -32419,7 +33241,7 @@ var require_semver2 = __commonJS({
     var cmp = require_cmp();
     var coerce = require_coerce();
     var Comparator = require_comparator();
-    var Range = require_range();
+    var Range4 = require_range();
     var satisfies = require_satisfies();
     var toComparators = require_to_comparators();
     var maxSatisfying = require_max_satisfying();
@@ -32432,12 +33254,12 @@ var require_semver2 = __commonJS({
     var intersects = require_intersects();
     var simplifyRange = require_simplify();
     var subset = require_subset();
-    module2.exports = {
+    module3.exports = {
       parse,
       valid,
       clean,
       inc,
-      diff,
+      diff: diff2,
       major,
       minor,
       patch,
@@ -32457,7 +33279,7 @@ var require_semver2 = __commonJS({
       cmp,
       coerce,
       Comparator,
-      Range,
+      Range: Range4,
       satisfies,
       toComparators,
       maxSatisfying,
@@ -32482,18 +33304,27 @@ var require_semver2 = __commonJS({
   }
 });
 
-// build/server/services/lsp/old-stylelint-warning.service.js
-var require_old_stylelint_warning_service = __commonJS({
-  "build/server/services/lsp/old-stylelint-warning.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/old-stylelint-warning.service.js
+var import_semver, __runInitializers23, __esDecorate23, migrationGuideUrl, OldStylelintWarningLspService;
+var init_old_stylelint_warning_service = __esm({
+  "packages/language-server/build/server/services/lsp/old-stylelint-warning.service.js"() {
     "use strict";
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    import_semver = __toESM(require_semver2(), 1);
+    init_di();
+    init_decorators2();
+    init_tokens2();
+    init_logging_service();
+    init_stylelint_runner_service();
+    init_workspace_folder_service();
+    init_workspace_options_service();
+    __runInitializers23 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate23 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -32526,30 +33357,17 @@ var require_old_stylelint_warning_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.OldStylelintWarningLspService = void 0;
-    var semver_1 = __importDefault2(require_semver2());
-    var index_js_12 = require_di();
-    var decorators_js_1 = require_decorators2();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    var stylelint_runner_service_js_1 = require_stylelint_runner_service();
-    var workspace_folder_service_js_1 = require_workspace_folder_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var migrationGuideUrl = "https://github.com/stylelint/vscode-stylelint#migrating-from-vscode-stylelint-0xstylelint-13x";
-    var OldStylelintWarningLspService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    migrationGuideUrl = "https://github.com/stylelint/vscode-stylelint#migrating-from-vscode-stylelint-0xstylelint-13x";
+    OldStylelintWarningLspService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          stylelint_runner_service_js_1.StylelintRunnerService,
-          workspace_folder_service_js_1.WorkspaceFolderService,
-          tokens_js_1.NormalizeFsPathToken,
-          tokens_js_1.PathIsInsideToken,
-          tokens_js_1.lspConnectionToken,
-          logging_service_js_1.loggingServiceToken
+          WorkspaceOptionsService,
+          StylelintRunnerService,
+          WorkspaceFolderService,
+          NormalizeFsPathToken,
+          PathIsInsideToken,
+          lspConnectionToken,
+          loggingServiceToken
         ]
       })];
       let _classDescriptor;
@@ -32567,16 +33385,16 @@ var require_old_stylelint_warning_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _handleDocumentOpened_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidOpen")];
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          __esDecorate(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _handleDocumentOpened_decorators = [textDocumentEvent("onDidOpen")];
+          _onInitialize_decorators = [initialize()];
+          __esDecorate23(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate23(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate23(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           OldStylelintWarningLspService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers23(_classThis, _classExtraInitializers);
         }
-        #options = __runInitializers(this, _instanceExtraInitializers);
+        #options = __runInitializers23(this, _instanceExtraInitializers);
         #runner;
         #workspaceFolderService;
         #normalizeFsPath;
@@ -32585,12 +33403,12 @@ var require_old_stylelint_warning_service = __commonJS({
         #logger;
         #checkedWorkspaces = /* @__PURE__ */ new Set();
         #openMigrationGuide = false;
-        constructor(options, runner, workspaceFolderService, normalizeFsPath, pathIsInside, connection2, loggingService) {
+        constructor(options, runner, workspaceFolderService, normalizeFsPath2, pathIsInside2, connection2, loggingService) {
           this.#options = options;
           this.#runner = runner;
           this.#workspaceFolderService = workspaceFolderService;
-          this.#normalizeFsPath = normalizeFsPath;
-          this.#pathIsInside = pathIsInside;
+          this.#normalizeFsPath = normalizeFsPath2;
+          this.#pathIsInside = pathIsInside2;
           this.#connection = connection2;
           this.#logger = loggingService.createLogger(OldStylelintWarningLspService2);
         }
@@ -32646,11 +33464,11 @@ var require_old_stylelint_warning_service = __commonJS({
             return void 0;
           }
           try {
-            const coerced = semver_1.default.coerce(stylelintVersion);
+            const coerced = import_semver.default.coerce(stylelintVersion);
             if (!coerced) {
               throw new Error(`Could not coerce version "${stylelintVersion}"`);
             }
-            return semver_1.default.lt(coerced, "14.0.0") ? stylelintVersion : void 0;
+            return import_semver.default.lt(coerced, "14.0.0") ? stylelintVersion : void 0;
           } catch (error) {
             this.#logger?.debug("Stylelint version could not be parsed", {
               uri: document.uri,
@@ -32683,22 +33501,32 @@ var require_old_stylelint_warning_service = __commonJS({
       };
       return OldStylelintWarningLspService2 = _classThis;
     })();
-    exports2.OldStylelintWarningLspService = OldStylelintWarningLspService;
   }
 });
 
-// build/server/services/lsp/validator.service.js
-var require_validator_service = __commonJS({
-  "build/server/services/lsp/validator.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/validator.service.js
+var import_vscode_languageserver_protocol3, __runInitializers24, __esDecorate24, __setFunctionName, ValidatorLspService;
+var init_validator_service = __esm({
+  "packages/language-server/build/server/services/lsp/validator.service.js"() {
     "use strict";
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    import_vscode_languageserver_protocol3 = __toESM(require_main3(), 1);
+    init_di();
+    init_utils();
+    init_decorators2();
+    init_tokens2();
+    init_types7();
+    init_document_diagnostics_service();
+    init_logging_service();
+    init_stylelint_runner_service();
+    init_workspace_options_service();
+    __runInitializers24 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate24 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -32731,30 +33559,20 @@ var require_validator_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __setFunctionName = exports2 && exports2.__setFunctionName || function(f, name, prefix) {
+    __setFunctionName = function(f, name, prefix) {
       if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
       return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ValidatorLspService = void 0;
-    var vscode_languageserver_protocol_1 = require_main3();
-    var index_js_12 = require_di();
-    var index_js_2 = require_utils();
-    var decorators_js_1 = require_decorators2();
-    var tokens_js_1 = require_tokens2();
-    var document_diagnostics_service_js_1 = require_document_diagnostics_service();
-    var logging_service_js_1 = require_logging_service();
-    var stylelint_runner_service_js_1 = require_stylelint_runner_service();
-    var workspace_options_service_js_1 = require_workspace_options_service();
-    var ValidatorLspService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
+    ValidatorLspService = (() => {
+      let _classDecorators = [lspService(), inject({
         inject: [
-          tokens_js_1.textDocumentsToken,
-          workspace_options_service_js_1.WorkspaceOptionsService,
-          document_diagnostics_service_js_1.DocumentDiagnosticsService,
-          stylelint_runner_service_js_1.StylelintRunnerService,
-          tokens_js_1.lspConnectionToken,
-          logging_service_js_1.loggingServiceToken
+          textDocumentsToken,
+          WorkspaceOptionsService,
+          DocumentDiagnosticsService,
+          StylelintRunnerService,
+          lspConnectionToken,
+          loggingServiceToken,
+          UriModuleToken
         ]
       })];
       let _classDescriptor;
@@ -32762,10 +33580,14 @@ var require_validator_service = __commonJS({
       let _classThis;
       let _instanceExtraInitializers = [];
       let _onInitialize_decorators;
+      let _handleDocumentOpened_decorators;
       let _handleDocumentChanged_decorators;
+      let _handleDocumentSaved_decorators;
       let _handleDocumentClosed_decorators;
       let _private_validateAll_decorators;
       let _private_validateAll_descriptor;
+      let _clearAllProblems_decorators;
+      let _lintFiles_decorators;
       var ValidatorLspService2 = class {
         static {
           __name(this, "ValidatorLspService");
@@ -32775,40 +33597,70 @@ var require_validator_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _onInitialize_decorators = [(0, decorators_js_1.initialize)()];
-          _handleDocumentChanged_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidChangeContent")];
-          _handleDocumentClosed_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidClose")];
-          _private_validateAll_decorators = [(0, decorators_js_1.notification)(vscode_languageserver_protocol_1.DidChangeWatchedFilesNotification.type), (0, decorators_js_1.notification)(vscode_languageserver_protocol_1.DidChangeConfigurationNotification.type)];
-          __esDecorate(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleDocumentChanged_decorators, { kind: "method", name: "handleDocumentChanged", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentChanged" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentChanged, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleDocumentClosed_decorators, { kind: "method", name: "handleDocumentClosed", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentClosed" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentClosed, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, _private_validateAll_descriptor = { value: __setFunctionName(async function() {
+          _onInitialize_decorators = [initialize()];
+          _handleDocumentOpened_decorators = [textDocumentEvent("onDidOpen")];
+          _handleDocumentChanged_decorators = [textDocumentEvent("onDidChangeContent")];
+          _handleDocumentSaved_decorators = [textDocumentEvent("onDidSave")];
+          _handleDocumentClosed_decorators = [textDocumentEvent("onDidClose")];
+          _private_validateAll_decorators = [notification(import_vscode_languageserver_protocol3.DidChangeWatchedFilesNotification.type), notification(import_vscode_languageserver_protocol3.DidChangeConfigurationNotification.type)];
+          _clearAllProblems_decorators = [command(CommandId.ClearAllProblems)];
+          _lintFiles_decorators = [command(CommandId.LintFiles)];
+          __esDecorate24(this, null, _onInitialize_decorators, { kind: "method", name: "onInitialize", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "onInitialize" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.onInitialize, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, null, _handleDocumentChanged_decorators, { kind: "method", name: "handleDocumentChanged", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentChanged" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentChanged, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, null, _handleDocumentSaved_decorators, { kind: "method", name: "handleDocumentSaved", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentSaved" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentSaved, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, null, _handleDocumentClosed_decorators, { kind: "method", name: "handleDocumentClosed", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentClosed" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentClosed, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, _private_validateAll_descriptor = { value: __setFunctionName(async function() {
             await Promise.allSettled(this.#documents.all().map((document) => this.#validate(document)));
           }, "#validateAll") }, _private_validateAll_decorators, { kind: "method", name: "#validateAll", static: false, private: true, access: { has: /* @__PURE__ */ __name((obj) => #validateAll in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.#validateAll, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate24(this, null, _clearAllProblems_decorators, { kind: "method", name: "clearAllProblems", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "clearAllProblems" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.clearAllProblems, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(this, null, _lintFiles_decorators, { kind: "method", name: "lintFiles", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "lintFiles" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.lintFiles, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate24(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           ValidatorLspService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers24(_classThis, _classExtraInitializers);
         }
-        #documents = __runInitializers(this, _instanceExtraInitializers);
+        #documents = __runInitializers24(this, _instanceExtraInitializers);
         #options;
         #diagnostics;
         #runner;
         #connection;
         #logger;
-        constructor(documents, options, diagnostics, runner, connection2, loggingService) {
+        #uri;
+        #publishedUris = /* @__PURE__ */ new Set();
+        constructor(documents, options, diagnostics, runner, connection2, loggingService, uriModule) {
           this.#documents = documents;
           this.#options = options;
           this.#diagnostics = diagnostics;
           this.#runner = runner;
           this.#connection = connection2;
           this.#logger = loggingService.createLogger(ValidatorLspService2);
+          this.#uri = uriModule;
         }
         onInitialize() {
           void this.#validateAll();
+          return {
+            capabilities: {
+              executeCommandProvider: {
+                commands: [CommandId.LintFiles, CommandId.ClearAllProblems]
+              }
+            }
+          };
+        }
+        async handleDocumentOpened({ document }) {
+          await this.#validate(document);
         }
         async handleDocumentChanged({ document }) {
-          await this.#validate(document);
+          const options = await this.#options.getOptions(document.uri);
+          if (options.run === "onType") {
+            await this.#validate(document);
+          }
+        }
+        async handleDocumentSaved({ document }) {
+          const options = await this.#options.getOptions(document.uri);
+          if (options.run === "onSave") {
+            await this.#validate(document);
+          }
         }
         async handleDocumentClosed({ document }) {
           await this.#clearDiagnostics(document);
@@ -32848,13 +33700,16 @@ var require_validator_service = __commonJS({
               diagnostics: result.diagnostics
             });
             this.#diagnostics.set(document, result.diagnostics, result);
+            this.#publishedUris.add(document.uri);
             this.#logger?.debug("Diagnostics sent", { uri: document.uri });
+            this.#sendStatusNotification(document.uri, Status.ok);
           } catch (error) {
-            (0, index_js_2.displayError)(this.#connection, error);
+            displayError(this.#connection, error);
             this.#logger?.error("Failed to send diagnostics", {
               uri: document.uri,
               error
             });
+            this.#sendStatusNotification(document.uri, Status.error);
           }
         }
         async #lintDocument(document) {
@@ -32864,38 +33719,103 @@ var require_validator_service = __commonJS({
             const results = await this.#runner.lintDocument(document, {}, options);
             return results;
           } catch (error) {
-            (0, index_js_2.displayError)(this.#connection, error);
+            displayError(this.#connection, error);
             this.#logger?.error("Error running lint", { uri: document.uri, error });
+            this.#sendStatusNotification(document.uri, Status.error);
             return void 0;
           }
+        }
+        #sendStatusNotification(uri, state) {
+          this.#connection.sendNotification(StatusNotification, { uri, state }).catch(() => {
+          });
         }
         get #validateAll() {
           return _private_validateAll_descriptor.value;
         }
+        async clearAllProblems() {
+          for (const uri of this.#publishedUris) {
+            this.#diagnostics.clear(uri);
+            await this.#connection.sendDiagnostics({ uri, diagnostics: [] });
+          }
+          this.#publishedUris.clear();
+          this.#logger?.info("Cleared all diagnostics");
+        }
+        async lintFiles(workspaceFolderUri) {
+          if (workspaceFolderUri) {
+            await this.#lintFolder(workspaceFolderUri);
+            return;
+          }
+          const workspaceFolders = await this.#connection.workspace.getWorkspaceFolders();
+          if (!workspaceFolders || workspaceFolders.length === 0) {
+            this.#logger?.warn("No workspace folders found");
+            return;
+          }
+          await Promise.all(workspaceFolders.map((folder) => this.#lintFolder(folder.uri)));
+        }
+        async #lintFolder(workspaceFolderUri) {
+          const { fsPath } = this.#uri.parse(workspaceFolderUri);
+          if (!fsPath) {
+            this.#logger?.warn("Invalid workspace folder URI", { workspaceFolderUri });
+            return;
+          }
+          this.#logger?.info("Linting workspace folder", { workspaceFolderUri, fsPath });
+          try {
+            const extensionOptions = await this.#options.getOptions(workspaceFolderUri);
+            const multiFileDiagnostics = await this.#runner.lintWorkspaceFolder(fsPath, {
+              ...extensionOptions,
+              config: extensionOptions.config ?? void 0,
+              lintFilesGlob: extensionOptions.lintFiles.glob
+            });
+            for (const [filePath, lintDiagnostics] of multiFileDiagnostics) {
+              const fileUri = this.#uri.file(filePath).toString();
+              await this.#connection.sendDiagnostics({
+                uri: fileUri,
+                diagnostics: lintDiagnostics.diagnostics
+              });
+              this.#publishedUris.add(fileUri);
+              const openDocument = this.#documents.get(fileUri);
+              if (openDocument) {
+                this.#diagnostics.set(openDocument, lintDiagnostics.diagnostics, lintDiagnostics);
+              }
+            }
+            this.#logger?.info("Workspace folder linting complete", {
+              workspaceFolderUri,
+              fileCount: multiFileDiagnostics.size
+            });
+          } catch (error) {
+            displayError(this.#connection, error);
+            this.#logger?.error("Error linting workspace folder", { workspaceFolderUri, error });
+          }
+        }
         async #clearDiagnostics(document) {
           this.#logger?.debug("Clearing diagnostics for document", { uri: document.uri });
           this.#diagnostics.clear(document.uri);
+          this.#publishedUris.delete(document.uri);
           await this.#connection.sendDiagnostics({ uri: document.uri, diagnostics: [] });
         }
       };
       return ValidatorLspService2 = _classThis;
     })();
-    exports2.ValidatorLspService = ValidatorLspService;
   }
 });
 
-// build/server/services/lsp/workspace-activity.service.js
-var require_workspace_activity_service = __commonJS({
-  "build/server/services/lsp/workspace-activity.service.js"(exports2) {
+// packages/language-server/build/server/services/lsp/workspace-activity.service.js
+var import_vscode_languageserver_protocol4, __runInitializers25, __esDecorate25, WorkspaceActivityLspService;
+var init_workspace_activity_service = __esm({
+  "packages/language-server/build/server/services/lsp/workspace-activity.service.js"() {
     "use strict";
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    import_vscode_languageserver_protocol4 = __toESM(require_main3(), 1);
+    init_di();
+    init_decorators2();
+    init_stylelint_runner_service();
+    __runInitializers25 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    __esDecorate25 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -32928,15 +33848,9 @@ var require_workspace_activity_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceActivityLspService = void 0;
-    var vscode_languageserver_protocol_1 = require_main3();
-    var index_js_12 = require_di();
-    var decorators_js_1 = require_decorators2();
-    var stylelint_runner_service_js_1 = require_stylelint_runner_service();
-    var WorkspaceActivityLspService = (() => {
-      let _classDecorators = [(0, decorators_js_1.lspService)(), (0, index_js_12.inject)({
-        inject: [stylelint_runner_service_js_1.StylelintRunnerService]
+    WorkspaceActivityLspService = (() => {
+      let _classDecorators = [lspService(), inject({
+        inject: [StylelintRunnerService]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -32953,16 +33867,16 @@ var require_workspace_activity_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          _handleDocumentOpened_decorators = [(0, decorators_js_1.textDocumentEvent)("onDidOpen")];
-          _handleWatchedFilesChanged_decorators = [(0, decorators_js_1.notification)(vscode_languageserver_protocol_1.DidChangeWatchedFilesNotification.type)];
-          __esDecorate(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(this, null, _handleWatchedFilesChanged_decorators, { kind: "method", name: "handleWatchedFilesChanged", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleWatchedFilesChanged" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleWatchedFilesChanged, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          _handleDocumentOpened_decorators = [textDocumentEvent("onDidOpen")];
+          _handleWatchedFilesChanged_decorators = [notification(import_vscode_languageserver_protocol4.DidChangeWatchedFilesNotification.type)];
+          __esDecorate25(this, null, _handleDocumentOpened_decorators, { kind: "method", name: "handleDocumentOpened", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleDocumentOpened" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleDocumentOpened, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate25(this, null, _handleWatchedFilesChanged_decorators, { kind: "method", name: "handleWatchedFilesChanged", static: false, private: false, access: { has: /* @__PURE__ */ __name((obj) => "handleWatchedFilesChanged" in obj, "has"), get: /* @__PURE__ */ __name((obj) => obj.handleWatchedFilesChanged, "get") }, metadata: _metadata }, null, _instanceExtraInitializers);
+          __esDecorate25(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           WorkspaceActivityLspService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers25(_classThis, _classExtraInitializers);
         }
-        #runner = __runInitializers(this, _instanceExtraInitializers);
+        #runner = __runInitializers25(this, _instanceExtraInitializers);
         constructor(runner) {
           this.#runner = runner;
         }
@@ -32975,46 +33889,34 @@ var require_workspace_activity_service = __commonJS({
       };
       return WorkspaceActivityLspService2 = _classThis;
     })();
-    exports2.WorkspaceActivityLspService = WorkspaceActivityLspService;
   }
 });
 
-// build/server/services/lsp/index.js
-var require_lsp2 = __commonJS({
-  "build/server/services/lsp/index.js"(exports2) {
+// packages/language-server/build/server/services/lsp/index.js
+var init_lsp2 = __esm({
+  "packages/language-server/build/server/services/lsp/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_code_actions(), exports2);
-    __exportStar(require_auto_fix_service(), exports2);
-    __exportStar(require_completion_service(), exports2);
-    __exportStar(require_formatter_service(), exports2);
-    __exportStar(require_old_stylelint_warning_service(), exports2);
-    __exportStar(require_validator_service(), exports2);
-    __exportStar(require_workspace_activity_service(), exports2);
+    init_code_actions();
+    init_auto_fix_service();
+    init_completion_service();
+    init_empty_config_warning_service();
+    init_formatter_service();
+    init_old_stylelint_warning_service();
+    init_validator_service();
+    init_workspace_activity_service();
   }
 });
 
-// build/server/services/stylelint-runtime/process-runner.service.js
-var require_process_runner_service = __commonJS({
-  "build/server/services/stylelint-runtime/process-runner.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/process-runner.service.js
+var import_node_child_process2, import_node_readline, __esDecorate26, __runInitializers26, ProcessRunnerService;
+var init_process_runner_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/process-runner.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    import_node_child_process2 = __toESM(require("node:child_process"), 1);
+    import_node_readline = __toESM(require("node:readline"), 1);
+    init_di();
+    init_tokens2();
+    __esDecorate26 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -33047,25 +33949,16 @@ var require_process_runner_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers26 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ProcessRunnerService = void 0;
-    var node_child_process_1 = __importDefault2(require("node:child_process"));
-    var node_readline_1 = __importDefault2(require("node:readline"));
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var ProcessRunnerService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.ChildProcessModuleToken, tokens_js_1.ReadlineModuleToken]
+    ProcessRunnerService = (() => {
+      let _classDecorators = [inject({
+        inject: [ChildProcessModuleToken, ReadlineModuleToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -33079,16 +33972,16 @@ var require_process_runner_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate26(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           ProcessRunnerService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers26(_classThis, _classExtraInitializers);
         }
         #childProcess;
         #readline;
         constructor(childProcessModule, readlineModule) {
-          this.#childProcess = childProcessModule ?? node_child_process_1.default;
-          this.#readline = readlineModule ?? node_readline_1.default;
+          this.#childProcess = childProcessModule ?? import_node_child_process2.default;
+          this.#readline = readlineModule ?? import_node_readline.default;
         }
         /**
          * Runs a process and returns the output as read by the given matcher. The
@@ -33110,10 +34003,10 @@ var require_process_runner_service = __commonJS({
          * @param options Options to pass to the spawner
          * @param matcher Function to match the output line
          */
-        async runFindLine(command, args, options, matcher) {
+        async runFindLine(command2, args, options, matcher) {
           return await new Promise((resolve, reject) => {
-            const childProcess = this.#childProcess.spawn(command, args, options);
-            const stdoutReader = this.#readline.createInterface({ input: childProcess.stdout });
+            const childProcess2 = this.#childProcess.spawn(command2, args, options);
+            const stdoutReader = this.#readline.createInterface({ input: childProcess2.stdout });
             let returnValue;
             let exitCode;
             let resolved = false;
@@ -33126,15 +34019,15 @@ var require_process_runner_service = __commonJS({
               if (exitCode === 0) {
                 resolve(returnValue);
               } else {
-                reject(new Error(`Command "${command}" exited with code ${exitCode}.`));
+                reject(new Error(`Command "${command2}" exited with code ${exitCode}.`));
               }
             }, "resolveOrRejectIfNeeded");
             const handleError = /* @__PURE__ */ __name((error) => {
               resolved = true;
-              childProcess.removeAllListeners();
+              childProcess2.removeAllListeners();
               stdoutReader.close();
               try {
-                childProcess.kill();
+                childProcess2.kill();
               } catch {
               }
               reject(error);
@@ -33160,8 +34053,8 @@ var require_process_runner_service = __commonJS({
               streamClosed = true;
               resolveOrRejectIfNeeded();
             });
-            childProcess.on("error", handleError);
-            childProcess.on("exit", (code, signal) => {
+            childProcess2.on("error", handleError);
+            childProcess2.on("exit", (code, signal) => {
               exitCode = code ?? signal;
               resolveOrRejectIfNeeded();
             });
@@ -33170,15 +34063,19 @@ var require_process_runner_service = __commonJS({
       };
       return ProcessRunnerService2 = _classThis;
     })();
-    exports2.ProcessRunnerService = ProcessRunnerService;
   }
 });
 
-// build/server/services/stylelint-runtime/global-path-resolver.service.js
-var require_global_path_resolver_service = __commonJS({
-  "build/server/services/stylelint-runtime/global-path-resolver.service.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/global-path-resolver.service.js
+var __esDecorate27, __runInitializers27, GlobalPathResolverService;
+var init_global_path_resolver_service = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/global-path-resolver.service.js"() {
     "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    init_di();
+    init_tokens2();
+    init_logging_service();
+    init_process_runner_service();
+    __esDecorate27 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
       function accept(f) {
         if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
         return f;
@@ -33211,22 +34108,16 @@ var require_global_path_resolver_service = __commonJS({
       if (target) Object.defineProperty(target, contextIn.name, descriptor);
       done = true;
     };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
+    __runInitializers27 = function(thisArg, initializers, value) {
       var useValue = arguments.length > 2;
       for (var i = 0; i < initializers.length; i++) {
         value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
       }
       return useValue ? value : void 0;
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.GlobalPathResolverService = void 0;
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    var process_runner_service_js_1 = require_process_runner_service();
-    var GlobalPathResolverService = (() => {
-      let _classDecorators = [(0, index_js_12.inject)({
-        inject: [tokens_js_1.OsModuleToken, tokens_js_1.PathModuleToken, process_runner_service_js_1.ProcessRunnerService, logging_service_js_1.loggingServiceToken]
+    GlobalPathResolverService = (() => {
+      let _classDecorators = [inject({
+        inject: [OsModuleToken, PathModuleToken, ProcessRunnerService, loggingServiceToken]
       })];
       let _classDescriptor;
       let _classExtraInitializers = [];
@@ -33240,10 +34131,10 @@ var require_global_path_resolver_service = __commonJS({
         }
         static {
           const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+          __esDecorate27(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
           GlobalPathResolverService2 = _classThis = _classDescriptor.value;
           if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
+          __runInitializers27(_classThis, _classExtraInitializers);
         }
         /**
          * The logger to use for tracing resolution.
@@ -33280,10 +34171,10 @@ var require_global_path_resolver_service = __commonJS({
         /**
          * Instantiates a new global path resolver.
          */
-        constructor(osModule, pathModule, processRunner, loggingService) {
+        constructor(osModule, pathModule2, processRunner, loggingService) {
           this.#logger = loggingService.createLogger(GlobalPathResolverService2);
           this.#isWindows = osModule.platform() === "win32";
-          this.#path = pathModule;
+          this.#path = pathModule2;
           this.#processRunner = processRunner;
         }
         /**
@@ -33405,152 +34296,98 @@ var require_global_path_resolver_service = __commonJS({
       };
       return GlobalPathResolverService2 = _classThis;
     })();
-    exports2.GlobalPathResolverService = GlobalPathResolverService;
   }
 });
 
-// build/server/services/stylelint-runtime/index.js
-var require_stylelint_runtime = __commonJS({
-  "build/server/services/stylelint-runtime/index.js"(exports2) {
+// packages/language-server/build/server/services/stylelint-runtime/index.js
+var init_stylelint_runtime = __esm({
+  "packages/language-server/build/server/services/stylelint-runtime/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_global_path_resolver_service(), exports2);
-    __exportStar(require_package_root_cache_service(), exports2);
-    __exportStar(require_package_root_service(), exports2);
-    __exportStar(require_process_runner_service(), exports2);
-    __exportStar(require_pnp_configuration_cache_service(), exports2);
-    __exportStar(require_stylelint_options_service(), exports2);
-    __exportStar(require_stylelint_runner_service(), exports2);
-    __exportStar(require_worker_environment_service(), exports2);
-    __exportStar(require_worker_process_service(), exports2);
-    __exportStar(require_worker_registry_service(), exports2);
-    __exportStar(require_workspace_stylelint_service(), exports2);
+    init_global_path_resolver_service();
+    init_package_root_cache_service();
+    init_package_root_service();
+    init_process_runner_service();
+    init_pnp_configuration_cache_service();
+    init_stylelint_options_service();
+    init_stylelint_runner_service();
+    init_worker_environment_service();
+    init_worker_process_service();
+    init_worker_registry_service();
+    init_workspace_stylelint_service();
   }
 });
 
-// build/server/services/workspace/index.js
-var require_workspace = __commonJS({
-  "build/server/services/workspace/index.js"(exports2) {
+// packages/language-server/build/server/services/workspace/index.js
+var init_workspace = __esm({
+  "packages/language-server/build/server/services/workspace/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_workspace_folder_service(), exports2);
-    __exportStar(require_workspace_options_service(), exports2);
+    init_workspace_folder_service();
+    init_workspace_options_service();
   }
 });
 
-// build/server/services/index.js
-var require_services = __commonJS({
-  "build/server/services/index.js"(exports2) {
+// packages/language-server/build/server/services/index.js
+var init_services = __esm({
+  "packages/language-server/build/server/services/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_documents2(), exports2);
-    __exportStar(require_infrastructure(), exports2);
-    __exportStar(require_lsp2(), exports2);
-    __exportStar(require_stylelint_runtime(), exports2);
-    __exportStar(require_workspace(), exports2);
+    init_documents2();
+    init_infrastructure();
+    init_lsp2();
+    init_stylelint_runtime();
+    init_workspace();
   }
 });
 
-// build/server/modules/documents.module.js
-var require_documents_module = __commonJS({
-  "build/server/modules/documents.module.js"(exports2) {
+// packages/language-server/build/server/modules/documents.module.js
+var documentsModule;
+var init_documents_module = __esm({
+  "packages/language-server/build/server/modules/documents.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.documentsModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_services();
-    var index_js_3 = require_utils();
-    exports2.documentsModule = (0, index_js_12.module)({
+    init_di();
+    init_services();
+    init_utils();
+    documentsModule = module2({
       register: [
-        (0, index_js_12.provideValue)(index_js_2.getFixesFnToken, () => index_js_3.getFixes),
-        index_js_2.DocumentDiagnosticsService,
-        index_js_2.DocumentFixesService
+        provideValue(getFixesFnToken, () => getFixes),
+        DocumentDiagnosticsService,
+        DocumentFixesService
       ]
     });
   }
 });
 
-// build/server/modules/infrastructure.module.js
-var require_infrastructure_module = __commonJS({
-  "build/server/modules/infrastructure.module.js"(exports2) {
+// packages/language-server/build/server/modules/infrastructure.module.js
+var infrastructureModule;
+var init_infrastructure_module = __esm({
+  "packages/language-server/build/server/modules/infrastructure.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.infrastructureModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_infrastructure();
-    exports2.infrastructureModule = (0, index_js_12.module)({
-      register: [index_js_2.CommandService, index_js_2.NotificationService]
+    init_di();
+    init_infrastructure();
+    infrastructureModule = module2({
+      register: [CommandService, NotificationService]
     });
   }
 });
 
-// build/server/modules/lsp.module.js
-var require_lsp_module = __commonJS({
-  "build/server/modules/lsp.module.js"(exports2) {
+// packages/language-server/build/server/modules/lsp.module.js
+var lspModule;
+var init_lsp_module = __esm({
+  "packages/language-server/build/server/modules/lsp.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.lspModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_lsp2();
-    exports2.lspModule = (0, index_js_12.module)({
+    init_di();
+    init_lsp2();
+    lspModule = module2({
       register: [
-        index_js_2.DisableRuleLineCodeActionService,
-        index_js_2.DisableRuleFileCodeActionService,
-        index_js_2.AutoFixService,
-        index_js_2.CodeActionService,
-        index_js_2.CompletionService,
-        index_js_2.FormatterLspService,
-        index_js_2.OldStylelintWarningLspService,
-        index_js_2.ValidatorLspService,
-        index_js_2.WorkspaceActivityLspService
+        DisableRuleLineCodeActionService,
+        DisableRuleFileCodeActionService,
+        AutoFixService,
+        CodeActionService,
+        CompletionService,
+        EmptyConfigWarningLspService,
+        FormatterLspService,
+        OldStylelintWarningLspService,
+        ValidatorLspService,
+        WorkspaceActivityLspService
       ]
     });
   }
@@ -33558,20 +34395,20 @@ var require_lsp_module = __commonJS({
 
 // node_modules/path-is-inside/lib/path-is-inside.js
 var require_path_is_inside = __commonJS({
-  "node_modules/path-is-inside/lib/path-is-inside.js"(exports2, module2) {
+  "node_modules/path-is-inside/lib/path-is-inside.js"(exports2, module3) {
     "use strict";
-    var path = require("path");
-    module2.exports = function(thePath, potentialParent) {
+    var path6 = require("path");
+    module3.exports = function(thePath, potentialParent) {
       thePath = stripTrailingSep(thePath);
       potentialParent = stripTrailingSep(potentialParent);
       if (process.platform === "win32") {
         thePath = thePath.toLowerCase();
         potentialParent = potentialParent.toLowerCase();
       }
-      return thePath.lastIndexOf(potentialParent, 0) === 0 && (thePath[potentialParent.length] === path.sep || thePath[potentialParent.length] === void 0);
+      return thePath.lastIndexOf(potentialParent, 0) === 0 && (thePath[potentialParent.length] === path6.sep || thePath[potentialParent.length] === void 0);
     };
     function stripTrailingSep(thePath) {
-      if (thePath[thePath.length - 1] === path.sep) {
+      if (thePath[thePath.length - 1] === path6.sep) {
         return thePath.slice(0, -1);
       }
       return thePath;
@@ -33581,10 +34418,6 @@ var require_path_is_inside = __commonJS({
 });
 
 // node_modules/vscode-languageserver-textdocument/lib/esm/main.js
-var main_exports = {};
-__export(main_exports, {
-  TextDocument: () => TextDocument
-});
 function mergeSort(data, compare) {
   if (data.length <= 1) {
     return data;
@@ -33644,11 +34477,11 @@ function getWellformedEdit(textEdit) {
   }
   return textEdit;
 }
-var FullTextDocument, TextDocument;
-var init_main = __esm({
+var FullTextDocument2, TextDocument2;
+var init_main2 = __esm({
   "node_modules/vscode-languageserver-textdocument/lib/esm/main.js"() {
     "use strict";
-    FullTextDocument = class _FullTextDocument {
+    FullTextDocument2 = class _FullTextDocument {
       static {
         __name(this, "FullTextDocument");
       }
@@ -33698,10 +34531,10 @@ var init_main = __esm({
                 this._lineOffsets = lineOffsets = lineOffsets.slice(0, startLine + 1).concat(addedLineOffsets, lineOffsets.slice(endLine + 1));
               }
             }
-            const diff = change.text.length - (endOffset - startOffset);
-            if (diff !== 0) {
+            const diff2 = change.text.length - (endOffset - startOffset);
+            if (diff2 !== 0) {
               for (let i = startLine + 1 + addedLineOffsets.length, len = lineOffsets.length; i < len; i++) {
-                lineOffsets[i] = lineOffsets[i] + diff;
+                lineOffsets[i] = lineOffsets[i] + diff2;
               }
             }
           } else if (_FullTextDocument.isFull(change)) {
@@ -33771,14 +34604,14 @@ var init_main = __esm({
         return candidate !== void 0 && candidate !== null && typeof candidate.text === "string" && candidate.range === void 0 && candidate.rangeLength === void 0;
       }
     };
-    (function(TextDocument2) {
+    (function(TextDocument3) {
       function create(uri, languageId, version, content) {
-        return new FullTextDocument(uri, languageId, version, content);
+        return new FullTextDocument2(uri, languageId, version, content);
       }
       __name(create, "create");
-      TextDocument2.create = create;
+      TextDocument3.create = create;
       function update(document, changes, version) {
-        if (document instanceof FullTextDocument) {
+        if (document instanceof FullTextDocument2) {
           document.update(changes, version);
           return document;
         } else {
@@ -33786,15 +34619,15 @@ var init_main = __esm({
         }
       }
       __name(update, "update");
-      TextDocument2.update = update;
+      TextDocument3.update = update;
       function applyEdits(document, edits) {
         const text = document.getText();
         const sortedEdits = mergeSort(edits.map(getWellformedEdit), (a, b) => {
-          const diff = a.range.start.line - b.range.start.line;
-          if (diff === 0) {
+          const diff2 = a.range.start.line - b.range.start.line;
+          if (diff2 === 0) {
             return a.range.start.character - b.range.start.character;
           }
-          return diff;
+          return diff2;
         });
         let lastModifiedOffset = 0;
         const spans = [];
@@ -33814,8 +34647,8 @@ var init_main = __esm({
         return spans.join("");
       }
       __name(applyEdits, "applyEdits");
-      TextDocument2.applyEdits = applyEdits;
-    })(TextDocument || (TextDocument = {}));
+      TextDocument3.applyEdits = applyEdits;
+    })(TextDocument2 || (TextDocument2 = {}));
     __name(mergeSort, "mergeSort");
     __name(computeLineOffsets, "computeLineOffsets");
     __name(isEOL, "isEOL");
@@ -33824,17 +34657,11 @@ var init_main = __esm({
   }
 });
 
-// node_modules/vscode-uri/lib/umd/index.js
-var require_umd = __commonJS({
-  "node_modules/vscode-uri/lib/umd/index.js"(exports2, module2) {
-    !(function(t, e) {
-      if ("object" == typeof exports2 && "object" == typeof module2) module2.exports = e();
-      else if ("function" == typeof define && define.amd) define([], e);
-      else {
-        var r = e();
-        for (var n in r) ("object" == typeof exports2 ? exports2 : t)[n] = r[n];
-      }
-    })(exports2, (() => (() => {
+// node_modules/vscode-uri/lib/esm/index.mjs
+var LIB, URI2, Utils;
+var init_esm = __esm({
+  "node_modules/vscode-uri/lib/esm/index.mjs"() {
+    (() => {
       "use strict";
       var t = { 975: (t2) => {
         function e2(t3) {
@@ -33842,121 +34669,121 @@ var require_umd = __commonJS({
         }
         __name(e2, "e");
         function r2(t3, e3) {
-          for (var r3, n3 = "", i = 0, o = -1, s = 0, a = 0; a <= t3.length; ++a) {
-            if (a < t3.length) r3 = t3.charCodeAt(a);
+          for (var r3, n3 = "", i2 = 0, o2 = -1, s2 = 0, h2 = 0; h2 <= t3.length; ++h2) {
+            if (h2 < t3.length) r3 = t3.charCodeAt(h2);
             else {
               if (47 === r3) break;
               r3 = 47;
             }
             if (47 === r3) {
-              if (o === a - 1 || 1 === s) ;
-              else if (o !== a - 1 && 2 === s) {
-                if (n3.length < 2 || 2 !== i || 46 !== n3.charCodeAt(n3.length - 1) || 46 !== n3.charCodeAt(n3.length - 2)) {
+              if (o2 === h2 - 1 || 1 === s2) ;
+              else if (o2 !== h2 - 1 && 2 === s2) {
+                if (n3.length < 2 || 2 !== i2 || 46 !== n3.charCodeAt(n3.length - 1) || 46 !== n3.charCodeAt(n3.length - 2)) {
                   if (n3.length > 2) {
-                    var h = n3.lastIndexOf("/");
-                    if (h !== n3.length - 1) {
-                      -1 === h ? (n3 = "", i = 0) : i = (n3 = n3.slice(0, h)).length - 1 - n3.lastIndexOf("/"), o = a, s = 0;
+                    var a2 = n3.lastIndexOf("/");
+                    if (a2 !== n3.length - 1) {
+                      -1 === a2 ? (n3 = "", i2 = 0) : i2 = (n3 = n3.slice(0, a2)).length - 1 - n3.lastIndexOf("/"), o2 = h2, s2 = 0;
                       continue;
                     }
                   } else if (2 === n3.length || 1 === n3.length) {
-                    n3 = "", i = 0, o = a, s = 0;
+                    n3 = "", i2 = 0, o2 = h2, s2 = 0;
                     continue;
                   }
                 }
-                e3 && (n3.length > 0 ? n3 += "/.." : n3 = "..", i = 2);
-              } else n3.length > 0 ? n3 += "/" + t3.slice(o + 1, a) : n3 = t3.slice(o + 1, a), i = a - o - 1;
-              o = a, s = 0;
-            } else 46 === r3 && -1 !== s ? ++s : s = -1;
+                e3 && (n3.length > 0 ? n3 += "/.." : n3 = "..", i2 = 2);
+              } else n3.length > 0 ? n3 += "/" + t3.slice(o2 + 1, h2) : n3 = t3.slice(o2 + 1, h2), i2 = h2 - o2 - 1;
+              o2 = h2, s2 = 0;
+            } else 46 === r3 && -1 !== s2 ? ++s2 : s2 = -1;
           }
           return n3;
         }
         __name(r2, "r");
         var n2 = { resolve: /* @__PURE__ */ __name(function() {
-          for (var t3, n3 = "", i = false, o = arguments.length - 1; o >= -1 && !i; o--) {
-            var s;
-            o >= 0 ? s = arguments[o] : (void 0 === t3 && (t3 = process.cwd()), s = t3), e2(s), 0 !== s.length && (n3 = s + "/" + n3, i = 47 === s.charCodeAt(0));
+          for (var t3, n3 = "", i2 = false, o2 = arguments.length - 1; o2 >= -1 && !i2; o2--) {
+            var s2;
+            o2 >= 0 ? s2 = arguments[o2] : (void 0 === t3 && (t3 = process.cwd()), s2 = t3), e2(s2), 0 !== s2.length && (n3 = s2 + "/" + n3, i2 = 47 === s2.charCodeAt(0));
           }
-          return n3 = r2(n3, !i), i ? n3.length > 0 ? "/" + n3 : "/" : n3.length > 0 ? n3 : ".";
+          return n3 = r2(n3, !i2), i2 ? n3.length > 0 ? "/" + n3 : "/" : n3.length > 0 ? n3 : ".";
         }, "resolve"), normalize: /* @__PURE__ */ __name(function(t3) {
           if (e2(t3), 0 === t3.length) return ".";
-          var n3 = 47 === t3.charCodeAt(0), i = 47 === t3.charCodeAt(t3.length - 1);
-          return 0 !== (t3 = r2(t3, !n3)).length || n3 || (t3 = "."), t3.length > 0 && i && (t3 += "/"), n3 ? "/" + t3 : t3;
+          var n3 = 47 === t3.charCodeAt(0), i2 = 47 === t3.charCodeAt(t3.length - 1);
+          return 0 !== (t3 = r2(t3, !n3)).length || n3 || (t3 = "."), t3.length > 0 && i2 && (t3 += "/"), n3 ? "/" + t3 : t3;
         }, "normalize"), isAbsolute: /* @__PURE__ */ __name(function(t3) {
           return e2(t3), t3.length > 0 && 47 === t3.charCodeAt(0);
         }, "isAbsolute"), join: /* @__PURE__ */ __name(function() {
           if (0 === arguments.length) return ".";
           for (var t3, r3 = 0; r3 < arguments.length; ++r3) {
-            var i = arguments[r3];
-            e2(i), i.length > 0 && (void 0 === t3 ? t3 = i : t3 += "/" + i);
+            var i2 = arguments[r3];
+            e2(i2), i2.length > 0 && (void 0 === t3 ? t3 = i2 : t3 += "/" + i2);
           }
           return void 0 === t3 ? "." : n2.normalize(t3);
         }, "join"), relative: /* @__PURE__ */ __name(function(t3, r3) {
           if (e2(t3), e2(r3), t3 === r3) return "";
           if ((t3 = n2.resolve(t3)) === (r3 = n2.resolve(r3))) return "";
-          for (var i = 1; i < t3.length && 47 === t3.charCodeAt(i); ++i) ;
-          for (var o = t3.length, s = o - i, a = 1; a < r3.length && 47 === r3.charCodeAt(a); ++a) ;
-          for (var h = r3.length - a, c = s < h ? s : h, f = -1, u = 0; u <= c; ++u) {
-            if (u === c) {
-              if (h > c) {
-                if (47 === r3.charCodeAt(a + u)) return r3.slice(a + u + 1);
-                if (0 === u) return r3.slice(a + u);
-              } else s > c && (47 === t3.charCodeAt(i + u) ? f = u : 0 === u && (f = 0));
+          for (var i2 = 1; i2 < t3.length && 47 === t3.charCodeAt(i2); ++i2) ;
+          for (var o2 = t3.length, s2 = o2 - i2, h2 = 1; h2 < r3.length && 47 === r3.charCodeAt(h2); ++h2) ;
+          for (var a2 = r3.length - h2, c2 = s2 < a2 ? s2 : a2, f2 = -1, u2 = 0; u2 <= c2; ++u2) {
+            if (u2 === c2) {
+              if (a2 > c2) {
+                if (47 === r3.charCodeAt(h2 + u2)) return r3.slice(h2 + u2 + 1);
+                if (0 === u2) return r3.slice(h2 + u2);
+              } else s2 > c2 && (47 === t3.charCodeAt(i2 + u2) ? f2 = u2 : 0 === u2 && (f2 = 0));
               break;
             }
-            var l = t3.charCodeAt(i + u);
-            if (l !== r3.charCodeAt(a + u)) break;
-            47 === l && (f = u);
+            var l2 = t3.charCodeAt(i2 + u2);
+            if (l2 !== r3.charCodeAt(h2 + u2)) break;
+            47 === l2 && (f2 = u2);
           }
-          var d = "";
-          for (u = i + f + 1; u <= o; ++u) u !== o && 47 !== t3.charCodeAt(u) || (0 === d.length ? d += ".." : d += "/..");
-          return d.length > 0 ? d + r3.slice(a + f) : (a += f, 47 === r3.charCodeAt(a) && ++a, r3.slice(a));
+          var g2 = "";
+          for (u2 = i2 + f2 + 1; u2 <= o2; ++u2) u2 !== o2 && 47 !== t3.charCodeAt(u2) || (0 === g2.length ? g2 += ".." : g2 += "/..");
+          return g2.length > 0 ? g2 + r3.slice(h2 + f2) : (h2 += f2, 47 === r3.charCodeAt(h2) && ++h2, r3.slice(h2));
         }, "relative"), _makeLong: /* @__PURE__ */ __name(function(t3) {
           return t3;
         }, "_makeLong"), dirname: /* @__PURE__ */ __name(function(t3) {
           if (e2(t3), 0 === t3.length) return ".";
-          for (var r3 = t3.charCodeAt(0), n3 = 47 === r3, i = -1, o = true, s = t3.length - 1; s >= 1; --s) if (47 === (r3 = t3.charCodeAt(s))) {
-            if (!o) {
-              i = s;
+          for (var r3 = t3.charCodeAt(0), n3 = 47 === r3, i2 = -1, o2 = true, s2 = t3.length - 1; s2 >= 1; --s2) if (47 === (r3 = t3.charCodeAt(s2))) {
+            if (!o2) {
+              i2 = s2;
               break;
             }
-          } else o = false;
-          return -1 === i ? n3 ? "/" : "." : n3 && 1 === i ? "//" : t3.slice(0, i);
+          } else o2 = false;
+          return -1 === i2 ? n3 ? "/" : "." : n3 && 1 === i2 ? "//" : t3.slice(0, i2);
         }, "dirname"), basename: /* @__PURE__ */ __name(function(t3, r3) {
           if (void 0 !== r3 && "string" != typeof r3) throw new TypeError('"ext" argument must be a string');
           e2(t3);
-          var n3, i = 0, o = -1, s = true;
+          var n3, i2 = 0, o2 = -1, s2 = true;
           if (void 0 !== r3 && r3.length > 0 && r3.length <= t3.length) {
             if (r3.length === t3.length && r3 === t3) return "";
-            var a = r3.length - 1, h = -1;
+            var h2 = r3.length - 1, a2 = -1;
             for (n3 = t3.length - 1; n3 >= 0; --n3) {
-              var c = t3.charCodeAt(n3);
-              if (47 === c) {
-                if (!s) {
-                  i = n3 + 1;
+              var c2 = t3.charCodeAt(n3);
+              if (47 === c2) {
+                if (!s2) {
+                  i2 = n3 + 1;
                   break;
                 }
-              } else -1 === h && (s = false, h = n3 + 1), a >= 0 && (c === r3.charCodeAt(a) ? -1 == --a && (o = n3) : (a = -1, o = h));
+              } else -1 === a2 && (s2 = false, a2 = n3 + 1), h2 >= 0 && (c2 === r3.charCodeAt(h2) ? -1 == --h2 && (o2 = n3) : (h2 = -1, o2 = a2));
             }
-            return i === o ? o = h : -1 === o && (o = t3.length), t3.slice(i, o);
+            return i2 === o2 ? o2 = a2 : -1 === o2 && (o2 = t3.length), t3.slice(i2, o2);
           }
           for (n3 = t3.length - 1; n3 >= 0; --n3) if (47 === t3.charCodeAt(n3)) {
-            if (!s) {
-              i = n3 + 1;
+            if (!s2) {
+              i2 = n3 + 1;
               break;
             }
-          } else -1 === o && (s = false, o = n3 + 1);
-          return -1 === o ? "" : t3.slice(i, o);
+          } else -1 === o2 && (s2 = false, o2 = n3 + 1);
+          return -1 === o2 ? "" : t3.slice(i2, o2);
         }, "basename"), extname: /* @__PURE__ */ __name(function(t3) {
           e2(t3);
-          for (var r3 = -1, n3 = 0, i = -1, o = true, s = 0, a = t3.length - 1; a >= 0; --a) {
-            var h = t3.charCodeAt(a);
-            if (47 !== h) -1 === i && (o = false, i = a + 1), 46 === h ? -1 === r3 ? r3 = a : 1 !== s && (s = 1) : -1 !== r3 && (s = -1);
-            else if (!o) {
-              n3 = a + 1;
+          for (var r3 = -1, n3 = 0, i2 = -1, o2 = true, s2 = 0, h2 = t3.length - 1; h2 >= 0; --h2) {
+            var a2 = t3.charCodeAt(h2);
+            if (47 !== a2) -1 === i2 && (o2 = false, i2 = h2 + 1), 46 === a2 ? -1 === r3 ? r3 = h2 : 1 !== s2 && (s2 = 1) : -1 !== r3 && (s2 = -1);
+            else if (!o2) {
+              n3 = h2 + 1;
               break;
             }
           }
-          return -1 === r3 || -1 === i || 0 === s || 1 === s && r3 === i - 1 && r3 === n3 + 1 ? "" : t3.slice(r3, i);
+          return -1 === r3 || -1 === i2 || 0 === s2 || 1 === s2 && r3 === i2 - 1 && r3 === n3 + 1 ? "" : t3.slice(r3, i2);
         }, "extname"), format: /* @__PURE__ */ __name(function(t3) {
           if (null === t3 || "object" != typeof t3) throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof t3);
           return (function(t4, e3) {
@@ -33967,409 +34794,319 @@ var require_umd = __commonJS({
           e2(t3);
           var r3 = { root: "", dir: "", base: "", ext: "", name: "" };
           if (0 === t3.length) return r3;
-          var n3, i = t3.charCodeAt(0), o = 47 === i;
-          o ? (r3.root = "/", n3 = 1) : n3 = 0;
-          for (var s = -1, a = 0, h = -1, c = true, f = t3.length - 1, u = 0; f >= n3; --f) if (47 !== (i = t3.charCodeAt(f))) -1 === h && (c = false, h = f + 1), 46 === i ? -1 === s ? s = f : 1 !== u && (u = 1) : -1 !== s && (u = -1);
-          else if (!c) {
-            a = f + 1;
+          var n3, i2 = t3.charCodeAt(0), o2 = 47 === i2;
+          o2 ? (r3.root = "/", n3 = 1) : n3 = 0;
+          for (var s2 = -1, h2 = 0, a2 = -1, c2 = true, f2 = t3.length - 1, u2 = 0; f2 >= n3; --f2) if (47 !== (i2 = t3.charCodeAt(f2))) -1 === a2 && (c2 = false, a2 = f2 + 1), 46 === i2 ? -1 === s2 ? s2 = f2 : 1 !== u2 && (u2 = 1) : -1 !== s2 && (u2 = -1);
+          else if (!c2) {
+            h2 = f2 + 1;
             break;
           }
-          return -1 === s || -1 === h || 0 === u || 1 === u && s === h - 1 && s === a + 1 ? -1 !== h && (r3.base = r3.name = 0 === a && o ? t3.slice(1, h) : t3.slice(a, h)) : (0 === a && o ? (r3.name = t3.slice(1, s), r3.base = t3.slice(1, h)) : (r3.name = t3.slice(a, s), r3.base = t3.slice(a, h)), r3.ext = t3.slice(s, h)), a > 0 ? r3.dir = t3.slice(0, a - 1) : o && (r3.dir = "/"), r3;
+          return -1 === s2 || -1 === a2 || 0 === u2 || 1 === u2 && s2 === a2 - 1 && s2 === h2 + 1 ? -1 !== a2 && (r3.base = r3.name = 0 === h2 && o2 ? t3.slice(1, a2) : t3.slice(h2, a2)) : (0 === h2 && o2 ? (r3.name = t3.slice(1, s2), r3.base = t3.slice(1, a2)) : (r3.name = t3.slice(h2, s2), r3.base = t3.slice(h2, a2)), r3.ext = t3.slice(s2, a2)), h2 > 0 ? r3.dir = t3.slice(0, h2 - 1) : o2 && (r3.dir = "/"), r3;
         }, "parse"), sep: "/", delimiter: ":", win32: null, posix: null };
         n2.posix = n2, t2.exports = n2;
-      }, 70: (t2, e2) => {
-        if (Object.defineProperty(e2, "__esModule", { value: true }), e2.isWindows = void 0, "object" == typeof process) e2.isWindows = "win32" === process.platform;
-        else if ("object" == typeof navigator) {
-          let t3 = navigator.userAgent;
-          e2.isWindows = t3.indexOf("Windows") >= 0;
-        }
-      }, 231: (t2, e2, r2) => {
-        Object.defineProperty(e2, "__esModule", { value: true }), e2.uriToFsPath = e2.URI = void 0;
-        const n2 = r2(70), i = /^\w[\w\d+.-]*$/, o = /^\//, s = /^\/\//;
-        function a(t3, e3) {
-          if (!t3.scheme && e3) throw new Error(`[UriError]: Scheme is missing: {scheme: "", authority: "${t3.authority}", path: "${t3.path}", query: "${t3.query}", fragment: "${t3.fragment}"}`);
-          if (t3.scheme && !i.test(t3.scheme)) throw new Error("[UriError]: Scheme contains illegal characters.");
-          if (t3.path) {
-            if (t3.authority) {
-              if (!o.test(t3.path)) throw new Error('[UriError]: If a URI contains an authority component, then the path component must either be empty or begin with a slash ("/") character');
-            } else if (s.test(t3.path)) throw new Error('[UriError]: If a URI does not contain an authority component, then the path cannot begin with two slash characters ("//")');
-          }
-        }
-        __name(a, "a");
-        const h = "", c = "/", f = /^(([^:/?#]+?):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
-        class u {
-          static {
-            __name(this, "u");
-          }
-          static isUri(t3) {
-            return t3 instanceof u || !!t3 && "string" == typeof t3.authority && "string" == typeof t3.fragment && "string" == typeof t3.path && "string" == typeof t3.query && "string" == typeof t3.scheme && "string" == typeof t3.fsPath && "function" == typeof t3.with && "function" == typeof t3.toString;
-          }
-          scheme;
-          authority;
-          path;
-          query;
-          fragment;
-          constructor(t3, e3, r3, n3, i2, o2 = false) {
-            "object" == typeof t3 ? (this.scheme = t3.scheme || h, this.authority = t3.authority || h, this.path = t3.path || h, this.query = t3.query || h, this.fragment = t3.fragment || h) : (this.scheme = /* @__PURE__ */ (function(t4, e4) {
-              return t4 || e4 ? t4 : "file";
-            })(t3, o2), this.authority = e3 || h, this.path = (function(t4, e4) {
-              switch (t4) {
-                case "https":
-                case "http":
-                case "file":
-                  e4 ? e4[0] !== c && (e4 = c + e4) : e4 = c;
-              }
-              return e4;
-            })(this.scheme, r3 || h), this.query = n3 || h, this.fragment = i2 || h, a(this, o2));
-          }
-          get fsPath() {
-            return v(this, false);
-          }
-          with(t3) {
-            if (!t3) return this;
-            let { scheme: e3, authority: r3, path: n3, query: i2, fragment: o2 } = t3;
-            return void 0 === e3 ? e3 = this.scheme : null === e3 && (e3 = h), void 0 === r3 ? r3 = this.authority : null === r3 && (r3 = h), void 0 === n3 ? n3 = this.path : null === n3 && (n3 = h), void 0 === i2 ? i2 = this.query : null === i2 && (i2 = h), void 0 === o2 ? o2 = this.fragment : null === o2 && (o2 = h), e3 === this.scheme && r3 === this.authority && n3 === this.path && i2 === this.query && o2 === this.fragment ? this : new d(e3, r3, n3, i2, o2);
-          }
-          static parse(t3, e3 = false) {
-            const r3 = f.exec(t3);
-            return r3 ? new d(r3[2] || h, w(r3[4] || h), w(r3[5] || h), w(r3[7] || h), w(r3[9] || h), e3) : new d(h, h, h, h, h);
-          }
-          static file(t3) {
-            let e3 = h;
-            if (n2.isWindows && (t3 = t3.replace(/\\/g, c)), t3[0] === c && t3[1] === c) {
-              const r3 = t3.indexOf(c, 2);
-              -1 === r3 ? (e3 = t3.substring(2), t3 = c) : (e3 = t3.substring(2, r3), t3 = t3.substring(r3) || c);
-            }
-            return new d("file", e3, t3, h, h);
-          }
-          static from(t3) {
-            const e3 = new d(t3.scheme, t3.authority, t3.path, t3.query, t3.fragment);
-            return a(e3, true), e3;
-          }
-          toString(t3 = false) {
-            return y(this, t3);
-          }
-          toJSON() {
-            return this;
-          }
-          static revive(t3) {
-            if (t3) {
-              if (t3 instanceof u) return t3;
-              {
-                const e3 = new d(t3);
-                return e3._formatted = t3.external, e3._fsPath = t3._sep === l ? t3.fsPath : null, e3;
-              }
-            }
-            return t3;
-          }
-        }
-        e2.URI = u;
-        const l = n2.isWindows ? 1 : void 0;
-        class d extends u {
-          static {
-            __name(this, "d");
-          }
-          _formatted = null;
-          _fsPath = null;
-          get fsPath() {
-            return this._fsPath || (this._fsPath = v(this, false)), this._fsPath;
-          }
-          toString(t3 = false) {
-            return t3 ? y(this, true) : (this._formatted || (this._formatted = y(this, false)), this._formatted);
-          }
-          toJSON() {
-            const t3 = { $mid: 1 };
-            return this._fsPath && (t3.fsPath = this._fsPath, t3._sep = l), this._formatted && (t3.external = this._formatted), this.path && (t3.path = this.path), this.scheme && (t3.scheme = this.scheme), this.authority && (t3.authority = this.authority), this.query && (t3.query = this.query), this.fragment && (t3.fragment = this.fragment), t3;
-          }
-        }
-        const p = { 58: "%3A", 47: "%2F", 63: "%3F", 35: "%23", 91: "%5B", 93: "%5D", 64: "%40", 33: "%21", 36: "%24", 38: "%26", 39: "%27", 40: "%28", 41: "%29", 42: "%2A", 43: "%2B", 44: "%2C", 59: "%3B", 61: "%3D", 32: "%20" };
-        function g(t3, e3, r3) {
-          let n3, i2 = -1;
-          for (let o2 = 0; o2 < t3.length; o2++) {
-            const s2 = t3.charCodeAt(o2);
-            if (s2 >= 97 && s2 <= 122 || s2 >= 65 && s2 <= 90 || s2 >= 48 && s2 <= 57 || 45 === s2 || 46 === s2 || 95 === s2 || 126 === s2 || e3 && 47 === s2 || r3 && 91 === s2 || r3 && 93 === s2 || r3 && 58 === s2) -1 !== i2 && (n3 += encodeURIComponent(t3.substring(i2, o2)), i2 = -1), void 0 !== n3 && (n3 += t3.charAt(o2));
-            else {
-              void 0 === n3 && (n3 = t3.substr(0, o2));
-              const e4 = p[s2];
-              void 0 !== e4 ? (-1 !== i2 && (n3 += encodeURIComponent(t3.substring(i2, o2)), i2 = -1), n3 += e4) : -1 === i2 && (i2 = o2);
-            }
-          }
-          return -1 !== i2 && (n3 += encodeURIComponent(t3.substring(i2))), void 0 !== n3 ? n3 : t3;
-        }
-        __name(g, "g");
-        function m(t3) {
-          let e3;
-          for (let r3 = 0; r3 < t3.length; r3++) {
-            const n3 = t3.charCodeAt(r3);
-            35 === n3 || 63 === n3 ? (void 0 === e3 && (e3 = t3.substr(0, r3)), e3 += p[n3]) : void 0 !== e3 && (e3 += t3[r3]);
-          }
-          return void 0 !== e3 ? e3 : t3;
-        }
-        __name(m, "m");
-        function v(t3, e3) {
-          let r3;
-          return r3 = t3.authority && t3.path.length > 1 && "file" === t3.scheme ? `//${t3.authority}${t3.path}` : 47 === t3.path.charCodeAt(0) && (t3.path.charCodeAt(1) >= 65 && t3.path.charCodeAt(1) <= 90 || t3.path.charCodeAt(1) >= 97 && t3.path.charCodeAt(1) <= 122) && 58 === t3.path.charCodeAt(2) ? e3 ? t3.path.substr(1) : t3.path[1].toLowerCase() + t3.path.substr(2) : t3.path, n2.isWindows && (r3 = r3.replace(/\//g, "\\")), r3;
-        }
-        __name(v, "v");
-        function y(t3, e3) {
-          const r3 = e3 ? m : g;
-          let n3 = "", { scheme: i2, authority: o2, path: s2, query: a2, fragment: h2 } = t3;
-          if (i2 && (n3 += i2, n3 += ":"), (o2 || "file" === i2) && (n3 += c, n3 += c), o2) {
-            let t4 = o2.indexOf("@");
-            if (-1 !== t4) {
-              const e4 = o2.substr(0, t4);
-              o2 = o2.substr(t4 + 1), t4 = e4.lastIndexOf(":"), -1 === t4 ? n3 += r3(e4, false, false) : (n3 += r3(e4.substr(0, t4), false, false), n3 += ":", n3 += r3(e4.substr(t4 + 1), false, true)), n3 += "@";
-            }
-            o2 = o2.toLowerCase(), t4 = o2.lastIndexOf(":"), -1 === t4 ? n3 += r3(o2, false, true) : (n3 += r3(o2.substr(0, t4), false, true), n3 += o2.substr(t4));
-          }
-          if (s2) {
-            if (s2.length >= 3 && 47 === s2.charCodeAt(0) && 58 === s2.charCodeAt(2)) {
-              const t4 = s2.charCodeAt(1);
-              t4 >= 65 && t4 <= 90 && (s2 = `/${String.fromCharCode(t4 + 32)}:${s2.substr(3)}`);
-            } else if (s2.length >= 2 && 58 === s2.charCodeAt(1)) {
-              const t4 = s2.charCodeAt(0);
-              t4 >= 65 && t4 <= 90 && (s2 = `${String.fromCharCode(t4 + 32)}:${s2.substr(2)}`);
-            }
-            n3 += r3(s2, true, false);
-          }
-          return a2 && (n3 += "?", n3 += r3(a2, false, false)), h2 && (n3 += "#", n3 += e3 ? h2 : g(h2, false, false)), n3;
-        }
-        __name(y, "y");
-        function b(t3) {
-          try {
-            return decodeURIComponent(t3);
-          } catch {
-            return t3.length > 3 ? t3.substr(0, 3) + b(t3.substr(3)) : t3;
-          }
-        }
-        __name(b, "b");
-        e2.uriToFsPath = v;
-        const C = /(%[0-9A-Za-z][0-9A-Za-z])+/g;
-        function w(t3) {
-          return t3.match(C) ? t3.replace(C, ((t4) => b(t4))) : t3;
-        }
-        __name(w, "w");
-      }, 552: function(t2, e2, r2) {
-        var n2 = this && this.__createBinding || (Object.create ? function(t3, e3, r3, n3) {
-          void 0 === n3 && (n3 = r3);
-          var i2 = Object.getOwnPropertyDescriptor(e3, r3);
-          i2 && !("get" in i2 ? !e3.__esModule : i2.writable || i2.configurable) || (i2 = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-            return e3[r3];
-          }, "get") }), Object.defineProperty(t3, n3, i2);
-        } : function(t3, e3, r3, n3) {
-          void 0 === n3 && (n3 = r3), t3[n3] = e3[r3];
-        }), i = this && this.__setModuleDefault || (Object.create ? function(t3, e3) {
-          Object.defineProperty(t3, "default", { enumerable: true, value: e3 });
-        } : function(t3, e3) {
-          t3.default = e3;
-        }), o = this && this.__importStar || function(t3) {
-          if (t3 && t3.__esModule) return t3;
-          var e3 = {};
-          if (null != t3) for (var r3 in t3) "default" !== r3 && Object.prototype.hasOwnProperty.call(t3, r3) && n2(e3, t3, r3);
-          return i(e3, t3), e3;
-        };
-        Object.defineProperty(e2, "__esModule", { value: true }), e2.Utils = void 0;
-        const s = o(r2(975)), a = s.posix || s, h = "/";
-        var c;
-        !(function(t3) {
-          t3.joinPath = function(t4, ...e3) {
-            return t4.with({ path: a.join(t4.path, ...e3) });
-          }, t3.resolvePath = function(t4, ...e3) {
-            let r3 = t4.path, n3 = false;
-            r3[0] !== h && (r3 = h + r3, n3 = true);
-            let i2 = a.resolve(r3, ...e3);
-            return n3 && i2[0] === h && !t4.authority && (i2 = i2.substring(1)), t4.with({ path: i2 });
-          }, t3.dirname = function(t4) {
-            if (0 === t4.path.length || t4.path === h) return t4;
-            let e3 = a.dirname(t4.path);
-            return 1 === e3.length && 46 === e3.charCodeAt(0) && (e3 = ""), t4.with({ path: e3 });
-          }, t3.basename = function(t4) {
-            return a.basename(t4.path);
-          }, t3.extname = function(t4) {
-            return a.extname(t4.path);
-          };
-        })(c || (e2.Utils = c = {}));
       } }, e = {};
       function r(n2) {
-        var i = e[n2];
-        if (void 0 !== i) return i.exports;
-        var o = e[n2] = { exports: {} };
-        return t[n2].call(o.exports, o, o.exports, r), o.exports;
+        var i2 = e[n2];
+        if (void 0 !== i2) return i2.exports;
+        var o2 = e[n2] = { exports: {} };
+        return t[n2](o2, o2.exports, r), o2.exports;
       }
       __name(r, "r");
+      r.d = (t2, e2) => {
+        for (var n2 in e2) r.o(e2, n2) && !r.o(t2, n2) && Object.defineProperty(t2, n2, { enumerable: true, get: e2[n2] });
+      }, r.o = (t2, e2) => Object.prototype.hasOwnProperty.call(t2, e2), r.r = (t2) => {
+        "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(t2, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(t2, "__esModule", { value: true });
+      };
       var n = {};
-      return (() => {
-        var t2 = n;
-        Object.defineProperty(t2, "__esModule", { value: true }), t2.Utils = t2.URI = void 0;
-        const e2 = r(231);
-        Object.defineProperty(t2, "URI", { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return e2.URI;
-        }, "get") });
-        const i = r(552);
-        Object.defineProperty(t2, "Utils", { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return i.Utils;
-        }, "get") });
-      })(), n;
-    })()));
+      let i;
+      if (r.r(n), r.d(n, { URI: /* @__PURE__ */ __name(() => l, "URI"), Utils: /* @__PURE__ */ __name(() => I, "Utils") }), "object" == typeof process) i = "win32" === process.platform;
+      else if ("object" == typeof navigator) {
+        let t2 = navigator.userAgent;
+        i = t2.indexOf("Windows") >= 0;
+      }
+      const o = /^\w[\w\d+.-]*$/, s = /^\//, h = /^\/\//;
+      function a(t2, e2) {
+        if (!t2.scheme && e2) throw new Error(`[UriError]: Scheme is missing: {scheme: "", authority: "${t2.authority}", path: "${t2.path}", query: "${t2.query}", fragment: "${t2.fragment}"}`);
+        if (t2.scheme && !o.test(t2.scheme)) throw new Error("[UriError]: Scheme contains illegal characters.");
+        if (t2.path) {
+          if (t2.authority) {
+            if (!s.test(t2.path)) throw new Error('[UriError]: If a URI contains an authority component, then the path component must either be empty or begin with a slash ("/") character');
+          } else if (h.test(t2.path)) throw new Error('[UriError]: If a URI does not contain an authority component, then the path cannot begin with two slash characters ("//")');
+        }
+      }
+      __name(a, "a");
+      const c = "", f = "/", u = /^(([^:/?#]+?):)?(\/\/([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/;
+      class l {
+        static {
+          __name(this, "l");
+        }
+        static isUri(t2) {
+          return t2 instanceof l || !!t2 && "string" == typeof t2.authority && "string" == typeof t2.fragment && "string" == typeof t2.path && "string" == typeof t2.query && "string" == typeof t2.scheme && "string" == typeof t2.fsPath && "function" == typeof t2.with && "function" == typeof t2.toString;
+        }
+        scheme;
+        authority;
+        path;
+        query;
+        fragment;
+        constructor(t2, e2, r2, n2, i2, o2 = false) {
+          "object" == typeof t2 ? (this.scheme = t2.scheme || c, this.authority = t2.authority || c, this.path = t2.path || c, this.query = t2.query || c, this.fragment = t2.fragment || c) : (this.scheme = /* @__PURE__ */ (function(t3, e3) {
+            return t3 || e3 ? t3 : "file";
+          })(t2, o2), this.authority = e2 || c, this.path = (function(t3, e3) {
+            switch (t3) {
+              case "https":
+              case "http":
+              case "file":
+                e3 ? e3[0] !== f && (e3 = f + e3) : e3 = f;
+            }
+            return e3;
+          })(this.scheme, r2 || c), this.query = n2 || c, this.fragment = i2 || c, a(this, o2));
+        }
+        get fsPath() {
+          return v(this, false);
+        }
+        with(t2) {
+          if (!t2) return this;
+          let { scheme: e2, authority: r2, path: n2, query: i2, fragment: o2 } = t2;
+          return void 0 === e2 ? e2 = this.scheme : null === e2 && (e2 = c), void 0 === r2 ? r2 = this.authority : null === r2 && (r2 = c), void 0 === n2 ? n2 = this.path : null === n2 && (n2 = c), void 0 === i2 ? i2 = this.query : null === i2 && (i2 = c), void 0 === o2 ? o2 = this.fragment : null === o2 && (o2 = c), e2 === this.scheme && r2 === this.authority && n2 === this.path && i2 === this.query && o2 === this.fragment ? this : new d(e2, r2, n2, i2, o2);
+        }
+        static parse(t2, e2 = false) {
+          const r2 = u.exec(t2);
+          return r2 ? new d(r2[2] || c, w(r2[4] || c), w(r2[5] || c), w(r2[7] || c), w(r2[9] || c), e2) : new d(c, c, c, c, c);
+        }
+        static file(t2) {
+          let e2 = c;
+          if (i && (t2 = t2.replace(/\\/g, f)), t2[0] === f && t2[1] === f) {
+            const r2 = t2.indexOf(f, 2);
+            -1 === r2 ? (e2 = t2.substring(2), t2 = f) : (e2 = t2.substring(2, r2), t2 = t2.substring(r2) || f);
+          }
+          return new d("file", e2, t2, c, c);
+        }
+        static from(t2) {
+          const e2 = new d(t2.scheme, t2.authority, t2.path, t2.query, t2.fragment);
+          return a(e2, true), e2;
+        }
+        toString(t2 = false) {
+          return b(this, t2);
+        }
+        toJSON() {
+          return this;
+        }
+        static revive(t2) {
+          if (t2) {
+            if (t2 instanceof l) return t2;
+            {
+              const e2 = new d(t2);
+              return e2._formatted = t2.external, e2._fsPath = t2._sep === g ? t2.fsPath : null, e2;
+            }
+          }
+          return t2;
+        }
+      }
+      const g = i ? 1 : void 0;
+      class d extends l {
+        static {
+          __name(this, "d");
+        }
+        _formatted = null;
+        _fsPath = null;
+        get fsPath() {
+          return this._fsPath || (this._fsPath = v(this, false)), this._fsPath;
+        }
+        toString(t2 = false) {
+          return t2 ? b(this, true) : (this._formatted || (this._formatted = b(this, false)), this._formatted);
+        }
+        toJSON() {
+          const t2 = { $mid: 1 };
+          return this._fsPath && (t2.fsPath = this._fsPath, t2._sep = g), this._formatted && (t2.external = this._formatted), this.path && (t2.path = this.path), this.scheme && (t2.scheme = this.scheme), this.authority && (t2.authority = this.authority), this.query && (t2.query = this.query), this.fragment && (t2.fragment = this.fragment), t2;
+        }
+      }
+      const p = { 58: "%3A", 47: "%2F", 63: "%3F", 35: "%23", 91: "%5B", 93: "%5D", 64: "%40", 33: "%21", 36: "%24", 38: "%26", 39: "%27", 40: "%28", 41: "%29", 42: "%2A", 43: "%2B", 44: "%2C", 59: "%3B", 61: "%3D", 32: "%20" };
+      function m(t2, e2, r2) {
+        let n2, i2 = -1;
+        for (let o2 = 0; o2 < t2.length; o2++) {
+          const s2 = t2.charCodeAt(o2);
+          if (s2 >= 97 && s2 <= 122 || s2 >= 65 && s2 <= 90 || s2 >= 48 && s2 <= 57 || 45 === s2 || 46 === s2 || 95 === s2 || 126 === s2 || e2 && 47 === s2 || r2 && 91 === s2 || r2 && 93 === s2 || r2 && 58 === s2) -1 !== i2 && (n2 += encodeURIComponent(t2.substring(i2, o2)), i2 = -1), void 0 !== n2 && (n2 += t2.charAt(o2));
+          else {
+            void 0 === n2 && (n2 = t2.substr(0, o2));
+            const e3 = p[s2];
+            void 0 !== e3 ? (-1 !== i2 && (n2 += encodeURIComponent(t2.substring(i2, o2)), i2 = -1), n2 += e3) : -1 === i2 && (i2 = o2);
+          }
+        }
+        return -1 !== i2 && (n2 += encodeURIComponent(t2.substring(i2))), void 0 !== n2 ? n2 : t2;
+      }
+      __name(m, "m");
+      function y(t2) {
+        let e2;
+        for (let r2 = 0; r2 < t2.length; r2++) {
+          const n2 = t2.charCodeAt(r2);
+          35 === n2 || 63 === n2 ? (void 0 === e2 && (e2 = t2.substr(0, r2)), e2 += p[n2]) : void 0 !== e2 && (e2 += t2[r2]);
+        }
+        return void 0 !== e2 ? e2 : t2;
+      }
+      __name(y, "y");
+      function v(t2, e2) {
+        let r2;
+        return r2 = t2.authority && t2.path.length > 1 && "file" === t2.scheme ? `//${t2.authority}${t2.path}` : 47 === t2.path.charCodeAt(0) && (t2.path.charCodeAt(1) >= 65 && t2.path.charCodeAt(1) <= 90 || t2.path.charCodeAt(1) >= 97 && t2.path.charCodeAt(1) <= 122) && 58 === t2.path.charCodeAt(2) ? e2 ? t2.path.substr(1) : t2.path[1].toLowerCase() + t2.path.substr(2) : t2.path, i && (r2 = r2.replace(/\//g, "\\")), r2;
+      }
+      __name(v, "v");
+      function b(t2, e2) {
+        const r2 = e2 ? y : m;
+        let n2 = "", { scheme: i2, authority: o2, path: s2, query: h2, fragment: a2 } = t2;
+        if (i2 && (n2 += i2, n2 += ":"), (o2 || "file" === i2) && (n2 += f, n2 += f), o2) {
+          let t3 = o2.indexOf("@");
+          if (-1 !== t3) {
+            const e3 = o2.substr(0, t3);
+            o2 = o2.substr(t3 + 1), t3 = e3.lastIndexOf(":"), -1 === t3 ? n2 += r2(e3, false, false) : (n2 += r2(e3.substr(0, t3), false, false), n2 += ":", n2 += r2(e3.substr(t3 + 1), false, true)), n2 += "@";
+          }
+          o2 = o2.toLowerCase(), t3 = o2.lastIndexOf(":"), -1 === t3 ? n2 += r2(o2, false, true) : (n2 += r2(o2.substr(0, t3), false, true), n2 += o2.substr(t3));
+        }
+        if (s2) {
+          if (s2.length >= 3 && 47 === s2.charCodeAt(0) && 58 === s2.charCodeAt(2)) {
+            const t3 = s2.charCodeAt(1);
+            t3 >= 65 && t3 <= 90 && (s2 = `/${String.fromCharCode(t3 + 32)}:${s2.substr(3)}`);
+          } else if (s2.length >= 2 && 58 === s2.charCodeAt(1)) {
+            const t3 = s2.charCodeAt(0);
+            t3 >= 65 && t3 <= 90 && (s2 = `${String.fromCharCode(t3 + 32)}:${s2.substr(2)}`);
+          }
+          n2 += r2(s2, true, false);
+        }
+        return h2 && (n2 += "?", n2 += r2(h2, false, false)), a2 && (n2 += "#", n2 += e2 ? a2 : m(a2, false, false)), n2;
+      }
+      __name(b, "b");
+      function C(t2) {
+        try {
+          return decodeURIComponent(t2);
+        } catch {
+          return t2.length > 3 ? t2.substr(0, 3) + C(t2.substr(3)) : t2;
+        }
+      }
+      __name(C, "C");
+      const A = /(%[0-9A-Za-z][0-9A-Za-z])+/g;
+      function w(t2) {
+        return t2.match(A) ? t2.replace(A, ((t3) => C(t3))) : t2;
+      }
+      __name(w, "w");
+      var x = r(975);
+      const P = x.posix || x, _ = "/";
+      var I;
+      !(function(t2) {
+        t2.joinPath = function(t3, ...e2) {
+          return t3.with({ path: P.join(t3.path, ...e2) });
+        }, t2.resolvePath = function(t3, ...e2) {
+          let r2 = t3.path, n2 = false;
+          r2[0] !== _ && (r2 = _ + r2, n2 = true);
+          let i2 = P.resolve(r2, ...e2);
+          return n2 && i2[0] === _ && !t3.authority && (i2 = i2.substring(1)), t3.with({ path: i2 });
+        }, t2.dirname = function(t3) {
+          if (0 === t3.path.length || t3.path === _) return t3;
+          let e2 = P.dirname(t3.path);
+          return 1 === e2.length && 46 === e2.charCodeAt(0) && (e2 = ""), t3.with({ path: e2 });
+        }, t2.basename = function(t3) {
+          return P.basename(t3.path);
+        }, t2.extname = function(t3) {
+          return P.extname(t3.path);
+        };
+      })(I || (I = {})), LIB = n;
+    })();
+    ({ URI: URI2, Utils } = LIB);
   }
 });
 
-// build/server/modules/platform.module.js
-var require_platform_module = __commonJS({
-  "build/server/modules/platform.module.js"(exports2) {
+// packages/language-server/build/server/modules/platform.module.js
+var childProcess, fsPromises, import_node_os, pathModule, readline2, import_path_is_inside, import_vscode_languageserver, platformModule;
+var init_platform_module = __esm({
+  "packages/language-server/build/server/modules/platform.module.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? (function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    }) : function(o, v) {
-      o["default"] = v;
-    });
-    var __importStar = exports2 && exports2.__importStar || /* @__PURE__ */ (function() {
-      var ownKeys = /* @__PURE__ */ __name(function(o) {
-        ownKeys = Object.getOwnPropertyNames || function(o2) {
-          var ar = [];
-          for (var k in o2) if (Object.prototype.hasOwnProperty.call(o2, k)) ar[ar.length] = k;
-          return ar;
-        };
-        return ownKeys(o);
-      }, "ownKeys");
-      return function(mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) {
-          for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        }
-        __setModuleDefault(result, mod);
-        return result;
-      };
-    })();
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.platformModule = void 0;
-    var childProcess = __importStar(require("node:child_process"));
-    var fsPromises = __importStar(require("node:fs/promises"));
-    var node_os_1 = __importDefault2(require("node:os"));
-    var pathModule = __importStar(require("node:path"));
-    var readline = __importStar(require("node:readline"));
-    var path_is_inside_1 = __importDefault2(require_path_is_inside());
-    var vscode_languageserver_textdocument_1 = (init_main(), __toCommonJS(main_exports));
-    var node_12 = require_node3();
-    var vscode_uri_1 = require_umd();
-    var index_js_12 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var index_js_2 = require_utils();
-    exports2.platformModule = (0, index_js_12.module)({
+    childProcess = __toESM(require("node:child_process"), 1);
+    fsPromises = __toESM(require("node:fs/promises"), 1);
+    import_node_os = __toESM(require("node:os"), 1);
+    pathModule = __toESM(require("node:path"), 1);
+    readline2 = __toESM(require("node:readline"), 1);
+    import_path_is_inside = __toESM(require_path_is_inside(), 1);
+    init_main2();
+    import_vscode_languageserver = __toESM(require_main4(), 1);
+    init_esm();
+    init_di();
+    init_tokens2();
+    init_utils();
+    platformModule = module2({
       register: [
         // Node.js modules
-        (0, index_js_12.provideValue)(tokens_js_1.FsPromisesModuleToken, () => fsPromises),
-        (0, index_js_12.provideValue)(tokens_js_1.PathModuleToken, () => pathModule),
-        (0, index_js_12.provideValue)(tokens_js_1.OsModuleToken, () => node_os_1.default),
-        (0, index_js_12.provideValue)(tokens_js_1.ChildProcessModuleToken, () => childProcess),
-        (0, index_js_12.provideValue)(tokens_js_1.ReadlineModuleToken, () => readline),
+        provideValue(FsPromisesModuleToken, () => fsPromises),
+        provideValue(PathModuleToken, () => pathModule),
+        provideValue(OsModuleToken, () => import_node_os.default),
+        provideValue(ChildProcessModuleToken, () => childProcess),
+        provideValue(ReadlineModuleToken, () => readline2),
         // 3rd-party modules
-        (0, index_js_12.provideValue)(tokens_js_1.UriModuleToken, () => vscode_uri_1.URI),
-        (0, index_js_12.provideValue)(tokens_js_1.PathIsInsideToken, () => path_is_inside_1.default),
-        (0, index_js_12.provideValue)(tokens_js_1.NormalizeFsPathToken, () => index_js_2.normalizeFsPath),
+        provideValue(UriModuleToken, () => URI2),
+        provideValue(PathIsInsideToken, () => import_path_is_inside.default),
+        provideValue(NormalizeFsPathToken, () => normalizeFsPath),
         // Services and utilities
-        (0, index_js_12.provideValue)(tokens_js_1.textDocumentsToken, () => new node_12.TextDocuments(vscode_languageserver_textdocument_1.TextDocument))
+        provideValue(textDocumentsToken, () => new import_vscode_languageserver.TextDocuments(TextDocument2))
       ]
     });
   }
 });
 
-// build/server/modules/stylelint-runtime.module.js
-var require_stylelint_runtime_module = __commonJS({
-  "build/server/modules/stylelint-runtime.module.js"(exports2) {
+// packages/language-server/build/server/modules/stylelint-runtime.module.js
+var stylelintRuntimeModule;
+var init_stylelint_runtime_module = __esm({
+  "packages/language-server/build/server/modules/stylelint-runtime.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.stylelintRuntimeModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_stylelint_runtime();
-    exports2.stylelintRuntimeModule = (0, index_js_12.module)({
+    init_di();
+    init_stylelint_runtime();
+    stylelintRuntimeModule = module2({
       register: [
-        index_js_2.ProcessRunnerService,
-        index_js_2.GlobalPathResolverService,
-        index_js_2.PackageRootService,
-        index_js_2.PackageRootCacheService,
-        index_js_2.PnPConfigurationCacheService,
-        index_js_2.WorkerProcessService,
-        index_js_2.WorkerRegistryService,
-        index_js_2.WorkspaceStylelintService,
-        index_js_2.StylelintOptionsService,
-        index_js_2.StylelintRunnerService,
-        index_js_2.WorkerEnvironmentService
+        ProcessRunnerService,
+        GlobalPathResolverService,
+        PackageRootService,
+        PackageRootCacheService,
+        PnPConfigurationCacheService,
+        WorkerProcessService,
+        WorkerRegistryService,
+        WorkspaceStylelintService,
+        StylelintOptionsService,
+        StylelintRunnerService,
+        WorkerEnvironmentService
       ]
     });
   }
 });
 
-// build/server/modules/workspace.module.js
-var require_workspace_module = __commonJS({
-  "build/server/modules/workspace.module.js"(exports2) {
+// packages/language-server/build/server/modules/workspace.module.js
+var workspaceModule;
+var init_workspace_module = __esm({
+  "packages/language-server/build/server/modules/workspace.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.workspaceModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_workspace();
-    exports2.workspaceModule = (0, index_js_12.module)({
-      register: [index_js_2.WorkspaceFolderService, index_js_2.WorkspaceOptionsService]
+    init_di();
+    init_workspace();
+    workspaceModule = module2({
+      register: [WorkspaceFolderService, WorkspaceOptionsService]
     });
   }
 });
 
-// build/server/modules/index.js
-var require_modules = __commonJS({
-  "build/server/modules/index.js"(exports2) {
+// packages/language-server/build/server/modules/index.js
+var init_modules = __esm({
+  "packages/language-server/build/server/modules/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_documents_module(), exports2);
-    __exportStar(require_infrastructure_module(), exports2);
-    __exportStar(require_lsp_module(), exports2);
-    __exportStar(require_platform_module(), exports2);
-    __exportStar(require_stylelint_runtime_module(), exports2);
-    __exportStar(require_workspace_module(), exports2);
+    init_documents_module();
+    init_infrastructure_module();
+    init_lsp_module();
+    init_platform_module();
+    init_stylelint_runtime_module();
+    init_workspace_module();
   }
 });
 
-// build/server/runtime/lsp-service-runtime.js
-var require_lsp_service_runtime = __commonJS({
-  "build/server/runtime/lsp-service-runtime.js"(exports2) {
+// packages/language-server/build/server/runtime/lsp-service-runtime.js
+var LanguageServerServiceRuntime;
+var init_lsp_service_runtime = __esm({
+  "packages/language-server/build/server/runtime/lsp-service-runtime.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.LanguageServerServiceRuntime = void 0;
-    var index_js_12 = require_utils();
-    var decorators_js_1 = require_decorators2();
-    var LanguageServerServiceRuntime = class {
+    init_utils();
+    init_decorators2();
+    LanguageServerServiceRuntime = class {
       static {
         __name(this, "LanguageServerServiceRuntime");
       }
@@ -34382,7 +35119,7 @@ var require_lsp_service_runtime = __commonJS({
         this.#documents = options.documents;
       }
       registerService(service) {
-        if (!(0, decorators_js_1.getLanguageServerServiceMetadata)(service)) {
+        if (!getLanguageServerServiceMetadata(service)) {
           return;
         }
         this.#services.add(service);
@@ -34391,7 +35128,7 @@ var require_lsp_service_runtime = __commonJS({
       runInitializers(params) {
         let aggregated;
         for (const service of this.#services) {
-          const metadata = (0, decorators_js_1.getLanguageServerServiceMetadata)(service);
+          const metadata = getLanguageServerServiceMetadata(service);
           if (!metadata) {
             continue;
           }
@@ -34404,7 +35141,7 @@ var require_lsp_service_runtime = __commonJS({
               aggregated = { ...result };
               continue;
             }
-            (0, index_js_12.mergeAssign)(aggregated, result);
+            mergeAssign(aggregated, result);
           }
         }
         return aggregated;
@@ -34414,7 +35151,7 @@ var require_lsp_service_runtime = __commonJS({
           return;
         }
         for (const service of this.#services) {
-          const metadata = (0, decorators_js_1.getLanguageServerServiceMetadata)(service);
+          const metadata = getLanguageServerServiceMetadata(service);
           if (!metadata) {
             continue;
           }
@@ -34428,7 +35165,7 @@ var require_lsp_service_runtime = __commonJS({
       }
       dispose() {
         for (const service of this.#services) {
-          const metadata = (0, decorators_js_1.getLanguageServerServiceMetadata)(service);
+          const metadata = getLanguageServerServiceMetadata(service);
           if (!metadata) {
             continue;
           }
@@ -34459,7 +35196,7 @@ var require_lsp_service_runtime = __commonJS({
         };
       }
       #registerTextDocumentHandlers(service) {
-        const metadata = (0, decorators_js_1.getLanguageServerServiceMetadata)(service);
+        const metadata = getLanguageServerServiceMetadata(service);
         if (!metadata || metadata.textDocumentHandlers.length === 0) {
           return;
         }
@@ -34493,24 +35230,25 @@ var require_lsp_service_runtime = __commonJS({
         }
       }
     };
-    exports2.LanguageServerServiceRuntime = LanguageServerServiceRuntime;
   }
 });
 
-// build/server/runtime/language-server-feature.js
-var require_language_server_feature = __commonJS({
-  "build/server/runtime/language-server-feature.js"(exports2) {
+// packages/language-server/build/server/runtime/language-server-feature.js
+function createLanguageServerFeature(options) {
+  return new LanguageServerFeature(options.connection, options.runtimeFactory ?? defaultRuntimeFactory);
+}
+var import_vscode_languageserver_protocol5, defaultRuntimeFactory, LanguageServerFeature;
+var init_language_server_feature = __esm({
+  "packages/language-server/build/server/runtime/language-server-feature.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createLanguageServerFeature = createLanguageServerFeature;
-    var vscode_languageserver_protocol_1 = require_main3();
-    var decorators_js_1 = require_decorators2();
-    var index_js_12 = require_services();
-    var tokens_js_1 = require_tokens2();
-    var index_js_2 = require_utils();
-    var lsp_service_runtime_js_1 = require_lsp_service_runtime();
-    var defaultRuntimeFactory = /* @__PURE__ */ __name((commandService, options) => new lsp_service_runtime_js_1.LanguageServerServiceRuntime(commandService, options), "defaultRuntimeFactory");
-    var LanguageServerFeature = class {
+    import_vscode_languageserver_protocol5 = __toESM(require_main3(), 1);
+    init_decorators2();
+    init_services();
+    init_tokens2();
+    init_utils();
+    init_lsp_service_runtime();
+    defaultRuntimeFactory = /* @__PURE__ */ __name((commandService, options) => new LanguageServerServiceRuntime(commandService, options), "defaultRuntimeFactory");
+    LanguageServerFeature = class {
       static {
         __name(this, "LanguageServerFeature");
       }
@@ -34532,11 +35270,11 @@ var require_language_server_feature = __commonJS({
         if (this.#serviceRuntime) {
           return;
         }
-        this.#documents = context.resolve(tokens_js_1.textDocumentsToken);
-        this.#commandService = context.resolve(index_js_12.CommandService);
-        this.#notificationService = context.resolve(index_js_12.NotificationService);
-        this.#optionsService = context.resolve(index_js_12.WorkspaceOptionsService);
-        this.#runner = context.resolve(index_js_12.StylelintRunnerService);
+        this.#documents = context.resolve(textDocumentsToken);
+        this.#commandService = context.resolve(CommandService);
+        this.#notificationService = context.resolve(NotificationService);
+        this.#optionsService = context.resolve(WorkspaceOptionsService);
+        this.#runner = context.resolve(StylelintRunnerService);
         this.#serviceRuntime = this.#runtimeFactory(this.#commandService, {
           documents: this.#documents
         });
@@ -34576,7 +35314,7 @@ var require_language_server_feature = __commonJS({
           return;
         }
         for (const service of services) {
-          if (!(0, decorators_js_1.isLanguageServerServiceInstance)(service)) {
+          if (!isLanguageServerServiceInstance(service)) {
             continue;
           }
           this.#serviceRuntime.registerService(service);
@@ -34612,12 +35350,12 @@ var require_language_server_feature = __commonJS({
         this.#optionsService?.setSupportsWorkspaceConfiguration(this.#supportsWorkspaceConfiguration);
         const baseResult = {
           capabilities: {
-            textDocumentSync: vscode_languageserver_protocol_1.TextDocumentSyncKind.Full
+            textDocumentSync: import_vscode_languageserver_protocol5.TextDocumentSyncKind.Full
           }
         };
         const decorated = this.#serviceRuntime?.runInitializers(params);
         if (decorated) {
-          (0, index_js_2.mergeAssign)(baseResult, decorated);
+          mergeAssign(baseResult, decorated);
         }
         return baseResult;
       }
@@ -34625,7 +35363,7 @@ var require_language_server_feature = __commonJS({
         if (!this.#supportsWorkspaceConfiguration) {
           return;
         }
-        await this.#connection.client.register(vscode_languageserver_protocol_1.DidChangeConfigurationNotification.type, {
+        await this.#connection.client.register(import_vscode_languageserver_protocol5.DidChangeConfigurationNotification.type, {
           section: "stylelint"
         });
       }
@@ -34637,77 +35375,67 @@ var require_language_server_feature = __commonJS({
         this.#optionsService.updateGlobalOptions(params.settings);
       }
     };
-    function createLanguageServerFeature(options) {
-      return new LanguageServerFeature(options.connection, options.runtimeFactory ?? defaultRuntimeFactory);
-    }
     __name(createLanguageServerFeature, "createLanguageServerFeature");
   }
 });
 
-// build/server/runtime/application.js
-var require_application2 = __commonJS({
-  "build/server/runtime/application.js"(exports2) {
+// packages/language-server/build/server/runtime/application.js
+function createLanguageServerApplication(options) {
+  const overrides = new Map(options.overrides ?? []);
+  const runtimeFactory = options.factories?.createRuntimeApplication ?? createRuntimeApplication;
+  const featureFactory = options.factories?.createLanguageServerFeature ?? createLanguageServerFeature;
+  overrides.set(lspConnectionToken, options.connection);
+  const application = runtimeFactory({
+    modules: options.modules,
+    overrides,
+    features: [featureFactory({ connection: options.connection })]
+  });
+  options.connection.onShutdown(() => {
+    void application.dispose();
+  });
+  return application;
+}
+var init_application2 = __esm({
+  "packages/language-server/build/server/runtime/application.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createLanguageServerApplication = createLanguageServerApplication;
-    var index_js_12 = require_runtime();
-    var tokens_js_1 = require_tokens2();
-    var language_server_feature_js_1 = require_language_server_feature();
-    function createLanguageServerApplication(options) {
-      const overrides = new Map(options.overrides ?? []);
-      const runtimeFactory = options.factories?.createRuntimeApplication ?? index_js_12.createRuntimeApplication;
-      const featureFactory = options.factories?.createLanguageServerFeature ?? language_server_feature_js_1.createLanguageServerFeature;
-      overrides.set(tokens_js_1.lspConnectionToken, options.connection);
-      const application = runtimeFactory({
-        modules: options.modules,
-        overrides,
-        features: [featureFactory({ connection: options.connection })]
-      });
-      options.connection.onShutdown(() => {
-        void application.dispose();
-      });
-      return application;
-    }
+    init_runtime();
+    init_tokens2();
+    init_language_server_feature();
     __name(createLanguageServerApplication, "createLanguageServerApplication");
   }
 });
 
-// build/server/server.module.js
-var require_server_module = __commonJS({
-  "build/server/server.module.js"(exports2) {
+// packages/language-server/build/server/server.module.js
+var languageServerModule;
+var init_server_module = __esm({
+  "packages/language-server/build/server/server.module.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.languageServerModule = void 0;
-    var index_js_12 = require_di();
-    var index_js_2 = require_modules();
-    exports2.languageServerModule = (0, index_js_12.module)({
+    init_di();
+    init_modules();
+    languageServerModule = module2({
       imports: [
-        index_js_2.infrastructureModule,
-        index_js_2.workspaceModule,
-        index_js_2.stylelintRuntimeModule,
-        index_js_2.documentsModule,
-        index_js_2.lspModule
+        infrastructureModule,
+        workspaceModule,
+        stylelintRuntimeModule,
+        documentsModule,
+        lspModule
       ]
     });
   }
 });
 
-// build/server/server.js
-var require_server2 = __commonJS({
-  "build/server/server.js"(exports2) {
+// packages/language-server/build/server/server.js
+var import_winston, StylelintLanguageServer;
+var init_server = __esm({
+  "packages/language-server/build/server/server.js"() {
     "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.StylelintLanguageServer = void 0;
-    var winston_1 = __importDefault2(require_winston());
-    var index_js_12 = require_di();
-    var index_js_2 = require_modules();
-    var application_js_1 = require_application2();
-    var server_module_js_1 = require_server_module();
-    var index_js_3 = require_services();
-    var StylelintLanguageServer = class {
+    import_winston = __toESM(require_winston(), 1);
+    init_di();
+    init_modules();
+    init_application2();
+    init_server_module();
+    init_services();
+    StylelintLanguageServer = class {
       static {
         __name(this, "StylelintLanguageServer");
       }
@@ -34720,16 +35448,16 @@ var require_server2 = __commonJS({
         if (this.#application) {
           return;
         }
-        const featureModule = (0, index_js_12.module)({
-          imports: [server_module_js_1.languageServerModule],
+        const featureModule = module2({
+          imports: [languageServerModule],
           register: [
-            (0, index_js_3.createWinstonLoggingService)(this.#options.logLevel ?? "info", this.#options.logPath)
+            createWinstonLoggingService(this.#options.logLevel ?? "info", this.#options.logPath)
           ]
         });
-        this.#application = (0, application_js_1.createLanguageServerApplication)({
+        this.#application = createLanguageServerApplication({
           connection: this.#options.connection,
-          modules: [index_js_2.platformModule, featureModule],
-          overrides: [[index_js_3.winstonToken, winston_1.default]]
+          modules: [platformModule, featureModule],
+          overrides: [[winstonToken, import_winston.default]]
         });
         await this.#application.start();
         this.#options.connection.listen();
@@ -34740,48 +35468,40 @@ var require_server2 = __commonJS({
         this.#options.connection.dispose();
       }
     };
-    exports2.StylelintLanguageServer = StylelintLanguageServer;
   }
 });
 
-// build/server/index.js
-var require_server3 = __commonJS({
-  "build/server/index.js"(exports2) {
+// packages/language-server/build/server/index.js
+var server_exports = {};
+__export(server_exports, {
+  CodeActionKind: () => CodeActionKind2,
+  CommandId: () => CommandId,
+  Status: () => Status,
+  StatusNotification: () => StatusNotification,
+  StylelintLanguageServer: () => StylelintLanguageServer
+});
+var init_server2 = __esm({
+  "packages/language-server/build/server/index.js"() {
     "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_server2(), exports2);
-    __exportStar(require_types7(), exports2);
+    init_server();
+    init_types7();
   }
 });
 
-// build/shared/log-level.js
-var require_log_level = __commonJS({
-  "build/shared/log-level.js"(exports2) {
+// packages/language-server/build/shared/log-level.js
+var log_level_exports = {};
+__export(log_level_exports, {
+  parseLogLevel: () => parseLogLevel
+});
+function parseLogLevel(value) {
+  if (value === "error" || value === "warn" || value === "info" || value === "debug") {
+    return value;
+  }
+  return void 0;
+}
+var init_log_level = __esm({
+  "packages/language-server/build/shared/log-level.js"() {
     "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.parseLogLevel = parseLogLevel;
-    function parseLogLevel(value) {
-      if (value === "error" || value === "warn" || value === "info" || value === "debug") {
-        return value;
-      }
-      return void 0;
-    }
     __name(parseLogLevel, "parseLogLevel");
   }
 });
@@ -34794,12 +35514,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var node_path_1 = __importDefault(require("node:path"));
 var node_process_1 = __importDefault(require("node:process"));
 var node_1 = require_node3();
-var index_js_1 = require_server3();
-var log_level_js_1 = require_log_level();
+var language_server_1 = (init_server2(), __toCommonJS(server_exports));
+var log_level_1 = (init_log_level(), __toCommonJS(log_level_exports));
 var connection = (0, node_1.createConnection)(node_1.ProposedFeatures.all);
+connection.console.info(`Stylelint language server running on Node.js ${node_process_1.default.version} from ${node_process_1.default.execPath}`);
 var isDevelopment = node_process_1.default.env.NODE_ENV === "development";
-var configuredLogLevel = (0, log_level_js_1.parseLogLevel)(node_process_1.default.env.STYLELINT_LOG_LEVEL);
-var server = new index_js_1.StylelintLanguageServer({
+var configuredLogLevel = (0, log_level_1.parseLogLevel)(node_process_1.default.env.STYLELINT_LOG_LEVEL);
+var server = new language_server_1.StylelintLanguageServer({
   connection,
   logLevel: configuredLogLevel ?? (isDevelopment ? "debug" : "info"),
   logPath: isDevelopment ? node_path_1.default.join(__dirname, "../stylelint-language-server.log") : void 0

@@ -1,18 +1,13 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-var __esm = (fn, res) => function __init() {
-  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
-};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -22,1262 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// build/di/hooks.js
-var require_hooks = __commonJS({
-  "build/di/hooks.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.registerInitializationHook = registerInitializationHook;
-    exports2.getInitializationHooks = getInitializationHooks;
-    var initializationHooksKey = /* @__PURE__ */ Symbol("diInitializationHooks");
-    function registerInitializationHook(target, hook) {
-      const hookableTarget = target;
-      if (hookableTarget[initializationHooksKey]) {
-        hookableTarget[initializationHooksKey].push(hook);
-        return;
-      }
-      Object.defineProperty(hookableTarget, initializationHooksKey, {
-        value: [hook],
-        writable: false,
-        configurable: false,
-        enumerable: false
-      });
-    }
-    __name(registerInitializationHook, "registerInitializationHook");
-    function getInitializationHooks(target) {
-      return target[initializationHooksKey] ?? [];
-    }
-    __name(getInitializationHooks, "getInitializationHooks");
-  }
-});
-
-// build/di/container.js
-var require_container = __commonJS({
-  "build/di/container.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createContainer = createContainer;
-    var hooks_js_1 = require_hooks();
-    function describeToken(token) {
-      if (typeof token === "function") {
-        return token.name || "<anonymous class>";
-      }
-      return token.description ?? token.toString();
-    }
-    __name(describeToken, "describeToken");
-    function mergeProviders(modules) {
-      const merged = /* @__PURE__ */ new Map();
-      const moduleList = Array.isArray(modules) ? modules : [modules];
-      for (const moduleMetadata of moduleList) {
-        for (const [token, definition] of moduleMetadata.providers) {
-          if (merged.has(token)) {
-            throw new Error(`Token ${describeToken(token)} registered multiple times across modules`);
-          }
-          merged.set(token, definition);
-        }
-      }
-      return merged;
-    }
-    __name(mergeProviders, "mergeProviders");
-    function createContainer(modules, options = {}) {
-      const mergedProviders = mergeProviders(modules);
-      const overrides = new Map(options.overrides ?? []);
-      const singletons = /* @__PURE__ */ new Map();
-      const resolutionStack = [];
-      const resolve = /* @__PURE__ */ __name((token) => {
-        if (overrides.has(token)) {
-          return overrides.get(token);
-        }
-        if (singletons.has(token)) {
-          return singletons.get(token);
-        }
-        const provider = mergedProviders.get(token);
-        if (!provider) {
-          throw new Error(`No provider found for ${describeToken(token)}`);
-        }
-        if (resolutionStack.includes(token)) {
-          const cycle = [...resolutionStack, token].map(describeToken).join(" -> ");
-          throw new Error(`Circular dependency detected: ${cycle}`);
-        }
-        resolutionStack.push(token);
-        try {
-          const dependencies = provider.inject.map((dependencyToken) => resolve(dependencyToken));
-          const instance = provider.create(...dependencies);
-          if (typeof token === "function") {
-            const hooks = (0, hooks_js_1.getInitializationHooks)(token);
-            for (const hook of hooks) {
-              hook({
-                instance,
-                token,
-                dependencies,
-                resolve
-              });
-            }
-          }
-          if (provider.scope === "singleton") {
-            singletons.set(token, instance);
-          }
-          return instance;
-        } finally {
-          resolutionStack.pop();
-        }
-      }, "resolve");
-      return { resolve };
-    }
-    __name(createContainer, "createContainer");
-  }
-});
-
-// build/di/inject.js
-var require_inject = __commonJS({
-  "build/di/inject.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.inject = inject;
-    exports2.getInjectMetadata = getInjectMetadata;
-    function isInjectFunction(func) {
-      return "__injectMetadata__" in func;
-    }
-    __name(isInjectFunction, "isInjectFunction");
-    function inject(options = {}) {
-      return /* @__PURE__ */ __name(function InjectDecorator(target) {
-        const injectMetadata = {
-          scope: options.scope ?? "singleton",
-          inject: options.inject ?? []
-        };
-        Object.defineProperty(target, "__injectMetadata__", {
-          value: injectMetadata,
-          enumerable: false,
-          configurable: false,
-          writable: false
-        });
-      }, "InjectDecorator");
-    }
-    __name(inject, "inject");
-    function getInjectMetadata(func) {
-      if (isInjectFunction(func)) {
-        return func.__injectMetadata__;
-      }
-      return void 0;
-    }
-    __name(getInjectMetadata, "getInjectMetadata");
-  }
-});
-
-// build/di/module.js
-var require_module = __commonJS({
-  "build/di/module.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.module = module2;
-    exports2.provideValue = provideValue;
-    exports2.provideTestValue = provideTestValue;
-    var inject_js_1 = require_inject();
-    function describeToken(token) {
-      if (typeof token === "function") {
-        return token.name || "<anonymous class>";
-      }
-      return token.description ?? token.toString();
-    }
-    __name(describeToken, "describeToken");
-    function createClassProvider(ctor) {
-      const injectMetadata = (0, inject_js_1.getInjectMetadata)(ctor);
-      if (!injectMetadata) {
-        throw new Error(`Class ${ctor.name || "<anonymous>"} must be decorated with @inject to be registered`);
-      }
-      const concreteCtor = ctor;
-      return {
-        token: ctor,
-        scope: injectMetadata.scope,
-        inject: [...injectMetadata.inject],
-        create: /* @__PURE__ */ __name((...deps) => new concreteCtor(...deps), "create")
-      };
-    }
-    __name(createClassProvider, "createClassProvider");
-    function createFactoryProvider(entry) {
-      return {
-        token: entry.token,
-        scope: entry.scope ?? "singleton",
-        inject: entry.inject ? [...entry.inject] : [],
-        create: /* @__PURE__ */ __name((...deps) => entry.useFactory(...deps), "create")
-      };
-    }
-    __name(createFactoryProvider, "createFactoryProvider");
-    function module2(options = {}) {
-      const providers = /* @__PURE__ */ new Map();
-      if (options.imports) {
-        for (const importedModule of options.imports) {
-          for (const [token, definition] of importedModule.providers) {
-            if (providers.has(token)) {
-              throw new Error(`Token ${describeToken(token)} registered multiple times while importing modules`);
-            }
-            providers.set(token, definition);
-          }
-        }
-      }
-      if (options.register) {
-        for (const entry of options.register) {
-          const provider = typeof entry === "function" ? createClassProvider(entry) : createFactoryProvider(entry);
-          if (providers.has(provider.token)) {
-            throw new Error(`Token ${describeToken(provider.token)} registered multiple times in module()`);
-          }
-          providers.set(provider.token, provider);
-        }
-      }
-      return { providers };
-    }
-    __name(module2, "module");
-    function provideValue(token, factory, scope) {
-      return scope ? { token, useFactory: factory, scope } : { token, useFactory: factory };
-    }
-    __name(provideValue, "provideValue");
-    function provideTestValue(token, factory, scope) {
-      return scope ? { token, useFactory: factory, scope } : { token, useFactory: factory };
-    }
-    __name(provideTestValue, "provideTestValue");
-  }
-});
-
-// build/di/runtime/symbols.js
-var require_symbols = __commonJS({
-  "build/di/runtime/symbols.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.runtimeServiceSymbol = void 0;
-    exports2.runtimeServiceSymbol = /* @__PURE__ */ Symbol("runtimeService");
-  }
-});
-
-// build/di/runtime/decorators.js
-var require_decorators = __commonJS({
-  "build/di/runtime/decorators.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.runtimeService = runtimeService;
-    exports2.isRuntimeServiceConstructor = isRuntimeServiceConstructor;
-    var symbols_js_1 = require_symbols();
-    function runtimeService() {
-      return (target, { kind }) => {
-        if (kind !== "class") {
-          throw new Error("@runtimeService() can only be applied to classes.");
-        }
-        Object.defineProperty(target, symbols_js_1.runtimeServiceSymbol, {
-          value: true,
-          writable: false,
-          configurable: false,
-          enumerable: false
-        });
-      };
-    }
-    __name(runtimeService, "runtimeService");
-    function isRuntimeServiceConstructor(target) {
-      return Boolean(target[symbols_js_1.runtimeServiceSymbol]);
-    }
-    __name(isRuntimeServiceConstructor, "isRuntimeServiceConstructor");
-  }
-});
-
-// build/di/runtime/application.js
-var require_application = __commonJS({
-  "build/di/runtime/application.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createRuntimeApplication = createRuntimeApplication;
-    var container_js_1 = require_container();
-    var decorators_js_1 = require_decorators();
-    function collectRuntimeServiceConstructors(modules) {
-      const constructors = /* @__PURE__ */ new Set();
-      for (const metadata of modules) {
-        for (const [token] of metadata.providers) {
-          if (typeof token === "function" && (0, decorators_js_1.isRuntimeServiceConstructor)(token)) {
-            constructors.add(token);
-          }
-        }
-      }
-      return constructors;
-    }
-    __name(collectRuntimeServiceConstructors, "collectRuntimeServiceConstructors");
-    function isLifecycleParticipant(value) {
-      return typeof value === "object" && value !== null && (typeof value.onStart === "function" || typeof value.onShutdown === "function");
-    }
-    __name(isLifecycleParticipant, "isLifecycleParticipant");
-    var DefaultRuntimeApplication = class {
-      static {
-        __name(this, "DefaultRuntimeApplication");
-      }
-      #container;
-      #modules;
-      #features;
-      #services = [];
-      #participants = [];
-      #started = false;
-      #disposed = false;
-      #startPromise;
-      #disposePromise;
-      constructor(container, modules, features) {
-        this.#container = container;
-        this.#modules = modules;
-        this.#features = features;
-      }
-      async start() {
-        if (this.#startPromise) {
-          return this.#startPromise;
-        }
-        if (this.#disposed) {
-          throw new Error("Cannot start a disposed runtime application.");
-        }
-        this.#startPromise = this.#startInternal();
-        return this.#startPromise;
-      }
-      async #startInternal() {
-        if (this.#started) {
-          return;
-        }
-        this.#instantiateRuntimeServices();
-        const context = this.#createContext();
-        await this.#runFeatures("start", context);
-        await this.#runParticipants("onStart", context);
-        this.#started = true;
-      }
-      async dispose() {
-        if (this.#disposePromise) {
-          return this.#disposePromise;
-        }
-        this.#disposePromise = this.#disposeInternal();
-        return this.#disposePromise;
-      }
-      resolve(token) {
-        return this.#container.resolve(token);
-      }
-      async #disposeInternal() {
-        if (this.#disposed) {
-          return;
-        }
-        if (this.#startPromise) {
-          await this.#startPromise;
-        }
-        if (!this.#started) {
-          this.#disposed = true;
-          return;
-        }
-        const context = this.#createContext();
-        const participantErrors = await this.#runParticipants("onShutdown", context, true);
-        const featureErrors = await this.#runFeatures("shutdown", context, true);
-        this.#disposeServices();
-        this.#disposeFeatures();
-        this.#participants.length = 0;
-        this.#services.length = 0;
-        this.#disposed = true;
-        if (participantErrors.length > 0 || featureErrors.length > 0) {
-          const firstError = participantErrors.length > 0 ? participantErrors[0] : featureErrors[0];
-          throw this.#normalizeDisposalError(firstError);
-        }
-      }
-      #normalizeDisposalError(error) {
-        if (error instanceof Error) {
-          return error;
-        }
-        if (typeof error === "string") {
-          return new Error(error);
-        }
-        if (typeof error === "undefined") {
-          return new Error("unknown");
-        }
-        try {
-          const serialized = JSON.stringify(error);
-          return new Error(serialized ?? "unknown");
-        } catch {
-          return new Error("unknown");
-        }
-      }
-      #createContext() {
-        const resolve = /* @__PURE__ */ __name((token) => this.#container.resolve(token), "resolve");
-        return {
-          container: this.#container,
-          resolve,
-          metadata: {
-            services: this.#services
-          }
-        };
-      }
-      #instantiateRuntimeServices() {
-        if (this.#services.length > 0) {
-          return;
-        }
-        const constructors = collectRuntimeServiceConstructors(this.#modules);
-        for (const ctor of constructors) {
-          const instance = this.#container.resolve(ctor);
-          if (typeof instance !== "object" || instance === null) {
-            throw new Error("Runtime services must be class instances.");
-          }
-          this.#services.push(instance);
-          if (isLifecycleParticipant(instance)) {
-            this.#participants.push(instance);
-          }
-        }
-      }
-      async #runParticipants(method, context, ignoreErrors = false) {
-        const errors = [];
-        for (const participant of this.#participants) {
-          const handler = participant[method];
-          if (!handler) {
-            continue;
-          }
-          try {
-            await handler.call(participant, context);
-          } catch (error) {
-            if (!ignoreErrors) {
-              throw error;
-            }
-            errors.push(error);
-          }
-        }
-        return errors;
-      }
-      async #runFeatures(method, context, ignoreErrors = false) {
-        const errors = [];
-        for (const feature of this.#features) {
-          const handler = feature[method];
-          if (!handler) {
-            continue;
-          }
-          try {
-            await handler.call(feature, context);
-          } catch (error) {
-            if (!ignoreErrors) {
-              throw error;
-            }
-            errors.push(error);
-          }
-        }
-        return errors;
-      }
-      #disposeServices() {
-        for (const service of this.#services) {
-          if (typeof service.dispose === "function") {
-            try {
-              service.dispose();
-            } catch {
-            }
-          }
-        }
-      }
-      #disposeFeatures() {
-        for (const feature of this.#features) {
-          if (typeof feature.dispose === "function") {
-            try {
-              feature.dispose();
-            } catch {
-            }
-          }
-        }
-      }
-    };
-    function createRuntimeApplication(options) {
-      const container = (0, container_js_1.createContainer)(options.modules, { overrides: options.overrides });
-      return new DefaultRuntimeApplication(container, options.modules, options.features ?? []);
-    }
-    __name(createRuntimeApplication, "createRuntimeApplication");
-  }
-});
-
-// build/di/runtime/types.js
-var require_types = __commonJS({
-  "build/di/runtime/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// build/di/runtime/index.js
-var require_runtime = __commonJS({
-  "build/di/runtime/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_application(), exports2);
-    __exportStar(require_decorators(), exports2);
-    __exportStar(require_types(), exports2);
-  }
-});
-
-// build/di/tokens.js
-var require_tokens = __commonJS({
-  "build/di/tokens.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createToken = createToken;
-    function createToken(description) {
-      return Symbol(description);
-    }
-    __name(createToken, "createToken");
-  }
-});
-
-// build/di/types.js
-var require_types2 = __commonJS({
-  "build/di/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// build/di/index.js
-var require_di = __commonJS({
-  "build/di/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_container(), exports2);
-    __exportStar(require_hooks(), exports2);
-    __exportStar(require_inject(), exports2);
-    __exportStar(require_module(), exports2);
-    __exportStar(require_runtime(), exports2);
-    __exportStar(require_tokens(), exports2);
-    __exportStar(require_types2(), exports2);
-  }
-});
-
-// build/server/tokens.js
-var require_tokens2 = __commonJS({
-  "build/server/tokens.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.WorkspaceStylelintServiceFactoryToken = exports2.lspConnectionToken = exports2.textDocumentsToken = exports2.NormalizeFsPathToken = exports2.PathIsInsideToken = exports2.UriModuleToken = exports2.ReadlineModuleToken = exports2.ChildProcessModuleToken = exports2.OsModuleToken = exports2.PathModuleToken = exports2.FsPromisesModuleToken = void 0;
-    var tokens_js_1 = require_tokens();
-    exports2.FsPromisesModuleToken = (0, tokens_js_1.createToken)("FileSystem");
-    exports2.PathModuleToken = (0, tokens_js_1.createToken)("PathModule");
-    exports2.OsModuleToken = (0, tokens_js_1.createToken)("OsModule");
-    exports2.ChildProcessModuleToken = (0, tokens_js_1.createToken)("ChildProcessModule");
-    exports2.ReadlineModuleToken = (0, tokens_js_1.createToken)("ReadlineModule");
-    exports2.UriModuleToken = (0, tokens_js_1.createToken)("UriModule");
-    exports2.PathIsInsideToken = (0, tokens_js_1.createToken)("PathIsInside");
-    exports2.NormalizeFsPathToken = (0, tokens_js_1.createToken)("NormalizeFsPath");
-    exports2.textDocumentsToken = (0, tokens_js_1.createToken)("TextDocuments");
-    exports2.lspConnectionToken = (0, tokens_js_1.createToken)("LspConnection");
-    exports2.WorkspaceStylelintServiceFactoryToken = (0, tokens_js_1.createToken)("WorkspaceStylelintServiceFactory");
-  }
-});
-
-// build/server/services/infrastructure/logging.service.js
-var require_logging_service = __commonJS({
-  "build/server/services/infrastructure/logging.service.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.loggingServiceToken = void 0;
-    var index_js_1 = require_di();
-    exports2.loggingServiceToken = (0, index_js_1.createToken)("LoggingService");
-  }
-});
-
-// build/server/services/stylelint-runtime/process-runner.service.js
-var require_process_runner_service = __commonJS({
-  "build/server/services/stylelint-runtime/process-runner.service.js"(exports2) {
-    "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-      function accept(f) {
-        if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
-        return f;
-      }
-      __name(accept, "accept");
-      var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-      var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-      var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-      var _, done = false;
-      for (var i = decorators.length - 1; i >= 0; i--) {
-        var context = {};
-        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-        context.addInitializer = function(f) {
-          if (done) throw new TypeError("Cannot add initializers after decoration has completed");
-          extraInitializers.push(accept(f || null));
-        };
-        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-        if (kind === "accessor") {
-          if (result === void 0) continue;
-          if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-          if (_ = accept(result.get)) descriptor.get = _;
-          if (_ = accept(result.set)) descriptor.set = _;
-          if (_ = accept(result.init)) initializers.unshift(_);
-        } else if (_ = accept(result)) {
-          if (kind === "field") initializers.unshift(_);
-          else descriptor[key] = _;
-        }
-      }
-      if (target) Object.defineProperty(target, contextIn.name, descriptor);
-      done = true;
-    };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
-      var useValue = arguments.length > 2;
-      for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-      }
-      return useValue ? value : void 0;
-    };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ProcessRunnerService = void 0;
-    var node_child_process_1 = __importDefault2(require("node:child_process"));
-    var node_readline_1 = __importDefault2(require("node:readline"));
-    var index_js_1 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var ProcessRunnerService = (() => {
-      let _classDecorators = [(0, index_js_1.inject)({
-        inject: [tokens_js_1.ChildProcessModuleToken, tokens_js_1.ReadlineModuleToken]
-      })];
-      let _classDescriptor;
-      let _classExtraInitializers = [];
-      let _classThis;
-      var ProcessRunnerService2 = class {
-        static {
-          __name(this, "ProcessRunnerService");
-        }
-        static {
-          _classThis = this;
-        }
-        static {
-          const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-          ProcessRunnerService2 = _classThis = _classDescriptor.value;
-          if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
-        }
-        #childProcess;
-        #readline;
-        constructor(childProcessModule, readlineModule) {
-          this.#childProcess = childProcessModule ?? node_child_process_1.default;
-          this.#readline = readlineModule ?? node_readline_1.default;
-        }
-        /**
-         * Runs a process and returns the output as read by the given matcher. The
-         * matcher is called for each line of the output with the line. The promise
-         * returned by this function is resolved to the first value returned by the
-         * matcher once the process has exited.
-         *
-         * If the matcher returns `undefined`, the line is ignored.
-         *
-         * If the matcher never returns a value, the promise is resolved to `undefined`.
-         *
-         * If the matcher throws an error, the promise is rejected with the error and
-         * an attempt is made to kill the process.
-         *
-         * If the process exits with a non-zero exit code or if the child process API
-         * emits an error, the promise is rejected with the exit code or error.
-         * @param command Shell command or path to executable
-         * @param args Arguments to pass to the command
-         * @param options Options to pass to the spawner
-         * @param matcher Function to match the output line
-         */
-        async runFindLine(command, args, options, matcher) {
-          return await new Promise((resolve, reject) => {
-            const childProcess = this.#childProcess.spawn(command, args, options);
-            const stdoutReader = this.#readline.createInterface({ input: childProcess.stdout });
-            let returnValue;
-            let exitCode;
-            let resolved = false;
-            let streamClosed = false;
-            const resolveOrRejectIfNeeded = /* @__PURE__ */ __name(() => {
-              if (resolved || exitCode === void 0 || !streamClosed) {
-                return;
-              }
-              resolved = true;
-              if (exitCode === 0) {
-                resolve(returnValue);
-              } else {
-                reject(new Error(`Command "${command}" exited with code ${exitCode}.`));
-              }
-            }, "resolveOrRejectIfNeeded");
-            const handleError = /* @__PURE__ */ __name((error) => {
-              resolved = true;
-              childProcess.removeAllListeners();
-              stdoutReader.close();
-              try {
-                childProcess.kill();
-              } catch {
-              }
-              reject(error);
-            }, "handleError");
-            stdoutReader.on("line", (line) => {
-              if (resolved || returnValue !== void 0) {
-                return;
-              }
-              try {
-                const matched = matcher(line);
-                if (matched !== void 0) {
-                  returnValue = matched;
-                }
-                resolveOrRejectIfNeeded();
-              } catch (error) {
-                handleError(error);
-              }
-            });
-            stdoutReader.on("close", () => {
-              if (resolved) {
-                return;
-              }
-              streamClosed = true;
-              resolveOrRejectIfNeeded();
-            });
-            childProcess.on("error", handleError);
-            childProcess.on("exit", (code, signal) => {
-              exitCode = code ?? signal;
-              resolveOrRejectIfNeeded();
-            });
-          });
-        }
-      };
-      return ProcessRunnerService2 = _classThis;
-    })();
-    exports2.ProcessRunnerService = ProcessRunnerService;
-  }
-});
-
-// build/server/services/stylelint-runtime/global-path-resolver.service.js
-var require_global_path_resolver_service = __commonJS({
-  "build/server/services/stylelint-runtime/global-path-resolver.service.js"(exports2) {
-    "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-      function accept(f) {
-        if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
-        return f;
-      }
-      __name(accept, "accept");
-      var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-      var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-      var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-      var _, done = false;
-      for (var i = decorators.length - 1; i >= 0; i--) {
-        var context = {};
-        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-        context.addInitializer = function(f) {
-          if (done) throw new TypeError("Cannot add initializers after decoration has completed");
-          extraInitializers.push(accept(f || null));
-        };
-        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-        if (kind === "accessor") {
-          if (result === void 0) continue;
-          if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-          if (_ = accept(result.get)) descriptor.get = _;
-          if (_ = accept(result.set)) descriptor.set = _;
-          if (_ = accept(result.init)) initializers.unshift(_);
-        } else if (_ = accept(result)) {
-          if (kind === "field") initializers.unshift(_);
-          else descriptor[key] = _;
-        }
-      }
-      if (target) Object.defineProperty(target, contextIn.name, descriptor);
-      done = true;
-    };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
-      var useValue = arguments.length > 2;
-      for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-      }
-      return useValue ? value : void 0;
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.GlobalPathResolverService = void 0;
-    var index_js_1 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var logging_service_js_1 = require_logging_service();
-    var process_runner_service_js_12 = require_process_runner_service();
-    var GlobalPathResolverService = (() => {
-      let _classDecorators = [(0, index_js_1.inject)({
-        inject: [tokens_js_1.OsModuleToken, tokens_js_1.PathModuleToken, process_runner_service_js_12.ProcessRunnerService, logging_service_js_1.loggingServiceToken]
-      })];
-      let _classDescriptor;
-      let _classExtraInitializers = [];
-      let _classThis;
-      var GlobalPathResolverService2 = class {
-        static {
-          __name(this, "GlobalPathResolverService");
-        }
-        static {
-          _classThis = this;
-        }
-        static {
-          const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-          GlobalPathResolverService2 = _classThis = _classDescriptor.value;
-          if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
-        }
-        /**
-         * The logger to use for tracing resolution.
-         */
-        #logger;
-        /**
-         * The cache of resolved paths.
-         */
-        #cache = {
-          yarn: void 0,
-          npm: void 0,
-          pnpm: void 0
-        };
-        /**
-         * Whether or not the current platform is Windows.
-         */
-        #isWindows;
-        /**
-         * Path utilities.
-         */
-        #path;
-        /**
-         * Runner used to execute package-manager commands.
-         */
-        #processRunner;
-        /**
-         * The resolvers by package manager.
-         */
-        #resolvers = {
-          yarn: this.#yarn.bind(this),
-          npm: this.#npm.bind(this),
-          pnpm: this.#pnpm.bind(this)
-        };
-        /**
-         * Instantiates a new global path resolver.
-         */
-        constructor(osModule, pathModule, processRunner, loggingService) {
-          this.#logger = loggingService.createLogger(GlobalPathResolverService2);
-          this.#isWindows = osModule.platform() === "win32";
-          this.#path = pathModule;
-          this.#processRunner = processRunner;
-        }
-        /**
-         * Resolves the global `node_modules` path for Yarn.
-         *
-         * Note: Only Yarn 1.x is supported. Yarn 2.x and higher have removed
-         * support for globally installed packages.
-         */
-        async #yarn() {
-          const tryParseLog = /* @__PURE__ */ __name((line) => {
-            try {
-              return JSON.parse(line);
-            } catch {
-              return void 0;
-            }
-          }, "tryParseLog");
-          const yarnGlobalPath = await this.#processRunner.runFindLine("yarn", ["global", "dir", "--json"], this.#isWindows ? { shell: true } : void 0, (line) => {
-            const log = tryParseLog(line);
-            if (!log || log.type !== "log" || !log.data) {
-              return void 0;
-            }
-            const globalPath = this.#path.join(log.data, "node_modules");
-            this.#logger?.debug("Yarn returned global node_modules path.", {
-              path: globalPath
-            });
-            return globalPath;
-          });
-          if (!yarnGlobalPath) {
-            this.#logger?.warn('"yarn global dir --json" did not return a path.');
-            return void 0;
-          }
-          return yarnGlobalPath;
-        }
-        /**
-         * Resolves the global `node_modules` path for npm.
-         */
-        async #npm() {
-          const npmGlobalPath = await this.#processRunner.runFindLine("npm", ["config", "get", "prefix"], this.#isWindows ? { shell: true } : void 0, (line) => {
-            const trimmed = line.trim();
-            if (!trimmed) {
-              return void 0;
-            }
-            const globalPath = this.#isWindows ? this.#path.join(trimmed, "node_modules") : this.#path.join(trimmed, "lib/node_modules");
-            this.#logger?.debug("npm returned global node_modules path.", {
-              path: globalPath
-            });
-            return globalPath;
-          });
-          if (!npmGlobalPath) {
-            this.#logger?.warn('"npm config get prefix" did not return a path.');
-            return void 0;
-          }
-          return npmGlobalPath;
-        }
-        /**
-         * Resolves the global `node_modules` path for pnpm.
-         */
-        async #pnpm() {
-          const pnpmGlobalPath = await this.#processRunner.runFindLine("pnpm", ["root", "-g"], this.#isWindows ? { shell: true } : void 0, (line) => {
-            const trimmed = line.trim();
-            if (!trimmed) {
-              return void 0;
-            }
-            this.#logger?.debug("pnpm returned global node_modules path.", {
-              path: trimmed
-            });
-            return trimmed;
-          });
-          if (!pnpmGlobalPath) {
-            this.#logger?.warn('"pnpm root -g" did not return a path.');
-            return void 0;
-          }
-          return pnpmGlobalPath;
-        }
-        /**
-         * Attempts to resolve the global `node_modules` path for the given package
-         * manager.
-         *
-         * On a successful resolution, the method returns a promise that resolves to the
-         * package manager's global `node_modules` path. Paths are cached in the
-         * resolver on the first successful resolution.
-         *
-         * When a path cannot be resolved, the promise resolves to `undefined`.
-         *
-         * @example
-         * ```js
-         * const resolver = getGlobalPathResolver();
-         * const yarnGlobalPath = await resolver.resolve(
-         *   'yarn',
-         *   message => connection && connection.tracer.log(message)
-         * );
-         * ```
-         * @param packageManager The package manager to resolve the path for.
-         */
-        async resolve(packageManager) {
-          const cached = this.#cache[packageManager];
-          if (cached) {
-            return cached;
-          }
-          const resolver = this.#resolvers[packageManager];
-          if (!resolver) {
-            this.#logger?.warn("Unsupported package manager.", { packageManager });
-            return void 0;
-          }
-          try {
-            const globalPath = await resolver();
-            if (globalPath) {
-              this.#cache[packageManager] = globalPath;
-            }
-            return globalPath;
-          } catch (error) {
-            this.#logger?.warn("Failed to resolve global node_modules path.", {
-              packageManager,
-              error
-            });
-            return void 0;
-          }
-        }
-      };
-      return GlobalPathResolverService2 = _classThis;
-    })();
-    exports2.GlobalPathResolverService = GlobalPathResolverService;
-  }
-});
-
-// build/server/services/stylelint-runtime/package-root.service.js
-var require_package_root_service = __commonJS({
-  "build/server/services/stylelint-runtime/package-root.service.js"(exports2) {
-    "use strict";
-    var __esDecorate = exports2 && exports2.__esDecorate || function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
-      function accept(f) {
-        if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
-        return f;
-      }
-      __name(accept, "accept");
-      var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
-      var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
-      var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
-      var _, done = false;
-      for (var i = decorators.length - 1; i >= 0; i--) {
-        var context = {};
-        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
-        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
-        context.addInitializer = function(f) {
-          if (done) throw new TypeError("Cannot add initializers after decoration has completed");
-          extraInitializers.push(accept(f || null));
-        };
-        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
-        if (kind === "accessor") {
-          if (result === void 0) continue;
-          if (result === null || typeof result !== "object") throw new TypeError("Object expected");
-          if (_ = accept(result.get)) descriptor.get = _;
-          if (_ = accept(result.set)) descriptor.set = _;
-          if (_ = accept(result.init)) initializers.unshift(_);
-        } else if (_ = accept(result)) {
-          if (kind === "field") initializers.unshift(_);
-          else descriptor[key] = _;
-        }
-      }
-      if (target) Object.defineProperty(target, contextIn.name, descriptor);
-      done = true;
-    };
-    var __runInitializers = exports2 && exports2.__runInitializers || function(thisArg, initializers, value) {
-      var useValue = arguments.length > 2;
-      for (var i = 0; i < initializers.length; i++) {
-        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
-      }
-      return useValue ? value : void 0;
-    };
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.PackageRootService = void 0;
-    var promises_12 = __importDefault2(require("fs/promises"));
-    var path_1 = __importDefault2(require("path"));
-    var index_js_1 = require_di();
-    var tokens_js_1 = require_tokens2();
-    var PackageRootService = (() => {
-      let _classDecorators = [(0, index_js_1.inject)({
-        inject: [tokens_js_1.FsPromisesModuleToken, tokens_js_1.PathModuleToken]
-      })];
-      let _classDescriptor;
-      let _classExtraInitializers = [];
-      let _classThis;
-      var PackageRootService2 = class {
-        static {
-          __name(this, "PackageRootService");
-        }
-        static {
-          _classThis = this;
-        }
-        static {
-          const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
-          __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
-          PackageRootService2 = _classThis = _classDescriptor.value;
-          if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
-          __runInitializers(_classThis, _classExtraInitializers);
-        }
-        #fs;
-        #path;
-        constructor(fsModule, pathModule) {
-          this.#fs = fsModule ?? promises_12.default;
-          this.#path = pathModule ?? path_1.default;
-        }
-        async find(startPath, rootFile = "package.json") {
-          let currentDirectory = startPath;
-          while (true) {
-            const manifestPath = this.#path.join(currentDirectory, rootFile);
-            try {
-              const stat = await this.#fs.stat(manifestPath);
-              if (stat.isFile()) {
-                return currentDirectory;
-              }
-            } catch (error) {
-              const code = error.code;
-              if (code !== "ENOENT" && code !== "ENOTDIR") {
-                throw error;
-              }
-            }
-            const parent = this.#path.dirname(currentDirectory);
-            if (!this.#path.relative(parent, currentDirectory)) {
-              return void 0;
-            }
-            currentDirectory = parent;
-          }
-        }
-      };
-      return PackageRootService2 = _classThis;
-    })();
-    exports2.PackageRootService = PackageRootService;
-  }
-});
-
-// build/server/stylelint/load-stylelint.js
-var require_load_stylelint = __commonJS({
-  "build/server/stylelint/load-stylelint.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.__loadStylelintTestApi = exports2.loadStylelint = void 0;
-    var promises_12 = __importDefault2(require("node:fs/promises"));
-    var node_path_12 = __importDefault2(require("node:path"));
-    var node_url_1 = require("node:url");
-    var realDynamicImport = new Function("specifier", '"use strict"; return import(specifier);');
-    var dynamicImportImpl = realDynamicImport;
-    var getModulePath = /* @__PURE__ */ __name((specifier, requireFn) => {
-      if (specifier.startsWith("file://")) {
-        return { modulePath: specifier, isResolved: true };
-      }
-      try {
-        return { modulePath: requireFn.resolve(specifier), isResolved: true };
-      } catch {
-        return { modulePath: specifier, isResolved: false };
-      }
-    }, "getModulePath");
-    var isPathSpecifier = /* @__PURE__ */ __name((value) => value.startsWith("file://") || node_path_12.default.isAbsolute(value) || value.startsWith("./") || value.startsWith("../"), "isPathSpecifier");
-    var toFsPath = /* @__PURE__ */ __name((target) => target.startsWith("file://") ? (0, node_url_1.fileURLToPath)(target) : target, "toFsPath");
-    var normalizePackageTarget = /* @__PURE__ */ __name((packageRoot, target) => {
-      if (target.startsWith("file://")) {
-        return target;
-      }
-      if (node_path_12.default.isAbsolute(target)) {
-        return target;
-      }
-      return node_path_12.default.join(packageRoot, target);
-    }, "normalizePackageTarget");
-    var resolveExportTarget = /* @__PURE__ */ __name((value) => {
-      if (typeof value === "string") {
-        return value;
-      }
-      if (Array.isArray(value)) {
-        for (const entry of value) {
-          const resolved = resolveExportTarget(entry);
-          if (resolved) {
-            return resolved;
-          }
-        }
-        return void 0;
-      }
-      if (value && typeof value === "object") {
-        const record = value;
-        const priorityKeys = ["import", "module", "default"];
-        for (const key of priorityKeys) {
-          if (!(key in record)) {
-            continue;
-          }
-          const resolved = resolveExportTarget(record[key]);
-          if (resolved) {
-            return resolved;
-          }
-        }
-        for (const [key, child] of Object.entries(record)) {
-          if (priorityKeys.includes(key) || key === "require" || key === "types") {
-            continue;
-          }
-          const resolved = resolveExportTarget(child);
-          if (resolved) {
-            return resolved;
-          }
-        }
-      }
-      return void 0;
-    }, "resolveExportTarget");
-    var resolvePreferredEsmEntry = /* @__PURE__ */ __name(async (modulePath, packageRootFinder2) => {
-      const packageRoot = await packageRootFinder2.find(node_path_12.default.resolve(toFsPath(modulePath)));
-      if (!packageRoot) {
-        return void 0;
-      }
-      try {
-        const manifestPath = node_path_12.default.join(packageRoot, "package.json");
-        const manifest = JSON.parse(await promises_12.default.readFile(manifestPath, "utf8"));
-        const rootExport = typeof manifest.exports === "object" && !Array.isArray(manifest.exports) ? manifest.exports["."] ?? manifest.exports : manifest.exports;
-        const exportTarget = resolveExportTarget(rootExport);
-        if (exportTarget) {
-          return normalizePackageTarget(packageRoot, exportTarget);
-        }
-        if (typeof manifest.module === "string") {
-          return normalizePackageTarget(packageRoot, manifest.module);
-        }
-      } catch {
-        return void 0;
-      }
-      return void 0;
-    }, "resolvePreferredEsmEntry");
-    var loadESMStylelint = /* @__PURE__ */ __name(async (target, treatAsPath = true) => {
-      const specifier = treatAsPath && !target.startsWith("file://") ? (0, node_url_1.pathToFileURL)(node_path_12.default.resolve(target)).href : target;
-      const namespace = await dynamicImportImpl(specifier);
-      const stylelint = namespace.default ?? namespace;
-      if (!stylelint) {
-        throw new Error(`Failed to import Stylelint from ${target}.`);
-      }
-      return { stylelint, moduleType: "esm" };
-    }, "loadESMStylelint");
-    var loadStylelint = /* @__PURE__ */ __name(async (packageRootFinder2, specifier, requireFn, resolvedPath) => {
-      const { modulePath, isResolved } = resolvedPath ? { modulePath: resolvedPath, isResolved: true } : getModulePath(specifier, requireFn);
-      const hasResolvedPath = isResolved || isPathSpecifier(modulePath);
-      const preferredEsmEntry = hasResolvedPath ? await resolvePreferredEsmEntry(modulePath, packageRootFinder2) : void 0;
-      const seenTargets = /* @__PURE__ */ new Set();
-      const importTargets = [];
-      const addImportTarget = /* @__PURE__ */ __name((target, treatAsPath) => {
-        if (!target) {
-          return;
-        }
-        const key = `${treatAsPath ? "path" : "spec"}:${target}`;
-        if (seenTargets.has(key)) {
-          return;
-        }
-        seenTargets.add(key);
-        importTargets.push({ target, treatAsPath });
-      }, "addImportTarget");
-      addImportTarget(preferredEsmEntry, true);
-      if (isPathSpecifier(specifier)) {
-        addImportTarget(specifier, true);
-      }
-      const resolvedImportTarget = resolvedPath ?? (hasResolvedPath ? modulePath : void 0);
-      addImportTarget(resolvedImportTarget, true);
-      let firstImportError;
-      for (const { target, treatAsPath } of importTargets) {
-        try {
-          return await loadESMStylelint(target, treatAsPath);
-        } catch (error) {
-          if (!firstImportError) {
-            firstImportError = error;
-          }
-        }
-      }
-      try {
-        return {
-          stylelint: requireFn(specifier),
-          moduleType: "cjs"
-        };
-      } catch (requireError) {
-        if (firstImportError) {
-          throw firstImportError;
-        }
-        throw requireError;
-      }
-    }, "loadStylelint");
-    exports2.loadStylelint = loadStylelint;
-    exports2.__loadStylelintTestApi = {
-      setDynamicImport(mock) {
-        dynamicImportImpl = mock;
-      },
-      resetDynamicImport() {
-        dynamicImportImpl = realDynamicImport;
-      }
-    };
-  }
-});
-
-// build/server/worker/types.js
-var require_types3 = __commonJS({
-  "build/server/worker/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.stylelintNotFoundError = void 0;
-    exports2.stylelintNotFoundError = "STYLELINT_NOT_FOUND";
-  }
-});
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // node_modules/logform/format.js
 var require_format = __commonJS({
@@ -1398,7 +145,7 @@ var require_has_flag = __commonJS({
 var require_supports_colors = __commonJS({
   "node_modules/@colors/colors/lib/system/supports-colors.js"(exports2, module2) {
     "use strict";
-    var os = require("os");
+    var os2 = require("os");
     var hasFlag = require_has_flag();
     var env = process.env;
     var forceColor = void 0;
@@ -1437,7 +184,7 @@ var require_supports_colors = __commonJS({
       }
       var min = forceColor ? 1 : 0;
       if (process.platform === "win32") {
-        var osRelease = os.release().split(".");
+        var osRelease = os2.release().split(".");
         if (Number(process.versions.node.split(".")[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586) {
           return Number(osRelease[2]) >= 14931 ? 3 : 2;
         }
@@ -2106,7 +853,7 @@ var require_colorize = __commonJS({
   "node_modules/logform/colorize.js"(exports2, module2) {
     "use strict";
     var colors = require_safe();
-    var { LEVEL, MESSAGE } = require_triple_beam();
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
     colors.enabled = true;
     var hasSpace = /\s+/;
     var Colorizer = class _Colorizer {
@@ -2164,14 +911,14 @@ var require_colorize = __commonJS({
        * `logform` info object.
        */
       transform(info, opts) {
-        if (opts.all && typeof info[MESSAGE] === "string") {
-          info[MESSAGE] = this.colorize(info[LEVEL], info.level, info[MESSAGE]);
+        if (opts.all && typeof info[MESSAGE3] === "string") {
+          info[MESSAGE3] = this.colorize(info[LEVEL3], info.level, info[MESSAGE3]);
         }
         if (opts.level || opts.all || !opts.message) {
-          info.level = this.colorize(info[LEVEL], info.level);
+          info.level = this.colorize(info[LEVEL3], info.level);
         }
         if (opts.all || opts.message) {
-          info.message = this.colorize(info[LEVEL], info.level, info.message);
+          info.message = this.colorize(info[LEVEL3], info.level, info.message);
         }
         return info;
       }
@@ -2210,14 +957,14 @@ var require_errors = __commonJS({
   "node_modules/logform/errors.js"(exports2, module2) {
     "use strict";
     var format = require_format();
-    var { LEVEL, MESSAGE } = require_triple_beam();
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
     module2.exports = format((einfo, { stack, cause }) => {
       if (einfo instanceof Error) {
         const info = Object.assign({}, einfo, {
           level: einfo.level,
-          [LEVEL]: einfo[LEVEL] || einfo.level,
+          [LEVEL3]: einfo[LEVEL3] || einfo.level,
           message: einfo.message,
-          [MESSAGE]: einfo[MESSAGE] || einfo.message
+          [MESSAGE3]: einfo[MESSAGE3] || einfo.message
         });
         if (stack) info.stack = einfo.stack;
         if (cause) info.cause = einfo.cause;
@@ -2227,7 +974,7 @@ var require_errors = __commonJS({
       const err = einfo.message;
       Object.assign(einfo, err);
       einfo.message = err.message;
-      einfo[MESSAGE] = err.message;
+      einfo[MESSAGE3] = err.message;
       if (stack) einfo.stack = err.stack;
       if (cause) einfo.cause = err.cause;
       return einfo;
@@ -2239,7 +986,7 @@ var require_errors = __commonJS({
 var require_pad_levels = __commonJS({
   "node_modules/logform/pad-levels.js"(exports2, module2) {
     "use strict";
-    var { configs, LEVEL, MESSAGE } = require_triple_beam();
+    var { configs, LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
     var Padder = class _Padder {
       static {
         __name(this, "Padder");
@@ -2297,9 +1044,9 @@ var require_pad_levels = __commonJS({
        * @returns {Info} Modified logform info object.
        */
       transform(info, opts) {
-        info.message = `${this.paddings[info[LEVEL]]}${info.message}`;
-        if (info[MESSAGE]) {
-          info[MESSAGE] = `${this.paddings[info[LEVEL]]}${info[MESSAGE]}`;
+        info.message = `${this.paddings[info[LEVEL3]]}${info.message}`;
+        if (info[MESSAGE3]) {
+          info[MESSAGE3] = `${this.paddings[info[LEVEL3]]}${info[MESSAGE3]}`;
         }
         return info;
       }
@@ -2315,7 +1062,7 @@ var require_cli2 = __commonJS({
     "use strict";
     var { Colorizer } = require_colorize();
     var { Padder } = require_pad_levels();
-    var { configs, MESSAGE } = require_triple_beam();
+    var { configs, MESSAGE: MESSAGE3 } = require_triple_beam();
     var CliFormat = class {
       static {
         __name(this, "CliFormat");
@@ -2340,7 +1087,7 @@ var require_cli2 = __commonJS({
           this.padder.transform(info, opts),
           opts
         );
-        info[MESSAGE] = `${info.level}:${info.message}`;
+        info[MESSAGE3] = `${info.level}:${info.message}`;
         return info;
       }
     };
@@ -3009,7 +1756,7 @@ var require_json = __commonJS({
   "node_modules/logform/json.js"(exports2, module2) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var stringify2 = require_safe_stable_stringify();
     function replacer(key, value) {
       if (typeof value === "bigint")
@@ -3019,7 +1766,7 @@ var require_json = __commonJS({
     __name(replacer, "replacer");
     module2.exports = format((info, opts) => {
       const jsonStringify = stringify2.configure(opts);
-      info[MESSAGE] = jsonStringify(info, opts.replacer || replacer, opts.space);
+      info[MESSAGE3] = jsonStringify(info, opts.replacer || replacer, opts.space);
       return info;
     });
   }
@@ -3046,7 +1793,7 @@ var require_logstash = __commonJS({
   "node_modules/logform/logstash.js"(exports2, module2) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var jsonStringify = require_safe_stable_stringify();
     module2.exports = format((info) => {
       const logstash = {};
@@ -3059,7 +1806,7 @@ var require_logstash = __commonJS({
         delete info.timestamp;
       }
       logstash["@fields"] = info;
-      info[MESSAGE] = jsonStringify(logstash);
+      info[MESSAGE3] = jsonStringify(logstash);
       return info;
     });
   }
@@ -3262,13 +2009,13 @@ var require_pretty_print = __commonJS({
     "use strict";
     var inspect = require("util").inspect;
     var format = require_format();
-    var { LEVEL, MESSAGE, SPLAT } = require_triple_beam();
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3, SPLAT } = require_triple_beam();
     module2.exports = format((info, opts = {}) => {
       const stripped = Object.assign({}, info);
-      delete stripped[LEVEL];
-      delete stripped[MESSAGE];
+      delete stripped[LEVEL3];
+      delete stripped[MESSAGE3];
       delete stripped[SPLAT];
-      info[MESSAGE] = inspect(stripped, false, opts.depth || null, opts.colorize);
+      info[MESSAGE3] = inspect(stripped, false, opts.depth || null, opts.colorize);
       return info;
     });
   }
@@ -3278,7 +2025,7 @@ var require_pretty_print = __commonJS({
 var require_printf = __commonJS({
   "node_modules/logform/printf.js"(exports2, module2) {
     "use strict";
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var Printf = class {
       static {
         __name(this, "Printf");
@@ -3287,7 +2034,7 @@ var require_printf = __commonJS({
         this.template = templateFn;
       }
       transform(info) {
-        info[MESSAGE] = this.template(info);
+        info[MESSAGE3] = this.template(info);
         return info;
       }
     };
@@ -3301,7 +2048,7 @@ var require_simple = __commonJS({
   "node_modules/logform/simple.js"(exports2, module2) {
     "use strict";
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var jsonStringify = require_safe_stable_stringify();
     module2.exports = format((info) => {
       const stringifiedRest = jsonStringify(Object.assign({}, info, {
@@ -3311,9 +2058,9 @@ var require_simple = __commonJS({
       }));
       const padding = info.padding && info.padding[info.level] || "";
       if (stringifiedRest !== "{}") {
-        info[MESSAGE] = `${info.level}:${padding} ${info.message} ${stringifiedRest}`;
+        info[MESSAGE3] = `${info.level}:${padding} ${info.message} ${stringifiedRest}`;
       } else {
-        info[MESSAGE] = `${info.level}:${padding} ${info.message}`;
+        info[MESSAGE3] = `${info.level}:${padding} ${info.message}`;
       }
       return info;
     });
@@ -3841,7 +2588,7 @@ var require_uncolorize = __commonJS({
     "use strict";
     var colors = require_safe();
     var format = require_format();
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     module2.exports = format((info, opts) => {
       if (opts.level !== false) {
         info.level = colors.strip(info.level);
@@ -3849,8 +2596,8 @@ var require_uncolorize = __commonJS({
       if (opts.message !== false) {
         info.message = colors.strip(String(info.message));
       }
-      if (opts.raw !== false && info[MESSAGE]) {
-        info[MESSAGE] = colors.strip(String(info[MESSAGE]));
+      if (opts.raw !== false && info[MESSAGE3]) {
+        info[MESSAGE3] = colors.strip(String(info[MESSAGE3]));
       }
       return info;
     });
@@ -6676,8 +5423,8 @@ var require_modern = __commonJS({
     "use strict";
     var util = require("util");
     var Writable = require_stream_writable();
-    var { LEVEL } = require_triple_beam();
-    var TransportStream = module2.exports = /* @__PURE__ */ __name(function TransportStream2(options = {}) {
+    var { LEVEL: LEVEL3 } = require_triple_beam();
+    var TransportStream2 = module2.exports = /* @__PURE__ */ __name(function TransportStream3(options = {}) {
       Writable.call(this, { objectMode: true, highWaterMark: options.highWaterMark });
       this.format = options.format;
       this.level = options.level;
@@ -6700,13 +5447,13 @@ var require_modern = __commonJS({
         }
       });
     }, "TransportStream");
-    util.inherits(TransportStream, Writable);
-    TransportStream.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
+    util.inherits(TransportStream2, Writable);
+    TransportStream2.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
       if (this.silent || info.exception === true && !this.handleExceptions) {
         return callback(null);
       }
       const level = this.level || this.parent && this.parent.level;
-      if (!level || this.levels[level] >= this.levels[info[LEVEL]]) {
+      if (!level || this.levels[level] >= this.levels[info[LEVEL3]]) {
         if (info && !this.format) {
           return this.log(info, callback);
         }
@@ -6727,7 +5474,7 @@ var require_modern = __commonJS({
       this._writableState.sync = false;
       return callback(null);
     }, "_write");
-    TransportStream.prototype._writev = /* @__PURE__ */ __name(function _writev(chunks, callback) {
+    TransportStream2.prototype._writev = /* @__PURE__ */ __name(function _writev(chunks, callback) {
       if (this.logv) {
         const infos = chunks.filter(this._accept, this);
         if (!infos.length) {
@@ -6763,20 +5510,20 @@ var require_modern = __commonJS({
       }
       return callback(null);
     }, "_writev");
-    TransportStream.prototype._accept = /* @__PURE__ */ __name(function _accept(write) {
+    TransportStream2.prototype._accept = /* @__PURE__ */ __name(function _accept(write) {
       const info = write.chunk;
       if (this.silent) {
         return false;
       }
       const level = this.level || this.parent && this.parent.level;
-      if (info.exception === true || !level || this.levels[level] >= this.levels[info[LEVEL]]) {
+      if (info.exception === true || !level || this.levels[level] >= this.levels[info[LEVEL3]]) {
         if (this.handleExceptions || info.exception !== true) {
           return true;
         }
       }
       return false;
     }, "_accept");
-    TransportStream.prototype._nop = /* @__PURE__ */ __name(function _nop() {
+    TransportStream2.prototype._nop = /* @__PURE__ */ __name(function _nop() {
       return void 0;
     }, "_nop");
   }
@@ -6787,10 +5534,10 @@ var require_legacy = __commonJS({
   "node_modules/winston-transport/legacy.js"(exports2, module2) {
     "use strict";
     var util = require("util");
-    var { LEVEL } = require_triple_beam();
-    var TransportStream = require_modern();
+    var { LEVEL: LEVEL3 } = require_triple_beam();
+    var TransportStream2 = require_modern();
     var LegacyTransportStream = module2.exports = /* @__PURE__ */ __name(function LegacyTransportStream2(options = {}) {
-      TransportStream.call(this, options);
+      TransportStream2.call(this, options);
       if (!options.transport || typeof options.transport.log !== "function") {
         throw new Error("Invalid transport, must be an object with a log method.");
       }
@@ -6807,13 +5554,13 @@ var require_legacy = __commonJS({
         this.transport.on("error", this.transport.__winstonError);
       }
     }, "LegacyTransportStream");
-    util.inherits(LegacyTransportStream, TransportStream);
+    util.inherits(LegacyTransportStream, TransportStream2);
     LegacyTransportStream.prototype._write = /* @__PURE__ */ __name(function _write(info, enc, callback) {
       if (this.silent || info.exception === true && !this.handleExceptions) {
         return callback(null);
       }
-      if (!this.level || this.levels[this.level] >= this.levels[info[LEVEL]]) {
-        this.transport.log(info[LEVEL], info.message, info, this._nop);
+      if (!this.level || this.levels[this.level] >= this.levels[info[LEVEL3]]) {
+        this.transport.log(info[LEVEL3], info.message, info, this._nop);
       }
       callback(null);
     }, "_write");
@@ -6821,7 +5568,7 @@ var require_legacy = __commonJS({
       for (let i = 0; i < chunks.length; i++) {
         if (this._accept(chunks[i])) {
           this.transport.log(
-            chunks[i].chunk[LEVEL],
+            chunks[i].chunk[LEVEL3],
             chunks[i].chunk.message,
             chunks[i].chunk,
             this._nop
@@ -6862,10 +5609,10 @@ var require_winston_transport = __commonJS({
 var require_console = __commonJS({
   "node_modules/winston/lib/winston/transports/console.js"(exports2, module2) {
     "use strict";
-    var os = require("os");
-    var { LEVEL, MESSAGE } = require_triple_beam();
-    var TransportStream = require_winston_transport();
-    module2.exports = class Console extends TransportStream {
+    var os2 = require("os");
+    var { LEVEL: LEVEL3, MESSAGE: MESSAGE3 } = require_triple_beam();
+    var TransportStream2 = require_winston_transport();
+    module2.exports = class Console extends TransportStream2 {
       static {
         __name(this, "Console");
       }
@@ -6879,7 +5626,7 @@ var require_console = __commonJS({
         this.name = options.name || "console";
         this.stderrLevels = this._stringArrayToSet(options.stderrLevels);
         this.consoleWarnLevels = this._stringArrayToSet(options.consoleWarnLevels);
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os2.EOL;
         this.forceConsole = options.forceConsole || false;
         this._consoleLog = console.log.bind(console);
         this._consoleWarn = console.warn.bind(console);
@@ -6894,21 +5641,21 @@ var require_console = __commonJS({
        */
       log(info, callback) {
         setImmediate(() => this.emit("logged", info));
-        if (this.stderrLevels[info[LEVEL]]) {
+        if (this.stderrLevels[info[LEVEL3]]) {
           if (console._stderr && !this.forceConsole) {
-            console._stderr.write(`${info[MESSAGE]}${this.eol}`);
+            console._stderr.write(`${info[MESSAGE3]}${this.eol}`);
           } else {
-            this._consoleError(info[MESSAGE]);
+            this._consoleError(info[MESSAGE3]);
           }
           if (callback) {
             callback();
           }
           return;
-        } else if (this.consoleWarnLevels[info[LEVEL]]) {
+        } else if (this.consoleWarnLevels[info[LEVEL3]]) {
           if (console._stderr && !this.forceConsole) {
-            console._stderr.write(`${info[MESSAGE]}${this.eol}`);
+            console._stderr.write(`${info[MESSAGE3]}${this.eol}`);
           } else {
-            this._consoleWarn(info[MESSAGE]);
+            this._consoleWarn(info[MESSAGE3]);
           }
           if (callback) {
             callback();
@@ -6916,9 +5663,9 @@ var require_console = __commonJS({
           return;
         }
         if (console._stdout && !this.forceConsole) {
-          console._stdout.write(`${info[MESSAGE]}${this.eol}`);
+          console._stdout.write(`${info[MESSAGE3]}${this.eol}`);
         } else {
-          this._consoleLog(info[MESSAGE]);
+          this._consoleLog(info[MESSAGE3]);
         }
         if (callback) {
           callback();
@@ -10087,13 +8834,13 @@ var require_diagnostics = __commonJS({
       logger.apply(logger, arguments);
     }
     __name(write, "write");
-    function process2(message) {
+    function process4(message) {
       for (var i = 0; i < modifiers.length; i++) {
         message = modifiers[i].apply(modifiers[i], arguments);
       }
       return message;
     }
-    __name(process2, "process");
+    __name(process4, "process");
     function introduce(fn, options) {
       var has = Object.prototype.hasOwnProperty;
       for (var key in options) {
@@ -10117,7 +8864,7 @@ var require_diagnostics = __commonJS({
     function yep(options) {
       function diagnostics() {
         var args = Array.prototype.slice.call(arguments, 0);
-        write.call(write, options, process2(args, options));
+        write.call(write, options, process4(args, options));
         return true;
       }
       __name(diagnostics, "diagnostics");
@@ -10131,7 +8878,7 @@ var require_diagnostics = __commonJS({
     module2.exports = /* @__PURE__ */ __name(function create(diagnostics) {
       diagnostics.introduce = introduce;
       diagnostics.enabled = enabled;
-      diagnostics.process = process2;
+      diagnostics.process = process4;
       diagnostics.modify = modify;
       diagnostics.write = write;
       diagnostics.nope = nope;
@@ -10580,15 +9327,15 @@ var require_index_cjs = __commonJS({
       const g = rgb[1] / 255;
       const b = rgb[2] / 255;
       const v = Math.max(r, g, b);
-      const diff = v - Math.min(r, g, b);
+      const diff2 = v - Math.min(r, g, b);
       const diffc = /* @__PURE__ */ __name(function(c) {
-        return (v - c) / 6 / diff + 1 / 2;
+        return (v - c) / 6 / diff2 + 1 / 2;
       }, "diffc");
-      if (diff === 0) {
+      if (diff2 === 0) {
         h = 0;
         s = 0;
       } else {
-        s = diff / v;
+        s = diff2 / v;
         rdif = diffc(r);
         gdif = diffc(g);
         bdif = diffc(b);
@@ -11040,8 +9787,8 @@ var require_index_cjs = __commonJS({
       return [r, g, b];
     };
     convert$1.rgb.hex = function(args) {
-      const integer = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
-      const string = integer.toString(16).toUpperCase();
+      const integer2 = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
+      const string = integer2.toString(16).toUpperCase();
       return "000000".slice(string.length) + string;
     };
     convert$1.hex.rgb = function(args) {
@@ -11053,10 +9800,10 @@ var require_index_cjs = __commonJS({
       if (match[0].length === 3) {
         colorString = [...colorString].map((char) => char + char).join("");
       }
-      const integer = Number.parseInt(colorString, 16);
-      const r = integer >> 16 & 255;
-      const g = integer >> 8 & 255;
-      const b = integer & 255;
+      const integer2 = Number.parseInt(colorString, 16);
+      const r = integer2 >> 16 & 255;
+      const g = integer2 >> 8 & 255;
+      const b = integer2 & 255;
       return [r, g, b];
     };
     convert$1.rgb.hcg = function(rgb) {
@@ -11220,8 +9967,8 @@ var require_index_cjs = __commonJS({
     };
     convert$1.gray.hex = function(gray) {
       const value = Math.round(gray[0] / 100 * 255) & 255;
-      const integer = (value << 16) + (value << 8) + value;
-      const string = integer.toString(16).toUpperCase();
+      const integer2 = (value << 16) + (value << 8) + value;
+      const string = integer2.toString(16).toUpperCase();
       return "000000".slice(string.length) + string;
     };
     convert$1.rgb.gray = function(rgb) {
@@ -11269,15 +10016,15 @@ var require_index_cjs = __commonJS({
     }
     __name(link, "link");
     function wrapConversion(toModel, graph) {
-      const path = [graph[toModel].parent, toModel];
+      const path4 = [graph[toModel].parent, toModel];
       let fn = convert$1[graph[toModel].parent][toModel];
       let cur = graph[toModel].parent;
       while (graph[cur].parent) {
-        path.unshift(graph[cur].parent);
+        path4.unshift(graph[cur].parent);
         fn = link(convert$1[graph[cur].parent][cur], fn);
         cur = graph[cur].parent;
       }
-      fn.conversion = path;
+      fn.conversion = path4;
       return fn;
     }
     __name(wrapConversion, "wrapConversion");
@@ -11363,9 +10110,9 @@ var require_index_cjs = __commonJS({
       hashedModelKeys[[...convert[model].labels].sort().join("")] = model;
     }
     var limiters = {};
-    function Color(object, model) {
-      if (!(this instanceof Color)) {
-        return new Color(object, model);
+    function Color2(object, model) {
+      if (!(this instanceof Color2)) {
+        return new Color2(object, model);
       }
       if (model && model in skippedModels) {
         model = null;
@@ -11379,7 +10126,7 @@ var require_index_cjs = __commonJS({
         this.model = "rgb";
         this.color = [0, 0, 0];
         this.valpha = 1;
-      } else if (object instanceof Color) {
+      } else if (object instanceof Color2) {
         this.model = object.model;
         this.color = [...object.color];
         this.valpha = object.valpha;
@@ -11439,8 +10186,8 @@ var require_index_cjs = __commonJS({
         Object.freeze(this);
       }
     }
-    __name(Color, "Color");
-    Color.prototype = {
+    __name(Color2, "Color");
+    Color2.prototype = {
       toString() {
         return this.string();
       },
@@ -11495,11 +10242,11 @@ var require_index_cjs = __commonJS({
       },
       round(places) {
         places = Math.max(places || 0, 0);
-        return new Color([...this.color.map(roundToPlace(places)), this.valpha], this.model);
+        return new Color2([...this.color.map(roundToPlace(places)), this.valpha], this.model);
       },
       alpha(value) {
         if (value !== void 0) {
-          return new Color([...this.color, Math.max(0, Math.min(1, value))], this.model);
+          return new Color2([...this.color, Math.max(0, Math.min(1, value))], this.model);
         }
         return this.valpha;
       },
@@ -11528,19 +10275,19 @@ var require_index_cjs = __commonJS({
       b: getset("lab", 2),
       keyword(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         return convert[this.model].keyword(this.color);
       },
       hex(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         return cs.to.hex(...this.rgb().round().color);
       },
       hexa(value) {
         if (value !== void 0) {
-          return new Color(value);
+          return new Color2(value);
         }
         const rgbArray = this.rgb().round().color;
         let alphaHex = Math.round(this.valpha * 255).toString(16).toUpperCase();
@@ -11625,7 +10372,7 @@ var require_index_cjs = __commonJS({
       grayscale() {
         const rgb = this.rgb().color;
         const value = rgb[0] * 0.3 + rgb[1] * 0.59 + rgb[2] * 0.11;
-        return Color.rgb(value, value, value);
+        return Color2.rgb(value, value, value);
       },
       fade(ratio) {
         return this.alpha(this.valpha - this.valpha * ratio);
@@ -11652,7 +10399,7 @@ var require_index_cjs = __commonJS({
         const a = color1.alpha() - color2.alpha();
         const w1 = ((w * a === -1 ? w : (w + a) / (1 + w * a)) + 1) / 2;
         const w2 = 1 - w1;
-        return Color.rgb(
+        return Color2.rgb(
           w1 * color1.red() + w2 * color2.red(),
           w1 * color1.green() + w2 * color2.green(),
           w1 * color1.blue() + w2 * color2.blue(),
@@ -11665,21 +10412,21 @@ var require_index_cjs = __commonJS({
         continue;
       }
       const { channels } = convert[model];
-      Color.prototype[model] = function(...arguments_) {
+      Color2.prototype[model] = function(...arguments_) {
         if (this.model === model) {
-          return new Color(this);
+          return new Color2(this);
         }
         if (arguments_.length > 0) {
-          return new Color(arguments_, model);
+          return new Color2(arguments_, model);
         }
-        return new Color([...assertArray(convert[this.model][model].raw(this.color)), this.valpha], model);
+        return new Color2([...assertArray(convert[this.model][model].raw(this.color)), this.valpha], model);
       };
-      Color[model] = function(...arguments_) {
+      Color2[model] = function(...arguments_) {
         let color = arguments_[0];
         if (typeof color === "number") {
           color = zeroArray(arguments_, channels);
         }
-        return new Color(color, model);
+        return new Color2(color, model);
       };
     }
     function roundTo(number, places) {
@@ -11754,7 +10501,7 @@ var require_index_cjs = __commonJS({
       let base = hex(split[0]);
       if (!split.length) return base;
       for (let i = 0, l = split.length - 1; i < l; i++) {
-        base = Color(base).mix(Color(hex(split[i + 1]))).saturate(1).hex();
+        base = Color2(base).mix(Color2(hex(split[i + 1]))).saturate(1).hex();
       }
       return base;
     }
@@ -11921,7 +10668,7 @@ var require_node2 = __commonJS({
 var require_tail_file = __commonJS({
   "node_modules/winston/lib/winston/tail-file.js"(exports2, module2) {
     "use strict";
-    var fs = require("fs");
+    var fs4 = require("fs");
     var { StringDecoder } = require("string_decoder");
     var { Stream } = require_readable();
     function noop() {
@@ -11943,7 +10690,7 @@ var require_tail_file = __commonJS({
         stream.emit("end");
         stream.emit("close");
       };
-      fs.open(options.file, "a+", "0644", (err, fd) => {
+      fs4.open(options.file, "a+", "0644", (err, fd) => {
         if (err) {
           if (!iter) {
             stream.emit("error", err);
@@ -11955,10 +10702,10 @@ var require_tail_file = __commonJS({
         }
         (/* @__PURE__ */ __name(function read() {
           if (stream.destroyed) {
-            fs.close(fd, noop);
+            fs4.close(fd, noop);
             return;
           }
-          return fs.read(fd, buffer, 0, buffer.length, pos, (error, bytes) => {
+          return fs4.read(fd, buffer, 0, buffer.length, pos, (error, bytes) => {
             if (error) {
               if (!iter) {
                 stream.emit("error", error);
@@ -12017,17 +10764,17 @@ var require_tail_file = __commonJS({
 var require_file = __commonJS({
   "node_modules/winston/lib/winston/transports/file.js"(exports2, module2) {
     "use strict";
-    var fs = require("fs");
-    var path = require("path");
+    var fs4 = require("fs");
+    var path4 = require("path");
     var asyncSeries = require_series();
     var zlib = require("zlib");
-    var { MESSAGE } = require_triple_beam();
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
     var { Stream, PassThrough } = require_readable();
-    var TransportStream = require_winston_transport();
+    var TransportStream2 = require_winston_transport();
     var debug = require_node2()("winston:file");
-    var os = require("os");
+    var os2 = require("os");
     var tailFile = require_tail_file();
-    module2.exports = class File extends TransportStream {
+    module2.exports = class File extends TransportStream2 {
       static {
         __name(this, "File");
       }
@@ -12052,14 +10799,14 @@ var require_file = __commonJS({
         this._onError = this._onError.bind(this);
         if (options.filename || options.dirname) {
           throwIf("filename or dirname", "stream");
-          this._basename = this.filename = options.filename ? path.basename(options.filename) : "winston.log";
-          this.dirname = options.dirname || path.dirname(options.filename);
+          this._basename = this.filename = options.filename ? path4.basename(options.filename) : "winston.log";
+          this.dirname = options.dirname || path4.dirname(options.filename);
           this.options = options.options || { flags: "a" };
         } else if (options.stream) {
           console.warn("options.stream will be removed in winston@4. Use winston.transports.Stream");
           throwIf("stream", "filename", "maxsize");
           this._dest = this._stream.pipe(this._setupStream(options.stream));
-          this.dirname = path.dirname(this._dest.path);
+          this.dirname = path4.dirname(this._dest.path);
         } else {
           throw new Error("Cannot log to file without filename or stream.");
         }
@@ -12067,7 +10814,7 @@ var require_file = __commonJS({
         this.rotationFormat = options.rotationFormat || false;
         this.zippedArchive = options.zippedArchive || false;
         this.maxFiles = options.maxFiles || null;
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os2.EOL;
         this.tailable = options.tailable || false;
         this.lazy = options.lazy || false;
         this._size = 0;
@@ -12167,7 +10914,7 @@ var require_file = __commonJS({
             return;
           }
         }
-        const output = `${info[MESSAGE]}${this.eol}`;
+        const output = `${info[MESSAGE3]}${this.eol}`;
         const bytes = Buffer.byteLength(output);
         function logged() {
           this._size += bytes;
@@ -12223,11 +10970,11 @@ var require_file = __commonJS({
           options = {};
         }
         options = normalizeQuery(options);
-        const file = path.join(this.dirname, this.filename);
+        const file = path4.join(this.dirname, this.filename);
         let buff = "";
         let results = [];
         let row = 0;
-        const stream = fs.createReadStream(file, {
+        const stream = fs4.createReadStream(file, {
           encoding: "utf8"
         });
         stream.on("error", (err) => {
@@ -12332,7 +11079,7 @@ var require_file = __commonJS({
        * TODO: Refactor me.
        */
       stream(options = {}) {
-        const file = path.join(this.dirname, this.filename);
+        const file = path4.join(this.dirname, this.filename);
         const stream = new Stream();
         const tail = {
           file,
@@ -12382,8 +11129,8 @@ var require_file = __commonJS({
        */
       stat(callback) {
         const target = this._getFile();
-        const fullpath = path.join(this.dirname, target);
-        fs.stat(fullpath, (err, stat) => {
+        const fullpath = path4.join(this.dirname, target);
+        fs4.stat(fullpath, (err, stat) => {
           if (err && err.code === "ENOENT") {
             debug("ENOENT\xA0ok", fullpath);
             this.filename = target;
@@ -12486,9 +11233,9 @@ var require_file = __commonJS({
        * @returns {WritableStream} Stream that writes to disk for the active file.
        */
       _createStream(source) {
-        const fullpath = path.join(this.dirname, this.filename);
+        const fullpath = path4.join(this.dirname, this.filename);
         debug("create stream start", fullpath, this.options);
-        const dest = fs.createWriteStream(fullpath, this.options).on("error", (err) => debug(err)).on("close", () => debug("close", dest.path, dest.bytesWritten)).on("open", () => {
+        const dest = fs4.createWriteStream(fullpath, this.options).on("error", (err) => debug(err)).on("close", () => debug("close", dest.path, dest.bytesWritten)).on("open", () => {
           debug("file open ok", fullpath);
           this.emit("open", fullpath);
           source.pipe(dest);
@@ -12511,16 +11258,16 @@ var require_file = __commonJS({
        */
       _incFile(callback) {
         debug("_incFile", this.filename);
-        const ext = path.extname(this._basename);
-        const basename = path.basename(this._basename, ext);
+        const ext = path4.extname(this._basename);
+        const basename = path4.basename(this._basename, ext);
         const tasks = [];
         if (this.zippedArchive) {
           tasks.push(
             function(cb) {
               const num = this._created > 0 && !this.tailable ? this._created : "";
               this._compressFile(
-                path.join(this.dirname, `${basename}${num}${ext}`),
-                path.join(this.dirname, `${basename}${num}${ext}.gz`),
+                path4.join(this.dirname, `${basename}${num}${ext}`),
+                path4.join(this.dirname, `${basename}${num}${ext}.gz`),
                 cb
               );
             }.bind(this)
@@ -12545,8 +11292,8 @@ var require_file = __commonJS({
        * @private
        */
       _getFile() {
-        const ext = path.extname(this._basename);
-        const basename = path.basename(this._basename, ext);
+        const ext = path4.extname(this._basename);
+        const basename = path4.basename(this._basename, ext);
         const isRotation = this.rotationFormat ? this.rotationFormat() : this._created;
         return !this.tailable && this._created ? `${basename}${isRotation}${ext}` : `${basename}${ext}`;
       }
@@ -12566,8 +11313,8 @@ var require_file = __commonJS({
         const isOldest = oldest !== 0 ? oldest : "";
         const isZipped = this.zippedArchive ? ".gz" : "";
         const filePath = `${basename}${isOldest}${ext}${isZipped}`;
-        const target = path.join(this.dirname, filePath);
-        fs.unlink(target, callback);
+        const target = path4.join(this.dirname, filePath);
+        fs4.unlink(target, callback);
       }
       /**
        * Roll files forward based on integer, up to maxFiles. e.g. if base if
@@ -12589,20 +11336,20 @@ var require_file = __commonJS({
         for (let x = this.maxFiles - 1; x > 1; x--) {
           tasks.push(function(i, cb) {
             let fileName = `${basename}${i - 1}${ext}${isZipped}`;
-            const tmppath = path.join(this.dirname, fileName);
-            fs.exists(tmppath, (exists) => {
+            const tmppath = path4.join(this.dirname, fileName);
+            fs4.exists(tmppath, (exists) => {
               if (!exists) {
                 return cb(null);
               }
               fileName = `${basename}${i}${ext}${isZipped}`;
-              fs.rename(tmppath, path.join(this.dirname, fileName), cb);
+              fs4.rename(tmppath, path4.join(this.dirname, fileName), cb);
             });
           }.bind(this, x));
         }
         asyncSeries(tasks, () => {
-          fs.rename(
-            path.join(this.dirname, `${basename}${ext}${isZipped}`),
-            path.join(this.dirname, `${basename}1${ext}${isZipped}`),
+          fs4.rename(
+            path4.join(this.dirname, `${basename}${ext}${isZipped}`),
+            path4.join(this.dirname, `${basename}1${ext}${isZipped}`),
             callback
           );
         });
@@ -12616,22 +11363,22 @@ var require_file = __commonJS({
        * @private
        */
       _compressFile(src, dest, callback) {
-        fs.access(src, fs.F_OK, (err) => {
+        fs4.access(src, fs4.F_OK, (err) => {
           if (err) {
             return callback();
           }
           var gzip = zlib.createGzip();
-          var inp = fs.createReadStream(src);
-          var out = fs.createWriteStream(dest);
+          var inp = fs4.createReadStream(src);
+          var out = fs4.createWriteStream(dest);
           out.on("finish", () => {
-            fs.unlink(src, callback);
+            fs4.unlink(src, callback);
           });
           inp.pipe(gzip).pipe(out);
         });
       }
       _createLogDirIfNotExist(dirPath) {
-        if (!fs.existsSync(dirPath)) {
-          fs.mkdirSync(dirPath, { recursive: true });
+        if (!fs4.existsSync(dirPath)) {
+          fs4.mkdirSync(dirPath, { recursive: true });
         }
       }
     };
@@ -12645,9 +11392,9 @@ var require_http = __commonJS({
     var http = require("http");
     var https = require("https");
     var { Stream } = require_readable();
-    var TransportStream = require_winston_transport();
+    var TransportStream2 = require_winston_transport();
     var { configure } = require_safe_stable_stringify();
-    module2.exports = class Http extends TransportStream {
+    module2.exports = class Http extends TransportStream2 {
       static {
         __name(this, "Http");
       }
@@ -12718,9 +11465,9 @@ var require_http = __commonJS({
         };
         const auth = options.params.auth || null;
         delete options.params.auth;
-        const path = options.params.path || null;
+        const path4 = options.params.path || null;
         delete options.params.path;
-        this._request(options, auth, path, (err, res, body) => {
+        this._request(options, auth, path4, (err, res, body) => {
           if (res && res.statusCode !== 200) {
             err = new Error(`Invalid HTTP Status Code: ${res.statusCode}`);
           }
@@ -12748,12 +11495,12 @@ var require_http = __commonJS({
           method: "stream",
           params: options
         };
-        const path = options.params.path || null;
+        const path4 = options.params.path || null;
         delete options.params.path;
         const auth = options.params.auth || null;
         delete options.params.auth;
         let buff = "";
-        const req = this._request(options, auth, path);
+        const req = this._request(options, auth, path4);
         stream.destroy = () => req.destroy();
         req.on("data", (data) => {
           data = (buff + data).split(/\n+/);
@@ -12779,14 +11526,14 @@ var require_http = __commonJS({
        * @param {string} path - request path
        * @param {function} callback - Continuation to respond to when complete.
        */
-      _request(options, auth, path, callback) {
+      _request(options, auth, path4, callback) {
         options = options || {};
         auth = auth || this.auth;
-        path = path || this.path || "";
+        path4 = path4 || this.path || "";
         if (this.batch) {
-          this._doBatch(options, callback, auth, path);
+          this._doBatch(options, callback, auth, path4);
         } else {
-          this._doRequest(options, callback, auth, path);
+          this._doRequest(options, callback, auth, path4);
         }
       }
       /**
@@ -12796,18 +11543,18 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doBatch(options, callback, auth, path) {
+      _doBatch(options, callback, auth, path4) {
         this.batchOptions.push(options);
         if (this.batchOptions.length === 1) {
           const me = this;
           this.batchCallback = callback;
           this.batchTimeoutID = setTimeout(function() {
             me.batchTimeoutID = -1;
-            me._doBatchRequest(me.batchCallback, auth, path);
+            me._doBatchRequest(me.batchCallback, auth, path4);
           }, this.batchInterval);
         }
         if (this.batchOptions.length === this.batchCount) {
-          this._doBatchRequest(this.batchCallback, auth, path);
+          this._doBatchRequest(this.batchCallback, auth, path4);
         }
       }
       /**
@@ -12816,14 +11563,14 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doBatchRequest(callback, auth, path) {
+      _doBatchRequest(callback, auth, path4) {
         if (this.batchTimeoutID > 0) {
           clearTimeout(this.batchTimeoutID);
           this.batchTimeoutID = -1;
         }
         const batchOptionsCopy = this.batchOptions.slice();
         this.batchOptions = [];
-        this._doRequest(batchOptionsCopy, callback, auth, path);
+        this._doRequest(batchOptionsCopy, callback, auth, path4);
       }
       /**
        * Make a request to a winstond server or any http server which can
@@ -12833,7 +11580,7 @@ var require_http = __commonJS({
        * @param {Object?} auth - authentication options
        * @param {string} path - request path
        */
-      _doRequest(options, callback, auth, path) {
+      _doRequest(options, callback, auth, path4) {
         const headers = Object.assign({}, this.headers);
         if (auth && auth.bearer) {
           headers.Authorization = `Bearer ${auth.bearer}`;
@@ -12843,7 +11590,7 @@ var require_http = __commonJS({
           method: "POST",
           host: this.host,
           port: this.port,
-          path: `/${path.replace(/^\//, "")}`,
+          path: `/${path4.replace(/^\//, "")}`,
           headers,
           auth: auth && auth.username && auth.password ? `${auth.username}:${auth.password}` : "",
           agent: this.agent
@@ -12877,10 +11624,10 @@ var require_stream3 = __commonJS({
   "node_modules/winston/lib/winston/transports/stream.js"(exports2, module2) {
     "use strict";
     var isStream = require_is_stream();
-    var { MESSAGE } = require_triple_beam();
-    var os = require("os");
-    var TransportStream = require_winston_transport();
-    module2.exports = class Stream extends TransportStream {
+    var { MESSAGE: MESSAGE3 } = require_triple_beam();
+    var os2 = require("os");
+    var TransportStream2 = require_winston_transport();
+    module2.exports = class Stream extends TransportStream2 {
       static {
         __name(this, "Stream");
       }
@@ -12897,7 +11644,7 @@ var require_stream3 = __commonJS({
         this._stream = options.stream;
         this._stream.setMaxListeners(Infinity);
         this.isObjectMode = options.stream._writableState.objectMode;
-        this.eol = typeof options.eol === "string" ? options.eol : os.EOL;
+        this.eol = typeof options.eol === "string" ? options.eol : os2.EOL;
       }
       /**
        * Core logging method exposed to Winston.
@@ -12914,7 +11661,7 @@ var require_stream3 = __commonJS({
           }
           return;
         }
-        this._stream.write(`${info[MESSAGE]}${this.eol}`);
+        this._stream.write(`${info[MESSAGE3]}${this.eol}`);
         if (callback) {
           callback();
         }
@@ -13293,7 +12040,7 @@ var require_exception_stream = __commonJS({
 var require_exception_handler = __commonJS({
   "node_modules/winston/lib/winston/exception-handler.js"(exports2, module2) {
     "use strict";
-    var os = require("os");
+    var os2 = require("os");
     var asyncForEach = require_forEach();
     var debug = require_node2()("winston:exception");
     var once = require_one_time();
@@ -13391,8 +12138,8 @@ var require_exception_handler = __commonJS({
        */
       getOsInfo() {
         return {
-          loadavg: os.loadavg(),
-          uptime: os.uptime()
+          loadavg: os2.loadavg(),
+          uptime: os2.uptime()
         };
       }
       /**
@@ -13539,7 +12286,7 @@ var require_rejection_stream = __commonJS({
 var require_rejection_handler = __commonJS({
   "node_modules/winston/lib/winston/rejection-handler.js"(exports2, module2) {
     "use strict";
-    var os = require("os");
+    var os2 = require("os");
     var asyncForEach = require_forEach();
     var debug = require_node2()("winston:rejection");
     var once = require_one_time();
@@ -13639,8 +12386,8 @@ var require_rejection_handler = __commonJS({
        */
       getOsInfo() {
         return {
-          loadavg: os.loadavg(),
-          uptime: os.uptime()
+          loadavg: os2.loadavg(),
+          uptime: os2.uptime()
         };
       }
       /**
@@ -13795,7 +12542,7 @@ var require_logger = __commonJS({
     "use strict";
     var { Stream, Transform } = require_readable();
     var asyncForEach = require_forEach();
-    var { LEVEL, SPLAT } = require_triple_beam();
+    var { LEVEL: LEVEL3, SPLAT } = require_triple_beam();
     var isStream = require_is_stream();
     var ExceptionHandler = require_exception_handler();
     var RejectionHandler = require_rejection_handler();
@@ -13970,19 +12717,19 @@ var require_logger = __commonJS({
       /* eslint-enable valid-jsdoc */
       log(level, msg, ...splat) {
         if (arguments.length === 1) {
-          level[LEVEL] = level.level;
+          level[LEVEL3] = level.level;
           this._addDefaultMeta(level);
           this.write(level);
           return this;
         }
         if (arguments.length === 2) {
           if (msg && typeof msg === "object") {
-            msg[LEVEL] = msg.level = level;
+            msg[LEVEL3] = msg.level = level;
             this._addDefaultMeta(msg);
             this.write(msg);
             return this;
           }
-          msg = { [LEVEL]: level, level, message: msg };
+          msg = { [LEVEL3]: level, level, message: msg };
           this._addDefaultMeta(msg);
           this.write(msg);
           return this;
@@ -13992,7 +12739,7 @@ var require_logger = __commonJS({
           const tokens = msg && msg.match && msg.match(formatRegExp);
           if (!tokens) {
             const info = Object.assign({}, this.defaultMeta, meta, {
-              [LEVEL]: level,
+              [LEVEL3]: level,
               [SPLAT]: splat,
               level,
               message: msg
@@ -14005,7 +12752,7 @@ var require_logger = __commonJS({
           }
         }
         this.write(Object.assign({}, this.defaultMeta, {
-          [LEVEL]: level,
+          [LEVEL3]: level,
           [SPLAT]: splat,
           level,
           message: msg
@@ -14024,11 +12771,11 @@ var require_logger = __commonJS({
         if (this.silent) {
           return callback();
         }
-        if (!info[LEVEL]) {
-          info[LEVEL] = info.level;
+        if (!info[LEVEL3]) {
+          info[LEVEL3] = info.level;
         }
-        if (!this.levels[info[LEVEL]] && this.levels[info[LEVEL]] !== 0) {
-          console.error("[winston] Unknown logger level: %s", info[LEVEL]);
+        if (!this.levels[info[LEVEL3]] && this.levels[info[LEVEL3]] !== 0) {
+          console.error("[winston] Unknown logger level: %s", info[LEVEL3]);
         }
         if (!this._readableState.pipes) {
           console.error(
@@ -14338,7 +13085,7 @@ var require_logger = __commonJS({
 var require_create_logger = __commonJS({
   "node_modules/winston/lib/winston/create-logger.js"(exports2, module2) {
     "use strict";
-    var { LEVEL } = require_triple_beam();
+    var { LEVEL: LEVEL3 } = require_triple_beam();
     var config = require_config2();
     var Logger = require_logger();
     var debug = require_node2()("winston:create-logger");
@@ -14374,7 +13121,7 @@ var require_create_logger = __commonJS({
           if (args.length === 1) {
             const [msg] = args;
             const info = msg && msg.message && msg || { message: msg };
-            info.level = info[LEVEL] = level;
+            info.level = info[LEVEL3] = level;
             self2._addDefaultMeta(info);
             self2.write(info);
             return this || logger;
@@ -14395,7 +13142,7 @@ var require_create_logger = __commonJS({
 });
 
 // node_modules/winston/lib/winston/container.js
-var require_container2 = __commonJS({
+var require_container = __commonJS({
   "node_modules/winston/lib/winston/container.js"(exports2, module2) {
     "use strict";
     var createLogger = require_create_logger();
@@ -14508,7 +13255,7 @@ var require_winston = __commonJS({
     exports2.Logger = require_logger();
     exports2.ExceptionHandler = require_exception_handler();
     exports2.RejectionHandler = require_rejection_handler();
-    exports2.Container = require_container2();
+    exports2.Container = require_container();
     exports2.Transport = require_winston_transport();
     exports2.loggers = new exports2.Container();
     var defaultLogger = exports2.createLogger();
@@ -15358,2337 +14105,14 @@ var require_diff = __commonJS({
       return null;
     }
     __name(find_cursor_edit_diff, "find_cursor_edit_diff");
-    function diff(text1, text2, cursor_pos, cleanup) {
+    function diff2(text1, text2, cursor_pos, cleanup) {
       return diff_main(text1, text2, cursor_pos, cleanup, true);
     }
-    __name(diff, "diff");
-    diff.INSERT = DIFF_INSERT;
-    diff.DELETE = DIFF_DELETE;
-    diff.EQUAL = DIFF_EQUAL;
-    module2.exports = diff;
-  }
-});
-
-// node_modules/vscode-languageserver-types/lib/umd/main.js
-var require_main = __commonJS({
-  "node_modules/vscode-languageserver-types/lib/umd/main.js"(exports2, module2) {
-    (function(factory) {
-      if (typeof module2 === "object" && typeof module2.exports === "object") {
-        var v = factory(require, exports2);
-        if (v !== void 0) module2.exports = v;
-      } else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
-      }
-    })(function(require2, exports3) {
-      "use strict";
-      Object.defineProperty(exports3, "__esModule", { value: true });
-      exports3.TextDocument = exports3.EOL = exports3.WorkspaceFolder = exports3.InlineCompletionContext = exports3.SelectedCompletionInfo = exports3.InlineCompletionTriggerKind = exports3.InlineCompletionList = exports3.InlineCompletionItem = exports3.StringValue = exports3.InlayHint = exports3.InlayHintLabelPart = exports3.InlayHintKind = exports3.InlineValueContext = exports3.InlineValueEvaluatableExpression = exports3.InlineValueVariableLookup = exports3.InlineValueText = exports3.SemanticTokens = exports3.SemanticTokenModifiers = exports3.SemanticTokenTypes = exports3.SelectionRange = exports3.DocumentLink = exports3.FormattingOptions = exports3.CodeLens = exports3.CodeAction = exports3.CodeActionContext = exports3.CodeActionTriggerKind = exports3.CodeActionKind = exports3.DocumentSymbol = exports3.WorkspaceSymbol = exports3.SymbolInformation = exports3.SymbolTag = exports3.SymbolKind = exports3.DocumentHighlight = exports3.DocumentHighlightKind = exports3.SignatureInformation = exports3.ParameterInformation = exports3.Hover = exports3.MarkedString = exports3.CompletionList = exports3.CompletionItem = exports3.CompletionItemLabelDetails = exports3.InsertTextMode = exports3.InsertReplaceEdit = exports3.CompletionItemTag = exports3.InsertTextFormat = exports3.CompletionItemKind = exports3.MarkupContent = exports3.MarkupKind = exports3.TextDocumentItem = exports3.OptionalVersionedTextDocumentIdentifier = exports3.VersionedTextDocumentIdentifier = exports3.TextDocumentIdentifier = exports3.WorkspaceChange = exports3.WorkspaceEdit = exports3.DeleteFile = exports3.RenameFile = exports3.CreateFile = exports3.TextDocumentEdit = exports3.AnnotatedTextEdit = exports3.ChangeAnnotationIdentifier = exports3.ChangeAnnotation = exports3.TextEdit = exports3.Command = exports3.Diagnostic = exports3.CodeDescription = exports3.DiagnosticTag = exports3.DiagnosticSeverity = exports3.DiagnosticRelatedInformation = exports3.FoldingRange = exports3.FoldingRangeKind = exports3.ColorPresentation = exports3.ColorInformation = exports3.Color = exports3.LocationLink = exports3.Location = exports3.Range = exports3.Position = exports3.uinteger = exports3.integer = exports3.URI = exports3.DocumentUri = void 0;
-      var DocumentUri;
-      (function(DocumentUri2) {
-        function is(value) {
-          return typeof value === "string";
-        }
-        __name(is, "is");
-        DocumentUri2.is = is;
-      })(DocumentUri || (exports3.DocumentUri = DocumentUri = {}));
-      var URI;
-      (function(URI2) {
-        function is(value) {
-          return typeof value === "string";
-        }
-        __name(is, "is");
-        URI2.is = is;
-      })(URI || (exports3.URI = URI = {}));
-      var integer;
-      (function(integer2) {
-        integer2.MIN_VALUE = -2147483648;
-        integer2.MAX_VALUE = 2147483647;
-        function is(value) {
-          return typeof value === "number" && integer2.MIN_VALUE <= value && value <= integer2.MAX_VALUE;
-        }
-        __name(is, "is");
-        integer2.is = is;
-      })(integer || (exports3.integer = integer = {}));
-      var uinteger;
-      (function(uinteger2) {
-        uinteger2.MIN_VALUE = 0;
-        uinteger2.MAX_VALUE = 2147483647;
-        function is(value) {
-          return typeof value === "number" && uinteger2.MIN_VALUE <= value && value <= uinteger2.MAX_VALUE;
-        }
-        __name(is, "is");
-        uinteger2.is = is;
-      })(uinteger || (exports3.uinteger = uinteger = {}));
-      var Position;
-      (function(Position2) {
-        function create(line, character) {
-          if (line === Number.MAX_VALUE) {
-            line = uinteger.MAX_VALUE;
-          }
-          if (character === Number.MAX_VALUE) {
-            character = uinteger.MAX_VALUE;
-          }
-          return { line, character };
-        }
-        __name(create, "create");
-        Position2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
-        }
-        __name(is, "is");
-        Position2.is = is;
-      })(Position || (exports3.Position = Position = {}));
-      var Range;
-      (function(Range2) {
-        function create(one, two, three, four) {
-          if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
-            return { start: Position.create(one, two), end: Position.create(three, four) };
-          } else if (Position.is(one) && Position.is(two)) {
-            return { start: one, end: two };
-          } else {
-            throw new Error("Range#create called with invalid arguments[".concat(one, ", ").concat(two, ", ").concat(three, ", ").concat(four, "]"));
-          }
-        }
-        __name(create, "create");
-        Range2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
-        }
-        __name(is, "is");
-        Range2.is = is;
-      })(Range || (exports3.Range = Range = {}));
-      var Location;
-      (function(Location2) {
-        function create(uri, range) {
-          return { uri, range };
-        }
-        __name(create, "create");
-        Location2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
-        }
-        __name(is, "is");
-        Location2.is = is;
-      })(Location || (exports3.Location = Location = {}));
-      var LocationLink;
-      (function(LocationLink2) {
-        function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
-          return { targetUri, targetRange, targetSelectionRange, originSelectionRange };
-        }
-        __name(create, "create");
-        LocationLink2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri) && Range.is(candidate.targetSelectionRange) && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
-        }
-        __name(is, "is");
-        LocationLink2.is = is;
-      })(LocationLink || (exports3.LocationLink = LocationLink = {}));
-      var Color;
-      (function(Color2) {
-        function create(red, green, blue, alpha) {
-          return {
-            red,
-            green,
-            blue,
-            alpha
-          };
-        }
-        __name(create, "create");
-        Color2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1) && Is.numberRange(candidate.green, 0, 1) && Is.numberRange(candidate.blue, 0, 1) && Is.numberRange(candidate.alpha, 0, 1);
-        }
-        __name(is, "is");
-        Color2.is = is;
-      })(Color || (exports3.Color = Color = {}));
-      var ColorInformation;
-      (function(ColorInformation2) {
-        function create(range, color) {
-          return {
-            range,
-            color
-          };
-        }
-        __name(create, "create");
-        ColorInformation2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
-        }
-        __name(is, "is");
-        ColorInformation2.is = is;
-      })(ColorInformation || (exports3.ColorInformation = ColorInformation = {}));
-      var ColorPresentation;
-      (function(ColorPresentation2) {
-        function create(label, textEdit, additionalTextEdits) {
-          return {
-            label,
-            textEdit,
-            additionalTextEdits
-          };
-        }
-        __name(create, "create");
-        ColorPresentation2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate)) && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
-        }
-        __name(is, "is");
-        ColorPresentation2.is = is;
-      })(ColorPresentation || (exports3.ColorPresentation = ColorPresentation = {}));
-      var FoldingRangeKind;
-      (function(FoldingRangeKind2) {
-        FoldingRangeKind2.Comment = "comment";
-        FoldingRangeKind2.Imports = "imports";
-        FoldingRangeKind2.Region = "region";
-      })(FoldingRangeKind || (exports3.FoldingRangeKind = FoldingRangeKind = {}));
-      var FoldingRange;
-      (function(FoldingRange2) {
-        function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
-          var result = {
-            startLine,
-            endLine
-          };
-          if (Is.defined(startCharacter)) {
-            result.startCharacter = startCharacter;
-          }
-          if (Is.defined(endCharacter)) {
-            result.endCharacter = endCharacter;
-          }
-          if (Is.defined(kind)) {
-            result.kind = kind;
-          }
-          if (Is.defined(collapsedText)) {
-            result.collapsedText = collapsedText;
-          }
-          return result;
-        }
-        __name(create, "create");
-        FoldingRange2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine) && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter)) && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter)) && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
-        }
-        __name(is, "is");
-        FoldingRange2.is = is;
-      })(FoldingRange || (exports3.FoldingRange = FoldingRange = {}));
-      var DiagnosticRelatedInformation;
-      (function(DiagnosticRelatedInformation2) {
-        function create(location, message) {
-          return {
-            location,
-            message
-          };
-        }
-        __name(create, "create");
-        DiagnosticRelatedInformation2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
-        }
-        __name(is, "is");
-        DiagnosticRelatedInformation2.is = is;
-      })(DiagnosticRelatedInformation || (exports3.DiagnosticRelatedInformation = DiagnosticRelatedInformation = {}));
-      var DiagnosticSeverity;
-      (function(DiagnosticSeverity2) {
-        DiagnosticSeverity2.Error = 1;
-        DiagnosticSeverity2.Warning = 2;
-        DiagnosticSeverity2.Information = 3;
-        DiagnosticSeverity2.Hint = 4;
-      })(DiagnosticSeverity || (exports3.DiagnosticSeverity = DiagnosticSeverity = {}));
-      var DiagnosticTag;
-      (function(DiagnosticTag2) {
-        DiagnosticTag2.Unnecessary = 1;
-        DiagnosticTag2.Deprecated = 2;
-      })(DiagnosticTag || (exports3.DiagnosticTag = DiagnosticTag = {}));
-      var CodeDescription;
-      (function(CodeDescription2) {
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.href);
-        }
-        __name(is, "is");
-        CodeDescription2.is = is;
-      })(CodeDescription || (exports3.CodeDescription = CodeDescription = {}));
-      var Diagnostic;
-      (function(Diagnostic2) {
-        function create(range, message, severity, code, source, relatedInformation) {
-          var result = { range, message };
-          if (Is.defined(severity)) {
-            result.severity = severity;
-          }
-          if (Is.defined(code)) {
-            result.code = code;
-          }
-          if (Is.defined(source)) {
-            result.source = source;
-          }
-          if (Is.defined(relatedInformation)) {
-            result.relatedInformation = relatedInformation;
-          }
-          return result;
-        }
-        __name(create, "create");
-        Diagnostic2.create = create;
-        function is(value) {
-          var _a;
-          var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && Is.string(candidate.message) && (Is.number(candidate.severity) || Is.undefined(candidate.severity)) && (Is.integer(candidate.code) || Is.string(candidate.code) || Is.undefined(candidate.code)) && (Is.undefined(candidate.codeDescription) || Is.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)) && (Is.string(candidate.source) || Is.undefined(candidate.source)) && (Is.undefined(candidate.relatedInformation) || Is.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation.is));
-        }
-        __name(is, "is");
-        Diagnostic2.is = is;
-      })(Diagnostic || (exports3.Diagnostic = Diagnostic = {}));
-      var Command;
-      (function(Command2) {
-        function create(title, command) {
-          var args = [];
-          for (var _i = 2; _i < arguments.length; _i++) {
-            args[_i - 2] = arguments[_i];
-          }
-          var result = { title, command };
-          if (Is.defined(args) && args.length > 0) {
-            result.arguments = args;
-          }
-          return result;
-        }
-        __name(create, "create");
-        Command2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
-        }
-        __name(is, "is");
-        Command2.is = is;
-      })(Command || (exports3.Command = Command = {}));
-      var TextEdit;
-      (function(TextEdit2) {
-        function replace(range, newText) {
-          return { range, newText };
-        }
-        __name(replace, "replace");
-        TextEdit2.replace = replace;
-        function insert(position, newText) {
-          return { range: { start: position, end: position }, newText };
-        }
-        __name(insert, "insert");
-        TextEdit2.insert = insert;
-        function del(range) {
-          return { range, newText: "" };
-        }
-        __name(del, "del");
-        TextEdit2.del = del;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.newText) && Range.is(candidate.range);
-        }
-        __name(is, "is");
-        TextEdit2.is = is;
-      })(TextEdit || (exports3.TextEdit = TextEdit = {}));
-      var ChangeAnnotation;
-      (function(ChangeAnnotation2) {
-        function create(label, needsConfirmation, description) {
-          var result = { label };
-          if (needsConfirmation !== void 0) {
-            result.needsConfirmation = needsConfirmation;
-          }
-          if (description !== void 0) {
-            result.description = description;
-          }
-          return result;
-        }
-        __name(create, "create");
-        ChangeAnnotation2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
-        }
-        __name(is, "is");
-        ChangeAnnotation2.is = is;
-      })(ChangeAnnotation || (exports3.ChangeAnnotation = ChangeAnnotation = {}));
-      var ChangeAnnotationIdentifier;
-      (function(ChangeAnnotationIdentifier2) {
-        function is(value) {
-          var candidate = value;
-          return Is.string(candidate);
-        }
-        __name(is, "is");
-        ChangeAnnotationIdentifier2.is = is;
-      })(ChangeAnnotationIdentifier || (exports3.ChangeAnnotationIdentifier = ChangeAnnotationIdentifier = {}));
-      var AnnotatedTextEdit;
-      (function(AnnotatedTextEdit2) {
-        function replace(range, newText, annotation) {
-          return { range, newText, annotationId: annotation };
-        }
-        __name(replace, "replace");
-        AnnotatedTextEdit2.replace = replace;
-        function insert(position, newText, annotation) {
-          return { range: { start: position, end: position }, newText, annotationId: annotation };
-        }
-        __name(insert, "insert");
-        AnnotatedTextEdit2.insert = insert;
-        function del(range, annotation) {
-          return { range, newText: "", annotationId: annotation };
-        }
-        __name(del, "del");
-        AnnotatedTextEdit2.del = del;
-        function is(value) {
-          var candidate = value;
-          return TextEdit.is(candidate) && (ChangeAnnotation.is(candidate.annotationId) || ChangeAnnotationIdentifier.is(candidate.annotationId));
-        }
-        __name(is, "is");
-        AnnotatedTextEdit2.is = is;
-      })(AnnotatedTextEdit || (exports3.AnnotatedTextEdit = AnnotatedTextEdit = {}));
-      var TextDocumentEdit;
-      (function(TextDocumentEdit2) {
-        function create(textDocument, edits) {
-          return { textDocument, edits };
-        }
-        __name(create, "create");
-        TextDocumentEdit2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument) && Array.isArray(candidate.edits);
-        }
-        __name(is, "is");
-        TextDocumentEdit2.is = is;
-      })(TextDocumentEdit || (exports3.TextDocumentEdit = TextDocumentEdit = {}));
-      var CreateFile;
-      (function(CreateFile2) {
-        function create(uri, options, annotation) {
-          var result = {
-            kind: "create",
-            uri
-          };
-          if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
-            result.options = options;
-          }
-          if (annotation !== void 0) {
-            result.annotationId = annotation;
-          }
-          return result;
-        }
-        __name(create, "create");
-        CreateFile2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && candidate.kind === "create" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
-        }
-        __name(is, "is");
-        CreateFile2.is = is;
-      })(CreateFile || (exports3.CreateFile = CreateFile = {}));
-      var RenameFile;
-      (function(RenameFile2) {
-        function create(oldUri, newUri, options, annotation) {
-          var result = {
-            kind: "rename",
-            oldUri,
-            newUri
-          };
-          if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
-            result.options = options;
-          }
-          if (annotation !== void 0) {
-            result.annotationId = annotation;
-          }
-          return result;
-        }
-        __name(create, "create");
-        RenameFile2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && candidate.kind === "rename" && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
-        }
-        __name(is, "is");
-        RenameFile2.is = is;
-      })(RenameFile || (exports3.RenameFile = RenameFile = {}));
-      var DeleteFile;
-      (function(DeleteFile2) {
-        function create(uri, options, annotation) {
-          var result = {
-            kind: "delete",
-            uri
-          };
-          if (options !== void 0 && (options.recursive !== void 0 || options.ignoreIfNotExists !== void 0)) {
-            result.options = options;
-          }
-          if (annotation !== void 0) {
-            result.annotationId = annotation;
-          }
-          return result;
-        }
-        __name(create, "create");
-        DeleteFile2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && candidate.kind === "delete" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
-        }
-        __name(is, "is");
-        DeleteFile2.is = is;
-      })(DeleteFile || (exports3.DeleteFile = DeleteFile = {}));
-      var WorkspaceEdit;
-      (function(WorkspaceEdit2) {
-        function is(value) {
-          var candidate = value;
-          return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every(function(change) {
-            if (Is.string(change.kind)) {
-              return CreateFile.is(change) || RenameFile.is(change) || DeleteFile.is(change);
-            } else {
-              return TextDocumentEdit.is(change);
-            }
-          }));
-        }
-        __name(is, "is");
-        WorkspaceEdit2.is = is;
-      })(WorkspaceEdit || (exports3.WorkspaceEdit = WorkspaceEdit = {}));
-      var TextEditChangeImpl = (
-        /** @class */
-        (function() {
-          function TextEditChangeImpl2(edits, changeAnnotations) {
-            this.edits = edits;
-            this.changeAnnotations = changeAnnotations;
-          }
-          __name(TextEditChangeImpl2, "TextEditChangeImpl");
-          TextEditChangeImpl2.prototype.insert = function(position, newText, annotation) {
-            var edit;
-            var id;
-            if (annotation === void 0) {
-              edit = TextEdit.insert(position, newText);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
-              id = annotation;
-              edit = AnnotatedTextEdit.insert(position, newText, annotation);
-            } else {
-              this.assertChangeAnnotations(this.changeAnnotations);
-              id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.insert(position, newText, id);
-            }
-            this.edits.push(edit);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          TextEditChangeImpl2.prototype.replace = function(range, newText, annotation) {
-            var edit;
-            var id;
-            if (annotation === void 0) {
-              edit = TextEdit.replace(range, newText);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
-              id = annotation;
-              edit = AnnotatedTextEdit.replace(range, newText, annotation);
-            } else {
-              this.assertChangeAnnotations(this.changeAnnotations);
-              id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.replace(range, newText, id);
-            }
-            this.edits.push(edit);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          TextEditChangeImpl2.prototype.delete = function(range, annotation) {
-            var edit;
-            var id;
-            if (annotation === void 0) {
-              edit = TextEdit.del(range);
-            } else if (ChangeAnnotationIdentifier.is(annotation)) {
-              id = annotation;
-              edit = AnnotatedTextEdit.del(range, annotation);
-            } else {
-              this.assertChangeAnnotations(this.changeAnnotations);
-              id = this.changeAnnotations.manage(annotation);
-              edit = AnnotatedTextEdit.del(range, id);
-            }
-            this.edits.push(edit);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          TextEditChangeImpl2.prototype.add = function(edit) {
-            this.edits.push(edit);
-          };
-          TextEditChangeImpl2.prototype.all = function() {
-            return this.edits;
-          };
-          TextEditChangeImpl2.prototype.clear = function() {
-            this.edits.splice(0, this.edits.length);
-          };
-          TextEditChangeImpl2.prototype.assertChangeAnnotations = function(value) {
-            if (value === void 0) {
-              throw new Error("Text edit change is not configured to manage change annotations.");
-            }
-          };
-          return TextEditChangeImpl2;
-        })()
-      );
-      var ChangeAnnotations = (
-        /** @class */
-        (function() {
-          function ChangeAnnotations2(annotations) {
-            this._annotations = annotations === void 0 ? /* @__PURE__ */ Object.create(null) : annotations;
-            this._counter = 0;
-            this._size = 0;
-          }
-          __name(ChangeAnnotations2, "ChangeAnnotations");
-          ChangeAnnotations2.prototype.all = function() {
-            return this._annotations;
-          };
-          Object.defineProperty(ChangeAnnotations2.prototype, "size", {
-            get: /* @__PURE__ */ __name(function() {
-              return this._size;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          ChangeAnnotations2.prototype.manage = function(idOrAnnotation, annotation) {
-            var id;
-            if (ChangeAnnotationIdentifier.is(idOrAnnotation)) {
-              id = idOrAnnotation;
-            } else {
-              id = this.nextId();
-              annotation = idOrAnnotation;
-            }
-            if (this._annotations[id] !== void 0) {
-              throw new Error("Id ".concat(id, " is already in use."));
-            }
-            if (annotation === void 0) {
-              throw new Error("No annotation provided for id ".concat(id));
-            }
-            this._annotations[id] = annotation;
-            this._size++;
-            return id;
-          };
-          ChangeAnnotations2.prototype.nextId = function() {
-            this._counter++;
-            return this._counter.toString();
-          };
-          return ChangeAnnotations2;
-        })()
-      );
-      var WorkspaceChange = (
-        /** @class */
-        (function() {
-          function WorkspaceChange2(workspaceEdit) {
-            var _this = this;
-            this._textEditChanges = /* @__PURE__ */ Object.create(null);
-            if (workspaceEdit !== void 0) {
-              this._workspaceEdit = workspaceEdit;
-              if (workspaceEdit.documentChanges) {
-                this._changeAnnotations = new ChangeAnnotations(workspaceEdit.changeAnnotations);
-                workspaceEdit.changeAnnotations = this._changeAnnotations.all();
-                workspaceEdit.documentChanges.forEach(function(change) {
-                  if (TextDocumentEdit.is(change)) {
-                    var textEditChange = new TextEditChangeImpl(change.edits, _this._changeAnnotations);
-                    _this._textEditChanges[change.textDocument.uri] = textEditChange;
-                  }
-                });
-              } else if (workspaceEdit.changes) {
-                Object.keys(workspaceEdit.changes).forEach(function(key) {
-                  var textEditChange = new TextEditChangeImpl(workspaceEdit.changes[key]);
-                  _this._textEditChanges[key] = textEditChange;
-                });
-              }
-            } else {
-              this._workspaceEdit = {};
-            }
-          }
-          __name(WorkspaceChange2, "WorkspaceChange");
-          Object.defineProperty(WorkspaceChange2.prototype, "edit", {
-            /**
-             * Returns the underlying {@link WorkspaceEdit} literal
-             * use to be returned from a workspace edit operation like rename.
-             */
-            get: /* @__PURE__ */ __name(function() {
-              this.initDocumentChanges();
-              if (this._changeAnnotations !== void 0) {
-                if (this._changeAnnotations.size === 0) {
-                  this._workspaceEdit.changeAnnotations = void 0;
-                } else {
-                  this._workspaceEdit.changeAnnotations = this._changeAnnotations.all();
-                }
-              }
-              return this._workspaceEdit;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          WorkspaceChange2.prototype.getTextEditChange = function(key) {
-            if (OptionalVersionedTextDocumentIdentifier.is(key)) {
-              this.initDocumentChanges();
-              if (this._workspaceEdit.documentChanges === void 0) {
-                throw new Error("Workspace edit is not configured for document changes.");
-              }
-              var textDocument = { uri: key.uri, version: key.version };
-              var result = this._textEditChanges[textDocument.uri];
-              if (!result) {
-                var edits = [];
-                var textDocumentEdit = {
-                  textDocument,
-                  edits
-                };
-                this._workspaceEdit.documentChanges.push(textDocumentEdit);
-                result = new TextEditChangeImpl(edits, this._changeAnnotations);
-                this._textEditChanges[textDocument.uri] = result;
-              }
-              return result;
-            } else {
-              this.initChanges();
-              if (this._workspaceEdit.changes === void 0) {
-                throw new Error("Workspace edit is not configured for normal text edit changes.");
-              }
-              var result = this._textEditChanges[key];
-              if (!result) {
-                var edits = [];
-                this._workspaceEdit.changes[key] = edits;
-                result = new TextEditChangeImpl(edits);
-                this._textEditChanges[key] = result;
-              }
-              return result;
-            }
-          };
-          WorkspaceChange2.prototype.initDocumentChanges = function() {
-            if (this._workspaceEdit.documentChanges === void 0 && this._workspaceEdit.changes === void 0) {
-              this._changeAnnotations = new ChangeAnnotations();
-              this._workspaceEdit.documentChanges = [];
-              this._workspaceEdit.changeAnnotations = this._changeAnnotations.all();
-            }
-          };
-          WorkspaceChange2.prototype.initChanges = function() {
-            if (this._workspaceEdit.documentChanges === void 0 && this._workspaceEdit.changes === void 0) {
-              this._workspaceEdit.changes = /* @__PURE__ */ Object.create(null);
-            }
-          };
-          WorkspaceChange2.prototype.createFile = function(uri, optionsOrAnnotation, options) {
-            this.initDocumentChanges();
-            if (this._workspaceEdit.documentChanges === void 0) {
-              throw new Error("Workspace edit is not configured for document changes.");
-            }
-            var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
-              annotation = optionsOrAnnotation;
-            } else {
-              options = optionsOrAnnotation;
-            }
-            var operation;
-            var id;
-            if (annotation === void 0) {
-              operation = CreateFile.create(uri, options);
-            } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = CreateFile.create(uri, options, id);
-            }
-            this._workspaceEdit.documentChanges.push(operation);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          WorkspaceChange2.prototype.renameFile = function(oldUri, newUri, optionsOrAnnotation, options) {
-            this.initDocumentChanges();
-            if (this._workspaceEdit.documentChanges === void 0) {
-              throw new Error("Workspace edit is not configured for document changes.");
-            }
-            var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
-              annotation = optionsOrAnnotation;
-            } else {
-              options = optionsOrAnnotation;
-            }
-            var operation;
-            var id;
-            if (annotation === void 0) {
-              operation = RenameFile.create(oldUri, newUri, options);
-            } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = RenameFile.create(oldUri, newUri, options, id);
-            }
-            this._workspaceEdit.documentChanges.push(operation);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          WorkspaceChange2.prototype.deleteFile = function(uri, optionsOrAnnotation, options) {
-            this.initDocumentChanges();
-            if (this._workspaceEdit.documentChanges === void 0) {
-              throw new Error("Workspace edit is not configured for document changes.");
-            }
-            var annotation;
-            if (ChangeAnnotation.is(optionsOrAnnotation) || ChangeAnnotationIdentifier.is(optionsOrAnnotation)) {
-              annotation = optionsOrAnnotation;
-            } else {
-              options = optionsOrAnnotation;
-            }
-            var operation;
-            var id;
-            if (annotation === void 0) {
-              operation = DeleteFile.create(uri, options);
-            } else {
-              id = ChangeAnnotationIdentifier.is(annotation) ? annotation : this._changeAnnotations.manage(annotation);
-              operation = DeleteFile.create(uri, options, id);
-            }
-            this._workspaceEdit.documentChanges.push(operation);
-            if (id !== void 0) {
-              return id;
-            }
-          };
-          return WorkspaceChange2;
-        })()
-      );
-      exports3.WorkspaceChange = WorkspaceChange;
-      var TextDocumentIdentifier;
-      (function(TextDocumentIdentifier2) {
-        function create(uri) {
-          return { uri };
-        }
-        __name(create, "create");
-        TextDocumentIdentifier2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri);
-        }
-        __name(is, "is");
-        TextDocumentIdentifier2.is = is;
-      })(TextDocumentIdentifier || (exports3.TextDocumentIdentifier = TextDocumentIdentifier = {}));
-      var VersionedTextDocumentIdentifier;
-      (function(VersionedTextDocumentIdentifier2) {
-        function create(uri, version) {
-          return { uri, version };
-        }
-        __name(create, "create");
-        VersionedTextDocumentIdentifier2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
-        }
-        __name(is, "is");
-        VersionedTextDocumentIdentifier2.is = is;
-      })(VersionedTextDocumentIdentifier || (exports3.VersionedTextDocumentIdentifier = VersionedTextDocumentIdentifier = {}));
-      var OptionalVersionedTextDocumentIdentifier;
-      (function(OptionalVersionedTextDocumentIdentifier2) {
-        function create(uri, version) {
-          return { uri, version };
-        }
-        __name(create, "create");
-        OptionalVersionedTextDocumentIdentifier2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
-        }
-        __name(is, "is");
-        OptionalVersionedTextDocumentIdentifier2.is = is;
-      })(OptionalVersionedTextDocumentIdentifier || (exports3.OptionalVersionedTextDocumentIdentifier = OptionalVersionedTextDocumentIdentifier = {}));
-      var TextDocumentItem;
-      (function(TextDocumentItem2) {
-        function create(uri, languageId, version, text) {
-          return { uri, languageId, version, text };
-        }
-        __name(create, "create");
-        TextDocumentItem2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
-        }
-        __name(is, "is");
-        TextDocumentItem2.is = is;
-      })(TextDocumentItem || (exports3.TextDocumentItem = TextDocumentItem = {}));
-      var MarkupKind;
-      (function(MarkupKind2) {
-        MarkupKind2.PlainText = "plaintext";
-        MarkupKind2.Markdown = "markdown";
-        function is(value) {
-          var candidate = value;
-          return candidate === MarkupKind2.PlainText || candidate === MarkupKind2.Markdown;
-        }
-        __name(is, "is");
-        MarkupKind2.is = is;
-      })(MarkupKind || (exports3.MarkupKind = MarkupKind = {}));
-      var MarkupContent;
-      (function(MarkupContent2) {
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(value) && MarkupKind.is(candidate.kind) && Is.string(candidate.value);
-        }
-        __name(is, "is");
-        MarkupContent2.is = is;
-      })(MarkupContent || (exports3.MarkupContent = MarkupContent = {}));
-      var CompletionItemKind;
-      (function(CompletionItemKind2) {
-        CompletionItemKind2.Text = 1;
-        CompletionItemKind2.Method = 2;
-        CompletionItemKind2.Function = 3;
-        CompletionItemKind2.Constructor = 4;
-        CompletionItemKind2.Field = 5;
-        CompletionItemKind2.Variable = 6;
-        CompletionItemKind2.Class = 7;
-        CompletionItemKind2.Interface = 8;
-        CompletionItemKind2.Module = 9;
-        CompletionItemKind2.Property = 10;
-        CompletionItemKind2.Unit = 11;
-        CompletionItemKind2.Value = 12;
-        CompletionItemKind2.Enum = 13;
-        CompletionItemKind2.Keyword = 14;
-        CompletionItemKind2.Snippet = 15;
-        CompletionItemKind2.Color = 16;
-        CompletionItemKind2.File = 17;
-        CompletionItemKind2.Reference = 18;
-        CompletionItemKind2.Folder = 19;
-        CompletionItemKind2.EnumMember = 20;
-        CompletionItemKind2.Constant = 21;
-        CompletionItemKind2.Struct = 22;
-        CompletionItemKind2.Event = 23;
-        CompletionItemKind2.Operator = 24;
-        CompletionItemKind2.TypeParameter = 25;
-      })(CompletionItemKind || (exports3.CompletionItemKind = CompletionItemKind = {}));
-      var InsertTextFormat;
-      (function(InsertTextFormat2) {
-        InsertTextFormat2.PlainText = 1;
-        InsertTextFormat2.Snippet = 2;
-      })(InsertTextFormat || (exports3.InsertTextFormat = InsertTextFormat = {}));
-      var CompletionItemTag;
-      (function(CompletionItemTag2) {
-        CompletionItemTag2.Deprecated = 1;
-      })(CompletionItemTag || (exports3.CompletionItemTag = CompletionItemTag = {}));
-      var InsertReplaceEdit;
-      (function(InsertReplaceEdit2) {
-        function create(newText, insert, replace) {
-          return { newText, insert, replace };
-        }
-        __name(create, "create");
-        InsertReplaceEdit2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
-        }
-        __name(is, "is");
-        InsertReplaceEdit2.is = is;
-      })(InsertReplaceEdit || (exports3.InsertReplaceEdit = InsertReplaceEdit = {}));
-      var InsertTextMode;
-      (function(InsertTextMode2) {
-        InsertTextMode2.asIs = 1;
-        InsertTextMode2.adjustIndentation = 2;
-      })(InsertTextMode || (exports3.InsertTextMode = InsertTextMode = {}));
-      var CompletionItemLabelDetails;
-      (function(CompletionItemLabelDetails2) {
-        function is(value) {
-          var candidate = value;
-          return candidate && (Is.string(candidate.detail) || candidate.detail === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
-        }
-        __name(is, "is");
-        CompletionItemLabelDetails2.is = is;
-      })(CompletionItemLabelDetails || (exports3.CompletionItemLabelDetails = CompletionItemLabelDetails = {}));
-      var CompletionItem;
-      (function(CompletionItem2) {
-        function create(label) {
-          return { label };
-        }
-        __name(create, "create");
-        CompletionItem2.create = create;
-      })(CompletionItem || (exports3.CompletionItem = CompletionItem = {}));
-      var CompletionList;
-      (function(CompletionList2) {
-        function create(items, isIncomplete) {
-          return { items: items ? items : [], isIncomplete: !!isIncomplete };
-        }
-        __name(create, "create");
-        CompletionList2.create = create;
-      })(CompletionList || (exports3.CompletionList = CompletionList = {}));
-      var MarkedString;
-      (function(MarkedString2) {
-        function fromPlainText(plainText) {
-          return plainText.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
-        }
-        __name(fromPlainText, "fromPlainText");
-        MarkedString2.fromPlainText = fromPlainText;
-        function is(value) {
-          var candidate = value;
-          return Is.string(candidate) || Is.objectLiteral(candidate) && Is.string(candidate.language) && Is.string(candidate.value);
-        }
-        __name(is, "is");
-        MarkedString2.is = is;
-      })(MarkedString || (exports3.MarkedString = MarkedString = {}));
-      var Hover;
-      (function(Hover2) {
-        function is(value) {
-          var candidate = value;
-          return !!candidate && Is.objectLiteral(candidate) && (MarkupContent.is(candidate.contents) || MarkedString.is(candidate.contents) || Is.typedArray(candidate.contents, MarkedString.is)) && (value.range === void 0 || Range.is(value.range));
-        }
-        __name(is, "is");
-        Hover2.is = is;
-      })(Hover || (exports3.Hover = Hover = {}));
-      var ParameterInformation;
-      (function(ParameterInformation2) {
-        function create(label, documentation) {
-          return documentation ? { label, documentation } : { label };
-        }
-        __name(create, "create");
-        ParameterInformation2.create = create;
-      })(ParameterInformation || (exports3.ParameterInformation = ParameterInformation = {}));
-      var SignatureInformation;
-      (function(SignatureInformation2) {
-        function create(label, documentation) {
-          var parameters = [];
-          for (var _i = 2; _i < arguments.length; _i++) {
-            parameters[_i - 2] = arguments[_i];
-          }
-          var result = { label };
-          if (Is.defined(documentation)) {
-            result.documentation = documentation;
-          }
-          if (Is.defined(parameters)) {
-            result.parameters = parameters;
-          } else {
-            result.parameters = [];
-          }
-          return result;
-        }
-        __name(create, "create");
-        SignatureInformation2.create = create;
-      })(SignatureInformation || (exports3.SignatureInformation = SignatureInformation = {}));
-      var DocumentHighlightKind;
-      (function(DocumentHighlightKind2) {
-        DocumentHighlightKind2.Text = 1;
-        DocumentHighlightKind2.Read = 2;
-        DocumentHighlightKind2.Write = 3;
-      })(DocumentHighlightKind || (exports3.DocumentHighlightKind = DocumentHighlightKind = {}));
-      var DocumentHighlight;
-      (function(DocumentHighlight2) {
-        function create(range, kind) {
-          var result = { range };
-          if (Is.number(kind)) {
-            result.kind = kind;
-          }
-          return result;
-        }
-        __name(create, "create");
-        DocumentHighlight2.create = create;
-      })(DocumentHighlight || (exports3.DocumentHighlight = DocumentHighlight = {}));
-      var SymbolKind;
-      (function(SymbolKind2) {
-        SymbolKind2.File = 1;
-        SymbolKind2.Module = 2;
-        SymbolKind2.Namespace = 3;
-        SymbolKind2.Package = 4;
-        SymbolKind2.Class = 5;
-        SymbolKind2.Method = 6;
-        SymbolKind2.Property = 7;
-        SymbolKind2.Field = 8;
-        SymbolKind2.Constructor = 9;
-        SymbolKind2.Enum = 10;
-        SymbolKind2.Interface = 11;
-        SymbolKind2.Function = 12;
-        SymbolKind2.Variable = 13;
-        SymbolKind2.Constant = 14;
-        SymbolKind2.String = 15;
-        SymbolKind2.Number = 16;
-        SymbolKind2.Boolean = 17;
-        SymbolKind2.Array = 18;
-        SymbolKind2.Object = 19;
-        SymbolKind2.Key = 20;
-        SymbolKind2.Null = 21;
-        SymbolKind2.EnumMember = 22;
-        SymbolKind2.Struct = 23;
-        SymbolKind2.Event = 24;
-        SymbolKind2.Operator = 25;
-        SymbolKind2.TypeParameter = 26;
-      })(SymbolKind || (exports3.SymbolKind = SymbolKind = {}));
-      var SymbolTag;
-      (function(SymbolTag2) {
-        SymbolTag2.Deprecated = 1;
-      })(SymbolTag || (exports3.SymbolTag = SymbolTag = {}));
-      var SymbolInformation;
-      (function(SymbolInformation2) {
-        function create(name, kind, range, uri, containerName) {
-          var result = {
-            name,
-            kind,
-            location: { uri, range }
-          };
-          if (containerName) {
-            result.containerName = containerName;
-          }
-          return result;
-        }
-        __name(create, "create");
-        SymbolInformation2.create = create;
-      })(SymbolInformation || (exports3.SymbolInformation = SymbolInformation = {}));
-      var WorkspaceSymbol;
-      (function(WorkspaceSymbol2) {
-        function create(name, kind, uri, range) {
-          return range !== void 0 ? { name, kind, location: { uri, range } } : { name, kind, location: { uri } };
-        }
-        __name(create, "create");
-        WorkspaceSymbol2.create = create;
-      })(WorkspaceSymbol || (exports3.WorkspaceSymbol = WorkspaceSymbol = {}));
-      var DocumentSymbol;
-      (function(DocumentSymbol2) {
-        function create(name, detail, kind, range, selectionRange, children) {
-          var result = {
-            name,
-            detail,
-            kind,
-            range,
-            selectionRange
-          };
-          if (children !== void 0) {
-            result.children = children;
-          }
-          return result;
-        }
-        __name(create, "create");
-        DocumentSymbol2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && Is.string(candidate.name) && Is.number(candidate.kind) && Range.is(candidate.range) && Range.is(candidate.selectionRange) && (candidate.detail === void 0 || Is.string(candidate.detail)) && (candidate.deprecated === void 0 || Is.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
-        }
-        __name(is, "is");
-        DocumentSymbol2.is = is;
-      })(DocumentSymbol || (exports3.DocumentSymbol = DocumentSymbol = {}));
-      var CodeActionKind;
-      (function(CodeActionKind2) {
-        CodeActionKind2.Empty = "";
-        CodeActionKind2.QuickFix = "quickfix";
-        CodeActionKind2.Refactor = "refactor";
-        CodeActionKind2.RefactorExtract = "refactor.extract";
-        CodeActionKind2.RefactorInline = "refactor.inline";
-        CodeActionKind2.RefactorRewrite = "refactor.rewrite";
-        CodeActionKind2.Source = "source";
-        CodeActionKind2.SourceOrganizeImports = "source.organizeImports";
-        CodeActionKind2.SourceFixAll = "source.fixAll";
-      })(CodeActionKind || (exports3.CodeActionKind = CodeActionKind = {}));
-      var CodeActionTriggerKind;
-      (function(CodeActionTriggerKind2) {
-        CodeActionTriggerKind2.Invoked = 1;
-        CodeActionTriggerKind2.Automatic = 2;
-      })(CodeActionTriggerKind || (exports3.CodeActionTriggerKind = CodeActionTriggerKind = {}));
-      var CodeActionContext;
-      (function(CodeActionContext2) {
-        function create(diagnostics, only, triggerKind) {
-          var result = { diagnostics };
-          if (only !== void 0 && only !== null) {
-            result.only = only;
-          }
-          if (triggerKind !== void 0 && triggerKind !== null) {
-            result.triggerKind = triggerKind;
-          }
-          return result;
-        }
-        __name(create, "create");
-        CodeActionContext2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is) && (candidate.only === void 0 || Is.typedArray(candidate.only, Is.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
-        }
-        __name(is, "is");
-        CodeActionContext2.is = is;
-      })(CodeActionContext || (exports3.CodeActionContext = CodeActionContext = {}));
-      var CodeAction;
-      (function(CodeAction2) {
-        function create(title, kindOrCommandOrEdit, kind) {
-          var result = { title };
-          var checkKind = true;
-          if (typeof kindOrCommandOrEdit === "string") {
-            checkKind = false;
-            result.kind = kindOrCommandOrEdit;
-          } else if (Command.is(kindOrCommandOrEdit)) {
-            result.command = kindOrCommandOrEdit;
-          } else {
-            result.edit = kindOrCommandOrEdit;
-          }
-          if (checkKind && kind !== void 0) {
-            result.kind = kind;
-          }
-          return result;
-        }
-        __name(create, "create");
-        CodeAction2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate && Is.string(candidate.title) && (candidate.diagnostics === void 0 || Is.typedArray(candidate.diagnostics, Diagnostic.is)) && (candidate.kind === void 0 || Is.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command.is(candidate.command)) && (candidate.isPreferred === void 0 || Is.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit.is(candidate.edit));
-        }
-        __name(is, "is");
-        CodeAction2.is = is;
-      })(CodeAction || (exports3.CodeAction = CodeAction = {}));
-      var CodeLens;
-      (function(CodeLens2) {
-        function create(range, data) {
-          var result = { range };
-          if (Is.defined(data)) {
-            result.data = data;
-          }
-          return result;
-        }
-        __name(create, "create");
-        CodeLens2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
-        }
-        __name(is, "is");
-        CodeLens2.is = is;
-      })(CodeLens || (exports3.CodeLens = CodeLens = {}));
-      var FormattingOptions;
-      (function(FormattingOptions2) {
-        function create(tabSize, insertSpaces) {
-          return { tabSize, insertSpaces };
-        }
-        __name(create, "create");
-        FormattingOptions2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
-        }
-        __name(is, "is");
-        FormattingOptions2.is = is;
-      })(FormattingOptions || (exports3.FormattingOptions = FormattingOptions = {}));
-      var DocumentLink;
-      (function(DocumentLink2) {
-        function create(range, target, data) {
-          return { range, target, data };
-        }
-        __name(create, "create");
-        DocumentLink2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
-        }
-        __name(is, "is");
-        DocumentLink2.is = is;
-      })(DocumentLink || (exports3.DocumentLink = DocumentLink = {}));
-      var SelectionRange;
-      (function(SelectionRange2) {
-        function create(range, parent) {
-          return { range, parent };
-        }
-        __name(create, "create");
-        SelectionRange2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === void 0 || SelectionRange2.is(candidate.parent));
-        }
-        __name(is, "is");
-        SelectionRange2.is = is;
-      })(SelectionRange || (exports3.SelectionRange = SelectionRange = {}));
-      var SemanticTokenTypes;
-      (function(SemanticTokenTypes2) {
-        SemanticTokenTypes2["namespace"] = "namespace";
-        SemanticTokenTypes2["type"] = "type";
-        SemanticTokenTypes2["class"] = "class";
-        SemanticTokenTypes2["enum"] = "enum";
-        SemanticTokenTypes2["interface"] = "interface";
-        SemanticTokenTypes2["struct"] = "struct";
-        SemanticTokenTypes2["typeParameter"] = "typeParameter";
-        SemanticTokenTypes2["parameter"] = "parameter";
-        SemanticTokenTypes2["variable"] = "variable";
-        SemanticTokenTypes2["property"] = "property";
-        SemanticTokenTypes2["enumMember"] = "enumMember";
-        SemanticTokenTypes2["event"] = "event";
-        SemanticTokenTypes2["function"] = "function";
-        SemanticTokenTypes2["method"] = "method";
-        SemanticTokenTypes2["macro"] = "macro";
-        SemanticTokenTypes2["keyword"] = "keyword";
-        SemanticTokenTypes2["modifier"] = "modifier";
-        SemanticTokenTypes2["comment"] = "comment";
-        SemanticTokenTypes2["string"] = "string";
-        SemanticTokenTypes2["number"] = "number";
-        SemanticTokenTypes2["regexp"] = "regexp";
-        SemanticTokenTypes2["operator"] = "operator";
-        SemanticTokenTypes2["decorator"] = "decorator";
-      })(SemanticTokenTypes || (exports3.SemanticTokenTypes = SemanticTokenTypes = {}));
-      var SemanticTokenModifiers;
-      (function(SemanticTokenModifiers2) {
-        SemanticTokenModifiers2["declaration"] = "declaration";
-        SemanticTokenModifiers2["definition"] = "definition";
-        SemanticTokenModifiers2["readonly"] = "readonly";
-        SemanticTokenModifiers2["static"] = "static";
-        SemanticTokenModifiers2["deprecated"] = "deprecated";
-        SemanticTokenModifiers2["abstract"] = "abstract";
-        SemanticTokenModifiers2["async"] = "async";
-        SemanticTokenModifiers2["modification"] = "modification";
-        SemanticTokenModifiers2["documentation"] = "documentation";
-        SemanticTokenModifiers2["defaultLibrary"] = "defaultLibrary";
-      })(SemanticTokenModifiers || (exports3.SemanticTokenModifiers = SemanticTokenModifiers = {}));
-      var SemanticTokens;
-      (function(SemanticTokens2) {
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && (candidate.resultId === void 0 || typeof candidate.resultId === "string") && Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === "number");
-        }
-        __name(is, "is");
-        SemanticTokens2.is = is;
-      })(SemanticTokens || (exports3.SemanticTokens = SemanticTokens = {}));
-      var InlineValueText;
-      (function(InlineValueText2) {
-        function create(range, text) {
-          return { range, text };
-        }
-        __name(create, "create");
-        InlineValueText2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
-        }
-        __name(is, "is");
-        InlineValueText2.is = is;
-      })(InlineValueText || (exports3.InlineValueText = InlineValueText = {}));
-      var InlineValueVariableLookup;
-      (function(InlineValueVariableLookup2) {
-        function create(range, variableName, caseSensitiveLookup) {
-          return { range, variableName, caseSensitiveLookup };
-        }
-        __name(create, "create");
-        InlineValueVariableLookup2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup) && (Is.string(candidate.variableName) || candidate.variableName === void 0);
-        }
-        __name(is, "is");
-        InlineValueVariableLookup2.is = is;
-      })(InlineValueVariableLookup || (exports3.InlineValueVariableLookup = InlineValueVariableLookup = {}));
-      var InlineValueEvaluatableExpression;
-      (function(InlineValueEvaluatableExpression2) {
-        function create(range, expression) {
-          return { range, expression };
-        }
-        __name(create, "create");
-        InlineValueEvaluatableExpression2.create = create;
-        function is(value) {
-          var candidate = value;
-          return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && (Is.string(candidate.expression) || candidate.expression === void 0);
-        }
-        __name(is, "is");
-        InlineValueEvaluatableExpression2.is = is;
-      })(InlineValueEvaluatableExpression || (exports3.InlineValueEvaluatableExpression = InlineValueEvaluatableExpression = {}));
-      var InlineValueContext;
-      (function(InlineValueContext2) {
-        function create(frameId, stoppedLocation) {
-          return { frameId, stoppedLocation };
-        }
-        __name(create, "create");
-        InlineValueContext2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Range.is(value.stoppedLocation);
-        }
-        __name(is, "is");
-        InlineValueContext2.is = is;
-      })(InlineValueContext || (exports3.InlineValueContext = InlineValueContext = {}));
-      var InlayHintKind;
-      (function(InlayHintKind2) {
-        InlayHintKind2.Type = 1;
-        InlayHintKind2.Parameter = 2;
-        function is(value) {
-          return value === 1 || value === 2;
-        }
-        __name(is, "is");
-        InlayHintKind2.is = is;
-      })(InlayHintKind || (exports3.InlayHintKind = InlayHintKind = {}));
-      var InlayHintLabelPart;
-      (function(InlayHintLabelPart2) {
-        function create(value) {
-          return { value };
-        }
-        __name(create, "create");
-        InlayHintLabelPart2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.location === void 0 || Location.is(candidate.location)) && (candidate.command === void 0 || Command.is(candidate.command));
-        }
-        __name(is, "is");
-        InlayHintLabelPart2.is = is;
-      })(InlayHintLabelPart || (exports3.InlayHintLabelPart = InlayHintLabelPart = {}));
-      var InlayHint;
-      (function(InlayHint2) {
-        function create(position, label, kind) {
-          var result = { position, label };
-          if (kind !== void 0) {
-            result.kind = kind;
-          }
-          return result;
-        }
-        __name(create, "create");
-        InlayHint2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && Position.is(candidate.position) && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is)) && (candidate.kind === void 0 || InlayHintKind.is(candidate.kind)) && candidate.textEdits === void 0 || Is.typedArray(candidate.textEdits, TextEdit.is) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is.boolean(candidate.paddingRight));
-        }
-        __name(is, "is");
-        InlayHint2.is = is;
-      })(InlayHint || (exports3.InlayHint = InlayHint = {}));
-      var StringValue;
-      (function(StringValue2) {
-        function createSnippet(value) {
-          return { kind: "snippet", value };
-        }
-        __name(createSnippet, "createSnippet");
-        StringValue2.createSnippet = createSnippet;
-      })(StringValue || (exports3.StringValue = StringValue = {}));
-      var InlineCompletionItem;
-      (function(InlineCompletionItem2) {
-        function create(insertText, filterText, range, command) {
-          return { insertText, filterText, range, command };
-        }
-        __name(create, "create");
-        InlineCompletionItem2.create = create;
-      })(InlineCompletionItem || (exports3.InlineCompletionItem = InlineCompletionItem = {}));
-      var InlineCompletionList;
-      (function(InlineCompletionList2) {
-        function create(items) {
-          return { items };
-        }
-        __name(create, "create");
-        InlineCompletionList2.create = create;
-      })(InlineCompletionList || (exports3.InlineCompletionList = InlineCompletionList = {}));
-      var InlineCompletionTriggerKind;
-      (function(InlineCompletionTriggerKind2) {
-        InlineCompletionTriggerKind2.Invoked = 0;
-        InlineCompletionTriggerKind2.Automatic = 1;
-      })(InlineCompletionTriggerKind || (exports3.InlineCompletionTriggerKind = InlineCompletionTriggerKind = {}));
-      var SelectedCompletionInfo;
-      (function(SelectedCompletionInfo2) {
-        function create(range, text) {
-          return { range, text };
-        }
-        __name(create, "create");
-        SelectedCompletionInfo2.create = create;
-      })(SelectedCompletionInfo || (exports3.SelectedCompletionInfo = SelectedCompletionInfo = {}));
-      var InlineCompletionContext;
-      (function(InlineCompletionContext2) {
-        function create(triggerKind, selectedCompletionInfo) {
-          return { triggerKind, selectedCompletionInfo };
-        }
-        __name(create, "create");
-        InlineCompletionContext2.create = create;
-      })(InlineCompletionContext || (exports3.InlineCompletionContext = InlineCompletionContext = {}));
-      var WorkspaceFolder;
-      (function(WorkspaceFolder2) {
-        function is(value) {
-          var candidate = value;
-          return Is.objectLiteral(candidate) && URI.is(candidate.uri) && Is.string(candidate.name);
-        }
-        __name(is, "is");
-        WorkspaceFolder2.is = is;
-      })(WorkspaceFolder || (exports3.WorkspaceFolder = WorkspaceFolder = {}));
-      exports3.EOL = ["\n", "\r\n", "\r"];
-      var TextDocument;
-      (function(TextDocument2) {
-        function create(uri, languageId, version, content) {
-          return new FullTextDocument(uri, languageId, version, content);
-        }
-        __name(create, "create");
-        TextDocument2.create = create;
-        function is(value) {
-          var candidate = value;
-          return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount) && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
-        }
-        __name(is, "is");
-        TextDocument2.is = is;
-        function applyEdits(document, edits) {
-          var text = document.getText();
-          var sortedEdits = mergeSort(edits, function(a, b) {
-            var diff = a.range.start.line - b.range.start.line;
-            if (diff === 0) {
-              return a.range.start.character - b.range.start.character;
-            }
-            return diff;
-          });
-          var lastModifiedOffset = text.length;
-          for (var i = sortedEdits.length - 1; i >= 0; i--) {
-            var e = sortedEdits[i];
-            var startOffset = document.offsetAt(e.range.start);
-            var endOffset = document.offsetAt(e.range.end);
-            if (endOffset <= lastModifiedOffset) {
-              text = text.substring(0, startOffset) + e.newText + text.substring(endOffset, text.length);
-            } else {
-              throw new Error("Overlapping edit");
-            }
-            lastModifiedOffset = startOffset;
-          }
-          return text;
-        }
-        __name(applyEdits, "applyEdits");
-        TextDocument2.applyEdits = applyEdits;
-        function mergeSort(data, compare) {
-          if (data.length <= 1) {
-            return data;
-          }
-          var p = data.length / 2 | 0;
-          var left = data.slice(0, p);
-          var right = data.slice(p);
-          mergeSort(left, compare);
-          mergeSort(right, compare);
-          var leftIdx = 0;
-          var rightIdx = 0;
-          var i = 0;
-          while (leftIdx < left.length && rightIdx < right.length) {
-            var ret = compare(left[leftIdx], right[rightIdx]);
-            if (ret <= 0) {
-              data[i++] = left[leftIdx++];
-            } else {
-              data[i++] = right[rightIdx++];
-            }
-          }
-          while (leftIdx < left.length) {
-            data[i++] = left[leftIdx++];
-          }
-          while (rightIdx < right.length) {
-            data[i++] = right[rightIdx++];
-          }
-          return data;
-        }
-        __name(mergeSort, "mergeSort");
-      })(TextDocument || (exports3.TextDocument = TextDocument = {}));
-      var FullTextDocument = (
-        /** @class */
-        (function() {
-          function FullTextDocument2(uri, languageId, version, content) {
-            this._uri = uri;
-            this._languageId = languageId;
-            this._version = version;
-            this._content = content;
-            this._lineOffsets = void 0;
-          }
-          __name(FullTextDocument2, "FullTextDocument");
-          Object.defineProperty(FullTextDocument2.prototype, "uri", {
-            get: /* @__PURE__ */ __name(function() {
-              return this._uri;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          Object.defineProperty(FullTextDocument2.prototype, "languageId", {
-            get: /* @__PURE__ */ __name(function() {
-              return this._languageId;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          Object.defineProperty(FullTextDocument2.prototype, "version", {
-            get: /* @__PURE__ */ __name(function() {
-              return this._version;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          FullTextDocument2.prototype.getText = function(range) {
-            if (range) {
-              var start = this.offsetAt(range.start);
-              var end = this.offsetAt(range.end);
-              return this._content.substring(start, end);
-            }
-            return this._content;
-          };
-          FullTextDocument2.prototype.update = function(event, version) {
-            this._content = event.text;
-            this._version = version;
-            this._lineOffsets = void 0;
-          };
-          FullTextDocument2.prototype.getLineOffsets = function() {
-            if (this._lineOffsets === void 0) {
-              var lineOffsets = [];
-              var text = this._content;
-              var isLineStart = true;
-              for (var i = 0; i < text.length; i++) {
-                if (isLineStart) {
-                  lineOffsets.push(i);
-                  isLineStart = false;
-                }
-                var ch = text.charAt(i);
-                isLineStart = ch === "\r" || ch === "\n";
-                if (ch === "\r" && i + 1 < text.length && text.charAt(i + 1) === "\n") {
-                  i++;
-                }
-              }
-              if (isLineStart && text.length > 0) {
-                lineOffsets.push(text.length);
-              }
-              this._lineOffsets = lineOffsets;
-            }
-            return this._lineOffsets;
-          };
-          FullTextDocument2.prototype.positionAt = function(offset) {
-            offset = Math.max(Math.min(offset, this._content.length), 0);
-            var lineOffsets = this.getLineOffsets();
-            var low = 0, high = lineOffsets.length;
-            if (high === 0) {
-              return Position.create(0, offset);
-            }
-            while (low < high) {
-              var mid = Math.floor((low + high) / 2);
-              if (lineOffsets[mid] > offset) {
-                high = mid;
-              } else {
-                low = mid + 1;
-              }
-            }
-            var line = low - 1;
-            return Position.create(line, offset - lineOffsets[line]);
-          };
-          FullTextDocument2.prototype.offsetAt = function(position) {
-            var lineOffsets = this.getLineOffsets();
-            if (position.line >= lineOffsets.length) {
-              return this._content.length;
-            } else if (position.line < 0) {
-              return 0;
-            }
-            var lineOffset = lineOffsets[position.line];
-            var nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
-            return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
-          };
-          Object.defineProperty(FullTextDocument2.prototype, "lineCount", {
-            get: /* @__PURE__ */ __name(function() {
-              return this.getLineOffsets().length;
-            }, "get"),
-            enumerable: false,
-            configurable: true
-          });
-          return FullTextDocument2;
-        })()
-      );
-      var Is;
-      (function(Is2) {
-        var toString = Object.prototype.toString;
-        function defined(value) {
-          return typeof value !== "undefined";
-        }
-        __name(defined, "defined");
-        Is2.defined = defined;
-        function undefined2(value) {
-          return typeof value === "undefined";
-        }
-        __name(undefined2, "undefined");
-        Is2.undefined = undefined2;
-        function boolean(value) {
-          return value === true || value === false;
-        }
-        __name(boolean, "boolean");
-        Is2.boolean = boolean;
-        function string(value) {
-          return toString.call(value) === "[object String]";
-        }
-        __name(string, "string");
-        Is2.string = string;
-        function number(value) {
-          return toString.call(value) === "[object Number]";
-        }
-        __name(number, "number");
-        Is2.number = number;
-        function numberRange(value, min, max) {
-          return toString.call(value) === "[object Number]" && min <= value && value <= max;
-        }
-        __name(numberRange, "numberRange");
-        Is2.numberRange = numberRange;
-        function integer2(value) {
-          return toString.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
-        }
-        __name(integer2, "integer");
-        Is2.integer = integer2;
-        function uinteger2(value) {
-          return toString.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
-        }
-        __name(uinteger2, "uinteger");
-        Is2.uinteger = uinteger2;
-        function func(value) {
-          return toString.call(value) === "[object Function]";
-        }
-        __name(func, "func");
-        Is2.func = func;
-        function objectLiteral(value) {
-          return value !== null && typeof value === "object";
-        }
-        __name(objectLiteral, "objectLiteral");
-        Is2.objectLiteral = objectLiteral;
-        function typedArray(value, check) {
-          return Array.isArray(value) && value.every(check);
-        }
-        __name(typedArray, "typedArray");
-        Is2.typedArray = typedArray;
-      })(Is || (Is = {}));
-    });
-  }
-});
-
-// build/server/utils/documents/create-text-edits.js
-var require_create_text_edits = __commonJS({
-  "build/server/utils/documents/create-text-edits.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createTextEdits = createTextEdits;
-    var fast_diff_1 = __importDefault2(require_diff());
-    var vscode_languageserver_types_1 = require_main();
-    function createTextEdits(document, newContents) {
-      const diffs = (0, fast_diff_1.default)(document.getText(), newContents);
-      const edits = [];
-      let offset = 0;
-      for (const [op, text] of diffs) {
-        const start = offset;
-        switch (op) {
-          case fast_diff_1.default.EQUAL:
-            offset += text.length;
-            break;
-          case fast_diff_1.default.DELETE:
-            offset += text.length;
-            edits.push(vscode_languageserver_types_1.TextEdit.del(vscode_languageserver_types_1.Range.create(document.positionAt(start), document.positionAt(offset))));
-            break;
-          case fast_diff_1.default.INSERT:
-            edits.push(vscode_languageserver_types_1.TextEdit.insert(document.positionAt(start), text));
-            break;
-        }
-      }
-      return edits;
-    }
-    __name(createTextEdits, "createTextEdits");
-  }
-});
-
-// build/server/utils/documents/get-edit-info.js
-var require_get_edit_info = __commonJS({
-  "build/server/utils/documents/get-edit-info.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getEditInfo = getEditInfo;
-    function getEditInfo(document, diagnostic, lintResult) {
-      if (!lintResult || document.version !== lintResult.version) {
-        return void 0;
-      }
-      const warning = lintResult.getWarning?.(diagnostic);
-      if (!warning) {
-        return void 0;
-      }
-      const edit = warning.fix;
-      if (!edit) {
-        return void 0;
-      }
-      return {
-        label: `Fix this ${warning.rule} problem`,
-        edit: {
-          newText: edit.text,
-          range: {
-            start: document.positionAt(edit.range[0]),
-            end: document.positionAt(edit.range[1])
-          }
-        }
-      };
-    }
-    __name(getEditInfo, "getEditInfo");
-  }
-});
-
-// build/server/utils/documents/get-disable-type.js
-var require_get_disable_type = __commonJS({
-  "build/server/utils/documents/get-disable-type.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getDisableType = getDisableType;
-    var vscode_languageserver_types_1 = require_main();
-    function getDisableType(document, position) {
-      const lineStartOffset = document.offsetAt(vscode_languageserver_types_1.Position.create(position.line, 0));
-      const lineEndOffset = document.offsetAt(vscode_languageserver_types_1.Position.create(position.line + 1, 0));
-      const line = document.getText().slice(lineStartOffset, lineEndOffset);
-      const before = line.slice(0, position.character);
-      const after = line.slice(position.character);
-      const disableKind = before.match(/\/\*\s*(stylelint-disable(?:(?:-next)?-line)?)\s[a-z\-/\s,]*$/i)?.[1]?.toLowerCase();
-      return disableKind && /^[a-z\-/\s,]*\*\//i.test(after) ? disableKind : void 0;
-    }
-    __name(getDisableType, "getDisableType");
-  }
-});
-
-// build/server/utils/documents/get-fixes.js
-var require_get_fixes = __commonJS({
-  "build/server/utils/documents/get-fixes.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getFixes = getFixes;
-    var create_text_edits_js_1 = require_create_text_edits();
-    async function getFixes(runner, document, linterOptions = {}, runnerOptions = {}) {
-      const result = await runner.lintDocument(document, { ...linterOptions, fix: true }, runnerOptions);
-      const fixedCode = typeof result.code === "string" ? result.code : typeof result.output === "string" && result.output.length > 0 ? result.output : void 0;
-      return typeof fixedCode === "string" ? (0, create_text_edits_js_1.createTextEdits)(document, fixedCode) : [];
-    }
-    __name(getFixes, "getFixes");
-  }
-});
-
-// build/server/utils/documents/index.js
-var require_documents = __commonJS({
-  "build/server/utils/documents/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_create_text_edits(), exports2);
-    __exportStar(require_get_edit_info(), exports2);
-    __exportStar(require_get_disable_type(), exports2);
-    __exportStar(require_get_fixes(), exports2);
-  }
-});
-
-// build/server/utils/functions/get-first-return-value.js
-var require_get_first_return_value = __commonJS({
-  "build/server/utils/functions/get-first-return-value.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getFirstReturnValue = getFirstReturnValue;
-    exports2.getFirstResolvedValue = getFirstResolvedValue;
-    function getFirstReturnValue(...functions) {
-      for (const func of functions) {
-        const result = func();
-        if (result !== void 0) {
-          return result;
-        }
-      }
-      return void 0;
-    }
-    __name(getFirstReturnValue, "getFirstReturnValue");
-    async function getFirstResolvedValue(...functions) {
-      for (const func of functions) {
-        const result = await func();
-        if (result !== void 0) {
-          return result;
-        }
-      }
-      return void 0;
-    }
-    __name(getFirstResolvedValue, "getFirstResolvedValue");
-  }
-});
-
-// build/server/utils/functions/lazy-call.js
-var require_lazy_call = __commonJS({
-  "build/server/utils/functions/lazy-call.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.lazyCall = lazyCall;
-    exports2.lazyCallAsync = lazyCallAsync;
-    function lazyCall(inner) {
-      let cached = false;
-      let cache;
-      return () => {
-        if (!cached) {
-          cache = inner();
-          cached = true;
-        }
-        return cache;
-      };
-    }
-    __name(lazyCall, "lazyCall");
-    function lazyCallAsync(inner) {
-      let cached = false;
-      let cache;
-      return async () => {
-        if (!cached) {
-          cache = await inner();
-          cached = true;
-        }
-        return cache;
-      };
-    }
-    __name(lazyCallAsync, "lazyCallAsync");
-  }
-});
-
-// build/server/utils/functions/index.js
-var require_functions = __commonJS({
-  "build/server/utils/functions/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_get_first_return_value(), exports2);
-    __exportStar(require_lazy_call(), exports2);
-  }
-});
-
-// node_modules/non-error/index.js
-function defineProperty(object, key, value) {
-  Object.defineProperty(object, key, {
-    value,
-    writable: false,
-    enumerable: false,
-    configurable: false
-  });
-}
-function stringify(value) {
-  if (value === void 0) {
-    return "undefined";
-  }
-  if (value === null) {
-    return "null";
-  }
-  if (typeof value === "string") {
-    return value;
-  }
-  if (typeof value === "number" || typeof value === "boolean") {
-    return String(value);
-  }
-  if (typeof value === "bigint") {
-    return `${value}n`;
-  }
-  if (typeof value === "symbol") {
-    return value.toString();
-  }
-  if (typeof value === "function") {
-    return `[Function${value.name ? ` ${value.name}` : " (anonymous)"}]`;
-  }
-  if (value instanceof Error) {
-    try {
-      return String(value);
-    } catch {
-      return "<Unserializable error>";
-    }
-  }
-  try {
-    return JSON.stringify(value);
-  } catch {
-    try {
-      return String(value);
-    } catch {
-      return "<Unserializable value>";
-    }
-  }
-}
-var isNonErrorSymbol, NonError;
-var init_non_error = __esm({
-  "node_modules/non-error/index.js"() {
-    isNonErrorSymbol = /* @__PURE__ */ Symbol("isNonError");
-    __name(defineProperty, "defineProperty");
-    __name(stringify, "stringify");
-    NonError = class _NonError extends Error {
-      static {
-        __name(this, "NonError");
-      }
-      constructor(value, { superclass: Superclass = Error } = {}) {
-        if (_NonError.isNonError(value)) {
-          return value;
-        }
-        if (value instanceof Error) {
-          throw new TypeError("Do not pass Error instances to NonError. Throw the error directly instead.");
-        }
-        super(`Non-error value: ${stringify(value)}`);
-        if (Superclass !== Error) {
-          Object.setPrototypeOf(this, Superclass.prototype);
-        }
-        defineProperty(this, "name", "NonError");
-        defineProperty(this, isNonErrorSymbol, true);
-        defineProperty(this, "isNonError", true);
-        defineProperty(this, "value", value);
-      }
-      static isNonError(value) {
-        return value?.[isNonErrorSymbol] === true;
-      }
-      static #handleCallback(callback, arguments_) {
-        try {
-          const result = callback(...arguments_);
-          if (result && typeof result.then === "function") {
-            return (async () => {
-              try {
-                return await result;
-              } catch (error) {
-                if (error instanceof Error) {
-                  throw error;
-                }
-                throw new _NonError(error);
-              }
-            })();
-          }
-          return result;
-        } catch (error) {
-          if (error instanceof Error) {
-            throw error;
-          }
-          throw new _NonError(error);
-        }
-      }
-      static try(callback) {
-        return _NonError.#handleCallback(callback, []);
-      }
-      static wrap(callback) {
-        return (...arguments_) => _NonError.#handleCallback(callback, arguments_);
-      }
-      // This makes instanceof work even when using the `superclass` option
-      static [Symbol.hasInstance](instance) {
-        return _NonError.isNonError(instance);
-      }
-    };
-  }
-});
-
-// node_modules/serialize-error/error-constructors.js
-function addKnownErrorConstructor(constructor, factory) {
-  let instance;
-  let resolvedName;
-  if (factory) {
-    if (typeof factory !== "function") {
-      throw new TypeError("Factory must be a function");
-    }
-    try {
-      instance = factory();
-    } catch (error) {
-      throw new Error("Factory is not compatible", { cause: error });
-    }
-    if (!(instance instanceof constructor)) {
-      throw new TypeError("Factory must return an instance of the constructor");
-    }
-    resolvedName = instance.name;
-  } else {
-    try {
-      instance = new constructor();
-    } catch (error) {
-      throw new Error(`Constructor "${constructor.name}" is not compatible`, { cause: error });
-    }
-    resolvedName = instance.name;
-  }
-  if (!resolvedName || typeof resolvedName !== "string") {
-    throw new TypeError('Error instances must have a non-empty string "name" property');
-  }
-  if (errorConstructors.has(resolvedName)) {
-    throw new Error(`Error constructor "${resolvedName}" is already known`);
-  }
-  errorConstructors.set(resolvedName, constructor);
-  if (factory) {
-    errorFactories.set(resolvedName, factory);
-  }
-}
-var list, errorConstructors, errorFactories;
-var init_error_constructors = __esm({
-  "node_modules/serialize-error/error-constructors.js"() {
-    list = [
-      // Native ES errors https://262.ecma-international.org/12.0/#sec-well-known-intrinsic-objects
-      Error,
-      EvalError,
-      RangeError,
-      ReferenceError,
-      SyntaxError,
-      TypeError,
-      URIError,
-      AggregateError,
-      // Built-in errors
-      globalThis.DOMException,
-      // Node-specific errors
-      // https://nodejs.org/api/errors.html
-      globalThis.AssertionError,
-      globalThis.SystemError
-    ].filter(Boolean).map((constructor) => [constructor.name, constructor]);
-    errorConstructors = new Map(list);
-    errorFactories = /* @__PURE__ */ new Map();
-    __name(addKnownErrorConstructor, "addKnownErrorConstructor");
-  }
-});
-
-// node_modules/serialize-error/index.js
-var serialize_error_exports = {};
-__export(serialize_error_exports, {
-  NonError: () => NonError,
-  addKnownErrorConstructor: () => addKnownErrorConstructor,
-  deserializeError: () => deserializeError,
-  isErrorLike: () => isErrorLike,
-  serializeError: () => serializeError
-});
-function serializeError(value, options = {}) {
-  const {
-    maxDepth = Number.POSITIVE_INFINITY,
-    useToJSON = true
-  } = options;
-  if (typeof value === "object" && value !== null) {
-    return destroyCircular({
-      from: value,
-      seen: /* @__PURE__ */ new Set(),
-      forceEnumerable: true,
-      maxDepth,
-      depth: 0,
-      useToJSON,
-      serialize: true
-    });
-  }
-  if (typeof value === "function") {
-    value = "<Function>";
-  }
-  return destroyCircular({
-    from: new NonError(value),
-    seen: /* @__PURE__ */ new Set(),
-    forceEnumerable: true,
-    maxDepth,
-    depth: 0,
-    useToJSON,
-    serialize: true
-  });
-}
-function deserializeError(value, options = {}) {
-  const { maxDepth = Number.POSITIVE_INFINITY } = options;
-  if (value instanceof Error) {
-    return value;
-  }
-  if (isMinimumViableSerializedError(value)) {
-    return destroyCircular({
-      from: value,
-      seen: /* @__PURE__ */ new Set(),
-      to: newError(value.name),
-      maxDepth,
-      depth: 0,
-      serialize: false
-    });
-  }
-  return new NonError(value);
-}
-function isErrorLike(value) {
-  return Boolean(value) && typeof value === "object" && typeof value.name === "string" && typeof value.message === "string" && typeof value.stack === "string";
-}
-function isMinimumViableSerializedError(value) {
-  return Boolean(value) && typeof value === "object" && typeof value.message === "string" && !Array.isArray(value);
-}
-var errorProperties, toJsonWasCalled, toJSON, newError, destroyCircular;
-var init_serialize_error = __esm({
-  "node_modules/serialize-error/index.js"() {
-    init_non_error();
-    init_error_constructors();
-    init_error_constructors();
-    init_non_error();
-    errorProperties = [
-      {
-        property: "name",
-        enumerable: false
-      },
-      {
-        property: "message",
-        enumerable: false
-      },
-      {
-        property: "stack",
-        enumerable: false
-      },
-      {
-        property: "code",
-        enumerable: true
-      },
-      {
-        property: "cause",
-        enumerable: false
-      },
-      {
-        property: "errors",
-        enumerable: false
-      }
-    ];
-    toJsonWasCalled = /* @__PURE__ */ new WeakSet();
-    toJSON = /* @__PURE__ */ __name((from) => {
-      toJsonWasCalled.add(from);
-      const json = from.toJSON();
-      toJsonWasCalled.delete(from);
-      return json;
-    }, "toJSON");
-    newError = /* @__PURE__ */ __name((name) => {
-      if (name === "NonError") {
-        return new NonError();
-      }
-      const factory = errorFactories.get(name);
-      if (factory) {
-        return factory();
-      }
-      const ErrorConstructor = errorConstructors.get(name) ?? Error;
-      return ErrorConstructor === AggregateError ? new ErrorConstructor([]) : new ErrorConstructor();
-    }, "newError");
-    destroyCircular = /* @__PURE__ */ __name(({
-      from,
-      seen,
-      to,
-      forceEnumerable,
-      maxDepth,
-      depth,
-      useToJSON,
-      serialize
-    }) => {
-      if (!to) {
-        if (Array.isArray(from)) {
-          to = [];
-        } else if (!serialize && isErrorLike(from)) {
-          to = newError(from.name);
-        } else {
-          to = {};
-        }
-      }
-      seen.add(from);
-      if (depth >= maxDepth) {
-        seen.delete(from);
-        return to;
-      }
-      if (useToJSON && typeof from.toJSON === "function" && !toJsonWasCalled.has(from)) {
-        seen.delete(from);
-        return toJSON(from);
-      }
-      const continueDestroyCircular = /* @__PURE__ */ __name((value) => destroyCircular({
-        from: value,
-        seen,
-        forceEnumerable,
-        maxDepth,
-        depth: depth + 1,
-        useToJSON,
-        serialize
-      }), "continueDestroyCircular");
-      for (const key of Object.keys(from)) {
-        const value = from[key];
-        if (value && value instanceof Uint8Array && value.constructor.name === "Buffer") {
-          to[key] = serialize ? "[object Buffer]" : value;
-          continue;
-        }
-        if (value !== null && typeof value === "object" && typeof value.pipe === "function") {
-          to[key] = serialize ? "[object Stream]" : value;
-          continue;
-        }
-        if (typeof value === "function") {
-          if (!serialize) {
-            to[key] = value;
-          }
-          continue;
-        }
-        if (serialize && typeof value === "bigint") {
-          to[key] = `${value}n`;
-          continue;
-        }
-        if (!value || typeof value !== "object") {
-          try {
-            to[key] = value;
-          } catch {
-          }
-          continue;
-        }
-        if (!seen.has(value)) {
-          to[key] = continueDestroyCircular(value);
-          continue;
-        }
-        to[key] = "[Circular]";
-      }
-      if (serialize || to instanceof Error) {
-        for (const { property, enumerable } of errorProperties) {
-          const value = from[property];
-          if (value === void 0 || value === null) {
-            continue;
-          }
-          const descriptor = Object.getOwnPropertyDescriptor(to, property);
-          if (descriptor?.configurable === false) {
-            continue;
-          }
-          let processedValue = value;
-          if (typeof value === "object") {
-            processedValue = seen.has(value) ? "[Circular]" : continueDestroyCircular(value);
-          }
-          Object.defineProperty(to, property, {
-            value: processedValue,
-            enumerable: forceEnumerable || enumerable,
-            configurable: true,
-            writable: true
-          });
-        }
-      }
-      seen.delete(from);
-      return to;
-    }, "destroyCircular");
-    __name(serializeError, "serializeError");
-    __name(deserializeError, "deserializeError");
-    __name(isErrorLike, "isErrorLike");
-    __name(isMinimumViableSerializedError, "isMinimumViableSerializedError");
-  }
-});
-
-// build/server/utils/iterables.js
-var require_iterables = __commonJS({
-  "build/server/utils/iterables.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isIterable = isIterable;
-    exports2.isIterableObject = isIterableObject;
-    function isIterable(obj) {
-      return obj !== null && obj !== void 0 && typeof obj[Symbol.iterator] === "function";
-    }
-    __name(isIterable, "isIterable");
-    function isIterableObject(obj) {
-      return isIterable(obj) && typeof obj === "object";
-    }
-    __name(isIterableObject, "isIterableObject");
-  }
-});
-
-// build/server/utils/objects/is-object.js
-var require_is_object = __commonJS({
-  "build/server/utils/objects/is-object.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.isObject = isObject;
-    function isObject(value) {
-      return typeof value === "object" && value !== null;
-    }
-    __name(isObject, "isObject");
-  }
-});
-
-// build/server/utils/objects/merge-assign.js
-var require_merge_assign = __commonJS({
-  "build/server/utils/objects/merge-assign.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.mergeAssign = mergeAssign;
-    var is_object_js_1 = require_is_object();
-    function mergeAssign(target, source1, source2) {
-      const targetAsUnion = target;
-      for (const object of [source1, source2]) {
-        if (!object) {
-          continue;
-        }
-        for (const key of Object.getOwnPropertyNames(object)) {
-          if (key === "__proto__" || key === "constructor") {
-            continue;
-          }
-          const value = object[key];
-          if ((0, is_object_js_1.isObject)(value)) {
-            if (Array.isArray(value)) {
-              const existing = targetAsUnion[key];
-              targetAsUnion[key] = Array.isArray(existing) ? existing.concat(value) : value;
-              continue;
-            }
-            if (!targetAsUnion[key]) {
-              targetAsUnion[key] = {};
-            }
-            targetAsUnion[key] = mergeAssign(targetAsUnion[key], value);
-          } else {
-            targetAsUnion[key] = value;
-          }
-        }
-      }
-      return targetAsUnion;
-    }
-    __name(mergeAssign, "mergeAssign");
+    __name(diff2, "diff");
+    diff2.INSERT = DIFF_INSERT;
+    diff2.DELETE = DIFF_DELETE;
+    diff2.EQUAL = DIFF_EQUAL;
+    module2.exports = diff2;
   }
 });
 
@@ -17696,7 +14120,7 @@ var require_merge_assign = __commonJS({
 var require_rfdc = __commonJS({
   "node_modules/rfdc/index.js"(exports2, module2) {
     "use strict";
-    module2.exports = rfdc;
+    module2.exports = rfdc2;
     function copyBuffer(cur) {
       if (cur instanceof Buffer) {
         return Buffer.from(cur);
@@ -17704,7 +14128,7 @@ var require_rfdc = __commonJS({
       return new cur.constructor(cur.buffer.slice(), cur.byteOffset, cur.length);
     }
     __name(copyBuffer, "copyBuffer");
-    function rfdc(opts) {
+    function rfdc2(opts) {
       opts = opts || {};
       if (opts.circles) return rfdcCircles(opts);
       const constructorHandlers = /* @__PURE__ */ new Map();
@@ -17783,7 +14207,7 @@ var require_rfdc = __commonJS({
       }
       __name(cloneProto, "cloneProto");
     }
-    __name(rfdc, "rfdc");
+    __name(rfdc2, "rfdc");
     function rfdcCircles(opts) {
       const refs = [];
       const refsNew = [];
@@ -17890,711 +14314,2488 @@ var require_rfdc = __commonJS({
   }
 });
 
-// build/server/utils/objects/merge-options-with-defaults.js
-var require_merge_options_with_defaults = __commonJS({
-  "build/server/utils/objects/merge-options-with-defaults.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
+// packages/language-server/build/server/worker/worker-entry.js
+var import_promises3 = __toESM(require("node:fs/promises"), 1);
+var import_node_module = require("node:module");
+var import_node_os = __toESM(require("node:os"), 1);
+var import_node_path2 = __toESM(require("node:path"), 1);
+var import_node_process2 = __toESM(require("node:process"), 1);
+
+// packages/language-server/build/di/inject.js
+function inject(options = {}) {
+  return /* @__PURE__ */ __name(function InjectDecorator(target) {
+    const injectMetadata = {
+      scope: options.scope ?? "singleton",
+      inject: options.inject ?? []
     };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.mergeOptionsWithDefaults = mergeOptionsWithDefaults;
-    var rfdc_1 = __importDefault2(require_rfdc());
-    var is_object_js_1 = require_is_object();
-    var deepClone = (0, rfdc_1.default)();
-    function mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars) {
-      if (!(0, is_object_js_1.isObject)(options)) {
-        return deepClone(defaults);
-      }
-      const result = {};
-      for (const key of Object.keys(defaults)) {
-        const fromDefaults = defaults[key];
-        const fromOptions = options[key];
-        if (fromOptions !== void 0) {
-          if ((0, is_object_js_1.isObject)(fromOptions)) {
-            if (seen.has(fromOptions)) {
-              circulars.add([fromOptions, result, key]);
-              continue;
-            }
-            seen.add(fromOptions);
-            const value = Array.isArray(fromOptions) ? fromOptions.map((item) => deepClone(item)) : (0, is_object_js_1.isObject)(fromDefaults) && !Array.isArray(fromDefaults) ? mergeOptionsWithDefaultsInner(fromOptions, fromDefaults, seen, mapped, circulars) : deepClone(fromOptions);
-            mapped.set(fromOptions, value);
-            result[key] = value;
-            continue;
-          }
-          result[key] = fromOptions;
-          continue;
-        }
-        result[key] = deepClone(fromDefaults);
-      }
-      return result;
+    Object.defineProperty(target, "__injectMetadata__", {
+      value: injectMetadata,
+      enumerable: false,
+      configurable: false,
+      writable: false
+    });
+  }, "InjectDecorator");
+}
+__name(inject, "inject");
+
+// packages/language-server/build/di/tokens.js
+function createToken(description) {
+  return Symbol(description);
+}
+__name(createToken, "createToken");
+
+// packages/language-server/build/server/tokens.js
+var FsPromisesModuleToken = createToken("FileSystem");
+var PathModuleToken = createToken("PathModule");
+var OsModuleToken = createToken("OsModule");
+var ChildProcessModuleToken = createToken("ChildProcessModule");
+var ReadlineModuleToken = createToken("ReadlineModule");
+var UriModuleToken = createToken("UriModule");
+var PathIsInsideToken = createToken("PathIsInside");
+var NormalizeFsPathToken = createToken("NormalizeFsPath");
+var textDocumentsToken = createToken("TextDocuments");
+var lspConnectionToken = createToken("LspConnection");
+var WorkspaceStylelintServiceFactoryToken = createToken("WorkspaceStylelintServiceFactory");
+
+// packages/language-server/build/server/services/infrastructure/logging.service.js
+var loggingServiceToken = createToken("LoggingService");
+
+// packages/language-server/build/server/services/stylelint-runtime/process-runner.service.js
+var import_node_child_process = __toESM(require("node:child_process"), 1);
+var import_node_readline = __toESM(require("node:readline"), 1);
+var __esDecorate = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  function accept(f) {
+    if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+    return f;
+  }
+  __name(accept, "accept");
+  var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+  var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+  var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+  var _, done = false;
+  for (var i = decorators.length - 1; i >= 0; i--) {
+    var context = {};
+    for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+    for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+    context.addInitializer = function(f) {
+      if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+      extraInitializers.push(accept(f || null));
+    };
+    var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+    if (kind === "accessor") {
+      if (result === void 0) continue;
+      if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+      if (_ = accept(result.get)) descriptor.get = _;
+      if (_ = accept(result.set)) descriptor.set = _;
+      if (_ = accept(result.init)) initializers.unshift(_);
+    } else if (_ = accept(result)) {
+      if (kind === "field") initializers.unshift(_);
+      else descriptor[key] = _;
     }
-    __name(mergeOptionsWithDefaultsInner, "mergeOptionsWithDefaultsInner");
-    function mergeOptionsWithDefaults(options, defaults) {
-      const seen = /* @__PURE__ */ new WeakSet();
-      const mapped = /* @__PURE__ */ new WeakMap();
-      const circulars = /* @__PURE__ */ new Set();
-      const result = mergeOptionsWithDefaultsInner(options, defaults, seen, mapped, circulars);
-      for (const [circular, obj, key] of circulars) {
-        obj[key] = mapped.get(circular);
-      }
-      return result;
+  }
+  if (target) Object.defineProperty(target, contextIn.name, descriptor);
+  done = true;
+};
+var __runInitializers = function(thisArg, initializers, value) {
+  var useValue = arguments.length > 2;
+  for (var i = 0; i < initializers.length; i++) {
+    value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+  }
+  return useValue ? value : void 0;
+};
+var ProcessRunnerService = (() => {
+  let _classDecorators = [inject({
+    inject: [ChildProcessModuleToken, ReadlineModuleToken]
+  })];
+  let _classDescriptor;
+  let _classExtraInitializers = [];
+  let _classThis;
+  var ProcessRunnerService2 = class {
+    static {
+      __name(this, "ProcessRunnerService");
     }
-    __name(mergeOptionsWithDefaults, "mergeOptionsWithDefaults");
-  }
-});
-
-// build/server/utils/objects/index.js
-var require_objects = __commonJS({
-  "build/server/utils/objects/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_is_object(), exports2);
-    __exportStar(require_merge_assign(), exports2);
-    __exportStar(require_merge_options_with_defaults(), exports2);
-  }
-});
-
-// build/server/utils/errors.js
-var require_errors4 = __commonJS({
-  "build/server/utils/errors.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.serializeErrors = serializeErrors;
-    var serialize_error_1 = (init_serialize_error(), __toCommonJS(serialize_error_exports));
-    var iterables_js_1 = require_iterables();
-    var index_js_1 = require_objects();
-    function serializeErrors(object) {
-      const serializeInner = /* @__PURE__ */ __name((obj, visited) => {
-        if (!obj || typeof obj !== "object") {
-          return obj;
-        }
-        if (visited.has(obj)) {
-          return visited.get(obj);
-        }
-        if (obj instanceof Error) {
-          const result = (0, serialize_error_1.serializeError)(obj);
-          visited.set(obj, result);
-          return result;
-        }
-        if (obj instanceof Map) {
-          const result = /* @__PURE__ */ new Map();
-          visited.set(obj, result);
-          for (const [key, value] of obj) {
-            const serializedKey = serializeInner(key, visited);
-            const serializedValue = serializeInner(value, visited);
-            if ((0, index_js_1.isObject)(key)) {
-              visited.set(key, serializedKey);
-            }
-            if ((0, index_js_1.isObject)(value)) {
-              visited.set(value, serializedValue);
-            }
-            result.set(serializedKey, serializedValue);
-          }
-          return result;
-        }
-        if (obj instanceof Set) {
-          const result = /* @__PURE__ */ new Set();
-          visited.set(obj, result);
-          for (const value of obj) {
-            if (!(0, index_js_1.isObject)(value)) {
-              result.add(value);
-              continue;
-            }
-            const serializedValue = serializeInner(value, visited);
-            visited.set(value, serializedValue);
-            result.add(serializedValue);
-          }
-          return result;
-        }
-        if ((0, iterables_js_1.isIterable)(obj)) {
-          const result = [];
-          visited.set(obj, result);
-          for (const value of obj) {
-            result.push(serializeInner(value, visited));
-          }
-          return result;
-        }
-        visited.set(obj, "[Circular]");
-        const serializedObj = Object.fromEntries(Object.entries(obj).map(([key, value]) => {
-          if (!(0, index_js_1.isObject)(value)) {
-            return [key, value];
-          }
-          if (visited.has(value)) {
-            return [key, visited.get(value)];
-          }
-          if (value instanceof Error) {
-            const serialized = (0, serialize_error_1.serializeError)(value);
-            visited.set(value, serialized);
-            return [key, serialized];
-          }
-          const result = serializeInner(value, visited);
-          visited.set(value, result);
-          return [key, result];
-        }));
-        visited.set(obj, serializedObj);
-        return serializedObj;
-      }, "serializeInner");
-      return serializeInner(object, /* @__PURE__ */ new WeakMap());
+    static {
+      _classThis = this;
     }
-    __name(serializeErrors, "serializeErrors");
-  }
-});
-
-// build/server/utils/logging/error-formatter.js
-var require_error_formatter = __commonJS({
-  "build/server/utils/logging/error-formatter.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.ErrorFormatter = void 0;
-    var errors_js_1 = require_errors4();
-    var ErrorFormatter = class {
-      static {
-        __name(this, "ErrorFormatter");
-      }
-      transform(info) {
-        const transformed = (0, errors_js_1.serializeErrors)({ ...info });
-        for (const key of Object.keys(transformed)) {
-          info[key] = transformed[key];
-        }
-        return info;
-      }
-    };
-    exports2.ErrorFormatter = ErrorFormatter;
-  }
-});
-
-// build/server/utils/logging/get-log-function.js
-var require_get_log_function = __commonJS({
-  "build/server/utils/logging/get-log-function.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.getLogFunction = void 0;
-    var getLogFunction = /* @__PURE__ */ __name((remoteConsole, level) => {
-      const logFunction = remoteConsole[level];
-      if (typeof logFunction === "function") {
-        return logFunction;
-      }
-      return void 0;
-    }, "getLogFunction");
-    exports2.getLogFunction = getLogFunction;
-  }
-});
-
-// build/server/utils/strings.js
-var require_strings = __commonJS({
-  "build/server/utils/strings.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.padNumber = exports2.padString = exports2.upperCaseFirstChar = void 0;
-    var upperCaseFirstChar = /* @__PURE__ */ __name((str) => {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }, "upperCaseFirstChar");
-    exports2.upperCaseFirstChar = upperCaseFirstChar;
-    var padString = /* @__PURE__ */ __name((str, length) => {
-      return str + " ".repeat(length - str.length);
-    }, "padString");
-    exports2.padString = padString;
-    var padNumber = /* @__PURE__ */ __name((number, length) => {
-      const str = String(number);
-      return "0".repeat(length - str.length) + str;
-    }, "padNumber");
-    exports2.padNumber = padNumber;
-  }
-});
-
-// build/server/utils/logging/language-server-formatter.js
-var require_language_server_formatter = __commonJS({
-  "build/server/utils/logging/language-server-formatter.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.LanguageServerFormatter = void 0;
-    var triple_beam_1 = require_triple_beam();
-    var get_log_function_js_1 = require_get_log_function();
-    var strings_js_1 = require_strings();
-    var LanguageServerFormatter = class {
-      static {
-        __name(this, "LanguageServerFormatter");
-      }
-      options;
-      constructor(options) {
-        this.options = options;
-      }
-      transform(info) {
-        const date = /* @__PURE__ */ new Date();
-        const timestamp = `${date.getHours() % 12 || 12}:${(0, strings_js_1.padNumber)(date.getMinutes(), 2)}:${(0, strings_js_1.padNumber)(date.getSeconds(), 2)} ${date.getHours() < 12 ? "a.m." : "p.m."}`;
-        const messageParts = [];
-        const level = String(info[triple_beam_1.LEVEL]);
-        if (!(0, get_log_function_js_1.getLogFunction)(this.options.connection.console, level)) {
-          messageParts.push(`[${(0, strings_js_1.padString)((0, strings_js_1.upperCaseFirstChar)(level), 5)} - ${timestamp}]`);
-        }
-        if (info.component) {
-          messageParts.push(`[${String(info.component)}]`);
-        }
-        messageParts.push(info.message);
-        delete info.component;
-        delete info.timestamp;
-        const keys = new Set(Object.keys({ ...info }));
-        const postMessageParts = [];
-        if (this.options.preferredKeyOrder) {
-          for (const key of this.options.preferredKeyOrder) {
-            if (keys.has(key)) {
-              postMessageParts.push(`${key}: ${JSON.stringify(info[key])}`);
-              keys.delete(key);
-              delete info[key];
-            }
+    static {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      ProcessRunnerService2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers(_classThis, _classExtraInitializers);
+    }
+    #childProcess;
+    #readline;
+    constructor(childProcessModule, readlineModule) {
+      this.#childProcess = childProcessModule ?? import_node_child_process.default;
+      this.#readline = readlineModule ?? import_node_readline.default;
+    }
+    /**
+     * Runs a process and returns the output as read by the given matcher. The
+     * matcher is called for each line of the output with the line. The promise
+     * returned by this function is resolved to the first value returned by the
+     * matcher once the process has exited.
+     *
+     * If the matcher returns `undefined`, the line is ignored.
+     *
+     * If the matcher never returns a value, the promise is resolved to `undefined`.
+     *
+     * If the matcher throws an error, the promise is rejected with the error and
+     * an attempt is made to kill the process.
+     *
+     * If the process exits with a non-zero exit code or if the child process API
+     * emits an error, the promise is rejected with the exit code or error.
+     * @param command Shell command or path to executable
+     * @param args Arguments to pass to the command
+     * @param options Options to pass to the spawner
+     * @param matcher Function to match the output line
+     */
+    async runFindLine(command, args, options, matcher) {
+      return await new Promise((resolve, reject) => {
+        const childProcess = this.#childProcess.spawn(command, args, options);
+        const stdoutReader = this.#readline.createInterface({ input: childProcess.stdout });
+        let returnValue;
+        let exitCode;
+        let resolved = false;
+        let streamClosed = false;
+        const resolveOrRejectIfNeeded = /* @__PURE__ */ __name(() => {
+          if (resolved || exitCode === void 0 || !streamClosed) {
+            return;
           }
-        }
-        for (const key of keys) {
-          if (key === "level" || key === "message") {
-            continue;
-          }
-          postMessageParts.push(`${key}: ${JSON.stringify(info[key])}`);
-          delete info[key];
-        }
-        const message = postMessageParts.length > 0 ? `${messageParts.join(" ")} | ${postMessageParts.join(" ")}` : messageParts.join(" ");
-        info[triple_beam_1.MESSAGE] = message;
-        info.message = message;
-        return info;
-      }
-    };
-    exports2.LanguageServerFormatter = LanguageServerFormatter;
-  }
-});
-
-// build/server/utils/logging/language-server-transport.js
-var require_language_server_transport = __commonJS({
-  "build/server/utils/logging/language-server-transport.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.LanguageServerTransport = void 0;
-    var winston_transport_1 = __importDefault2(require_winston_transport());
-    var triple_beam_1 = require_triple_beam();
-    var get_log_function_js_1 = require_get_log_function();
-    var LanguageServerTransport = class extends winston_transport_1.default {
-      static {
-        __name(this, "LanguageServerTransport");
-      }
-      /**
-       * The language server remote console.
-       */
-      #console;
-      constructor(options) {
-        super(options);
-        this.#console = options.connection.console;
-      }
-      log(info, callback) {
-        setImmediate(() => {
-          this.emit("logged", info);
-        });
-        try {
-          const logFunc = (0, get_log_function_js_1.getLogFunction)(this.#console, String(info[triple_beam_1.LEVEL]));
-          if (typeof logFunc === "function") {
-            logFunc.call(this.#console, String(info[triple_beam_1.MESSAGE]));
+          resolved = true;
+          if (exitCode === 0) {
+            resolve(returnValue);
           } else {
-            this.#console.log(String(info[triple_beam_1.MESSAGE]));
+            reject(new Error(`Command "${command}" exited with code ${exitCode}.`));
+          }
+        }, "resolveOrRejectIfNeeded");
+        const handleError = /* @__PURE__ */ __name((error) => {
+          resolved = true;
+          childProcess.removeAllListeners();
+          stdoutReader.close();
+          try {
+            childProcess.kill();
+          } catch {
+          }
+          reject(error);
+        }, "handleError");
+        stdoutReader.on("line", (line) => {
+          if (resolved || returnValue !== void 0) {
+            return;
+          }
+          try {
+            const matched = matcher(line);
+            if (matched !== void 0) {
+              returnValue = matched;
+            }
+            resolveOrRejectIfNeeded();
+          } catch (error) {
+            handleError(error);
+          }
+        });
+        stdoutReader.on("close", () => {
+          if (resolved) {
+            return;
+          }
+          streamClosed = true;
+          resolveOrRejectIfNeeded();
+        });
+        childProcess.on("error", handleError);
+        childProcess.on("exit", (code, signal) => {
+          exitCode = code ?? signal;
+          resolveOrRejectIfNeeded();
+        });
+      });
+    }
+  };
+  return ProcessRunnerService2 = _classThis;
+})();
+
+// packages/language-server/build/server/services/stylelint-runtime/global-path-resolver.service.js
+var __esDecorate2 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  function accept(f) {
+    if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+    return f;
+  }
+  __name(accept, "accept");
+  var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+  var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+  var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+  var _, done = false;
+  for (var i = decorators.length - 1; i >= 0; i--) {
+    var context = {};
+    for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+    for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+    context.addInitializer = function(f) {
+      if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+      extraInitializers.push(accept(f || null));
+    };
+    var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+    if (kind === "accessor") {
+      if (result === void 0) continue;
+      if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+      if (_ = accept(result.get)) descriptor.get = _;
+      if (_ = accept(result.set)) descriptor.set = _;
+      if (_ = accept(result.init)) initializers.unshift(_);
+    } else if (_ = accept(result)) {
+      if (kind === "field") initializers.unshift(_);
+      else descriptor[key] = _;
+    }
+  }
+  if (target) Object.defineProperty(target, contextIn.name, descriptor);
+  done = true;
+};
+var __runInitializers2 = function(thisArg, initializers, value) {
+  var useValue = arguments.length > 2;
+  for (var i = 0; i < initializers.length; i++) {
+    value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+  }
+  return useValue ? value : void 0;
+};
+var GlobalPathResolverService = (() => {
+  let _classDecorators = [inject({
+    inject: [OsModuleToken, PathModuleToken, ProcessRunnerService, loggingServiceToken]
+  })];
+  let _classDescriptor;
+  let _classExtraInitializers = [];
+  let _classThis;
+  var GlobalPathResolverService2 = class {
+    static {
+      __name(this, "GlobalPathResolverService");
+    }
+    static {
+      _classThis = this;
+    }
+    static {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      __esDecorate2(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      GlobalPathResolverService2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers2(_classThis, _classExtraInitializers);
+    }
+    /**
+     * The logger to use for tracing resolution.
+     */
+    #logger;
+    /**
+     * The cache of resolved paths.
+     */
+    #cache = {
+      yarn: void 0,
+      npm: void 0,
+      pnpm: void 0
+    };
+    /**
+     * Whether or not the current platform is Windows.
+     */
+    #isWindows;
+    /**
+     * Path utilities.
+     */
+    #path;
+    /**
+     * Runner used to execute package-manager commands.
+     */
+    #processRunner;
+    /**
+     * The resolvers by package manager.
+     */
+    #resolvers = {
+      yarn: this.#yarn.bind(this),
+      npm: this.#npm.bind(this),
+      pnpm: this.#pnpm.bind(this)
+    };
+    /**
+     * Instantiates a new global path resolver.
+     */
+    constructor(osModule, pathModule, processRunner, loggingService) {
+      this.#logger = loggingService.createLogger(GlobalPathResolverService2);
+      this.#isWindows = osModule.platform() === "win32";
+      this.#path = pathModule;
+      this.#processRunner = processRunner;
+    }
+    /**
+     * Resolves the global `node_modules` path for Yarn.
+     *
+     * Note: Only Yarn 1.x is supported. Yarn 2.x and higher have removed
+     * support for globally installed packages.
+     */
+    async #yarn() {
+      const tryParseLog = /* @__PURE__ */ __name((line) => {
+        try {
+          return JSON.parse(line);
+        } catch {
+          return void 0;
+        }
+      }, "tryParseLog");
+      const yarnGlobalPath = await this.#processRunner.runFindLine("yarn", ["global", "dir", "--json"], this.#isWindows ? { shell: true } : void 0, (line) => {
+        const log = tryParseLog(line);
+        if (!log || log.type !== "log" || !log.data) {
+          return void 0;
+        }
+        const globalPath = this.#path.join(log.data, "node_modules");
+        this.#logger?.debug("Yarn returned global node_modules path.", {
+          path: globalPath
+        });
+        return globalPath;
+      });
+      if (!yarnGlobalPath) {
+        this.#logger?.warn('"yarn global dir --json" did not return a path.');
+        return void 0;
+      }
+      return yarnGlobalPath;
+    }
+    /**
+     * Resolves the global `node_modules` path for npm.
+     */
+    async #npm() {
+      const npmGlobalPath = await this.#processRunner.runFindLine("npm", ["config", "get", "prefix"], this.#isWindows ? { shell: true } : void 0, (line) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          return void 0;
+        }
+        const globalPath = this.#isWindows ? this.#path.join(trimmed, "node_modules") : this.#path.join(trimmed, "lib/node_modules");
+        this.#logger?.debug("npm returned global node_modules path.", {
+          path: globalPath
+        });
+        return globalPath;
+      });
+      if (!npmGlobalPath) {
+        this.#logger?.warn('"npm config get prefix" did not return a path.');
+        return void 0;
+      }
+      return npmGlobalPath;
+    }
+    /**
+     * Resolves the global `node_modules` path for pnpm.
+     */
+    async #pnpm() {
+      const pnpmGlobalPath = await this.#processRunner.runFindLine("pnpm", ["root", "-g"], this.#isWindows ? { shell: true } : void 0, (line) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          return void 0;
+        }
+        this.#logger?.debug("pnpm returned global node_modules path.", {
+          path: trimmed
+        });
+        return trimmed;
+      });
+      if (!pnpmGlobalPath) {
+        this.#logger?.warn('"pnpm root -g" did not return a path.');
+        return void 0;
+      }
+      return pnpmGlobalPath;
+    }
+    /**
+     * Attempts to resolve the global `node_modules` path for the given package
+     * manager.
+     *
+     * On a successful resolution, the method returns a promise that resolves to the
+     * package manager's global `node_modules` path. Paths are cached in the
+     * resolver on the first successful resolution.
+     *
+     * When a path cannot be resolved, the promise resolves to `undefined`.
+     *
+     * @example
+     * ```js
+     * const resolver = getGlobalPathResolver();
+     * const yarnGlobalPath = await resolver.resolve(
+     *   'yarn',
+     *   message => connection && connection.tracer.log(message)
+     * );
+     * ```
+     * @param packageManager The package manager to resolve the path for.
+     */
+    async resolve(packageManager) {
+      const cached = this.#cache[packageManager];
+      if (cached) {
+        return cached;
+      }
+      const resolver = this.#resolvers[packageManager];
+      if (!resolver) {
+        this.#logger?.warn("Unsupported package manager.", { packageManager });
+        return void 0;
+      }
+      try {
+        const globalPath = await resolver();
+        if (globalPath) {
+          this.#cache[packageManager] = globalPath;
+        }
+        return globalPath;
+      } catch (error) {
+        this.#logger?.warn("Failed to resolve global node_modules path.", {
+          packageManager,
+          error
+        });
+        return void 0;
+      }
+    }
+  };
+  return GlobalPathResolverService2 = _classThis;
+})();
+
+// packages/language-server/build/server/services/stylelint-runtime/package-root.service.js
+var import_promises = __toESM(require("fs/promises"), 1);
+var import_path = __toESM(require("path"), 1);
+var __esDecorate3 = function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+  function accept(f) {
+    if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected");
+    return f;
+  }
+  __name(accept, "accept");
+  var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+  var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+  var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+  var _, done = false;
+  for (var i = decorators.length - 1; i >= 0; i--) {
+    var context = {};
+    for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+    for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+    context.addInitializer = function(f) {
+      if (done) throw new TypeError("Cannot add initializers after decoration has completed");
+      extraInitializers.push(accept(f || null));
+    };
+    var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+    if (kind === "accessor") {
+      if (result === void 0) continue;
+      if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+      if (_ = accept(result.get)) descriptor.get = _;
+      if (_ = accept(result.set)) descriptor.set = _;
+      if (_ = accept(result.init)) initializers.unshift(_);
+    } else if (_ = accept(result)) {
+      if (kind === "field") initializers.unshift(_);
+      else descriptor[key] = _;
+    }
+  }
+  if (target) Object.defineProperty(target, contextIn.name, descriptor);
+  done = true;
+};
+var __runInitializers3 = function(thisArg, initializers, value) {
+  var useValue = arguments.length > 2;
+  for (var i = 0; i < initializers.length; i++) {
+    value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+  }
+  return useValue ? value : void 0;
+};
+var PackageRootService = (() => {
+  let _classDecorators = [inject({
+    inject: [FsPromisesModuleToken, PathModuleToken]
+  })];
+  let _classDescriptor;
+  let _classExtraInitializers = [];
+  let _classThis;
+  var PackageRootService2 = class {
+    static {
+      __name(this, "PackageRootService");
+    }
+    static {
+      _classThis = this;
+    }
+    static {
+      const _metadata = typeof Symbol === "function" && Symbol.metadata ? /* @__PURE__ */ Object.create(null) : void 0;
+      __esDecorate3(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+      PackageRootService2 = _classThis = _classDescriptor.value;
+      if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+      __runInitializers3(_classThis, _classExtraInitializers);
+    }
+    #fs;
+    #path;
+    constructor(fsModule, pathModule) {
+      this.#fs = fsModule ?? import_promises.default;
+      this.#path = pathModule ?? import_path.default;
+    }
+    async find(startPath, rootFile = "package.json") {
+      let currentDirectory = startPath;
+      while (true) {
+        const manifestPath = this.#path.join(currentDirectory, rootFile);
+        try {
+          const stat = await this.#fs.stat(manifestPath);
+          if (stat.isFile()) {
+            return currentDirectory;
           }
         } catch (error) {
-          if (!(error instanceof Error) || !error.message.includes("Connection is disposed")) {
-            this.emit("error", error);
+          const code = error.code;
+          if (code !== "ENOENT" && code !== "ENOTDIR") {
+            throw error;
           }
         }
-        callback();
+        const parent = this.#path.dirname(currentDirectory);
+        if (!this.#path.relative(parent, currentDirectory)) {
+          return void 0;
+        }
+        currentDirectory = parent;
       }
-    };
-    exports2.LanguageServerTransport = LanguageServerTransport;
-  }
-});
+    }
+    async findSubPackages(rootDir, rootFile = "package.json") {
+      const results = [];
+      const walk = /* @__PURE__ */ __name(async (dir) => {
+        let entries;
+        try {
+          entries = await this.#fs.readdir(dir, { withFileTypes: true });
+        } catch {
+          return;
+        }
+        for (const entry of entries) {
+          if (!entry.isDirectory() || entry.name === "node_modules") {
+            continue;
+          }
+          const childDir = this.#path.join(dir, entry.name);
+          const manifestPath = this.#path.join(childDir, rootFile);
+          try {
+            const stat = await this.#fs.stat(manifestPath);
+            if (stat.isFile()) {
+              results.push(childDir);
+            }
+          } catch {
+          }
+          await walk(childDir);
+        }
+      }, "walk");
+      await walk(rootDir);
+      return results;
+    }
+  };
+  return PackageRootService2 = _classThis;
+})();
 
-// build/server/utils/logging/index.js
-var require_logging = __commonJS({
-  "build/server/utils/logging/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
+// packages/language-server/build/server/stylelint/load-stylelint.js
+var import_promises2 = __toESM(require("node:fs/promises"), 1);
+var import_node_path = __toESM(require("node:path"), 1);
+var import_node_url = require("node:url");
+var realDynamicImport = new Function("specifier", '"use strict"; return import(specifier);');
+var dynamicImportImpl = realDynamicImport;
+var getModulePath = /* @__PURE__ */ __name((specifier, requireFn) => {
+  if (specifier.startsWith("file://")) {
+    return { modulePath: specifier, isResolved: true };
+  }
+  try {
+    return { modulePath: requireFn.resolve(specifier), isResolved: true };
+  } catch {
+    return { modulePath: specifier, isResolved: false };
+  }
+}, "getModulePath");
+var isPathSpecifier = /* @__PURE__ */ __name((value) => value.startsWith("file://") || import_node_path.default.isAbsolute(value) || value.startsWith("./") || value.startsWith("../"), "isPathSpecifier");
+var toFsPath = /* @__PURE__ */ __name((target) => target.startsWith("file://") ? (0, import_node_url.fileURLToPath)(target) : target, "toFsPath");
+var normalizePackageTarget = /* @__PURE__ */ __name((packageRoot, target) => {
+  if (target.startsWith("file://")) {
+    return target;
+  }
+  if (import_node_path.default.isAbsolute(target)) {
+    return target;
+  }
+  return import_node_path.default.join(packageRoot, target);
+}, "normalizePackageTarget");
+var resolveExportTarget = /* @__PURE__ */ __name((value) => {
+  if (typeof value === "string") {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    for (const entry of value) {
+      const resolved = resolveExportTarget(entry);
+      if (resolved) {
+        return resolved;
       }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_error_formatter(), exports2);
-    __exportStar(require_get_log_function(), exports2);
-    __exportStar(require_language_server_formatter(), exports2);
-    __exportStar(require_language_server_transport(), exports2);
+    }
+    return void 0;
   }
-});
+  if (value && typeof value === "object") {
+    const record = value;
+    const priorityKeys = ["import", "module", "default"];
+    for (const key of priorityKeys) {
+      if (!(key in record)) {
+        continue;
+      }
+      const resolved = resolveExportTarget(record[key]);
+      if (resolved) {
+        return resolved;
+      }
+    }
+    for (const [key, child] of Object.entries(record)) {
+      if (priorityKeys.includes(key) || key === "require" || key === "types") {
+        continue;
+      }
+      const resolved = resolveExportTarget(child);
+      if (resolved) {
+        return resolved;
+      }
+    }
+  }
+  return void 0;
+}, "resolveExportTarget");
+var resolvePreferredEsmEntry = /* @__PURE__ */ __name(async (modulePath, packageRootFinder2) => {
+  const packageRoot = await packageRootFinder2.find(import_node_path.default.resolve(toFsPath(modulePath)));
+  if (!packageRoot) {
+    return void 0;
+  }
+  try {
+    const manifestPath = import_node_path.default.join(packageRoot, "package.json");
+    const manifest = JSON.parse(await import_promises2.default.readFile(manifestPath, "utf8"));
+    const rootExport = typeof manifest.exports === "object" && !Array.isArray(manifest.exports) ? manifest.exports["."] ?? manifest.exports : manifest.exports;
+    const exportTarget = resolveExportTarget(rootExport);
+    if (exportTarget) {
+      return normalizePackageTarget(packageRoot, exportTarget);
+    }
+    if (typeof manifest.module === "string") {
+      return normalizePackageTarget(packageRoot, manifest.module);
+    }
+  } catch {
+    return void 0;
+  }
+  return void 0;
+}, "resolvePreferredEsmEntry");
+var loadESMStylelint = /* @__PURE__ */ __name(async (target, treatAsPath = true) => {
+  const specifier = treatAsPath && !target.startsWith("file://") ? (0, import_node_url.pathToFileURL)(import_node_path.default.resolve(target)).href : target;
+  const namespace = await dynamicImportImpl(specifier);
+  const stylelint = namespace.default ?? namespace;
+  if (!stylelint) {
+    throw new Error(`Failed to import Stylelint from ${target}.`);
+  }
+  return { stylelint, moduleType: "esm" };
+}, "loadESMStylelint");
+var loadStylelint = /* @__PURE__ */ __name(async (packageRootFinder2, specifier, requireFn, resolvedPath) => {
+  const { modulePath, isResolved } = resolvedPath ? { modulePath: resolvedPath, isResolved: true } : getModulePath(specifier, requireFn);
+  const hasResolvedPath = isResolved || isPathSpecifier(modulePath);
+  const preferredEsmEntry = hasResolvedPath ? await resolvePreferredEsmEntry(modulePath, packageRootFinder2) : void 0;
+  const seenTargets = /* @__PURE__ */ new Set();
+  const importTargets = [];
+  const addImportTarget = /* @__PURE__ */ __name((target, treatAsPath) => {
+    if (!target) {
+      return;
+    }
+    const key = `${treatAsPath ? "path" : "spec"}:${target}`;
+    if (seenTargets.has(key)) {
+      return;
+    }
+    seenTargets.add(key);
+    importTargets.push({ target, treatAsPath });
+  }, "addImportTarget");
+  addImportTarget(preferredEsmEntry, true);
+  if (isPathSpecifier(specifier)) {
+    addImportTarget(specifier, true);
+  }
+  const resolvedImportTarget = resolvedPath ?? (hasResolvedPath ? modulePath : void 0);
+  addImportTarget(resolvedImportTarget, true);
+  let firstImportError;
+  for (const { target, treatAsPath } of importTargets) {
+    try {
+      return await loadESMStylelint(target, treatAsPath);
+    } catch (error) {
+      if (!firstImportError) {
+        firstImportError = error;
+      }
+    }
+  }
+  try {
+    return {
+      stylelint: requireFn(specifier),
+      moduleType: "cjs"
+    };
+  } catch (requireError) {
+    if (firstImportError) {
+      throw firstImportError;
+    }
+    throw requireError;
+  }
+}, "loadStylelint");
 
-// build/server/utils/lsp/create-disable-completion-item.js
-var require_create_disable_completion_item = __commonJS({
-  "build/server/utils/lsp/create-disable-completion-item.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createDisableCompletionItem = createDisableCompletionItem;
-    var vscode_languageserver_types_1 = require_main();
-    function createDisableCompletionItem(disableType, rule = "") {
-      const item = vscode_languageserver_types_1.CompletionItem.create(disableType);
-      item.kind = vscode_languageserver_types_1.CompletionItemKind.Snippet;
-      item.insertTextFormat = vscode_languageserver_types_1.InsertTextFormat.Snippet;
-      if (disableType === "stylelint-disable") {
-        item.insertText = `/* stylelint-disable \${0:${rule || "rule"}} */
-/* stylelint-enable \${0:${rule || "rule"}} */`;
-        item.detail = "Turn off all Stylelint or individual rules, after which you do not need to re-enable Stylelint. (Stylelint)";
-        item.documentation = {
-          kind: vscode_languageserver_types_1.MarkupKind.Markdown,
-          value: `\`\`\`css
-/* stylelint-disable ${rule || "rule"} */
-/* stylelint-enable ${rule || "rule"} */
-\`\`\``
-        };
+// packages/language-server/build/server/worker/types.js
+var stylelintNotFoundError = "STYLELINT_NOT_FOUND";
+
+// packages/language-server/build/server/worker/worker-logging.service.js
+var import_node_process = __toESM(require("node:process"), 1);
+var import_winston = __toESM(require_winston(), 1);
+
+// packages/language-server/build/server/utils/documents/create-text-edits.js
+var import_fast_diff = __toESM(require_diff(), 1);
+
+// node_modules/vscode-languageserver-types/lib/esm/main.js
+var DocumentUri;
+(function(DocumentUri2) {
+  function is(value) {
+    return typeof value === "string";
+  }
+  __name(is, "is");
+  DocumentUri2.is = is;
+})(DocumentUri || (DocumentUri = {}));
+var URI;
+(function(URI2) {
+  function is(value) {
+    return typeof value === "string";
+  }
+  __name(is, "is");
+  URI2.is = is;
+})(URI || (URI = {}));
+var integer;
+(function(integer2) {
+  integer2.MIN_VALUE = -2147483648;
+  integer2.MAX_VALUE = 2147483647;
+  function is(value) {
+    return typeof value === "number" && integer2.MIN_VALUE <= value && value <= integer2.MAX_VALUE;
+  }
+  __name(is, "is");
+  integer2.is = is;
+})(integer || (integer = {}));
+var uinteger;
+(function(uinteger2) {
+  uinteger2.MIN_VALUE = 0;
+  uinteger2.MAX_VALUE = 2147483647;
+  function is(value) {
+    return typeof value === "number" && uinteger2.MIN_VALUE <= value && value <= uinteger2.MAX_VALUE;
+  }
+  __name(is, "is");
+  uinteger2.is = is;
+})(uinteger || (uinteger = {}));
+var Position;
+(function(Position2) {
+  function create(line, character) {
+    if (line === Number.MAX_VALUE) {
+      line = uinteger.MAX_VALUE;
+    }
+    if (character === Number.MAX_VALUE) {
+      character = uinteger.MAX_VALUE;
+    }
+    return { line, character };
+  }
+  __name(create, "create");
+  Position2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
+  }
+  __name(is, "is");
+  Position2.is = is;
+})(Position || (Position = {}));
+var Range;
+(function(Range2) {
+  function create(one, two, three, four) {
+    if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
+      return { start: Position.create(one, two), end: Position.create(three, four) };
+    } else if (Position.is(one) && Position.is(two)) {
+      return { start: one, end: two };
+    } else {
+      throw new Error(`Range#create called with invalid arguments[${one}, ${two}, ${three}, ${four}]`);
+    }
+  }
+  __name(create, "create");
+  Range2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
+  }
+  __name(is, "is");
+  Range2.is = is;
+})(Range || (Range = {}));
+var Location;
+(function(Location2) {
+  function create(uri, range) {
+    return { uri, range };
+  }
+  __name(create, "create");
+  Location2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
+  }
+  __name(is, "is");
+  Location2.is = is;
+})(Location || (Location = {}));
+var LocationLink;
+(function(LocationLink2) {
+  function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
+    return { targetUri, targetRange, targetSelectionRange, originSelectionRange };
+  }
+  __name(create, "create");
+  LocationLink2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri) && Range.is(candidate.targetSelectionRange) && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
+  }
+  __name(is, "is");
+  LocationLink2.is = is;
+})(LocationLink || (LocationLink = {}));
+var Color;
+(function(Color2) {
+  function create(red, green, blue, alpha) {
+    return {
+      red,
+      green,
+      blue,
+      alpha
+    };
+  }
+  __name(create, "create");
+  Color2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1) && Is.numberRange(candidate.green, 0, 1) && Is.numberRange(candidate.blue, 0, 1) && Is.numberRange(candidate.alpha, 0, 1);
+  }
+  __name(is, "is");
+  Color2.is = is;
+})(Color || (Color = {}));
+var ColorInformation;
+(function(ColorInformation2) {
+  function create(range, color) {
+    return {
+      range,
+      color
+    };
+  }
+  __name(create, "create");
+  ColorInformation2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
+  }
+  __name(is, "is");
+  ColorInformation2.is = is;
+})(ColorInformation || (ColorInformation = {}));
+var ColorPresentation;
+(function(ColorPresentation2) {
+  function create(label, textEdit, additionalTextEdits) {
+    return {
+      label,
+      textEdit,
+      additionalTextEdits
+    };
+  }
+  __name(create, "create");
+  ColorPresentation2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate)) && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
+  }
+  __name(is, "is");
+  ColorPresentation2.is = is;
+})(ColorPresentation || (ColorPresentation = {}));
+var FoldingRangeKind;
+(function(FoldingRangeKind2) {
+  FoldingRangeKind2.Comment = "comment";
+  FoldingRangeKind2.Imports = "imports";
+  FoldingRangeKind2.Region = "region";
+})(FoldingRangeKind || (FoldingRangeKind = {}));
+var FoldingRange;
+(function(FoldingRange2) {
+  function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
+    const result = {
+      startLine,
+      endLine
+    };
+    if (Is.defined(startCharacter)) {
+      result.startCharacter = startCharacter;
+    }
+    if (Is.defined(endCharacter)) {
+      result.endCharacter = endCharacter;
+    }
+    if (Is.defined(kind)) {
+      result.kind = kind;
+    }
+    if (Is.defined(collapsedText)) {
+      result.collapsedText = collapsedText;
+    }
+    return result;
+  }
+  __name(create, "create");
+  FoldingRange2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine) && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter)) && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter)) && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
+  }
+  __name(is, "is");
+  FoldingRange2.is = is;
+})(FoldingRange || (FoldingRange = {}));
+var DiagnosticRelatedInformation;
+(function(DiagnosticRelatedInformation2) {
+  function create(location, message) {
+    return {
+      location,
+      message
+    };
+  }
+  __name(create, "create");
+  DiagnosticRelatedInformation2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
+  }
+  __name(is, "is");
+  DiagnosticRelatedInformation2.is = is;
+})(DiagnosticRelatedInformation || (DiagnosticRelatedInformation = {}));
+var DiagnosticSeverity;
+(function(DiagnosticSeverity2) {
+  DiagnosticSeverity2.Error = 1;
+  DiagnosticSeverity2.Warning = 2;
+  DiagnosticSeverity2.Information = 3;
+  DiagnosticSeverity2.Hint = 4;
+})(DiagnosticSeverity || (DiagnosticSeverity = {}));
+var DiagnosticTag;
+(function(DiagnosticTag2) {
+  DiagnosticTag2.Unnecessary = 1;
+  DiagnosticTag2.Deprecated = 2;
+})(DiagnosticTag || (DiagnosticTag = {}));
+var CodeDescription;
+(function(CodeDescription2) {
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.string(candidate.href);
+  }
+  __name(is, "is");
+  CodeDescription2.is = is;
+})(CodeDescription || (CodeDescription = {}));
+var Diagnostic;
+(function(Diagnostic2) {
+  function create(range, message, severity, code, source, relatedInformation) {
+    let result = { range, message };
+    if (Is.defined(severity)) {
+      result.severity = severity;
+    }
+    if (Is.defined(code)) {
+      result.code = code;
+    }
+    if (Is.defined(source)) {
+      result.source = source;
+    }
+    if (Is.defined(relatedInformation)) {
+      result.relatedInformation = relatedInformation;
+    }
+    return result;
+  }
+  __name(create, "create");
+  Diagnostic2.create = create;
+  function is(value) {
+    var _a;
+    let candidate = value;
+    return Is.defined(candidate) && Range.is(candidate.range) && Is.string(candidate.message) && (Is.number(candidate.severity) || Is.undefined(candidate.severity)) && (Is.integer(candidate.code) || Is.string(candidate.code) || Is.undefined(candidate.code)) && (Is.undefined(candidate.codeDescription) || Is.string((_a = candidate.codeDescription) === null || _a === void 0 ? void 0 : _a.href)) && (Is.string(candidate.source) || Is.undefined(candidate.source)) && (Is.undefined(candidate.relatedInformation) || Is.typedArray(candidate.relatedInformation, DiagnosticRelatedInformation.is));
+  }
+  __name(is, "is");
+  Diagnostic2.is = is;
+})(Diagnostic || (Diagnostic = {}));
+var Command;
+(function(Command2) {
+  function create(title, command, ...args) {
+    let result = { title, command };
+    if (Is.defined(args) && args.length > 0) {
+      result.arguments = args;
+    }
+    return result;
+  }
+  __name(create, "create");
+  Command2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
+  }
+  __name(is, "is");
+  Command2.is = is;
+})(Command || (Command = {}));
+var TextEdit;
+(function(TextEdit2) {
+  function replace(range, newText) {
+    return { range, newText };
+  }
+  __name(replace, "replace");
+  TextEdit2.replace = replace;
+  function insert(position, newText) {
+    return { range: { start: position, end: position }, newText };
+  }
+  __name(insert, "insert");
+  TextEdit2.insert = insert;
+  function del(range) {
+    return { range, newText: "" };
+  }
+  __name(del, "del");
+  TextEdit2.del = del;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.string(candidate.newText) && Range.is(candidate.range);
+  }
+  __name(is, "is");
+  TextEdit2.is = is;
+})(TextEdit || (TextEdit = {}));
+var ChangeAnnotation;
+(function(ChangeAnnotation2) {
+  function create(label, needsConfirmation, description) {
+    const result = { label };
+    if (needsConfirmation !== void 0) {
+      result.needsConfirmation = needsConfirmation;
+    }
+    if (description !== void 0) {
+      result.description = description;
+    }
+    return result;
+  }
+  __name(create, "create");
+  ChangeAnnotation2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+  }
+  __name(is, "is");
+  ChangeAnnotation2.is = is;
+})(ChangeAnnotation || (ChangeAnnotation = {}));
+var ChangeAnnotationIdentifier;
+(function(ChangeAnnotationIdentifier2) {
+  function is(value) {
+    const candidate = value;
+    return Is.string(candidate);
+  }
+  __name(is, "is");
+  ChangeAnnotationIdentifier2.is = is;
+})(ChangeAnnotationIdentifier || (ChangeAnnotationIdentifier = {}));
+var AnnotatedTextEdit;
+(function(AnnotatedTextEdit2) {
+  function replace(range, newText, annotation) {
+    return { range, newText, annotationId: annotation };
+  }
+  __name(replace, "replace");
+  AnnotatedTextEdit2.replace = replace;
+  function insert(position, newText, annotation) {
+    return { range: { start: position, end: position }, newText, annotationId: annotation };
+  }
+  __name(insert, "insert");
+  AnnotatedTextEdit2.insert = insert;
+  function del(range, annotation) {
+    return { range, newText: "", annotationId: annotation };
+  }
+  __name(del, "del");
+  AnnotatedTextEdit2.del = del;
+  function is(value) {
+    const candidate = value;
+    return TextEdit.is(candidate) && (ChangeAnnotation.is(candidate.annotationId) || ChangeAnnotationIdentifier.is(candidate.annotationId));
+  }
+  __name(is, "is");
+  AnnotatedTextEdit2.is = is;
+})(AnnotatedTextEdit || (AnnotatedTextEdit = {}));
+var TextDocumentEdit;
+(function(TextDocumentEdit2) {
+  function create(textDocument, edits) {
+    return { textDocument, edits };
+  }
+  __name(create, "create");
+  TextDocumentEdit2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument) && Array.isArray(candidate.edits);
+  }
+  __name(is, "is");
+  TextDocumentEdit2.is = is;
+})(TextDocumentEdit || (TextDocumentEdit = {}));
+var CreateFile;
+(function(CreateFile2) {
+  function create(uri, options, annotation) {
+    let result = {
+      kind: "create",
+      uri
+    };
+    if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
+      result.options = options;
+    }
+    if (annotation !== void 0) {
+      result.annotationId = annotation;
+    }
+    return result;
+  }
+  __name(create, "create");
+  CreateFile2.create = create;
+  function is(value) {
+    let candidate = value;
+    return candidate && candidate.kind === "create" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+  }
+  __name(is, "is");
+  CreateFile2.is = is;
+})(CreateFile || (CreateFile = {}));
+var RenameFile;
+(function(RenameFile2) {
+  function create(oldUri, newUri, options, annotation) {
+    let result = {
+      kind: "rename",
+      oldUri,
+      newUri
+    };
+    if (options !== void 0 && (options.overwrite !== void 0 || options.ignoreIfExists !== void 0)) {
+      result.options = options;
+    }
+    if (annotation !== void 0) {
+      result.annotationId = annotation;
+    }
+    return result;
+  }
+  __name(create, "create");
+  RenameFile2.create = create;
+  function is(value) {
+    let candidate = value;
+    return candidate && candidate.kind === "rename" && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+  }
+  __name(is, "is");
+  RenameFile2.is = is;
+})(RenameFile || (RenameFile = {}));
+var DeleteFile;
+(function(DeleteFile2) {
+  function create(uri, options, annotation) {
+    let result = {
+      kind: "delete",
+      uri
+    };
+    if (options !== void 0 && (options.recursive !== void 0 || options.ignoreIfNotExists !== void 0)) {
+      result.options = options;
+    }
+    if (annotation !== void 0) {
+      result.annotationId = annotation;
+    }
+    return result;
+  }
+  __name(create, "create");
+  DeleteFile2.create = create;
+  function is(value) {
+    let candidate = value;
+    return candidate && candidate.kind === "delete" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
+  }
+  __name(is, "is");
+  DeleteFile2.is = is;
+})(DeleteFile || (DeleteFile = {}));
+var WorkspaceEdit;
+(function(WorkspaceEdit2) {
+  function is(value) {
+    let candidate = value;
+    return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every((change) => {
+      if (Is.string(change.kind)) {
+        return CreateFile.is(change) || RenameFile.is(change) || DeleteFile.is(change);
       } else {
-        item.insertText = `/* ${disableType} \${0:${rule || "rule"}} */`;
-        item.detail = disableType === "stylelint-disable-line" ? "Turn off Stylelint rules for individual lines only, after which you do not need to explicitly re-enable them. (Stylelint)" : "Turn off Stylelint rules for the next line only, after which you do not need to explicitly re-enable them. (Stylelint)";
-        item.documentation = {
-          kind: vscode_languageserver_types_1.MarkupKind.Markdown,
-          value: `\`\`\`css
-/* ${disableType} ${rule || "rule"} */
-\`\`\``
-        };
+        return TextDocumentEdit.is(change);
       }
-      return item;
-    }
-    __name(createDisableCompletionItem, "createDisableCompletionItem");
-  }
-});
-
-// build/server/utils/lsp/display-error.js
-var require_display_error = __commonJS({
-  "build/server/utils/lsp/display-error.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.displayError = displayError;
-    var iterables_js_1 = require_iterables();
-    function displayError(connection, err) {
-      if (!(err instanceof Error)) {
-        connection.window.showErrorMessage(String(err).replace(/\n/gu, " "));
-        return;
-      }
-      if ((0, iterables_js_1.isIterableObject)(err?.reasons)) {
-        for (const reason of err.reasons) {
-          connection.window.showErrorMessage(`Stylelint: ${reason}`);
-        }
-        return;
-      }
-      if (err?.code === 78) {
-        connection.window.showErrorMessage(`Stylelint: ${err.message}`);
-        return;
-      }
-      connection.window.showErrorMessage((err.stack || err.message).replace(/\n/gu, " "));
-    }
-    __name(displayError, "displayError");
-  }
-});
-
-// build/server/utils/lsp/rule-code-actions-collection.js
-var require_rule_code_actions_collection = __commonJS({
-  "build/server/utils/lsp/rule-code-actions-collection.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.RuleCodeActionsCollection = void 0;
-    var RuleCodeActionsCollection = class {
-      static {
-        __name(this, "RuleCodeActionsCollection");
-      }
-      /**
-       * The code actions, keyed by their rule.
-       */
-      #actions = /* @__PURE__ */ new Map();
-      /**
-       * Gets the code actions for a rule.
-       */
-      get(ruleId) {
-        const existing = this.#actions.get(ruleId);
-        if (existing) {
-          return existing;
-        }
-        const actions = {};
-        this.#actions.set(ruleId, actions);
-        return actions;
-      }
-      /**
-       * Iterates over the code actions, grouped by rule and sorted by the
-       * priority of the rule.
-       */
-      *[Symbol.iterator]() {
-        for (const actions of this.#actions.values()) {
-          if (actions.disableLine) {
-            yield actions.disableLine;
-          }
-          if (actions.disableFile) {
-            yield actions.disableFile;
-          }
-          if (actions.documentation) {
-            yield actions.documentation;
-          }
-        }
-      }
-      /**
-       * Gets the number of code actions.
-       */
-      get size() {
-        const iterator = this[Symbol.iterator]();
-        let size = 0;
-        while (!iterator.next().done) {
-          size++;
-        }
-        return size;
-      }
-    };
-    exports2.RuleCodeActionsCollection = RuleCodeActionsCollection;
-  }
-});
-
-// build/server/utils/lsp/types.js
-var require_types4 = __commonJS({
-  "build/server/utils/lsp/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// build/server/utils/lsp/index.js
-var require_lsp = __commonJS({
-  "build/server/utils/lsp/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
-      }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
     }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_create_disable_completion_item(), exports2);
-    __exportStar(require_display_error(), exports2);
-    __exportStar(require_rule_code_actions_collection(), exports2);
-    __exportStar(require_types4(), exports2);
   }
-});
-
-// build/server/utils/fs.js
-var require_fs = __commonJS({
-  "build/server/utils/fs.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.normalizeFsPath = normalizeFsPath;
-    var node_process_12 = __importDefault2(require("node:process"));
-    function normalizeFsPath(value, platform = node_process_12.default.platform) {
-      if (!value) {
-        return void 0;
-      }
-      return platform === "win32" ? value.replace(/\//gu, "\\") : value;
+  __name(is, "is");
+  WorkspaceEdit2.is = is;
+})(WorkspaceEdit || (WorkspaceEdit = {}));
+var TextDocumentIdentifier;
+(function(TextDocumentIdentifier2) {
+  function create(uri) {
+    return { uri };
+  }
+  __name(create, "create");
+  TextDocumentIdentifier2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.uri);
+  }
+  __name(is, "is");
+  TextDocumentIdentifier2.is = is;
+})(TextDocumentIdentifier || (TextDocumentIdentifier = {}));
+var VersionedTextDocumentIdentifier;
+(function(VersionedTextDocumentIdentifier2) {
+  function create(uri, version) {
+    return { uri, version };
+  }
+  __name(create, "create");
+  VersionedTextDocumentIdentifier2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
+  }
+  __name(is, "is");
+  VersionedTextDocumentIdentifier2.is = is;
+})(VersionedTextDocumentIdentifier || (VersionedTextDocumentIdentifier = {}));
+var OptionalVersionedTextDocumentIdentifier;
+(function(OptionalVersionedTextDocumentIdentifier2) {
+  function create(uri, version) {
+    return { uri, version };
+  }
+  __name(create, "create");
+  OptionalVersionedTextDocumentIdentifier2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
+  }
+  __name(is, "is");
+  OptionalVersionedTextDocumentIdentifier2.is = is;
+})(OptionalVersionedTextDocumentIdentifier || (OptionalVersionedTextDocumentIdentifier = {}));
+var TextDocumentItem;
+(function(TextDocumentItem2) {
+  function create(uri, languageId, version, text) {
+    return { uri, languageId, version, text };
+  }
+  __name(create, "create");
+  TextDocumentItem2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
+  }
+  __name(is, "is");
+  TextDocumentItem2.is = is;
+})(TextDocumentItem || (TextDocumentItem = {}));
+var MarkupKind;
+(function(MarkupKind2) {
+  MarkupKind2.PlainText = "plaintext";
+  MarkupKind2.Markdown = "markdown";
+  function is(value) {
+    const candidate = value;
+    return candidate === MarkupKind2.PlainText || candidate === MarkupKind2.Markdown;
+  }
+  __name(is, "is");
+  MarkupKind2.is = is;
+})(MarkupKind || (MarkupKind = {}));
+var MarkupContent;
+(function(MarkupContent2) {
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(value) && MarkupKind.is(candidate.kind) && Is.string(candidate.value);
+  }
+  __name(is, "is");
+  MarkupContent2.is = is;
+})(MarkupContent || (MarkupContent = {}));
+var CompletionItemKind;
+(function(CompletionItemKind2) {
+  CompletionItemKind2.Text = 1;
+  CompletionItemKind2.Method = 2;
+  CompletionItemKind2.Function = 3;
+  CompletionItemKind2.Constructor = 4;
+  CompletionItemKind2.Field = 5;
+  CompletionItemKind2.Variable = 6;
+  CompletionItemKind2.Class = 7;
+  CompletionItemKind2.Interface = 8;
+  CompletionItemKind2.Module = 9;
+  CompletionItemKind2.Property = 10;
+  CompletionItemKind2.Unit = 11;
+  CompletionItemKind2.Value = 12;
+  CompletionItemKind2.Enum = 13;
+  CompletionItemKind2.Keyword = 14;
+  CompletionItemKind2.Snippet = 15;
+  CompletionItemKind2.Color = 16;
+  CompletionItemKind2.File = 17;
+  CompletionItemKind2.Reference = 18;
+  CompletionItemKind2.Folder = 19;
+  CompletionItemKind2.EnumMember = 20;
+  CompletionItemKind2.Constant = 21;
+  CompletionItemKind2.Struct = 22;
+  CompletionItemKind2.Event = 23;
+  CompletionItemKind2.Operator = 24;
+  CompletionItemKind2.TypeParameter = 25;
+})(CompletionItemKind || (CompletionItemKind = {}));
+var InsertTextFormat;
+(function(InsertTextFormat2) {
+  InsertTextFormat2.PlainText = 1;
+  InsertTextFormat2.Snippet = 2;
+})(InsertTextFormat || (InsertTextFormat = {}));
+var CompletionItemTag;
+(function(CompletionItemTag2) {
+  CompletionItemTag2.Deprecated = 1;
+})(CompletionItemTag || (CompletionItemTag = {}));
+var InsertReplaceEdit;
+(function(InsertReplaceEdit2) {
+  function create(newText, insert, replace) {
+    return { newText, insert, replace };
+  }
+  __name(create, "create");
+  InsertReplaceEdit2.create = create;
+  function is(value) {
+    const candidate = value;
+    return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
+  }
+  __name(is, "is");
+  InsertReplaceEdit2.is = is;
+})(InsertReplaceEdit || (InsertReplaceEdit = {}));
+var InsertTextMode;
+(function(InsertTextMode2) {
+  InsertTextMode2.asIs = 1;
+  InsertTextMode2.adjustIndentation = 2;
+})(InsertTextMode || (InsertTextMode = {}));
+var CompletionItemLabelDetails;
+(function(CompletionItemLabelDetails2) {
+  function is(value) {
+    const candidate = value;
+    return candidate && (Is.string(candidate.detail) || candidate.detail === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
+  }
+  __name(is, "is");
+  CompletionItemLabelDetails2.is = is;
+})(CompletionItemLabelDetails || (CompletionItemLabelDetails = {}));
+var CompletionItem;
+(function(CompletionItem2) {
+  function create(label) {
+    return { label };
+  }
+  __name(create, "create");
+  CompletionItem2.create = create;
+})(CompletionItem || (CompletionItem = {}));
+var CompletionList;
+(function(CompletionList2) {
+  function create(items, isIncomplete) {
+    return { items: items ? items : [], isIncomplete: !!isIncomplete };
+  }
+  __name(create, "create");
+  CompletionList2.create = create;
+})(CompletionList || (CompletionList = {}));
+var MarkedString;
+(function(MarkedString2) {
+  function fromPlainText(plainText) {
+    return plainText.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&");
+  }
+  __name(fromPlainText, "fromPlainText");
+  MarkedString2.fromPlainText = fromPlainText;
+  function is(value) {
+    const candidate = value;
+    return Is.string(candidate) || Is.objectLiteral(candidate) && Is.string(candidate.language) && Is.string(candidate.value);
+  }
+  __name(is, "is");
+  MarkedString2.is = is;
+})(MarkedString || (MarkedString = {}));
+var Hover;
+(function(Hover2) {
+  function is(value) {
+    let candidate = value;
+    return !!candidate && Is.objectLiteral(candidate) && (MarkupContent.is(candidate.contents) || MarkedString.is(candidate.contents) || Is.typedArray(candidate.contents, MarkedString.is)) && (value.range === void 0 || Range.is(value.range));
+  }
+  __name(is, "is");
+  Hover2.is = is;
+})(Hover || (Hover = {}));
+var ParameterInformation;
+(function(ParameterInformation2) {
+  function create(label, documentation) {
+    return documentation ? { label, documentation } : { label };
+  }
+  __name(create, "create");
+  ParameterInformation2.create = create;
+})(ParameterInformation || (ParameterInformation = {}));
+var SignatureInformation;
+(function(SignatureInformation2) {
+  function create(label, documentation, ...parameters) {
+    let result = { label };
+    if (Is.defined(documentation)) {
+      result.documentation = documentation;
     }
-    __name(normalizeFsPath, "normalizeFsPath");
+    if (Is.defined(parameters)) {
+      result.parameters = parameters;
+    } else {
+      result.parameters = [];
+    }
+    return result;
   }
-});
-
-// build/server/utils/sets.js
-var require_sets = __commonJS({
-  "build/server/utils/sets.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.intersect = intersect;
-    function intersect(set1, set2) {
-      if (!set1) {
-        return set2;
+  __name(create, "create");
+  SignatureInformation2.create = create;
+})(SignatureInformation || (SignatureInformation = {}));
+var DocumentHighlightKind;
+(function(DocumentHighlightKind2) {
+  DocumentHighlightKind2.Text = 1;
+  DocumentHighlightKind2.Read = 2;
+  DocumentHighlightKind2.Write = 3;
+})(DocumentHighlightKind || (DocumentHighlightKind = {}));
+var DocumentHighlight;
+(function(DocumentHighlight2) {
+  function create(range, kind) {
+    let result = { range };
+    if (Is.number(kind)) {
+      result.kind = kind;
+    }
+    return result;
+  }
+  __name(create, "create");
+  DocumentHighlight2.create = create;
+})(DocumentHighlight || (DocumentHighlight = {}));
+var SymbolKind;
+(function(SymbolKind2) {
+  SymbolKind2.File = 1;
+  SymbolKind2.Module = 2;
+  SymbolKind2.Namespace = 3;
+  SymbolKind2.Package = 4;
+  SymbolKind2.Class = 5;
+  SymbolKind2.Method = 6;
+  SymbolKind2.Property = 7;
+  SymbolKind2.Field = 8;
+  SymbolKind2.Constructor = 9;
+  SymbolKind2.Enum = 10;
+  SymbolKind2.Interface = 11;
+  SymbolKind2.Function = 12;
+  SymbolKind2.Variable = 13;
+  SymbolKind2.Constant = 14;
+  SymbolKind2.String = 15;
+  SymbolKind2.Number = 16;
+  SymbolKind2.Boolean = 17;
+  SymbolKind2.Array = 18;
+  SymbolKind2.Object = 19;
+  SymbolKind2.Key = 20;
+  SymbolKind2.Null = 21;
+  SymbolKind2.EnumMember = 22;
+  SymbolKind2.Struct = 23;
+  SymbolKind2.Event = 24;
+  SymbolKind2.Operator = 25;
+  SymbolKind2.TypeParameter = 26;
+})(SymbolKind || (SymbolKind = {}));
+var SymbolTag;
+(function(SymbolTag2) {
+  SymbolTag2.Deprecated = 1;
+})(SymbolTag || (SymbolTag = {}));
+var SymbolInformation;
+(function(SymbolInformation2) {
+  function create(name, kind, range, uri, containerName) {
+    let result = {
+      name,
+      kind,
+      location: { uri, range }
+    };
+    if (containerName) {
+      result.containerName = containerName;
+    }
+    return result;
+  }
+  __name(create, "create");
+  SymbolInformation2.create = create;
+})(SymbolInformation || (SymbolInformation = {}));
+var WorkspaceSymbol;
+(function(WorkspaceSymbol2) {
+  function create(name, kind, uri, range) {
+    return range !== void 0 ? { name, kind, location: { uri, range } } : { name, kind, location: { uri } };
+  }
+  __name(create, "create");
+  WorkspaceSymbol2.create = create;
+})(WorkspaceSymbol || (WorkspaceSymbol = {}));
+var DocumentSymbol;
+(function(DocumentSymbol2) {
+  function create(name, detail, kind, range, selectionRange, children) {
+    let result = {
+      name,
+      detail,
+      kind,
+      range,
+      selectionRange
+    };
+    if (children !== void 0) {
+      result.children = children;
+    }
+    return result;
+  }
+  __name(create, "create");
+  DocumentSymbol2.create = create;
+  function is(value) {
+    let candidate = value;
+    return candidate && Is.string(candidate.name) && Is.number(candidate.kind) && Range.is(candidate.range) && Range.is(candidate.selectionRange) && (candidate.detail === void 0 || Is.string(candidate.detail)) && (candidate.deprecated === void 0 || Is.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
+  }
+  __name(is, "is");
+  DocumentSymbol2.is = is;
+})(DocumentSymbol || (DocumentSymbol = {}));
+var CodeActionKind;
+(function(CodeActionKind2) {
+  CodeActionKind2.Empty = "";
+  CodeActionKind2.QuickFix = "quickfix";
+  CodeActionKind2.Refactor = "refactor";
+  CodeActionKind2.RefactorExtract = "refactor.extract";
+  CodeActionKind2.RefactorInline = "refactor.inline";
+  CodeActionKind2.RefactorRewrite = "refactor.rewrite";
+  CodeActionKind2.Source = "source";
+  CodeActionKind2.SourceOrganizeImports = "source.organizeImports";
+  CodeActionKind2.SourceFixAll = "source.fixAll";
+})(CodeActionKind || (CodeActionKind = {}));
+var CodeActionTriggerKind;
+(function(CodeActionTriggerKind2) {
+  CodeActionTriggerKind2.Invoked = 1;
+  CodeActionTriggerKind2.Automatic = 2;
+})(CodeActionTriggerKind || (CodeActionTriggerKind = {}));
+var CodeActionContext;
+(function(CodeActionContext2) {
+  function create(diagnostics, only, triggerKind) {
+    let result = { diagnostics };
+    if (only !== void 0 && only !== null) {
+      result.only = only;
+    }
+    if (triggerKind !== void 0 && triggerKind !== null) {
+      result.triggerKind = triggerKind;
+    }
+    return result;
+  }
+  __name(create, "create");
+  CodeActionContext2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is) && (candidate.only === void 0 || Is.typedArray(candidate.only, Is.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
+  }
+  __name(is, "is");
+  CodeActionContext2.is = is;
+})(CodeActionContext || (CodeActionContext = {}));
+var CodeAction;
+(function(CodeAction2) {
+  function create(title, kindOrCommandOrEdit, kind) {
+    let result = { title };
+    let checkKind = true;
+    if (typeof kindOrCommandOrEdit === "string") {
+      checkKind = false;
+      result.kind = kindOrCommandOrEdit;
+    } else if (Command.is(kindOrCommandOrEdit)) {
+      result.command = kindOrCommandOrEdit;
+    } else {
+      result.edit = kindOrCommandOrEdit;
+    }
+    if (checkKind && kind !== void 0) {
+      result.kind = kind;
+    }
+    return result;
+  }
+  __name(create, "create");
+  CodeAction2.create = create;
+  function is(value) {
+    let candidate = value;
+    return candidate && Is.string(candidate.title) && (candidate.diagnostics === void 0 || Is.typedArray(candidate.diagnostics, Diagnostic.is)) && (candidate.kind === void 0 || Is.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command.is(candidate.command)) && (candidate.isPreferred === void 0 || Is.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit.is(candidate.edit));
+  }
+  __name(is, "is");
+  CodeAction2.is = is;
+})(CodeAction || (CodeAction = {}));
+var CodeLens;
+(function(CodeLens2) {
+  function create(range, data) {
+    let result = { range };
+    if (Is.defined(data)) {
+      result.data = data;
+    }
+    return result;
+  }
+  __name(create, "create");
+  CodeLens2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
+  }
+  __name(is, "is");
+  CodeLens2.is = is;
+})(CodeLens || (CodeLens = {}));
+var FormattingOptions;
+(function(FormattingOptions2) {
+  function create(tabSize, insertSpaces) {
+    return { tabSize, insertSpaces };
+  }
+  __name(create, "create");
+  FormattingOptions2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
+  }
+  __name(is, "is");
+  FormattingOptions2.is = is;
+})(FormattingOptions || (FormattingOptions = {}));
+var DocumentLink;
+(function(DocumentLink2) {
+  function create(range, target, data) {
+    return { range, target, data };
+  }
+  __name(create, "create");
+  DocumentLink2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
+  }
+  __name(is, "is");
+  DocumentLink2.is = is;
+})(DocumentLink || (DocumentLink = {}));
+var SelectionRange;
+(function(SelectionRange2) {
+  function create(range, parent) {
+    return { range, parent };
+  }
+  __name(create, "create");
+  SelectionRange2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === void 0 || SelectionRange2.is(candidate.parent));
+  }
+  __name(is, "is");
+  SelectionRange2.is = is;
+})(SelectionRange || (SelectionRange = {}));
+var SemanticTokenTypes;
+(function(SemanticTokenTypes2) {
+  SemanticTokenTypes2["namespace"] = "namespace";
+  SemanticTokenTypes2["type"] = "type";
+  SemanticTokenTypes2["class"] = "class";
+  SemanticTokenTypes2["enum"] = "enum";
+  SemanticTokenTypes2["interface"] = "interface";
+  SemanticTokenTypes2["struct"] = "struct";
+  SemanticTokenTypes2["typeParameter"] = "typeParameter";
+  SemanticTokenTypes2["parameter"] = "parameter";
+  SemanticTokenTypes2["variable"] = "variable";
+  SemanticTokenTypes2["property"] = "property";
+  SemanticTokenTypes2["enumMember"] = "enumMember";
+  SemanticTokenTypes2["event"] = "event";
+  SemanticTokenTypes2["function"] = "function";
+  SemanticTokenTypes2["method"] = "method";
+  SemanticTokenTypes2["macro"] = "macro";
+  SemanticTokenTypes2["keyword"] = "keyword";
+  SemanticTokenTypes2["modifier"] = "modifier";
+  SemanticTokenTypes2["comment"] = "comment";
+  SemanticTokenTypes2["string"] = "string";
+  SemanticTokenTypes2["number"] = "number";
+  SemanticTokenTypes2["regexp"] = "regexp";
+  SemanticTokenTypes2["operator"] = "operator";
+  SemanticTokenTypes2["decorator"] = "decorator";
+})(SemanticTokenTypes || (SemanticTokenTypes = {}));
+var SemanticTokenModifiers;
+(function(SemanticTokenModifiers2) {
+  SemanticTokenModifiers2["declaration"] = "declaration";
+  SemanticTokenModifiers2["definition"] = "definition";
+  SemanticTokenModifiers2["readonly"] = "readonly";
+  SemanticTokenModifiers2["static"] = "static";
+  SemanticTokenModifiers2["deprecated"] = "deprecated";
+  SemanticTokenModifiers2["abstract"] = "abstract";
+  SemanticTokenModifiers2["async"] = "async";
+  SemanticTokenModifiers2["modification"] = "modification";
+  SemanticTokenModifiers2["documentation"] = "documentation";
+  SemanticTokenModifiers2["defaultLibrary"] = "defaultLibrary";
+})(SemanticTokenModifiers || (SemanticTokenModifiers = {}));
+var SemanticTokens;
+(function(SemanticTokens2) {
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && (candidate.resultId === void 0 || typeof candidate.resultId === "string") && Array.isArray(candidate.data) && (candidate.data.length === 0 || typeof candidate.data[0] === "number");
+  }
+  __name(is, "is");
+  SemanticTokens2.is = is;
+})(SemanticTokens || (SemanticTokens = {}));
+var InlineValueText;
+(function(InlineValueText2) {
+  function create(range, text) {
+    return { range, text };
+  }
+  __name(create, "create");
+  InlineValueText2.create = create;
+  function is(value) {
+    const candidate = value;
+    return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
+  }
+  __name(is, "is");
+  InlineValueText2.is = is;
+})(InlineValueText || (InlineValueText = {}));
+var InlineValueVariableLookup;
+(function(InlineValueVariableLookup2) {
+  function create(range, variableName, caseSensitiveLookup) {
+    return { range, variableName, caseSensitiveLookup };
+  }
+  __name(create, "create");
+  InlineValueVariableLookup2.create = create;
+  function is(value) {
+    const candidate = value;
+    return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup) && (Is.string(candidate.variableName) || candidate.variableName === void 0);
+  }
+  __name(is, "is");
+  InlineValueVariableLookup2.is = is;
+})(InlineValueVariableLookup || (InlineValueVariableLookup = {}));
+var InlineValueEvaluatableExpression;
+(function(InlineValueEvaluatableExpression2) {
+  function create(range, expression) {
+    return { range, expression };
+  }
+  __name(create, "create");
+  InlineValueEvaluatableExpression2.create = create;
+  function is(value) {
+    const candidate = value;
+    return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && (Is.string(candidate.expression) || candidate.expression === void 0);
+  }
+  __name(is, "is");
+  InlineValueEvaluatableExpression2.is = is;
+})(InlineValueEvaluatableExpression || (InlineValueEvaluatableExpression = {}));
+var InlineValueContext;
+(function(InlineValueContext2) {
+  function create(frameId, stoppedLocation) {
+    return { frameId, stoppedLocation };
+  }
+  __name(create, "create");
+  InlineValueContext2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.defined(candidate) && Range.is(value.stoppedLocation);
+  }
+  __name(is, "is");
+  InlineValueContext2.is = is;
+})(InlineValueContext || (InlineValueContext = {}));
+var InlayHintKind;
+(function(InlayHintKind2) {
+  InlayHintKind2.Type = 1;
+  InlayHintKind2.Parameter = 2;
+  function is(value) {
+    return value === 1 || value === 2;
+  }
+  __name(is, "is");
+  InlayHintKind2.is = is;
+})(InlayHintKind || (InlayHintKind = {}));
+var InlayHintLabelPart;
+(function(InlayHintLabelPart2) {
+  function create(value) {
+    return { value };
+  }
+  __name(create, "create");
+  InlayHintLabelPart2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.location === void 0 || Location.is(candidate.location)) && (candidate.command === void 0 || Command.is(candidate.command));
+  }
+  __name(is, "is");
+  InlayHintLabelPart2.is = is;
+})(InlayHintLabelPart || (InlayHintLabelPart = {}));
+var InlayHint;
+(function(InlayHint2) {
+  function create(position, label, kind) {
+    const result = { position, label };
+    if (kind !== void 0) {
+      result.kind = kind;
+    }
+    return result;
+  }
+  __name(create, "create");
+  InlayHint2.create = create;
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && Position.is(candidate.position) && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is)) && (candidate.kind === void 0 || InlayHintKind.is(candidate.kind)) && candidate.textEdits === void 0 || Is.typedArray(candidate.textEdits, TextEdit.is) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is.boolean(candidate.paddingRight));
+  }
+  __name(is, "is");
+  InlayHint2.is = is;
+})(InlayHint || (InlayHint = {}));
+var StringValue;
+(function(StringValue2) {
+  function createSnippet(value) {
+    return { kind: "snippet", value };
+  }
+  __name(createSnippet, "createSnippet");
+  StringValue2.createSnippet = createSnippet;
+})(StringValue || (StringValue = {}));
+var InlineCompletionItem;
+(function(InlineCompletionItem2) {
+  function create(insertText, filterText, range, command) {
+    return { insertText, filterText, range, command };
+  }
+  __name(create, "create");
+  InlineCompletionItem2.create = create;
+})(InlineCompletionItem || (InlineCompletionItem = {}));
+var InlineCompletionList;
+(function(InlineCompletionList2) {
+  function create(items) {
+    return { items };
+  }
+  __name(create, "create");
+  InlineCompletionList2.create = create;
+})(InlineCompletionList || (InlineCompletionList = {}));
+var InlineCompletionTriggerKind;
+(function(InlineCompletionTriggerKind2) {
+  InlineCompletionTriggerKind2.Invoked = 0;
+  InlineCompletionTriggerKind2.Automatic = 1;
+})(InlineCompletionTriggerKind || (InlineCompletionTriggerKind = {}));
+var SelectedCompletionInfo;
+(function(SelectedCompletionInfo2) {
+  function create(range, text) {
+    return { range, text };
+  }
+  __name(create, "create");
+  SelectedCompletionInfo2.create = create;
+})(SelectedCompletionInfo || (SelectedCompletionInfo = {}));
+var InlineCompletionContext;
+(function(InlineCompletionContext2) {
+  function create(triggerKind, selectedCompletionInfo) {
+    return { triggerKind, selectedCompletionInfo };
+  }
+  __name(create, "create");
+  InlineCompletionContext2.create = create;
+})(InlineCompletionContext || (InlineCompletionContext = {}));
+var WorkspaceFolder;
+(function(WorkspaceFolder2) {
+  function is(value) {
+    const candidate = value;
+    return Is.objectLiteral(candidate) && URI.is(candidate.uri) && Is.string(candidate.name);
+  }
+  __name(is, "is");
+  WorkspaceFolder2.is = is;
+})(WorkspaceFolder || (WorkspaceFolder = {}));
+var TextDocument;
+(function(TextDocument2) {
+  function create(uri, languageId, version, content) {
+    return new FullTextDocument(uri, languageId, version, content);
+  }
+  __name(create, "create");
+  TextDocument2.create = create;
+  function is(value) {
+    let candidate = value;
+    return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount) && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
+  }
+  __name(is, "is");
+  TextDocument2.is = is;
+  function applyEdits(document, edits) {
+    let text = document.getText();
+    let sortedEdits = mergeSort(edits, (a, b) => {
+      let diff2 = a.range.start.line - b.range.start.line;
+      if (diff2 === 0) {
+        return a.range.start.character - b.range.start.character;
       }
-      if (!set2) {
-        return set1;
+      return diff2;
+    });
+    let lastModifiedOffset = text.length;
+    for (let i = sortedEdits.length - 1; i >= 0; i--) {
+      let e = sortedEdits[i];
+      let startOffset = document.offsetAt(e.range.start);
+      let endOffset = document.offsetAt(e.range.end);
+      if (endOffset <= lastModifiedOffset) {
+        text = text.substring(0, startOffset) + e.newText + text.substring(endOffset, text.length);
+      } else {
+        throw new Error("Overlapping edit");
       }
-      const [smallerSet, largerSet] = set1.size < set2.size ? [set1, set2] : [set2, set1];
-      const result = /* @__PURE__ */ new Set();
-      for (const item of smallerSet) {
-        if (largerSet.has(item)) {
-          result.add(item);
+      lastModifiedOffset = startOffset;
+    }
+    return text;
+  }
+  __name(applyEdits, "applyEdits");
+  TextDocument2.applyEdits = applyEdits;
+  function mergeSort(data, compare) {
+    if (data.length <= 1) {
+      return data;
+    }
+    const p = data.length / 2 | 0;
+    const left = data.slice(0, p);
+    const right = data.slice(p);
+    mergeSort(left, compare);
+    mergeSort(right, compare);
+    let leftIdx = 0;
+    let rightIdx = 0;
+    let i = 0;
+    while (leftIdx < left.length && rightIdx < right.length) {
+      let ret = compare(left[leftIdx], right[rightIdx]);
+      if (ret <= 0) {
+        data[i++] = left[leftIdx++];
+      } else {
+        data[i++] = right[rightIdx++];
+      }
+    }
+    while (leftIdx < left.length) {
+      data[i++] = left[leftIdx++];
+    }
+    while (rightIdx < right.length) {
+      data[i++] = right[rightIdx++];
+    }
+    return data;
+  }
+  __name(mergeSort, "mergeSort");
+})(TextDocument || (TextDocument = {}));
+var FullTextDocument = class {
+  static {
+    __name(this, "FullTextDocument");
+  }
+  constructor(uri, languageId, version, content) {
+    this._uri = uri;
+    this._languageId = languageId;
+    this._version = version;
+    this._content = content;
+    this._lineOffsets = void 0;
+  }
+  get uri() {
+    return this._uri;
+  }
+  get languageId() {
+    return this._languageId;
+  }
+  get version() {
+    return this._version;
+  }
+  getText(range) {
+    if (range) {
+      let start = this.offsetAt(range.start);
+      let end = this.offsetAt(range.end);
+      return this._content.substring(start, end);
+    }
+    return this._content;
+  }
+  update(event, version) {
+    this._content = event.text;
+    this._version = version;
+    this._lineOffsets = void 0;
+  }
+  getLineOffsets() {
+    if (this._lineOffsets === void 0) {
+      let lineOffsets = [];
+      let text = this._content;
+      let isLineStart = true;
+      for (let i = 0; i < text.length; i++) {
+        if (isLineStart) {
+          lineOffsets.push(i);
+          isLineStart = false;
         }
+        let ch = text.charAt(i);
+        isLineStart = ch === "\r" || ch === "\n";
+        if (ch === "\r" && i + 1 < text.length && text.charAt(i + 1) === "\n") {
+          i++;
+        }
+      }
+      if (isLineStart && text.length > 0) {
+        lineOffsets.push(text.length);
+      }
+      this._lineOffsets = lineOffsets;
+    }
+    return this._lineOffsets;
+  }
+  positionAt(offset) {
+    offset = Math.max(Math.min(offset, this._content.length), 0);
+    let lineOffsets = this.getLineOffsets();
+    let low = 0, high = lineOffsets.length;
+    if (high === 0) {
+      return Position.create(0, offset);
+    }
+    while (low < high) {
+      let mid = Math.floor((low + high) / 2);
+      if (lineOffsets[mid] > offset) {
+        high = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+    let line = low - 1;
+    return Position.create(line, offset - lineOffsets[line]);
+  }
+  offsetAt(position) {
+    let lineOffsets = this.getLineOffsets();
+    if (position.line >= lineOffsets.length) {
+      return this._content.length;
+    } else if (position.line < 0) {
+      return 0;
+    }
+    let lineOffset = lineOffsets[position.line];
+    let nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
+    return Math.max(Math.min(lineOffset + position.character, nextLineOffset), lineOffset);
+  }
+  get lineCount() {
+    return this.getLineOffsets().length;
+  }
+};
+var Is;
+(function(Is2) {
+  const toString = Object.prototype.toString;
+  function defined(value) {
+    return typeof value !== "undefined";
+  }
+  __name(defined, "defined");
+  Is2.defined = defined;
+  function undefined2(value) {
+    return typeof value === "undefined";
+  }
+  __name(undefined2, "undefined");
+  Is2.undefined = undefined2;
+  function boolean(value) {
+    return value === true || value === false;
+  }
+  __name(boolean, "boolean");
+  Is2.boolean = boolean;
+  function string(value) {
+    return toString.call(value) === "[object String]";
+  }
+  __name(string, "string");
+  Is2.string = string;
+  function number(value) {
+    return toString.call(value) === "[object Number]";
+  }
+  __name(number, "number");
+  Is2.number = number;
+  function numberRange(value, min, max) {
+    return toString.call(value) === "[object Number]" && min <= value && value <= max;
+  }
+  __name(numberRange, "numberRange");
+  Is2.numberRange = numberRange;
+  function integer2(value) {
+    return toString.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
+  }
+  __name(integer2, "integer");
+  Is2.integer = integer2;
+  function uinteger2(value) {
+    return toString.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
+  }
+  __name(uinteger2, "uinteger");
+  Is2.uinteger = uinteger2;
+  function func(value) {
+    return toString.call(value) === "[object Function]";
+  }
+  __name(func, "func");
+  Is2.func = func;
+  function objectLiteral(value) {
+    return value !== null && typeof value === "object";
+  }
+  __name(objectLiteral, "objectLiteral");
+  Is2.objectLiteral = objectLiteral;
+  function typedArray(value, check) {
+    return Array.isArray(value) && value.every(check);
+  }
+  __name(typedArray, "typedArray");
+  Is2.typedArray = typedArray;
+})(Is || (Is = {}));
+
+// node_modules/non-error/index.js
+var isNonErrorSymbol = /* @__PURE__ */ Symbol("isNonError");
+function defineProperty(object, key, value) {
+  Object.defineProperty(object, key, {
+    value,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  });
+}
+__name(defineProperty, "defineProperty");
+function stringify(value) {
+  if (value === void 0) {
+    return "undefined";
+  }
+  if (value === null) {
+    return "null";
+  }
+  if (typeof value === "string") {
+    return value;
+  }
+  if (typeof value === "number" || typeof value === "boolean") {
+    return String(value);
+  }
+  if (typeof value === "bigint") {
+    return `${value}n`;
+  }
+  if (typeof value === "symbol") {
+    return value.toString();
+  }
+  if (typeof value === "function") {
+    return `[Function${value.name ? ` ${value.name}` : " (anonymous)"}]`;
+  }
+  if (value instanceof Error) {
+    try {
+      return String(value);
+    } catch {
+      return "<Unserializable error>";
+    }
+  }
+  try {
+    return JSON.stringify(value);
+  } catch {
+    try {
+      return String(value);
+    } catch {
+      return "<Unserializable value>";
+    }
+  }
+}
+__name(stringify, "stringify");
+var NonError = class _NonError extends Error {
+  static {
+    __name(this, "NonError");
+  }
+  constructor(value, { superclass: Superclass = Error } = {}) {
+    if (_NonError.isNonError(value)) {
+      return value;
+    }
+    if (value instanceof Error) {
+      throw new TypeError("Do not pass Error instances to NonError. Throw the error directly instead.");
+    }
+    super(`Non-error value: ${stringify(value)}`);
+    if (Superclass !== Error) {
+      Object.setPrototypeOf(this, Superclass.prototype);
+    }
+    defineProperty(this, "name", "NonError");
+    defineProperty(this, isNonErrorSymbol, true);
+    defineProperty(this, "isNonError", true);
+    defineProperty(this, "value", value);
+  }
+  static isNonError(value) {
+    return value?.[isNonErrorSymbol] === true;
+  }
+  static #handleCallback(callback, arguments_) {
+    try {
+      const result = callback(...arguments_);
+      if (result && typeof result.then === "function") {
+        return (async () => {
+          try {
+            return await result;
+          } catch (error) {
+            if (error instanceof Error) {
+              throw error;
+            }
+            throw new _NonError(error);
+          }
+        })();
+      }
+      return result;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new _NonError(error);
+    }
+  }
+  static try(callback) {
+    return _NonError.#handleCallback(callback, []);
+  }
+  static wrap(callback) {
+    return (...arguments_) => _NonError.#handleCallback(callback, arguments_);
+  }
+  // This makes instanceof work even when using the `superclass` option
+  static [Symbol.hasInstance](instance) {
+    return _NonError.isNonError(instance);
+  }
+};
+
+// node_modules/serialize-error/error-constructors.js
+var list = [
+  // Native ES errors https://262.ecma-international.org/12.0/#sec-well-known-intrinsic-objects
+  Error,
+  EvalError,
+  RangeError,
+  ReferenceError,
+  SyntaxError,
+  TypeError,
+  URIError,
+  AggregateError,
+  // Built-in errors
+  globalThis.DOMException,
+  // Node-specific errors
+  // https://nodejs.org/api/errors.html
+  globalThis.AssertionError,
+  globalThis.SystemError
+].filter(Boolean).map((constructor) => [constructor.name, constructor]);
+var errorConstructors = new Map(list);
+var errorFactories = /* @__PURE__ */ new Map();
+
+// node_modules/serialize-error/index.js
+var errorProperties = [
+  {
+    property: "name",
+    enumerable: false
+  },
+  {
+    property: "message",
+    enumerable: false
+  },
+  {
+    property: "stack",
+    enumerable: false
+  },
+  {
+    property: "code",
+    enumerable: true
+  },
+  {
+    property: "cause",
+    enumerable: false
+  },
+  {
+    property: "errors",
+    enumerable: false
+  }
+];
+var toJsonWasCalled = /* @__PURE__ */ new WeakSet();
+var toJSON = /* @__PURE__ */ __name((from) => {
+  toJsonWasCalled.add(from);
+  const json = from.toJSON();
+  toJsonWasCalled.delete(from);
+  return json;
+}, "toJSON");
+var newError = /* @__PURE__ */ __name((name) => {
+  if (name === "NonError") {
+    return new NonError();
+  }
+  const factory = errorFactories.get(name);
+  if (factory) {
+    return factory();
+  }
+  const ErrorConstructor = errorConstructors.get(name) ?? Error;
+  return ErrorConstructor === AggregateError ? new ErrorConstructor([]) : new ErrorConstructor();
+}, "newError");
+var destroyCircular = /* @__PURE__ */ __name(({
+  from,
+  seen,
+  to,
+  forceEnumerable,
+  maxDepth,
+  depth,
+  useToJSON,
+  serialize
+}) => {
+  if (!to) {
+    if (Array.isArray(from)) {
+      to = [];
+    } else if (!serialize && isErrorLike(from)) {
+      to = newError(from.name);
+    } else {
+      to = {};
+    }
+  }
+  seen.add(from);
+  if (depth >= maxDepth) {
+    seen.delete(from);
+    return to;
+  }
+  if (useToJSON && typeof from.toJSON === "function" && !toJsonWasCalled.has(from)) {
+    seen.delete(from);
+    return toJSON(from);
+  }
+  const continueDestroyCircular = /* @__PURE__ */ __name((value) => destroyCircular({
+    from: value,
+    seen,
+    forceEnumerable,
+    maxDepth,
+    depth: depth + 1,
+    useToJSON,
+    serialize
+  }), "continueDestroyCircular");
+  for (const key of Object.keys(from)) {
+    const value = from[key];
+    if (value && value instanceof Uint8Array && value.constructor.name === "Buffer") {
+      to[key] = serialize ? "[object Buffer]" : value;
+      continue;
+    }
+    if (value !== null && typeof value === "object" && typeof value.pipe === "function") {
+      to[key] = serialize ? "[object Stream]" : value;
+      continue;
+    }
+    if (typeof value === "function") {
+      if (!serialize) {
+        to[key] = value;
+      }
+      continue;
+    }
+    if (serialize && typeof value === "bigint") {
+      to[key] = `${value}n`;
+      continue;
+    }
+    if (!value || typeof value !== "object") {
+      try {
+        to[key] = value;
+      } catch {
+      }
+      continue;
+    }
+    if (!seen.has(value)) {
+      to[key] = continueDestroyCircular(value);
+      continue;
+    }
+    to[key] = "[Circular]";
+  }
+  if (serialize || to instanceof Error) {
+    for (const { property, enumerable } of errorProperties) {
+      const value = from[property];
+      if (value === void 0 || value === null) {
+        continue;
+      }
+      const descriptor = Object.getOwnPropertyDescriptor(to, property);
+      if (descriptor?.configurable === false) {
+        continue;
+      }
+      let processedValue = value;
+      if (typeof value === "object") {
+        processedValue = seen.has(value) ? "[Circular]" : continueDestroyCircular(value);
+      }
+      Object.defineProperty(to, property, {
+        value: processedValue,
+        enumerable: forceEnumerable || enumerable,
+        configurable: true,
+        writable: true
+      });
+    }
+  }
+  seen.delete(from);
+  return to;
+}, "destroyCircular");
+function serializeError(value, options = {}) {
+  const {
+    maxDepth = Number.POSITIVE_INFINITY,
+    useToJSON = true
+  } = options;
+  if (typeof value === "object" && value !== null) {
+    return destroyCircular({
+      from: value,
+      seen: /* @__PURE__ */ new Set(),
+      forceEnumerable: true,
+      maxDepth,
+      depth: 0,
+      useToJSON,
+      serialize: true
+    });
+  }
+  if (typeof value === "function") {
+    value = "<Function>";
+  }
+  return destroyCircular({
+    from: new NonError(value),
+    seen: /* @__PURE__ */ new Set(),
+    forceEnumerable: true,
+    maxDepth,
+    depth: 0,
+    useToJSON,
+    serialize: true
+  });
+}
+__name(serializeError, "serializeError");
+function isErrorLike(value) {
+  return Boolean(value) && typeof value === "object" && typeof value.name === "string" && typeof value.message === "string" && typeof value.stack === "string";
+}
+__name(isErrorLike, "isErrorLike");
+
+// packages/language-server/build/server/utils/iterables.js
+function isIterable(obj) {
+  return obj !== null && obj !== void 0 && typeof obj[Symbol.iterator] === "function";
+}
+__name(isIterable, "isIterable");
+
+// packages/language-server/build/server/utils/objects/is-object.js
+function isObject(value) {
+  return typeof value === "object" && value !== null;
+}
+__name(isObject, "isObject");
+
+// packages/language-server/build/server/utils/objects/merge-options-with-defaults.js
+var import_rfdc = __toESM(require_rfdc(), 1);
+var deepClone = (0, import_rfdc.default)();
+
+// packages/language-server/build/server/utils/errors.js
+function serializeErrors(object) {
+  const serializeInner = /* @__PURE__ */ __name((obj, visited) => {
+    if (!obj || typeof obj !== "object") {
+      return obj;
+    }
+    if (visited.has(obj)) {
+      return visited.get(obj);
+    }
+    if (obj instanceof Error) {
+      const result = serializeError(obj);
+      visited.set(obj, result);
+      return result;
+    }
+    if (obj instanceof Map) {
+      const result = /* @__PURE__ */ new Map();
+      visited.set(obj, result);
+      for (const [key, value] of obj) {
+        const serializedKey = serializeInner(key, visited);
+        const serializedValue = serializeInner(value, visited);
+        if (isObject(key)) {
+          visited.set(key, serializedKey);
+        }
+        if (isObject(value)) {
+          visited.set(value, serializedValue);
+        }
+        result.set(serializedKey, serializedValue);
       }
       return result;
     }
-    __name(intersect, "intersect");
-  }
-});
-
-// build/server/utils/types.js
-var require_types5 = __commonJS({
-  "build/server/utils/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// build/server/utils/index.js
-var require_utils = __commonJS({
-  "build/server/utils/index.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: /* @__PURE__ */ __name(function() {
-          return m[k];
-        }, "get") };
+    if (obj instanceof Set) {
+      const result = /* @__PURE__ */ new Set();
+      visited.set(obj, result);
+      for (const value of obj) {
+        if (!isObject(value)) {
+          result.add(value);
+          continue;
+        }
+        const serializedValue = serializeInner(value, visited);
+        visited.set(value, serializedValue);
+        result.add(serializedValue);
       }
-      Object.defineProperty(o, k2, desc);
-    }) : (function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
+      return result;
+    }
+    if (isIterable(obj)) {
+      const result = [];
+      visited.set(obj, result);
+      for (const value of obj) {
+        result.push(serializeInner(value, visited));
+      }
+      return result;
+    }
+    visited.set(obj, "[Circular]");
+    const serializedObj = Object.fromEntries(Object.entries(obj).map(([key, value]) => {
+      if (!isObject(value)) {
+        return [key, value];
+      }
+      if (visited.has(value)) {
+        return [key, visited.get(value)];
+      }
+      if (value instanceof Error) {
+        const serialized = serializeError(value);
+        visited.set(value, serialized);
+        return [key, serialized];
+      }
+      const result = serializeInner(value, visited);
+      visited.set(value, result);
+      return [key, result];
     }));
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_documents(), exports2);
-    __exportStar(require_functions(), exports2);
-    __exportStar(require_logging(), exports2);
-    __exportStar(require_lsp(), exports2);
-    __exportStar(require_objects(), exports2);
-    __exportStar(require_errors4(), exports2);
-    __exportStar(require_fs(), exports2);
-    __exportStar(require_iterables(), exports2);
-    __exportStar(require_sets(), exports2);
-    __exportStar(require_strings(), exports2);
-    __exportStar(require_types5(), exports2);
-  }
-});
+    visited.set(obj, serializedObj);
+    return serializedObj;
+  }, "serializeInner");
+  return serializeInner(object, /* @__PURE__ */ new WeakMap());
+}
+__name(serializeErrors, "serializeErrors");
 
-// build/server/worker/worker-logging.service.js
-var require_worker_logging_service = __commonJS({
-  "build/server/worker/worker-logging.service.js"(exports2) {
-    "use strict";
-    var __importDefault2 = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.createWorkerLoggingService = createWorkerLoggingService;
-    var node_process_12 = __importDefault2(require("node:process"));
-    var winston_1 = __importDefault2(require_winston());
-    var index_js_1 = require_utils();
-    var workerLevels = {
-      error: 0,
-      warn: 1,
-      info: 2,
-      debug: 3
-    };
-    function parseLogLevel(value) {
-      if (!value) {
-        return void 0;
-      }
-      if (value === "error" || value === "warn" || value === "info" || value === "debug") {
-        return value;
-      }
-      return void 0;
-    }
-    __name(parseLogLevel, "parseLogLevel");
-    var defaultLevel = parseLogLevel(node_process_12.default.env.STYLELINT_WORKER_LOG_LEVEL) ?? "warn";
-    var defaultLogPath = node_process_12.default.env.STYLELINT_WORKER_LOG_PATH;
-    var createFormats = /* @__PURE__ */ __name(() => winston_1.default.format.combine(new index_js_1.ErrorFormatter(), winston_1.default.format.timestamp(), winston_1.default.format.json()), "createFormats");
-    function createWorkerLoggingService(options = {}) {
-      const level = options.level ?? defaultLevel;
-      const transports = [
-        new winston_1.default.transports.Console({
-          format: createFormats()
-        })
-      ];
-      const logPath = options.logPath ?? defaultLogPath;
-      if (logPath) {
-        transports.push(new winston_1.default.transports.File({
-          filename: logPath,
-          format: createFormats()
-        }));
-      }
-      const workspaceRoot = options.workspaceRoot ?? node_process_12.default.env.STYLELINT_WORKSPACE ?? node_process_12.default.cwd();
-      const logger = winston_1.default.createLogger({
-        level,
-        levels: workerLevels,
-        defaultMeta: {
-          pid: node_process_12.default.pid,
-          process: "stylelint-worker",
-          workspaceRoot
-        },
-        transports
-      });
-      return {
-        createLogger: /* @__PURE__ */ __name((component) => {
-          const serviceName = component.name || "UnknownService";
-          return logger.child({ service: serviceName });
-        }, "createLogger")
-      };
-    }
-    __name(createWorkerLoggingService, "createWorkerLoggingService");
+// packages/language-server/build/server/utils/logging/error-formatter.js
+var ErrorFormatter = class {
+  static {
+    __name(this, "ErrorFormatter");
   }
-});
-
-// build/server/worker/worker-entry.js
-var __importDefault = exports && exports.__importDefault || function(mod) {
-  return mod && mod.__esModule ? mod : { "default": mod };
+  transform(info) {
+    const transformed = serializeErrors({ ...info });
+    for (const key of Object.keys(transformed)) {
+      info[key] = transformed[key];
+    }
+    return info;
+  }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var promises_1 = __importDefault(require("node:fs/promises"));
-var node_module_1 = require("node:module");
-var node_os_1 = __importDefault(require("node:os"));
-var node_path_1 = __importDefault(require("node:path"));
-var node_process_1 = __importDefault(require("node:process"));
-var global_path_resolver_service_js_1 = require_global_path_resolver_service();
-var package_root_service_js_1 = require_package_root_service();
-var process_runner_service_js_1 = require_process_runner_service();
-var load_stylelint_js_1 = require_load_stylelint();
-var types_js_1 = require_types3();
-var worker_logging_service_js_1 = require_worker_logging_service();
-var toAbsoluteDir = /* @__PURE__ */ __name((dir) => node_path_1.default.isAbsolute(dir) ? dir : node_path_1.default.resolve(node_process_1.default.cwd(), dir), "toAbsoluteDir");
-var workspaceRequire = (0, node_module_1.createRequire)(node_path_1.default.join(node_process_1.default.cwd(), "__stylelint_worker_index__.js"));
-var workerLoggingService = (0, worker_logging_service_js_1.createWorkerLoggingService)();
-var globalPathResolver = new global_path_resolver_service_js_1.GlobalPathResolverService(node_os_1.default, node_path_1.default, new process_runner_service_js_1.ProcessRunnerService(), workerLoggingService);
-var packageRootFinder = new package_root_service_js_1.PackageRootService();
+
+// packages/language-server/build/server/utils/logging/language-server-formatter.js
+var import_triple_beam = __toESM(require_triple_beam(), 1);
+
+// packages/language-server/build/server/utils/logging/language-server-transport.js
+var import_winston_transport = __toESM(require_winston_transport(), 1);
+var import_triple_beam2 = __toESM(require_triple_beam(), 1);
+
+// packages/language-server/build/server/worker/worker-logging.service.js
+var workerLevels = {
+  error: 0,
+  warn: 1,
+  info: 2,
+  debug: 3
+};
+function parseLogLevel(value) {
+  if (!value) {
+    return void 0;
+  }
+  if (value === "error" || value === "warn" || value === "info" || value === "debug") {
+    return value;
+  }
+  return void 0;
+}
+__name(parseLogLevel, "parseLogLevel");
+var defaultLevel = parseLogLevel(import_node_process.default.env.STYLELINT_WORKER_LOG_LEVEL) ?? "warn";
+var defaultLogPath = import_node_process.default.env.STYLELINT_WORKER_LOG_PATH;
+var createFormats = /* @__PURE__ */ __name(() => import_winston.default.format.combine(new ErrorFormatter(), import_winston.default.format.timestamp(), import_winston.default.format.json()), "createFormats");
+function createWorkerLoggingService(options = {}) {
+  const level = options.level ?? defaultLevel;
+  const transports = [
+    new import_winston.default.transports.Console({
+      format: createFormats()
+    })
+  ];
+  const logPath = options.logPath ?? defaultLogPath;
+  if (logPath) {
+    transports.push(new import_winston.default.transports.File({
+      filename: logPath,
+      format: createFormats()
+    }));
+  }
+  const workspaceRoot = options.workspaceRoot ?? import_node_process.default.env.STYLELINT_WORKSPACE ?? import_node_process.default.cwd();
+  const logger = import_winston.default.createLogger({
+    level,
+    levels: workerLevels,
+    defaultMeta: {
+      pid: import_node_process.default.pid,
+      process: "stylelint-worker",
+      workspaceRoot
+    },
+    transports
+  });
+  return {
+    createLogger: /* @__PURE__ */ __name((component) => {
+      const serviceName = component.name || "UnknownService";
+      return logger.child({ service: serviceName });
+    }, "createLogger")
+  };
+}
+__name(createWorkerLoggingService, "createWorkerLoggingService");
+
+// packages/language-server/build/server/worker/worker-entry.js
+var toAbsoluteDir = /* @__PURE__ */ __name((dir) => import_node_path2.default.isAbsolute(dir) ? dir : import_node_path2.default.resolve(import_node_process2.default.cwd(), dir), "toAbsoluteDir");
+var workspaceRequire = (0, import_node_module.createRequire)(import_node_path2.default.join(import_node_process2.default.cwd(), "__stylelint_worker_index__.js"));
+var workerLoggingService = createWorkerLoggingService();
+var globalPathResolver = new GlobalPathResolverService(import_node_os.default, import_node_path2.default, new ProcessRunnerService(), workerLoggingService);
+var packageRootFinder = new PackageRootService();
 var state = {};
 var createLinterResultSubset = /* @__PURE__ */ __name((linterResult) => {
   const subset = {
-    results: (Array.isArray(linterResult.results) ? linterResult.results : []).map(({ warnings, invalidOptionWarnings, ignored }) => ({
+    results: (Array.isArray(linterResult.results) ? linterResult.results : []).map(({ source, warnings, invalidOptionWarnings, ignored }) => ({
+      source,
       warnings: warnings ?? [],
       invalidOptionWarnings: invalidOptionWarnings ?? [],
       ignored
@@ -18621,8 +16822,8 @@ var createLinterResultSubset = /* @__PURE__ */ __name((linterResult) => {
 }, "createLinterResultSubset");
 var isPromiseLike = /* @__PURE__ */ __name((value) => typeof value === "object" && value !== null && "then" in value, "isPromiseLike");
 var sendMessage = /* @__PURE__ */ __name((message) => {
-  if (typeof node_process_1.default.send === "function") {
-    node_process_1.default.send(message);
+  if (typeof import_node_process2.default.send === "function") {
+    import_node_process2.default.send(message);
   }
 }, "sendMessage");
 var serializeError2 = /* @__PURE__ */ __name((error) => {
@@ -18643,7 +16844,7 @@ var serializeError2 = /* @__PURE__ */ __name((error) => {
 }, "serializeError");
 var createNotFoundError = /* @__PURE__ */ __name(() => {
   const error = new Error("Stylelint could not be resolved from the current workspace.");
-  error.code = types_js_1.stylelintNotFoundError;
+  error.code = stylelintNotFoundError;
   return error;
 }, "createNotFoundError");
 async function snapshotRuleMetadata(stylelintModule) {
@@ -18679,8 +16880,8 @@ async function readPackageVersion(packageRoot) {
     return void 0;
   }
   try {
-    const manifestPath = node_path_1.default.join(packageRoot, "package.json");
-    const rawManifest = await promises_1.default.readFile(manifestPath, "utf8");
+    const manifestPath = import_node_path2.default.join(packageRoot, "package.json");
+    const rawManifest = await import_promises3.default.readFile(manifestPath, "utf8");
     const manifest = JSON.parse(rawManifest);
     return manifest.version;
   } catch {
@@ -18701,7 +16902,7 @@ async function resolveFromGlobal(packageManager, resolver) {
 __name(resolveFromGlobal, "resolveFromGlobal");
 async function resolveStylelintTarget(stylelintPath, codeFilename, runnerOptions) {
   if (stylelintPath) {
-    const normalizedPath = node_path_1.default.isAbsolute(stylelintPath) ? stylelintPath : node_path_1.default.resolve(node_process_1.default.cwd(), stylelintPath);
+    const normalizedPath = import_node_path2.default.isAbsolute(stylelintPath) ? stylelintPath : import_node_path2.default.resolve(import_node_process2.default.cwd(), stylelintPath);
     const resolvedPath = await packageRootFinder.find(normalizedPath) ?? normalizedPath;
     return {
       specifier: normalizedPath,
@@ -18712,12 +16913,12 @@ async function resolveStylelintTarget(stylelintPath, codeFilename, runnerOptions
   }
   const candidateDirs = /* @__PURE__ */ new Set();
   if (codeFilename) {
-    candidateDirs.add(node_path_1.default.dirname(codeFilename));
+    candidateDirs.add(import_node_path2.default.dirname(codeFilename));
   }
-  candidateDirs.add(node_process_1.default.cwd());
+  candidateDirs.add(import_node_process2.default.cwd());
   const tryResolveFromDir = /* @__PURE__ */ __name(async (dir) => {
     const baseDir = toAbsoluteDir(dir);
-    const requireFn = (0, node_module_1.createRequire)(node_path_1.default.join(baseDir, "__stylelint_worker_index__.js"));
+    const requireFn = (0, import_node_module.createRequire)(import_node_path2.default.join(baseDir, "__stylelint_worker_index__.js"));
     try {
       const entryPath = requireFn.resolve("stylelint");
       const resolvedPath = await packageRootFinder.find(entryPath) ?? entryPath;
@@ -18753,7 +16954,7 @@ async function ensureStylelint(stylelintPath, codeFilename, runnerOptions) {
     return;
   }
   try {
-    const { stylelint: loaded } = await (0, load_stylelint_js_1.loadStylelint)(packageRootFinder, target.specifier, target.requireFn, target.entryPath);
+    const { stylelint: loaded } = await loadStylelint(packageRootFinder, target.specifier, target.requireFn, target.entryPath);
     state.stylelint = loaded;
     state.entryPath = target.entryPath;
     state.resolvedPath = target.resolvedPath;
@@ -18761,7 +16962,7 @@ async function ensureStylelint(stylelintPath, codeFilename, runnerOptions) {
     state.version = await readPackageVersion(target.resolvedPath);
   } catch (error) {
     const code = error.code;
-    const isModuleNotFound = code === "MODULE_NOT_FOUND" || code === types_js_1.stylelintNotFoundError;
+    const isModuleNotFound = code === "MODULE_NOT_FOUND" || code === stylelintNotFoundError;
     if (isModuleNotFound) {
       throw createNotFoundError();
     }
@@ -18843,7 +17044,7 @@ var handleMessage = /* @__PURE__ */ __name(async (request) => {
       }
       case "shutdown": {
         sendMessage({ id: request.id, success: true });
-        node_process_1.default.exitCode = 0;
+        import_node_process2.default.exitCode = 0;
         return;
       }
       default:
@@ -18857,10 +17058,10 @@ var handleMessage = /* @__PURE__ */ __name(async (request) => {
     });
   }
 }, "handleMessage");
-node_process_1.default.on("message", (request) => {
+import_node_process2.default.on("message", (request) => {
   void handleMessage(request);
 });
-node_process_1.default.on("disconnect", () => {
-  node_process_1.default.exitCode = 0;
+import_node_process2.default.on("disconnect", () => {
+  import_node_process2.default.exitCode = 0;
 });
 //# sourceMappingURL=worker-entry.js.map
