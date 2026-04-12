@@ -9,4 +9,5 @@ crate-type = ["cdylib"]
 path = "src/lib.rs"
 
 [dependencies]
+semver = { version = "1", default-features = false }
 zed_extension_api = "0.7.0"

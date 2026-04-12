@@ -741,6 +741,7 @@ dependencies = [
 name = "zed-stylelint"
 version = "2.0.2"
 dependencies = [
+ "semver",
  "zed_extension_api",
 ]
 

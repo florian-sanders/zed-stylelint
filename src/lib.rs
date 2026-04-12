@@ -1,43 +1,85 @@
-use std::{env, fs};
+use std::env;
 
 use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
-const LSP_VERSION: &str = "2.0.2";
-const SERVER_PATH: &str = "stylelint-lsp/lsp/start-server.js";
-const VERSION_PATH: &str = "stylelint-lsp/.lsp-version";
-const BASE_REPO_URL: &str = "https://github.com/florian-sanders/zed-stylelint/releases/download/";
+const MIN_SERVER_VERSION: &str = "1.0.0";
+const NPM_PACKAGE_NAME: &str = "@stylelint/language-server";
+const SERVER_PATH: &str =
+    "node_modules/@stylelint/language-server/bin/stylelint-language-server.mjs";
 
 struct StylelintExtension;
 
 impl StylelintExtension {
-    fn current_version(&self) -> Option<String> {
-        fs::read_to_string(VERSION_PATH).ok()
-    }
+    fn server_script_path(
+        &self,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<String> {
+        // Read optional pinned version from worktree settings.
+        let pinned_version = LspSettings::for_worktree("stylelint-lsp", worktree)
+            .ok()
+            .and_then(|s| s.settings)
+            .and_then(|s| {
+                s.as_object()
+                    .and_then(|obj| obj.get("version"))
+                    .and_then(|v| v.as_str())
+                    .map(|s| s.to_string())
+            });
 
-    fn server_script_path(&self, language_server_id: &LanguageServerId) -> Result<String> {
-        let current_version = self.current_version();
-        let server_exists = fs::metadata(SERVER_PATH).is_ok_and(|stat| stat.is_file());
+        // Resolve target version: explicit pin or latest from npm.
+        let version = match &pinned_version {
+            Some(v) => v.clone(),
+            None => zed::npm_package_latest_version(NPM_PACKAGE_NAME)?,
+        };
 
-        if current_version.as_deref() != Some(LSP_VERSION) || !server_exists {
+        let min = semver::Version::parse(MIN_SERVER_VERSION)
+            .expect("MIN_SERVER_VERSION is a valid semver string");
+
+        // Validate semver format. Only user-supplied values can be malformed.
+        let requested = semver::Version::parse(&version).map_err(|e| {
+            format!(
+                "\"{version}\" is not a valid version number ({e}). \
+                 Fix the `lsp.stylelint-lsp.settings.version` value in your Zed settings."
+            )
+        })?;
+
+        // Reject versions below the minimum supported by this extension.
+        if requested < min {
+            return Err(if pinned_version.is_some() {
+                format!(
+                    "Stylelint Language Server {version} is not supported by this extension \
+                     (minimum: {MIN_SERVER_VERSION}). \
+                     Update `lsp.stylelint-lsp.settings.version` to {MIN_SERVER_VERSION} or later, \
+                     or remove it to use the latest release."
+                )
+            } else {
+                format!(
+                    "The latest published version of {NPM_PACKAGE_NAME} ({version}) is not yet \
+                     supported by this extension (minimum: {MIN_SERVER_VERSION}). \
+                     Please open an issue at https://github.com/florian-sanders/zed-stylelint."
+                )
+            });
+        }
+
+        // Skip npm install if the package is already at the right version.
+        let installed = zed::npm_package_installed_version(NPM_PACKAGE_NAME)?;
+        if installed.as_deref() != Some(version.as_str()) {
             zed::set_language_server_installation_status(
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
-
-            let download_url = format!(
-                "{BASE_REPO_URL}/{LSP_VERSION}/stylelint-language-server-v{LSP_VERSION}.tar.gz",
-            );
-
-            zed::download_file(
-                &download_url,
-                "stylelint-lsp",
-                zed::DownloadedFileType::GzipTar,
-            )
-            .map_err(|e| format!("failed to download file: {e}"))?;
-
-            fs::write(VERSION_PATH, LSP_VERSION)
-                .map_err(|e| format!("failed to write version file: {e}"))?;
+            zed::npm_install_package(NPM_PACKAGE_NAME, &version).map_err(
+                |e| match &pinned_version {
+                    Some(_) => format!(
+                        "Failed to install {NPM_PACKAGE_NAME}@{version}: {e}. \
+                     Verify the version exists at \
+                     https://www.npmjs.com/package/{NPM_PACKAGE_NAME}?activeTab=versions \
+                     and update `lsp.stylelint-lsp.settings.version` accordingly."
+                    ),
+                    None => e,
+                },
+            )?;
         }
 
         Ok(SERVER_PATH.to_string())
@@ -52,9 +94,9 @@ impl zed::Extension for StylelintExtension {
     fn language_server_command(
         &mut self,
         language_server_id: &LanguageServerId,
-        _worktree: &zed::Worktree,
+        worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
-        let server_path = self.server_script_path(language_server_id)?;
+        let server_path = self.server_script_path(language_server_id, worktree)?;
         Ok(zed::Command {
             command: zed::node_binary_path()?,
             args: vec![
