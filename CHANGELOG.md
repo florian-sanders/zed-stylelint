@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased]
+
+### ✨ Features
+
+* **lsp:** Download language server from the official npm package ([`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server))
+  * The language server is now fetched directly from the official npm package published by the [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) team, instead of relying on pre-built GitHub release assets.
+  * By default the latest published version is used and automatically kept up to date.
+
+* **lsp:** Allow pinning the language server version via `lsp.stylelint-lsp.settings.version`
+  * Users can lock the language server to a specific release by setting a semver string in their Zed settings:
+    ```json
+    {
+      "lsp": {
+        "stylelint-lsp": {
+          "settings": {
+            "version": "1.6.0"
+          }
+        }
+      }
+    }
+    ```
+  * Available versions can be found on the [vscode-stylelint releases](https://github.com/stylelint/vscode-stylelint/releases?q=%40stylelint%2Flanguage-server&expanded=true) page.
+  * The requested version must meet the minimum supported by the current extension. If an older version is needed, pin the extension itself to an earlier release instead.
+
 ## [2.0.0](https://github.com/florian-sanders/zed-stylelint/compare/1.1.1...2.0.0) (2026-01-18)
 
 
