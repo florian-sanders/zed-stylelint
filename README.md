@@ -4,9 +4,30 @@ This extension provides Stylelint support for Zed by wrapping the official [vsco
 
 ## Installation
 
-Install from Zed's extension marketplace. The extension automatically downloads and updates the prebuilt language server from GitHub releases.
+Install from Zed's extension marketplace. The extension automatically downloads the language server from the official [`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server) npm package published by the [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) team. By default the latest published version is used and kept up to date.
 
 ## How to configure?
+
+### Language server version
+
+By default the extension installs the **latest published** version of `@stylelint/language-server`. If you need to lock it to a specific release, set the `version` field inside `lsp.stylelint-lsp.settings`:
+
+```json
+// settings.json
+{
+  "lsp": {
+    "stylelint-lsp": {
+      "settings": {
+        "version": "1.6.0"
+      }
+    }
+  }
+}
+```
+
+The value must be a valid semver string matching a published version of the package. To browse available versions, search the [vscode-stylelint releases](https://github.com/stylelint/vscode-stylelint/releases?q=%40stylelint%2Flanguage-server&expanded=true) page (look for tags named `@stylelint/language-server@<version>`).
+
+> **Note:** not every language server version is compatible with every version of this extension. If you set `version` to a value that is too old, the extension will refuse to start and display an error message telling you the minimum version it accepts. If you genuinely need an older language server version, install an earlier release of the zed-stylelint extension from the [Releases page](https://github.com/florian-sanders/zed-stylelint/releases) — older releases have a lower minimum.
 
 ### General LSP settings
 
@@ -100,8 +121,9 @@ Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed,
 
 This extension acts as a bridge between Zed and the official vscode-stylelint language server. It:
 
-- Automatically downloads the prebuilt language server from GitHub releases
-- Keeps the language server synchronized with official vscode-stylelint releases
+- Automatically downloads the language server from the official [`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server) npm package
+- Always uses the latest published version by default, keeping you up to date with official vscode-stylelint releases
+- Allows pinning the language server to a specific version via `lsp.stylelint-lsp.settings.version` (see [Language server version](#language-server-version) above)
 - Provides Zed-specific integration and configuration
 
 ## Acknowledgment
@@ -112,6 +134,6 @@ As said above, the whole language server code comes from [stylelint/vscode-style
 
 ## Version Information
 
-The extension version is synchronized with the vscode-stylelint language server version. The prebuilt language server is available as assets attached to each release of this extension.
+The language server is the official [`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server) npm package, maintained by the [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) team. Each version of this extension declares a minimum supported language server version — attempting to use an older server version will result in a descriptive error.
 
-Check the [Releases page](https://github.com/florian-sanders/zed-stylelint/releases) for the latest version and download links.
+Check the [vscode-stylelint releases](https://github.com/stylelint/vscode-stylelint/releases?q=%40stylelint%2Flanguage-server&expanded=true) page to browse available language server versions.
