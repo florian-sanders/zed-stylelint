@@ -73,19 +73,27 @@ For instance:
 
 To fix all Stylelint issues on format, enable the related code action from your global or local Zed settings as follows:
 
-```JSON
-// settings.json
-{
+```json
+  // Zed / project settings.json
   "languages": {
     // language identifier for these settings, see https://zed.dev/docs/configuring-languages#language-specific-settings for more info
     "CSS": {
-      "code_actions_on_format": {
-        "source.fixAll.stylelint": true
-      }
-    }
-  }
-}
+      "formatter": [
+        // you may add any other formatter / command before or after in the array
+        {
+          "external": {
+            "command": "prettier",
+            "arguments": ["--stdin-filepath", "{buffer_path}"],
+          },
+        },
+        // this is what enables auto fix on save
+        { "code_action": "source.fixAll.stylelint" },
+      ],
+    },
+  },
 ```
+
+More info: [Formatters - Zed docs](https://zed.dev/docs/reference/all-settings#formatter)
 
 ### Vue.js compatibility
 
