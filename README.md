@@ -117,6 +117,31 @@ If you're using [stylelint-config-recommended-vue](https://github.com/ota-meshi/
 
 Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed, but the dependency requirements are the same for both editors.
 
+### Disabling unrequested autocomplete (snippets)
+
+The source language server provides snippets via autocomplete to generate disable stylelint comments.
+
+If you experience autocomplete popping up constantly in CSS context, you may disable this feature by setting this:
+
+```json
+// zed or project settings.json
+"lsp": {
+  "stylelint-lsp": {
+    "settings": {
+      "stylelint": {
+        "snippet": [],
+      },
+    },
+  },
+},
+```
+
+Note that generating disable comments is still available through code actions.
+
+More info:
+- [Issue #60](https://github.com/florian-sanders/zed-stylelint/issues/60)
+- [Source language server docs](https://github.com/stylelint/vscode-stylelint#stylelintsnippet)
+
 ## What This Extension Does
 
 This extension acts as a bridge between Zed and the official vscode-stylelint language server. It:
