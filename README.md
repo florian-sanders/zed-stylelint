@@ -73,19 +73,27 @@ For instance:
 
 To fix all Stylelint issues on format, enable the related code action from your global or local Zed settings as follows:
 
-```JSON
-// settings.json
-{
+```json
+  // Zed / project settings.json
   "languages": {
     // language identifier for these settings, see https://zed.dev/docs/configuring-languages#language-specific-settings for more info
     "CSS": {
-      "code_actions_on_format": {
-        "source.fixAll.stylelint": true
-      }
-    }
-  }
-}
+      "formatter": [
+        // you may add any other formatter / command before or after in the array
+        {
+          "external": {
+            "command": "prettier",
+            "arguments": ["--stdin-filepath", "{buffer_path}"],
+          },
+        },
+        // this is what enables auto fix on save
+        { "code_action": "source.fixAll.stylelint" },
+      ],
+    },
+  },
 ```
+
+More info: [Formatters - Zed docs](https://zed.dev/docs/reference/all-settings#formatter)
 
 ### Vue.js compatibility
 
@@ -116,6 +124,31 @@ To use this extension with Vue.js files in Zed:
 If you're using [stylelint-config-recommended-vue](https://github.com/ota-meshi/stylelint-config-recommended-vue), the custom syntax is already bundled and configured for you.
 
 Note that unlike in VSCode, you need to explicitly set the custom syntax in Zed, but the dependency requirements are the same for both editors.
+
+### Disabling unrequested autocomplete (snippets)
+
+The source language server provides snippets via autocomplete to generate disable stylelint comments.
+
+If you experience autocomplete popping up constantly in CSS context, you may disable this feature by setting this:
+
+```json
+// zed or project settings.json
+"lsp": {
+  "stylelint-lsp": {
+    "settings": {
+      "stylelint": {
+        "snippet": [],
+      },
+    },
+  },
+},
+```
+
+Note that generating disable comments is still available through code actions.
+
+More info:
+- [Issue #60](https://github.com/florian-sanders/zed-stylelint/issues/60)
+- [Source language server docs](https://github.com/stylelint/vscode-stylelint#stylelintsnippet)
 
 ## What This Extension Does
 
