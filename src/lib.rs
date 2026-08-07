@@ -5,8 +5,17 @@ use zed_extension_api::{self as zed, LanguageServerId, Result};
 
 const MIN_SERVER_VERSION: &str = "1.0.0";
 const NPM_PACKAGE_NAME: &str = "@stylelint/language-server";
+const STYLELINT_LANGUAGE_SERVER_BINARY: &str = "stylelint-language-server";
 const SERVER_PATH: &str =
     "node_modules/@stylelint/language-server/bin/stylelint-language-server.mjs";
+
+fn local_server_command(command: String, env: Vec<(String, String)>) -> zed::Command {
+    zed::Command {
+        command,
+        args: vec!["--stdio".to_string()],
+        env,
+    }
+}
 
 struct StylelintExtension;
 
@@ -96,6 +105,24 @@ impl zed::Extension for StylelintExtension {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
+        let binary_settings = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
+            .ok()
+            .and_then(|lsp_settings| lsp_settings.binary);
+        let env = binary_settings
+            .as_ref()
+            .and_then(|binary| binary.env.clone())
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
+
+        if let Some(path) = binary_settings.and_then(|binary| binary.path) {
+            return Ok(local_server_command(path, env));
+        }
+
+        if let Some(path) = worktree.which(STYLELINT_LANGUAGE_SERVER_BINARY) {
+            return Ok(local_server_command(path, env));
+        }
+
         let server_path = self.server_script_path(language_server_id, worktree)?;
         Ok(zed::Command {
             command: zed::node_binary_path()?,
@@ -126,3 +153,15 @@ impl zed::Extension for StylelintExtension {
 }
 
 zed_extension_api::register_extension!(StylelintExtension);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn local_server_command_uses_stdio_transport() {
+        let command = local_server_command("stylelint-language-server".to_string(), Vec::new());
+
+        assert_eq!(command.args, vec!["--stdio".to_string()]);
+    }
+}
