@@ -4,13 +4,42 @@ This extension provides Stylelint support for Zed by wrapping the official [vsco
 
 ## Installation
 
-Install from Zed's extension marketplace. The extension automatically downloads the language server from the official [`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server) npm package published by the [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) team. By default the latest published version is used and kept up to date.
+Install from Zed's extension marketplace. If no local language server is configured or found, the extension automatically downloads the language server from the official [`@stylelint/language-server`](https://npmx.dev/package/@stylelint/language-server) npm package published by the [vscode-stylelint](https://github.com/stylelint/vscode-stylelint) team. The managed fallback uses the latest published version and keeps it up to date.
 
 ## How to configure?
 
+### Local language server
+
+The extension resolves the language server in this order:
+
+1. The explicit `lsp.stylelint-lsp.binary.path` setting.
+2. A `stylelint-language-server` executable found on the worktree `PATH`.
+3. The language server managed and downloaded by this extension.
+
+Local language servers communicate with Zed over stdio. You can provide environment variables with `lsp.stylelint-lsp.binary.env`.
+
+For example, to use an explicit local binary:
+
+```json
+{
+  "lsp": {
+    "stylelint-lsp": {
+      "binary": {
+        "path": "/absolute/path/to/stylelint-language-server",
+        "env": {
+          "NODE_OPTIONS": "--enable-source-maps"
+        }
+      }
+    }
+  }
+}
+```
+
+The `binary.env` setting applies only to the explicit-path and worktree-discovered local binaries. Both local branches bypass managed npm latest-version lookup, version parsing and validation, installed-version checks, and installation. The `lsp.stylelint-lsp.settings.version` setting only controls the managed language server; it does not affect either local binary.
+
 ### Language server version
 
-By default the extension installs the **latest published** version of `@stylelint/language-server`. If you need to lock it to a specific release, set the `version` field inside `lsp.stylelint-lsp.settings`:
+For the managed fallback, the extension installs the **latest published** version of `@stylelint/language-server`. If you need to lock it to a specific release, set the `version` field inside `lsp.stylelint-lsp.settings`:
 
 ```json
 // settings.json

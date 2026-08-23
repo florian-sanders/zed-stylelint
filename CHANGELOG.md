@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### ✨ Features
+
+* **lsp:** Allow using local Stylelint language server binaries
+  * The extension now prefers an explicitly configured binary or a `stylelint-language-server` executable found on the worktree `PATH` before falling back to the managed language server.
+
 ## [3.0.0](https://github.com/florian-sanders/zed-stylelint/compare/2.2.0...3.0.0) (2026-04-13)
 
 ### ✨ Features
@@ -145,5 +152,4 @@ no longer relevant
 
 * **README:** Remove `how to install` section ([b84cfc1](https://github.com/florian-sanders/zed-stylelint/commit/b84cfc15a377e985fb422bcf3e5af63b795c4f16))
   * The extension has been released to this section is obsolete
-
 
