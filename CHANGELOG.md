@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## [3.2.0](https://github.com/florian-sanders/zed-stylelint/compare/3.1.0...3.2.0) (2026-09-05)
 
 ### ✨ Features
 
