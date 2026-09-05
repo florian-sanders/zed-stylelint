@@ -1,5 +1,6 @@
 use std::env;
 
+use zed::serde_json;
 use zed::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
@@ -8,6 +9,23 @@ const NPM_PACKAGE_NAME: &str = "@stylelint/language-server";
 const STYLELINT_LANGUAGE_SERVER_BINARY: &str = "stylelint-language-server";
 const SERVER_PATH: &str =
     "node_modules/@stylelint/language-server/bin/stylelint-language-server.mjs";
+const DOWNLOAD_DISABLED_ERROR_MESSAGE: &str = "No local `stylelint-language-server` found: `lsp.stylelint-lsp.binary.path` \
+     is not set and the binary is not on the worktree `PATH`, and the managed \
+     download is disabled via `lsp.stylelint-lsp.settings.download: false`. \
+     Provide the binary through `lsp.stylelint-lsp.binary.path` or your worktree \
+     `PATH`, or set `download` back to `true` (or remove it) to let this \
+     extension manage the language server.";
+
+fn download_enabled(settings: Option<&serde_json::Value>) -> Result<bool> {
+    match settings.and_then(|settings| settings.get("download")) {
+        None => Ok(true),
+        Some(value) => value.as_bool().ok_or_else(|| {
+            "The `lsp.stylelint-lsp.settings.download` value must be a boolean \
+             (`true` or `false`)."
+                .to_string()
+        }),
+    }
+}
 
 fn local_server_command(command: String, env: Vec<(String, String)>) -> zed::Command {
     zed::Command {
@@ -105,22 +123,24 @@ impl zed::Extension for StylelintExtension {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
-        let binary_settings = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
-            .ok()
-            .and_then(|lsp_settings| lsp_settings.binary);
+        let lsp_settings = LspSettings::for_worktree(language_server_id.as_ref(), worktree).ok();
+        let binary_settings = lsp_settings.as_ref().and_then(|lsp| lsp.binary.as_ref());
         let env = binary_settings
-            .as_ref()
             .and_then(|binary| binary.env.clone())
             .unwrap_or_default()
             .into_iter()
             .collect();
 
-        if let Some(path) = binary_settings.and_then(|binary| binary.path) {
+        if let Some(path) = binary_settings.and_then(|binary| binary.path.clone()) {
             return Ok(local_server_command(path, env));
         }
 
         if let Some(path) = worktree.which(STYLELINT_LANGUAGE_SERVER_BINARY) {
             return Ok(local_server_command(path, env));
+        }
+
+        if !download_enabled(lsp_settings.as_ref().and_then(|lsp| lsp.settings.as_ref()))? {
+            return Err(DOWNLOAD_DISABLED_ERROR_MESSAGE.to_string());
         }
 
         let server_path = self.server_script_path(language_server_id, worktree)?;
@@ -163,5 +183,42 @@ mod tests {
         let command = local_server_command("stylelint-language-server".to_string(), Vec::new());
 
         assert_eq!(command.args, vec!["--stdio".to_string()]);
+    }
+
+    #[test]
+    fn download_enabled_defaults_to_true_when_settings_are_absent() {
+        assert_eq!(download_enabled(None), Ok(true));
+    }
+
+    #[test]
+    fn download_enabled_defaults_to_true_when_the_key_is_absent() {
+        let settings = serde_json::json!({ "version": "1.6.0" });
+
+        assert_eq!(download_enabled(Some(&settings)), Ok(true));
+    }
+
+    #[test]
+    fn download_enabled_reads_explicit_booleans() {
+        assert_eq!(
+            download_enabled(Some(&serde_json::json!({ "download": true }))),
+            Ok(true)
+        );
+        assert_eq!(
+            download_enabled(Some(&serde_json::json!({ "download": false }))),
+            Ok(false)
+        );
+    }
+
+    #[test]
+    fn download_enabled_rejects_non_boolean_values() {
+        let result = download_enabled(Some(&serde_json::json!({ "download": "false" })));
+
+        assert_eq!(
+            result,
+            Err(
+                "The `lsp.stylelint-lsp.settings.download` value must be a boolean (`true` or `false`)."
+                    .to_string(),
+            )
+        );
     }
 }

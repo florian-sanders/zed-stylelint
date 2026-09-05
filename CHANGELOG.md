@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### ✨ Features
+
+* **lsp:** Allow opting out of the managed language server download via `lsp.stylelint-lsp.settings.download`
+  * Setting `download` to `false` makes the extension only use `binary.path` or the worktree `PATH`, and fail with an explicit error when neither provides the binary, instead of silently falling back to the extension-managed download.
+  * Omitting the setting or using `true` preserves the managed fallback.
+
 ## [3.1.0](https://github.com/florian-sanders/zed-stylelint/compare/3.0.0...3.1.0) (2026-08-23)
 
 ### ✨ Features
