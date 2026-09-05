@@ -37,6 +37,27 @@ For example, to use an explicit local binary:
 
 The `binary.env` setting applies only to the explicit-path and worktree-discovered local binaries. Both local branches bypass managed npm latest-version lookup, version parsing and validation, installed-version checks, and installation. The `lsp.stylelint-lsp.settings.version` setting only controls the managed language server; it does not affect either local binary.
 
+### Disabling the managed download
+
+Set `download` to `false` inside `lsp.stylelint-lsp.settings` to opt out of the extension-managed fallback:
+
+```json
+// settings.json
+{
+  "lsp": {
+    "stylelint-lsp": {
+      "settings": {
+        "download": false
+      }
+    }
+  }
+}
+```
+
+With `download: false`, the extension only uses the explicit `binary.path` or a `stylelint-language-server` executable on the worktree `PATH`. If neither is found, it fails with an explicit error instead of silently falling back to the managed download: no npm latest-version lookup, no installed-version check, no installation. This makes missing environment binaries visible rather than silently papered over, which is useful for Nix, direnv, mise, asdf, or project dev-shell setups.
+
+Omitting the setting or using `true` preserves the managed fallback. The `version` setting is only read when the managed fallback is used.
+
 ### Language server version
 
 For the managed fallback, the extension installs the **latest published** version of `@stylelint/language-server`. If you need to lock it to a specific release, set the `version` field inside `lsp.stylelint-lsp.settings`:
